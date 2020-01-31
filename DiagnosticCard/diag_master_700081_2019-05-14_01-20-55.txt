@@ -1,0 +1,3372 @@
+#General
+sys ver
+
+OCTOPUS-PTP WANFleX H18S14-OCTOPUS_PTPv1.3.0 * Aug 29 2019 16:38:32 * SN:700081
+Processor: Xilinx zynq rev.3 666 MHz Board: rev.1
+PN:Q5-23/???
+sys upt
+Uptime: 7 days 00:19:55
+Last reboot reason: manual delayed restart
+*** Please change default Login and Password !!! ***
+co sh
+# OCTOPUS-PTP WANFleX H18S14-OCTOPUS_PTPv1.3.0 * Aug 29 2019 16:38:32 * SN:700081
+
+#System parameters
+ #Factory password mode: single
+ sys name Unknown node
+ sys user root
+ sys log 1.1.1.1
+   
+#Interfaces parameters
+ ifc lo0    127.0.0.1/32
+ ifc ge0    media auto mtu 1500 up
+ ifc eth0   media auto mtu 1500 up
+ ifc eth0   10.10.10.11/24
+ ifc eth0   192.168.102.130/24
+   
+#Routing parameters
+ route add default 1.1.1.1
+   
+#SNMP configuration
+ snmpd start
+   
+#SNMP Trap Sender
+ trapd type radioGroup enable
+ trapd start
+   
+#Octopus configuration
+   octopus stop
+octopus start ptp
+octopus set   ptp_role master
+octopus set   ss_id 0
+octopus set   log_level debug
+octopus set   log_level_modem none
+octopus set   radio_auto_start on
+octopus set   reg_domain row
+
+# Octopus radio settings
+octopus clear radio.freq_list.3_5
+octopus set   radio.freq_list.3_5[0] 4922.5-5937.5/5
+octopus clear radio.freq_list.5
+octopus set   radio.freq_list.5[0] 4922.5-5937.5/5
+octopus clear radio.freq_list.7
+octopus set   radio.freq_list.7[0] 4923.5-5936.5/7
+octopus clear radio.freq_list.10
+octopus set   radio.freq_list.10[0] 4925-5935/10
+octopus clear radio.freq_list.14
+octopus set   radio.freq_list.14[0] 4927-5933/14
+octopus clear radio.freq_list.15
+octopus set   radio.freq_list.15[0] 4927.5-5932.5/15
+octopus clear radio.freq_list.20
+octopus set   radio.freq_list.20[0] 4930-5930/20
+octopus clear radio.freq_list.28
+octopus set   radio.freq_list.28[0] 4934-5926/28
+octopus clear radio.freq_list.30
+octopus set   radio.freq_list.30[0] 4935-5925/30
+octopus clear radio.freq_list.40
+octopus set   radio.freq_list.40[0] 5000-5100
+octopus set   radio.sector_id 0
+octopus set   radio.bw 20
+octopus set   radio.frame_length 5
+octopus set   radio.guard_interval 1/16
+octopus set   radio.fixed_freq off
+octopus set   radio.freq_dl 4930
+octopus set   radio.freq_ul 4930
+octopus set   radio.tx_power 2
+octopus set   radio.atpc on
+octopus set   radio.atpc_target_rssi -55
+octopus set   radio.atpc_threshold 1
+octopus set   radio.amc_strategy normal
+octopus set   radio.amc_algorithm dynamic_evm
+octopus set   radio.dl_mcs 256-QAM-7/8
+octopus set   radio.ul_mcs 256-QAM-7/8
+octopus set   radio.harq on
+octopus set   radio.auto_dl_ul_ratio off
+octopus set   radio.dl_ul_ratio 50
+octopus set   radio.dfs off
+octopus set   radio.lbt off
+octopus set   radio.cac_duration 60
+octopus set   radio.cac_duration_long 600
+octopus set   radio.eirp enable
+octopus set   radio.antenna_gain 23
+octopus set   radio.cable_loss 2
+
+
+# Octopus network settings
+
+
+# Octopus switch settings
+octopus set   switch.links.ge0-radio off
+octopus set   switch.links.ge0-mgmt on
+octopus set   switch.links.radio-mgmt on
+octopus set   switch.qos on
+octopus set   switch.vlan_switching on
+octopus set   switch.vlan_intervals[0].description default
+octopus clear switch.vlan_intervals[0].intervals
+octopus set   switch.vlan_intervals[0].intervals[0] 1
+octopus set   switch.vlan_intervals[0].port_modes[0].mode untagged
+octopus set   switch.vlan_intervals[0].port_modes[0].port_name ge0
+octopus set   switch.vlan_intervals[0].port_modes[1].mode untagged
+octopus set   switch.vlan_intervals[0].port_modes[1].port_name radio
+octopus set   switch.vlan_intervals[0].port_modes[2].mode untagged
+octopus set   switch.vlan_intervals[0].port_modes[2].port_name mgmt
+
+
+# Octopus spectrum settings
+octopus set   spectrum.freq_interval 4800-6000/5
+octopus set   spectrum.bw 40
+octopus set   spectrum.scan_period brief
+
+
+oct swmac_info
+
+#Radio diagnostic
+oct radio stat -s
++--------------------------------------------------------------------------------------------------------+
+| PTP role             master                                                                            |
+| Device name          -                                                                                 |
+| Uptime               7d 00h 19m 55s                                                                    |
+| Link time            -                                                                                 |
++--------------------------------------------------------------+-----------------------------------------+
+| State                started                                 | Temperature          48 C               |
+| Distance             0 m                                     | DFS                  -                  |
+| TX power             23 / 23 dBm                             | AMC strategy         normal             |
+| Remote TX power      -                                       |                                         |
++--------------------------------------------------------------+-----------------------------------------+
+| Bandwidth            20 MHz                                  | DL quota             -                  |
+| Frame length         5 ms                                    | Guard interval       1/16               |
++--------------------+-----------------------------------------+-----------------------------------------+
+|                    |                Downlink                 |                 Uplink                  |
++--------------------+-----------------------------------------+-----------------------------------------+
+| Frequency          | 4930 MHz                                | 4930 MHz                                |
+| Capacity           | -                                       | -                                       |
+| Throughput         | -                                       | -                                       |
++--------------------+--------------------+--------------------+--------------------+--------------------+
+|                    |      Stream 0      |      Stream 1      |      Stream 0      |      Stream 1      |
++--------------------+--------------------+--------------------+--------------------+--------------------+
+| MCS                | -                  | -                  | -                  | -                  |
+| RSSI               | -                  | -                  | -                  | -                  |
+| EVM                | -                  | -                  | -                  | -                  |
+| Crosstalk          | -                  | -                  | -                  | -                  |
+| Frames             | -                  | -                  | -                  | -                  |
+| Errors             | -                  | -                  | -                  | -                  |
+| ARQ ratio          | -                  | -                  | -                  | -                  |
+| Tx attenuation     | 13.50 dB           | 12.00 dB           | -                  | -                  |
++--------------------+--------------------+--------------------+--------------------+--------------------+
+oct show calibration
+EEPROM data print
+EEPROM[0] FS data in SHM:
+rf_type: OCTOPUS (9), rev: 1, ver: 0.0 
+
+Found chunk: 0x000b Temperature calibration data (power per freq for different temperatures), size: 4796 bytes
+4910000: 10743805 -69890 -39 0 0 8870934 -48859 8 -1 0 
+4920000: 10912152 -70455 -52 0 0 9324323 -49250 -6 -1 0 
+4930000: 11006615 -70194 -49 0 0 9750227 -49533 -12 -1 0 
+4940000: 11044092 -67287 -67 0 0 10154677 -50574 -23 -1 0 
+4950000: 11035423 -64762 -50 0 0 10464542 -51172 -26 0 0 
+4960000: 11102819 -63999 -1 -1 0 10823263 -52134 -28 0 0 
+4970000: 11125576 -62615 8 -1 0 11247560 -53044 -36 -1 0 
+4980000: 11092241 -60604 -11 -1 0 11572351 -54800 -28 -1 0 
+4990000: 11092577 -59351 7 -1 0 11783495 -55528 -16 -1 0 
+5000000: 11234804 -60467 -14 -1 0 12079701 -56041 -41 0 0 
+5010000: 11465843 -63061 -49 0 0 12449934 -57061 -58 0 0 
+5020000: 11672066 -65833 -72 0 0 12837986 -59424 -47 0 0 
+5030000: 11828096 -68392 -85 0 0 13178302 -60839 -57 -1 0 
+5040000: 11990428 -70365 -118 0 0 13470558 -62598 -47 -1 0 
+5050000: 12144297 -72863 -122 0 0 13793031 -65394 -57 -1 0 
+5060000: 12279287 -75135 -131 0 0 14051620 -68486 -63 -1 0 
+5070000: 12555353 -79689 -121 0 0 14206509 -70578 -74 0 0 
+5080000: 12799211 -82677 -94 0 0 14381586 -72413 -64 0 0 
+5090000: 13067836 -86727 -63 0 0 14628408 -75086 -59 0 0 
+5100000: 13448563 -93589 -5 0 0 14996357 -78733 -66 0 0 
+5110000: 13770984 -101706 85 0 0 15372281 -83214 -111 0 0 
+5120000: 14104975 -108735 163 0 0 15768713 -89888 -117 0 0 
+5130000: 14316934 -116223 291 -1 0 16036760 -96726 -73 0 0 
+5140000: 14366556 -122130 378 -1 0 16285460 -104856 -16 0 0 
+5150000: 14215826 -124310 453 -2 0 16405331 -112964 66 0 0 
+5160000: 13947816 -119151 386 -1 0 16345959 -118725 115 0 0 
+5170000: 13606306 -115532 445 -2 0 16188766 -121413 130 0 0 
+5180000: 13361840 -108960 280 -1 0 15976828 -123399 175 0 0 
+5190000: 13079724 -103926 283 -1 0 15724936 -124070 190 0 0 
+5200000: 12869486 -100738 233 -1 0 15357119 -123986 209 -1 0 
+5210000: 12519876 -95691 182 0 0 14911576 -122206 203 0 0 
+5220000: 12109385 -89378 136 0 0 14395414 -119080 183 0 0 
+5230000: 11771464 -84362 101 0 0 13812895 -115791 181 0 0 
+5240000: 11451858 -80332 78 0 0 13221036 -110613 150 0 0 
+5250000: 11226362 -77302 78 0 0 12594954 -105653 112 0 0 
+5260000: 11055715 -75289 68 0 0 11978767 -101386 106 0 0 
+5270000: 10857200 -72677 50 0 0 11414646 -96558 87 0 0 
+5280000: 10656898 -70316 42 0 0 10882833 -92720 72 0 0 
+5290000: 10536184 -68841 28 0 0 10355289 -88273 51 0 0 
+5300000: 10488246 -68823 54 0 0 9900710 -84176 25 0 0 
+5310000: 10464798 -68030 47 0 0 9496736 -81304 41 0 0 
+5320000: 10460534 -68179 0 0 0 9142019 -78245 10 0 0 
+5330000: 10465759 -68812 15 0 0 8854013 -76232 33 0 0 
+5340000: 10441615 -68826 11 0 0 8653131 -74783 34 0 0 
+5350000: 10423428 -69967 18 0 0 8500089 -73083 27 0 0 
+5360000: 10371961 -69799 25 0 0 8391237 -71782 8 0 0 
+5370000: 10385530 -70593 19 0 0 8281649 -70718 16 0 0 
+5380000: 10397678 -71416 25 0 0 8209235 -69578 8 0 0 
+5390000: 10357352 -70904 21 0 0 8144079 -68633 15 0 0 
+5400000: 10304783 -70744 3 0 0 8123270 -67440 -5 0 0 
+5410000: 10364833 -71463 7 0 0 8079912 -65609 -12 0 0 
+5420000: 10369419 -71354 45 0 0 8083964 -64251 -31 0 0 
+5430000: 10331438 -71814 44 0 0 8110647 -63157 -28 0 0 
+5440000: 10314466 -71732 32 0 0 8131278 -62257 -20 0 0 
+5450000: 10369611 -72668 46 0 0 8186129 -61572 -43 0 0 
+5460000: 10414727 -72377 15 0 0 8270504 -61124 -43 0 0 
+5470000: 10305863 -71559 25 0 0 8295237 -59921 -41 0 0 
+5480000: 10081295 -69621 26 0 0 8354408 -59538 -41 0 0 
+5490000: 9899949 -68910 38 0 0 8450653 -59554 -41 0 0 
+5500000: 9833139 -68009 25 0 0 8573535 -58996 -55 0 0 
+5510000: 9752513 -66689 53 0 0 8664409 -59042 -75 0 0 
+5520000: 9618208 -65266 65 -1 0 8735770 -60082 -67 0 0 
+5530000: 9468200 -64252 39 0 0 8810452 -60876 -64 0 0 
+5540000: 9312644 -61731 25 0 0 8849419 -61700 -61 0 0 
+5550000: 9111347 -59495 18 0 0 8811968 -62151 -39 0 0 
+5560000: 8942474 -57536 5 0 0 8748673 -62730 -36 0 0 
+5570000: 8886449 -56494 21 0 0 8705095 -63803 -48 0 0 
+5580000: 8799582 -55228 -1 0 0 8567260 -64026 -47 0 0 
+5590000: 8652761 -53522 -2 0 0 8394255 -64169 -21 0 0 
+5600000: 8512424 -52482 4 0 0 8228711 -64471 -17 0 0 
+5610000: 8441772 -52051 -26 0 0 8019138 -63983 -9 0 0 
+5620000: 8325952 -51982 -36 0 0 7841619 -63579 7 0 0 
+5630000: 8183426 -50701 -22 0 0 7656427 -63589 6 0 0 
+5640000: 8133051 -50800 -36 0 0 7404128 -62261 0 0 0 
+5650000: 8144480 -50859 -31 0 0 7121065 -61061 16 0 0 
+5660000: 8171830 -51697 -35 0 0 6868233 -59849 11 0 0 
+5670000: 8230360 -53007 -36 0 0 6637536 -58663 9 0 0 
+5680000: 8287209 -54221 -69 0 0 6429593 -57604 10 0 0 
+5690000: 8258145 -55360 -37 0 0 6225650 -56088 6 0 0 
+5700000: 8241586 -57074 -66 0 0 6034175 -54817 3 0 0 
+5710000: 8191973 -58736 -85 0 0 5880565 -53514 3 0 0 
+5720000: 8141855 -60347 -64 0 0 5775291 -52022 27 -1 0 
+5730000: 8133976 -61676 -65 0 0 5751877 -51076 17 -1 0 
+5740000: 8135449 -63329 -60 0 0 5721650 -50501 -2 0 0 
+5750000: 8099930 -64524 -40 0 0 5711129 -49414 -9 0 0 
+5760000: 8000056 -66783 -7 0 0 5715404 -48766 -13 0 0 
+5770000: 7894551 -67039 -16 0 0 5728131 -48134 -7 0 0 
+5780000: 7774353 -67294 -18 0 0 5760327 -47936 -8 0 0 
+5790000: 7620486 -66610 -65 0 0 5809580 -47057 -16 0 0 
+5800000: 7427928 -64369 -32 0 0 5877395 -45937 -11 -1 0 
+5810000: 7296801 -64553 -40 0 0 5969352 -46096 -30 0 0 
+5820000: 7133795 -64157 -20 0 0 6043159 -45447 -33 0 0 
+5830000: 7074427 -63118 -33 0 0 6109501 -44693 -37 -1 0 
+5840000: 6922769 -61340 -58 0 0 6159552 -44645 -49 0 0 
+5850000: 6736140 -60581 -58 0 0 6244064 -44800 -57 0 0 
+5860000: 6564296 -59639 -63 0 0 6382597 -44276 -69 0 0 
+5870000: 6396998 -57872 -74 0 0 6499250 -44157 -69 0 0 
+5880000: 6261851 -56720 -87 0 0 6611897 -44870 -75 0 0 
+5890000: 6153071 -55827 -77 0 0 6692938 -45585 -85 0 0 
+5900000: 6063546 -54484 -103 0 0 6738028 -46141 -85 0 0 
+5910000: 6006736 -54408 -113 0 0 6784259 -47084 -90 0 0 
+5920000: 5967909 -53070 -107 0 0 6833089 -47958 -69 0 0 
+5930000: 5940945 -53182 -130 0 0 6880616 -48750 -68 0 0 
+5940000: 5933876 -53891 -126 0 0 6922037 -49668 -58 0 0 
+5950000: 5979347 -54127 -149 0 0 6948326 -50826 -55 0 0 
+5960000: 6031187 -55515 -182 0 0 6959626 -51531 -50 0 0 
+5970000: 6068708 -57373 -190 0 0 6930485 -51716 -39 0 0 
+5980000: 6110918 -60157 -197 0 0 6905092 -51826 -25 -1 0 
+5990000: 6153413 -62888 -192 0 0 6912819 -52504 -17 0 0 
+ 
+Found chunk: 0x000c Calibration data V5 (power per freq on fixed gain), size: 1417 bytes
+4910000, pwr: 12833, 11505, t: 27 
+4920000, pwr: 13064, 11693, t: 27 
+4930000, pwr: 13293, 11897, t: 27 
+4940000, pwr: 13517, 12106, t: 26 
+4950000, pwr: 13740, 12303, t: 27 
+4960000, pwr: 13955, 12500, t: 27 
+4970000, pwr: 14161, 12683, t: 27 
+4980000, pwr: 14344, 12847, t: 27 
+4990000, pwr: 14534, 13014, t: 28 
+5000000, pwr: 14686, 13166, t: 27 
+5010000, pwr: 14826, 13299, t: 27 
+5020000, pwr: 14952, 13420, t: 28 
+5030000, pwr: 15056, 13534, t: 27 
+5040000, pwr: 15139, 13628, t: 27 
+5050000, pwr: 15217, 13702, t: 27 
+5060000, pwr: 15269, 13769, t: 27 
+5070000, pwr: 15322, 13837, t: 27 
+5080000, pwr: 15355, 13891, t: 27 
+5090000, pwr: 15396, 13935, t: 27 
+5100000, pwr: 15436, 13988, t: 27 
+5110000, pwr: 15473, 14043, t: 28 
+5120000, pwr: 15509, 14110, t: 28 
+5130000, pwr: 15551, 14184, t: 29 
+5140000, pwr: 15606, 14273, t: 28 
+5150000, pwr: 15673, 14364, t: 28 
+5160000, pwr: 15750, 14469, t: 28 
+5170000, pwr: 15838, 14592, t: 28 
+5180000, pwr: 15944, 14722, t: 28 
+5190000, pwr: 16052, 14857, t: 28 
+5200000, pwr: 16168, 14999, t: 29 
+5210000, pwr: 16288, 15139, t: 28 
+5220000, pwr: 16397, 15277, t: 29 
+5230000, pwr: 16511, 15410, t: 29 
+5240000, pwr: 16604, 15529, t: 29 
+5250000, pwr: 16680, 15628, t: 29 
+5260000, pwr: 16738, 15714, t: 30 
+5270000, pwr: 16772, 15768, t: 30 
+5280000, pwr: 16772, 15805, t: 29 
+5290000, pwr: 16736, 15814, t: 29 
+5300000, pwr: 16666, 15793, t: 29 
+5310000, pwr: 16570, 15741, t: 28 
+5320000, pwr: 16449, 15667, t: 29 
+5330000, pwr: 16293, 15569, t: 28 
+5340000, pwr: 16118, 15453, t: 28 
+5350000, pwr: 15932, 15325, t: 29 
+5360000, pwr: 15751, 15184, t: 30 
+5370000, pwr: 15568, 15044, t: 30 
+5380000, pwr: 15387, 14907, t: 30 
+5390000, pwr: 15221, 14772, t: 30 
+5400000, pwr: 15057, 14639, t: 29 
+5410000, pwr: 14907, 14508, t: 29 
+5420000, pwr: 14768, 14398, t: 29 
+5430000, pwr: 14639, 14293, t: 30 
+5440000, pwr: 14518, 14198, t: 29 
+5450000, pwr: 14411, 14112, t: 29 
+5460000, pwr: 14308, 14033, t: 29 
+5470000, pwr: 14222, 13961, t: 29 
+5480000, pwr: 14144, 13901, t: 29 
+5490000, pwr: 14077, 13855, t: 29 
+5500000, pwr: 14016, 13813, t: 29 
+5510000, pwr: 13974, 13774, t: 29 
+5520000, pwr: 13935, 13735, t: 30 
+5530000, pwr: 13891, 13700, t: 30 
+5540000, pwr: 13858, 13665, t: 30 
+5550000, pwr: 13826, 13630, t: 29 
+5560000, pwr: 13797, 13592, t: 29 
+5570000, pwr: 13765, 13554, t: 29 
+5580000, pwr: 13738, 13521, t: 28 
+5590000, pwr: 13712, 13481, t: 28 
+5600000, pwr: 13694, 13443, t: 29 
+5610000, pwr: 13665, 13408, t: 29 
+5620000, pwr: 13635, 13372, t: 29 
+5630000, pwr: 13615, 13332, t: 29 
+5640000, pwr: 13600, 13292, t: 29 
+5650000, pwr: 13579, 13254, t: 29 
+5660000, pwr: 13558, 13213, t: 30 
+5670000, pwr: 13546, 13170, t: 30 
+5680000, pwr: 13535, 13133, t: 30 
+5690000, pwr: 13528, 13097, t: 30 
+5700000, pwr: 13515, 13060, t: 30 
+5710000, pwr: 13509, 13018, t: 30 
+5720000, pwr: 13507, 12979, t: 30 
+5730000, pwr: 13499, 12942, t: 30 
+5740000, pwr: 13506, 12911, t: 29 
+5750000, pwr: 13498, 12883, t: 29 
+5760000, pwr: 13508, 12863, t: 30 
+5770000, pwr: 13507, 12839, t: 30 
+5780000, pwr: 13519, 12825, t: 30 
+5790000, pwr: 13517, 12814, t: 30 
+5800000, pwr: 13507, 12806, t: 30 
+5810000, pwr: 13504, 12812, t: 30 
+5820000, pwr: 13498, 12828, t: 30 
+5830000, pwr: 13476, 12838, t: 30 
+5840000, pwr: 13450, 12854, t: 29 
+5850000, pwr: 13417, 12871, t: 29 
+5860000, pwr: 13374, 12895, t: 29 
+5870000, pwr: 13306, 12920, t: 30 
+5880000, pwr: 13226, 12944, t: 30 
+5890000, pwr: 13133, 12964, t: 30 
+5900000, pwr: 13018, 12971, t: 30 
+5910000, pwr: 12884, 12968, t: 30 
+5920000, pwr: 12738, 12957, t: 30 
+5930000, pwr: 12562, 12922, t: 30 
+5940000, pwr: 12385, 12864, t: 31 
+5950000, pwr: 12196, 12795, t: 30 
+5960000, pwr: 11997, 12700, t: 31 
+5970000, pwr: 11788, 12571, t: 30 
+5980000, pwr: 11561, 12427, t: 30 
+5990000, pwr: 11370, 12181, t: 30 
+ 
+Found chunk: 0x0006 Power limits, size: 26 bytes
+version: 0, revision: 1, bands_count: 2, mcs_count: 5, items_count: 1
+freq = 6060000
+bands = [ 10 40 ]
+mcs = [  6  7  8  9 10 ]
+powers = [
+  27   27   27   27   27 
+  27   27   27   27   27 
+]
+
+ 
+Compensation data:
+Xlat temperature compensation data
+  temperature: -49.0; compensation: 23.6;
+  temperature: -33.0; compensation: 38.4;
+  temperature: -23.5; compensation: 43.7;
+  temperature: -13.5; compensation: 46.6;
+  temperature: -3.50; compensation: 47.6;
+  temperature: 6.50; compensation: 46.2;
+  temperature: 16.5; compensation: 43.8;
+  temperature: 46.0; compensation: 35.5;
+  temperature: 56.0; compensation: 34.0;
+  temperature: 63.0; compensation: 33.7;
+Deviation to adjusting data
+  coarse:11 from: 0.00 to: 65.0
+    x: 0.00 value: 0
+    x: 18.8 value: 2000
+    x: 34.9 value: 4000
+    x: 49.0 value: 6000
+    x: 62.3 value: 8160
+
+RSSI temperature compensation data
+  temperature: -33.0; rssi_offset: -4.00;
+  temperature: 77.0; rssi_offset: 2.00;
+
+RSSI frequency compensation data
+  frequency: 4800000; rssi_offset: -2.50;
+  frequency: 4900000; rssi_offset: -1.50;
+  frequency: 4980000; rssi_offset: -1.50;
+  frequency: 5020000; rssi_offset: -1.00;
+  frequency: 5060000; rssi_offset: -1.00;
+  frequency: 5100000; rssi_offset: -0.500;
+  frequency: 5140000; rssi_offset: 0.00;
+  frequency: 5180000; rssi_offset: 0.500;
+  frequency: 5220000; rssi_offset: 1.00;
+  frequency: 5260000; rssi_offset: 1.00;
+  frequency: 5300000; rssi_offset: 2.00;
+  frequency: 5340000; rssi_offset: 1.50;
+  frequency: 5380000; rssi_offset: 1.00;
+  frequency: 5420000; rssi_offset: 0.500;
+  frequency: 5460000; rssi_offset: 1.00;
+  frequency: 5500000; rssi_offset: 0.00;
+  frequency: 5540000; rssi_offset: 0.500;
+  frequency: 5580000; rssi_offset: 0.500;
+  frequency: 5620000; rssi_offset: 2.00;
+  frequency: 5660000; rssi_offset: 1.00;
+  frequency: 5700000; rssi_offset: 2.00;
+  frequency: 5740000; rssi_offset: 2.00;
+  frequency: 5780000; rssi_offset: 2.50;
+  frequency: 5820000; rssi_offset: 2.50;
+  frequency: 5860000; rssi_offset: 3.50;
+  frequency: 5900000; rssi_offset: 3.50;
+  frequency: 5940000; rssi_offset: 4.00;
+  frequency: 5980000; rssi_offset: 4.00;
+  frequency: 6000000; rssi_offset: 4.00;
+
+RSSI value adjustment data
+  original rssi value: -100; adjustment value: -99.0;
+  original rssi value: -91.0; adjustment value: -90.0;
+  original rssi value: -87.0; adjustment value: -85.0;
+  original rssi value: -83.0; adjustment value: -80.0;
+  original rssi value: -53.0; adjustment value: -50.0;
+  original rssi value: -49.0; adjustment value: -45.0;
+  original rssi value: -31.0; adjustment value: -27.0;
+  original rssi value: -29.0; adjustment value: -28.0;
+  original rssi value: -21.0; adjustment value: -20.0;
+  original rssi value: -1.00; adjustment value: 0.00;
+
+RSSI frequency adjustment data
+  frequency: 5100000; delta: 0.00;
+  frequency: 5500000; delta: 0.00;
+  frequency: 5600000; delta: 1.00;
+  frequency: 5700000; delta: 2.00;
+  frequency: 5800000; delta: 2.00;
+  frequency: 5900000; delta: 3.00;
+
+Power bandwidth compensation data
+  bandwidth: 10; power_offset_0: -2.75; power_offset_1: -2.40;
+  bandwidth: 14; power_offset_0: -1.25; power_offset_1: -0.900;
+  bandwidth: 15; power_offset_0: -1.25; power_offset_1: -0.900;
+  bandwidth: 20; power_offset_0: 0.250; power_offset_1: 0.600;
+  bandwidth: 28; power_offset_0: -1.75; power_offset_1: -1.40;
+  bandwidth: 30; power_offset_0: -1.25; power_offset_1: -0.900;
+  bandwidth: 3_5; power_offset_0: -2.20; power_offset_1: -1.85;
+  bandwidth: 40; power_offset_0: -0.0500; power_offset_1: 0.300;
+  bandwidth: 5; power_offset_0: -2.20; power_offset_1: -1.85;
+  bandwidth: 7; power_offset_0: -1.20; power_offset_1: -0.850;
+
+MCS power limit data
+  bandwidth: 10
+	 mcs: 0
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 1
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 2
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 3
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 4
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 5
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 6
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 7
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 8
+		 freq: 4800000; power_limit: 26.0;
+		 freq: 4850000; power_limit: 26.0;
+		 freq: 4900000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 9
+		 freq: 4800000; power_limit: 26.0;
+		 freq: 4900000; power_limit: 26.0;
+		 freq: 4950000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 10
+		 freq: 4800000; power_limit: 24.0;
+		 freq: 4850000; power_limit: 24.0;
+		 freq: 4900000; power_limit: 25.0;
+		 freq: 4950000; power_limit: 26.0;
+		 freq: 5200000; power_limit: 26.0;
+		 freq: 5250000; power_limit: 27.0;
+		 freq: 5350000; power_limit: 27.0;
+		 freq: 5400000; power_limit: 26.0;
+		 freq: 5500000; power_limit: 26.0;
+		 freq: 5550000; power_limit: 27.0;
+		 freq: 5650000; power_limit: 27.0;
+		 freq: 5700000; power_limit: 26.0;
+		 freq: 6000000; power_limit: 26.0;
+	 mcs: 11
+		 freq: 4800000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5000000; power_limit: 25.0;
+		 freq: 5050000; power_limit: 25.0;
+		 freq: 5100000; power_limit: 24.0;
+		 freq: 5150000; power_limit: 24.0;
+		 freq: 5200000; power_limit: 25.0;
+		 freq: 5250000; power_limit: 26.0;
+		 freq: 5300000; power_limit: 26.0;
+		 freq: 5350000; power_limit: 22.0;
+		 freq: 5400000; power_limit: 24.0;
+		 freq: 5450000; power_limit: 24.0;
+		 freq: 5500000; power_limit: 25.0;
+		 freq: 5750000; power_limit: 25.0;
+		 freq: 5800000; power_limit: 24.0;
+		 freq: 6000000; power_limit: 24.0;
+	 mcs: 12
+		 freq: 4800000; power_limit: 22.0;
+		 freq: 4850000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5250000; power_limit: 24.0;
+		 freq: 5300000; power_limit: 25.0;
+		 freq: 5350000; power_limit: 25.0;
+		 freq: 5400000; power_limit: 24.0;
+		 freq: 5800000; power_limit: 24.0;
+		 freq: 5850000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 23.0;
+	 mcs: 13
+		 freq: 4800000; power_limit: 22.0;
+		 freq: 4850000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5100000; power_limit: 24.0;
+		 freq: 5150000; power_limit: 23.0;
+		 freq: 5200000; power_limit: 23.0;
+		 freq: 5250000; power_limit: 24.0;
+		 freq: 5300000; power_limit: 25.0;
+		 freq: 5350000; power_limit: 24.0;
+		 freq: 5400000; power_limit: 24.0;
+		 freq: 5450000; power_limit: 23.0;
+		 freq: 5500000; power_limit: 24.0;
+		 freq: 5550000; power_limit: 24.0;
+		 freq: 5600000; power_limit: 23.0;
+		 freq: 5650000; power_limit: 23.0;
+		 freq: 5700000; power_limit: 24.0;
+		 freq: 5800000; power_limit: 24.0;
+		 freq: 5850000; power_limit: 23.0;
+		 freq: 5950000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 22.0;
+  bandwidth: 14
+	 mcs: 0
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 1
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 2
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 3
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 4
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 5
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 6
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 7
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 8
+		 freq: 4800000; power_limit: 26.0;
+		 freq: 4850000; power_limit: 26.0;
+		 freq: 4900000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 9
+		 freq: 4800000; power_limit: 26.0;
+		 freq: 4900000; power_limit: 26.0;
+		 freq: 4950000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 10
+		 freq: 4800000; power_limit: 24.0;
+		 freq: 4850000; power_limit: 24.0;
+		 freq: 4900000; power_limit: 25.0;
+		 freq: 4950000; power_limit: 26.0;
+		 freq: 5200000; power_limit: 26.0;
+		 freq: 5250000; power_limit: 27.0;
+		 freq: 5350000; power_limit: 27.0;
+		 freq: 5400000; power_limit: 26.0;
+		 freq: 5500000; power_limit: 26.0;
+		 freq: 5550000; power_limit: 27.0;
+		 freq: 5650000; power_limit: 27.0;
+		 freq: 5700000; power_limit: 26.0;
+		 freq: 6000000; power_limit: 26.0;
+	 mcs: 11
+		 freq: 4800000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5000000; power_limit: 25.0;
+		 freq: 5050000; power_limit: 25.0;
+		 freq: 5100000; power_limit: 24.0;
+		 freq: 5150000; power_limit: 24.0;
+		 freq: 5200000; power_limit: 25.0;
+		 freq: 5250000; power_limit: 26.0;
+		 freq: 5300000; power_limit: 26.0;
+		 freq: 5350000; power_limit: 22.0;
+		 freq: 5400000; power_limit: 24.0;
+		 freq: 5450000; power_limit: 24.0;
+		 freq: 5500000; power_limit: 25.0;
+		 freq: 5750000; power_limit: 25.0;
+		 freq: 5800000; power_limit: 24.0;
+		 freq: 6000000; power_limit: 24.0;
+	 mcs: 12
+		 freq: 4800000; power_limit: 22.0;
+		 freq: 4850000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5250000; power_limit: 24.0;
+		 freq: 5300000; power_limit: 25.0;
+		 freq: 5350000; power_limit: 25.0;
+		 freq: 5400000; power_limit: 24.0;
+		 freq: 5800000; power_limit: 24.0;
+		 freq: 5850000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 23.0;
+	 mcs: 13
+		 freq: 4800000; power_limit: 22.0;
+		 freq: 4850000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5100000; power_limit: 24.0;
+		 freq: 5150000; power_limit: 23.0;
+		 freq: 5200000; power_limit: 23.0;
+		 freq: 5250000; power_limit: 24.0;
+		 freq: 5300000; power_limit: 25.0;
+		 freq: 5350000; power_limit: 24.0;
+		 freq: 5400000; power_limit: 24.0;
+		 freq: 5450000; power_limit: 23.0;
+		 freq: 5500000; power_limit: 24.0;
+		 freq: 5550000; power_limit: 24.0;
+		 freq: 5600000; power_limit: 23.0;
+		 freq: 5650000; power_limit: 23.0;
+		 freq: 5700000; power_limit: 24.0;
+		 freq: 5800000; power_limit: 24.0;
+		 freq: 5850000; power_limit: 23.0;
+		 freq: 5950000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 22.0;
+  bandwidth: 15
+	 mcs: 0
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 1
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 2
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 3
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 4
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 5
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 6
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 7
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 8
+		 freq: 4800000; power_limit: 26.0;
+		 freq: 4850000; power_limit: 26.0;
+		 freq: 4900000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 9
+		 freq: 4800000; power_limit: 26.0;
+		 freq: 4900000; power_limit: 26.0;
+		 freq: 4950000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 10
+		 freq: 4800000; power_limit: 24.0;
+		 freq: 4850000; power_limit: 24.0;
+		 freq: 4900000; power_limit: 25.0;
+		 freq: 4950000; power_limit: 26.0;
+		 freq: 5200000; power_limit: 26.0;
+		 freq: 5250000; power_limit: 27.0;
+		 freq: 5350000; power_limit: 27.0;
+		 freq: 5400000; power_limit: 26.0;
+		 freq: 5500000; power_limit: 26.0;
+		 freq: 5550000; power_limit: 27.0;
+		 freq: 5650000; power_limit: 27.0;
+		 freq: 5700000; power_limit: 26.0;
+		 freq: 6000000; power_limit: 26.0;
+	 mcs: 11
+		 freq: 4800000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5000000; power_limit: 25.0;
+		 freq: 5050000; power_limit: 25.0;
+		 freq: 5100000; power_limit: 24.0;
+		 freq: 5150000; power_limit: 24.0;
+		 freq: 5200000; power_limit: 25.0;
+		 freq: 5250000; power_limit: 26.0;
+		 freq: 5300000; power_limit: 26.0;
+		 freq: 5350000; power_limit: 22.0;
+		 freq: 5400000; power_limit: 24.0;
+		 freq: 5450000; power_limit: 24.0;
+		 freq: 5500000; power_limit: 25.0;
+		 freq: 5750000; power_limit: 25.0;
+		 freq: 5800000; power_limit: 24.0;
+		 freq: 6000000; power_limit: 24.0;
+	 mcs: 12
+		 freq: 4800000; power_limit: 22.0;
+		 freq: 4850000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5250000; power_limit: 24.0;
+		 freq: 5300000; power_limit: 25.0;
+		 freq: 5350000; power_limit: 25.0;
+		 freq: 5400000; power_limit: 24.0;
+		 freq: 5800000; power_limit: 24.0;
+		 freq: 5850000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 23.0;
+	 mcs: 13
+		 freq: 4800000; power_limit: 22.0;
+		 freq: 4850000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5100000; power_limit: 24.0;
+		 freq: 5150000; power_limit: 23.0;
+		 freq: 5200000; power_limit: 23.0;
+		 freq: 5250000; power_limit: 24.0;
+		 freq: 5300000; power_limit: 25.0;
+		 freq: 5350000; power_limit: 24.0;
+		 freq: 5400000; power_limit: 24.0;
+		 freq: 5450000; power_limit: 23.0;
+		 freq: 5500000; power_limit: 24.0;
+		 freq: 5550000; power_limit: 24.0;
+		 freq: 5600000; power_limit: 23.0;
+		 freq: 5650000; power_limit: 23.0;
+		 freq: 5700000; power_limit: 24.0;
+		 freq: 5800000; power_limit: 24.0;
+		 freq: 5850000; power_limit: 23.0;
+		 freq: 5950000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 22.0;
+  bandwidth: 20
+	 mcs: 0
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 1
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 2
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 3
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 4
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 5
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 6
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 7
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 8
+		 freq: 4800000; power_limit: 26.0;
+		 freq: 4850000; power_limit: 26.0;
+		 freq: 4900000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 9
+		 freq: 4800000; power_limit: 25.0;
+		 freq: 4850000; power_limit: 26.0;
+		 freq: 4900000; power_limit: 26.0;
+		 freq: 4950000; power_limit: 27.0;
+		 freq: 5050000; power_limit: 27.0;
+		 freq: 5100000; power_limit: 26.0;
+		 freq: 5200000; power_limit: 26.0;
+		 freq: 5250000; power_limit: 27.0;
+		 freq: 5350000; power_limit: 27.0;
+		 freq: 5400000; power_limit: 26.0;
+		 freq: 5450000; power_limit: 26.0;
+		 freq: 5500000; power_limit: 27.0;
+		 freq: 5800000; power_limit: 27.0;
+		 freq: 5850000; power_limit: 26.0;
+		 freq: 6000000; power_limit: 26.0;
+	 mcs: 10
+		 freq: 4800000; power_limit: 25.0;
+		 freq: 4900000; power_limit: 25.0;
+		 freq: 4950000; power_limit: 26.0;
+		 freq: 5250000; power_limit: 26.0;
+		 freq: 5300000; power_limit: 27.0;
+		 freq: 5350000; power_limit: 26.0;
+		 freq: 5900000; power_limit: 26.0;
+		 freq: 5950000; power_limit: 25.0;
+		 freq: 6000000; power_limit: 25.0;
+	 mcs: 11
+		 freq: 4800000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5150000; power_limit: 24.0;
+		 freq: 5200000; power_limit: 25.0;
+		 freq: 5250000; power_limit: 25.0;
+		 freq: 5300000; power_limit: 26.0;
+		 freq: 5350000; power_limit: 25.0;
+		 freq: 5400000; power_limit: 24.0;
+		 freq: 5500000; power_limit: 24.0;
+		 freq: 5550000; power_limit: 25.0;
+		 freq: 5650000; power_limit: 25.0;
+		 freq: 5700000; power_limit: 24.0;
+		 freq: 6000000; power_limit: 24.0;
+	 mcs: 12
+		 freq: 4800000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5200000; power_limit: 24.0;
+		 freq: 5250000; power_limit: 25.0;
+		 freq: 5300000; power_limit: 25.0;
+		 freq: 5350000; power_limit: 24.0;
+		 freq: 5850000; power_limit: 24.0;
+		 freq: 5900000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 23.0;
+	 mcs: 13
+		 freq: 4800000; power_limit: 22.0;
+		 freq: 4850000; power_limit: 22.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 23.0;
+		 freq: 5000000; power_limit: 24.0;
+		 freq: 5050000; power_limit: 24.0;
+		 freq: 5100000; power_limit: 23.0;
+		 freq: 5200000; power_limit: 23.0;
+		 freq: 5250000; power_limit: 24.0;
+		 freq: 5350000; power_limit: 24.0;
+		 freq: 5400000; power_limit: 23.0;
+		 freq: 5450000; power_limit: 24.0;
+		 freq: 5500000; power_limit: 24.0;
+		 freq: 5550000; power_limit: 23.0;
+		 freq: 5600000; power_limit: 23.0;
+		 freq: 5650000; power_limit: 24.0;
+		 freq: 5700000; power_limit: 24.0;
+		 freq: 5750000; power_limit: 23.0;
+		 freq: 5800000; power_limit: 22.0;
+		 freq: 5900000; power_limit: 22.0;
+		 freq: 5950000; power_limit: 21.0;
+		 freq: 6000000; power_limit: 21.0;
+  bandwidth: 28
+	 mcs: 0
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 1
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 2
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 3
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 4
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 5
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 6
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 7
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 8
+		 freq: 4800000; power_limit: 26.0;
+		 freq: 4850000; power_limit: 26.0;
+		 freq: 4900000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 9
+		 freq: 4800000; power_limit: 25.0;
+		 freq: 4850000; power_limit: 26.0;
+		 freq: 4900000; power_limit: 26.0;
+		 freq: 4950000; power_limit: 27.0;
+		 freq: 5050000; power_limit: 27.0;
+		 freq: 5100000; power_limit: 26.0;
+		 freq: 5200000; power_limit: 26.0;
+		 freq: 5250000; power_limit: 27.0;
+		 freq: 5350000; power_limit: 27.0;
+		 freq: 5400000; power_limit: 26.0;
+		 freq: 5450000; power_limit: 26.0;
+		 freq: 5500000; power_limit: 27.0;
+		 freq: 5800000; power_limit: 27.0;
+		 freq: 5850000; power_limit: 26.0;
+		 freq: 6000000; power_limit: 26.0;
+	 mcs: 10
+		 freq: 4800000; power_limit: 25.0;
+		 freq: 4900000; power_limit: 25.0;
+		 freq: 4950000; power_limit: 26.0;
+		 freq: 5250000; power_limit: 26.0;
+		 freq: 5300000; power_limit: 27.0;
+		 freq: 5350000; power_limit: 26.0;
+		 freq: 5900000; power_limit: 26.0;
+		 freq: 5950000; power_limit: 25.0;
+		 freq: 6000000; power_limit: 25.0;
+	 mcs: 11
+		 freq: 4800000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5150000; power_limit: 24.0;
+		 freq: 5200000; power_limit: 25.0;
+		 freq: 5250000; power_limit: 25.0;
+		 freq: 5300000; power_limit: 26.0;
+		 freq: 5350000; power_limit: 25.0;
+		 freq: 5400000; power_limit: 24.0;
+		 freq: 5500000; power_limit: 24.0;
+		 freq: 5550000; power_limit: 25.0;
+		 freq: 5650000; power_limit: 25.0;
+		 freq: 5700000; power_limit: 24.0;
+		 freq: 6000000; power_limit: 24.0;
+	 mcs: 12
+		 freq: 4800000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5200000; power_limit: 24.0;
+		 freq: 5250000; power_limit: 25.0;
+		 freq: 5300000; power_limit: 25.0;
+		 freq: 5350000; power_limit: 24.0;
+		 freq: 5850000; power_limit: 24.0;
+		 freq: 5900000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 23.0;
+	 mcs: 13
+		 freq: 4800000; power_limit: 22.0;
+		 freq: 4850000; power_limit: 22.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 23.0;
+		 freq: 5000000; power_limit: 24.0;
+		 freq: 5050000; power_limit: 24.0;
+		 freq: 5100000; power_limit: 23.0;
+		 freq: 5200000; power_limit: 23.0;
+		 freq: 5250000; power_limit: 24.0;
+		 freq: 5350000; power_limit: 24.0;
+		 freq: 5400000; power_limit: 23.0;
+		 freq: 5450000; power_limit: 24.0;
+		 freq: 5500000; power_limit: 24.0;
+		 freq: 5550000; power_limit: 23.0;
+		 freq: 5600000; power_limit: 23.0;
+		 freq: 5650000; power_limit: 24.0;
+		 freq: 5700000; power_limit: 24.0;
+		 freq: 5750000; power_limit: 23.0;
+		 freq: 5800000; power_limit: 22.0;
+		 freq: 5900000; power_limit: 22.0;
+		 freq: 5950000; power_limit: 21.0;
+		 freq: 6000000; power_limit: 21.0;
+  bandwidth: 30
+	 mcs: 0
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 1
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 2
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 3
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 4
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 5
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 6
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 7
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 8
+		 freq: 4800000; power_limit: 26.0;
+		 freq: 4850000; power_limit: 26.0;
+		 freq: 4900000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 9
+		 freq: 4800000; power_limit: 25.0;
+		 freq: 4850000; power_limit: 26.0;
+		 freq: 4900000; power_limit: 26.0;
+		 freq: 4950000; power_limit: 27.0;
+		 freq: 5050000; power_limit: 27.0;
+		 freq: 5100000; power_limit: 26.0;
+		 freq: 5200000; power_limit: 26.0;
+		 freq: 5250000; power_limit: 27.0;
+		 freq: 5350000; power_limit: 27.0;
+		 freq: 5400000; power_limit: 26.0;
+		 freq: 5450000; power_limit: 26.0;
+		 freq: 5500000; power_limit: 27.0;
+		 freq: 5800000; power_limit: 27.0;
+		 freq: 5850000; power_limit: 26.0;
+		 freq: 6000000; power_limit: 26.0;
+	 mcs: 10
+		 freq: 4800000; power_limit: 25.0;
+		 freq: 4900000; power_limit: 25.0;
+		 freq: 4950000; power_limit: 26.0;
+		 freq: 5250000; power_limit: 26.0;
+		 freq: 5300000; power_limit: 27.0;
+		 freq: 5350000; power_limit: 26.0;
+		 freq: 5900000; power_limit: 26.0;
+		 freq: 5950000; power_limit: 25.0;
+		 freq: 6000000; power_limit: 25.0;
+	 mcs: 11
+		 freq: 4800000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5150000; power_limit: 24.0;
+		 freq: 5200000; power_limit: 25.0;
+		 freq: 5250000; power_limit: 25.0;
+		 freq: 5300000; power_limit: 26.0;
+		 freq: 5350000; power_limit: 25.0;
+		 freq: 5400000; power_limit: 24.0;
+		 freq: 5500000; power_limit: 24.0;
+		 freq: 5550000; power_limit: 25.0;
+		 freq: 5650000; power_limit: 25.0;
+		 freq: 5700000; power_limit: 24.0;
+		 freq: 6000000; power_limit: 24.0;
+	 mcs: 12
+		 freq: 4800000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5200000; power_limit: 24.0;
+		 freq: 5250000; power_limit: 25.0;
+		 freq: 5300000; power_limit: 25.0;
+		 freq: 5350000; power_limit: 24.0;
+		 freq: 5850000; power_limit: 24.0;
+		 freq: 5900000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 23.0;
+	 mcs: 13
+		 freq: 4800000; power_limit: 22.0;
+		 freq: 4850000; power_limit: 22.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 23.0;
+		 freq: 5000000; power_limit: 24.0;
+		 freq: 5050000; power_limit: 24.0;
+		 freq: 5100000; power_limit: 23.0;
+		 freq: 5200000; power_limit: 23.0;
+		 freq: 5250000; power_limit: 24.0;
+		 freq: 5350000; power_limit: 24.0;
+		 freq: 5400000; power_limit: 23.0;
+		 freq: 5450000; power_limit: 24.0;
+		 freq: 5500000; power_limit: 24.0;
+		 freq: 5550000; power_limit: 23.0;
+		 freq: 5600000; power_limit: 23.0;
+		 freq: 5650000; power_limit: 24.0;
+		 freq: 5700000; power_limit: 24.0;
+		 freq: 5750000; power_limit: 23.0;
+		 freq: 5800000; power_limit: 22.0;
+		 freq: 5900000; power_limit: 22.0;
+		 freq: 5950000; power_limit: 21.0;
+		 freq: 6000000; power_limit: 21.0;
+  bandwidth: 3_5
+	 mcs: 0
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 1
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 2
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 3
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 4
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 5
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 6
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 7
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 8
+		 freq: 4800000; power_limit: 26.0;
+		 freq: 4850000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 9
+		 freq: 4800000; power_limit: 25.0;
+		 freq: 4900000; power_limit: 25.0;
+		 freq: 4950000; power_limit: 27.0;
+		 freq: 5950000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 26.0;
+	 mcs: 10
+		 freq: 4800000; power_limit: 24.0;
+		 freq: 4850000; power_limit: 25.0;
+		 freq: 4900000; power_limit: 25.0;
+		 freq: 4950000; power_limit: 26.0;
+		 freq: 5200000; power_limit: 26.0;
+		 freq: 5250000; power_limit: 27.0;
+		 freq: 5350000; power_limit: 27.0;
+		 freq: 5400000; power_limit: 26.0;
+		 freq: 5950000; power_limit: 26.0;
+		 freq: 6000000; power_limit: 25.0;
+	 mcs: 11
+		 freq: 4800000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5050000; power_limit: 24.0;
+		 freq: 5150000; power_limit: 24.0;
+		 freq: 5200000; power_limit: 25.0;
+		 freq: 5350000; power_limit: 25.0;
+		 freq: 5400000; power_limit: 24.0;
+		 freq: 5550000; power_limit: 24.0;
+		 freq: 5600000; power_limit: 25.0;
+		 freq: 5750000; power_limit: 25.0;
+		 freq: 5800000; power_limit: 24.0;
+		 freq: 5850000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 23.0;
+	 mcs: 12
+		 freq: 4800000; power_limit: 22.0;
+		 freq: 4850000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5250000; power_limit: 24.0;
+		 freq: 5300000; power_limit: 25.0;
+		 freq: 5350000; power_limit: 25.0;
+		 freq: 5400000; power_limit: 24.0;
+		 freq: 5700000; power_limit: 24.0;
+		 freq: 5750000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 23.0;
+	 mcs: 13
+		 freq: 4800000; power_limit: 22.0;
+		 freq: 4850000; power_limit: 22.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5100000; power_limit: 24.0;
+		 freq: 5150000; power_limit: 23.0;
+		 freq: 5200000; power_limit: 23.0;
+		 freq: 5250000; power_limit: 24.0;
+		 freq: 5300000; power_limit: 25.0;
+		 freq: 5350000; power_limit: 24.0;
+		 freq: 5400000; power_limit: 23.0;
+		 freq: 5450000; power_limit: 23.0;
+		 freq: 5500000; power_limit: 24.0;
+		 freq: 5700000; power_limit: 24.0;
+		 freq: 5750000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 23.0;
+  bandwidth: 40
+	 mcs: 0
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 1
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 2
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 3
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 4
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 5
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 6
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 7
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 8
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 9
+		 freq: 4800000; power_limit: 26.0;
+		 freq: 4900000; power_limit: 26.0;
+		 freq: 4950000; power_limit: 27.0;
+		 freq: 5050000; power_limit: 27.0;
+		 freq: 5100000; power_limit: 26.0;
+		 freq: 5200000; power_limit: 26.0;
+		 freq: 5250000; power_limit: 27.0;
+		 freq: 5350000; power_limit: 27.0;
+		 freq: 5400000; power_limit: 26.0;
+		 freq: 5550000; power_limit: 26.0;
+		 freq: 5600000; power_limit: 27.0;
+		 freq: 5950000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 26.0;
+	 mcs: 10
+		 freq: 4800000; power_limit: 25.0;
+		 freq: 4900000; power_limit: 25.0;
+		 freq: 5000000; power_limit: 26.0;
+		 freq: 5050000; power_limit: 26.0;
+		 freq: 5100000; power_limit: 25.0;
+		 freq: 5150000; power_limit: 25.0;
+		 freq: 5200000; power_limit: 26.0;
+		 freq: 5350000; power_limit: 26.0;
+		 freq: 5400000; power_limit: 25.0;
+		 freq: 5450000; power_limit: 25.0;
+		 freq: 5500000; power_limit: 26.0;
+		 freq: 5900000; power_limit: 26.0;
+		 freq: 5950000; power_limit: 25.0;
+		 freq: 6000000; power_limit: 25.0;
+	 mcs: 11
+		 freq: 4800000; power_limit: 23.0;
+		 freq: 4850000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 24.0;
+		 freq: 5200000; power_limit: 24.0;
+		 freq: 5250000; power_limit: 25.0;
+		 freq: 5350000; power_limit: 25.0;
+		 freq: 5400000; power_limit: 24.0;
+		 freq: 5850000; power_limit: 24.0;
+		 freq: 5900000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 23.0;
+	 mcs: 12
+		 freq: 4800000; power_limit: 23.0;
+		 freq: 4850000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 24.0;
+		 freq: 5100000; power_limit: 24.0;
+		 freq: 5150000; power_limit: 23.0;
+		 freq: 5200000; power_limit: 23.0;
+		 freq: 5250000; power_limit: 25.0;
+		 freq: 5300000; power_limit: 25.0;
+		 freq: 5350000; power_limit: 24.0;
+		 freq: 5750000; power_limit: 24.0;
+		 freq: 5800000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 23.0;
+	 mcs: 13
+		 freq: 4800000; power_limit: 23.0;
+		 freq: 4850000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 24.0;
+		 freq: 5000000; power_limit: 24.0;
+		 freq: 5050000; power_limit: 23.0;
+		 freq: 5200000; power_limit: 23.0;
+		 freq: 5250000; power_limit: 24.0;
+		 freq: 5350000; power_limit: 24.0;
+		 freq: 5400000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 23.0;
+  bandwidth: 5
+	 mcs: 0
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 1
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 2
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 3
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 4
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 5
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 6
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 7
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 8
+		 freq: 4800000; power_limit: 26.0;
+		 freq: 4850000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 9
+		 freq: 4800000; power_limit: 25.0;
+		 freq: 4900000; power_limit: 25.0;
+		 freq: 4950000; power_limit: 27.0;
+		 freq: 5950000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 26.0;
+	 mcs: 10
+		 freq: 4800000; power_limit: 24.0;
+		 freq: 4850000; power_limit: 25.0;
+		 freq: 4900000; power_limit: 25.0;
+		 freq: 4950000; power_limit: 26.0;
+		 freq: 5200000; power_limit: 26.0;
+		 freq: 5250000; power_limit: 27.0;
+		 freq: 5350000; power_limit: 27.0;
+		 freq: 5400000; power_limit: 26.0;
+		 freq: 5950000; power_limit: 26.0;
+		 freq: 6000000; power_limit: 25.0;
+	 mcs: 11
+		 freq: 4800000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5050000; power_limit: 24.0;
+		 freq: 5150000; power_limit: 24.0;
+		 freq: 5200000; power_limit: 25.0;
+		 freq: 5350000; power_limit: 25.0;
+		 freq: 5400000; power_limit: 24.0;
+		 freq: 5550000; power_limit: 24.0;
+		 freq: 5600000; power_limit: 25.0;
+		 freq: 5750000; power_limit: 25.0;
+		 freq: 5800000; power_limit: 24.0;
+		 freq: 5850000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 23.0;
+	 mcs: 12
+		 freq: 4800000; power_limit: 22.0;
+		 freq: 4850000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5250000; power_limit: 24.0;
+		 freq: 5300000; power_limit: 25.0;
+		 freq: 5350000; power_limit: 25.0;
+		 freq: 5400000; power_limit: 24.0;
+		 freq: 5700000; power_limit: 24.0;
+		 freq: 5750000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 23.0;
+	 mcs: 13
+		 freq: 4800000; power_limit: 22.0;
+		 freq: 4850000; power_limit: 22.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5100000; power_limit: 24.0;
+		 freq: 5150000; power_limit: 23.0;
+		 freq: 5200000; power_limit: 23.0;
+		 freq: 5250000; power_limit: 24.0;
+		 freq: 5300000; power_limit: 25.0;
+		 freq: 5350000; power_limit: 24.0;
+		 freq: 5400000; power_limit: 23.0;
+		 freq: 5450000; power_limit: 23.0;
+		 freq: 5500000; power_limit: 24.0;
+		 freq: 5700000; power_limit: 24.0;
+		 freq: 5750000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 23.0;
+  bandwidth: 7
+	 mcs: 0
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 1
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 2
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 3
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 4
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 5
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 6
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 7
+		 freq: 4800000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 8
+		 freq: 4800000; power_limit: 26.0;
+		 freq: 4850000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 27.0;
+	 mcs: 9
+		 freq: 4800000; power_limit: 25.0;
+		 freq: 4900000; power_limit: 25.0;
+		 freq: 4950000; power_limit: 27.0;
+		 freq: 5950000; power_limit: 27.0;
+		 freq: 6000000; power_limit: 26.0;
+	 mcs: 10
+		 freq: 4800000; power_limit: 24.0;
+		 freq: 4850000; power_limit: 25.0;
+		 freq: 4900000; power_limit: 25.0;
+		 freq: 4950000; power_limit: 26.0;
+		 freq: 5200000; power_limit: 26.0;
+		 freq: 5250000; power_limit: 27.0;
+		 freq: 5350000; power_limit: 27.0;
+		 freq: 5400000; power_limit: 26.0;
+		 freq: 5950000; power_limit: 26.0;
+		 freq: 6000000; power_limit: 25.0;
+	 mcs: 11
+		 freq: 4800000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5050000; power_limit: 24.0;
+		 freq: 5150000; power_limit: 24.0;
+		 freq: 5200000; power_limit: 25.0;
+		 freq: 5350000; power_limit: 25.0;
+		 freq: 5400000; power_limit: 24.0;
+		 freq: 5550000; power_limit: 24.0;
+		 freq: 5600000; power_limit: 25.0;
+		 freq: 5750000; power_limit: 25.0;
+		 freq: 5800000; power_limit: 24.0;
+		 freq: 5850000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 23.0;
+	 mcs: 12
+		 freq: 4800000; power_limit: 22.0;
+		 freq: 4850000; power_limit: 23.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5250000; power_limit: 24.0;
+		 freq: 5300000; power_limit: 25.0;
+		 freq: 5350000; power_limit: 25.0;
+		 freq: 5400000; power_limit: 24.0;
+		 freq: 5700000; power_limit: 24.0;
+		 freq: 5750000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 23.0;
+	 mcs: 13
+		 freq: 4800000; power_limit: 22.0;
+		 freq: 4850000; power_limit: 22.0;
+		 freq: 4900000; power_limit: 23.0;
+		 freq: 4950000; power_limit: 24.0;
+		 freq: 5100000; power_limit: 24.0;
+		 freq: 5150000; power_limit: 23.0;
+		 freq: 5200000; power_limit: 23.0;
+		 freq: 5250000; power_limit: 24.0;
+		 freq: 5300000; power_limit: 25.0;
+		 freq: 5350000; power_limit: 24.0;
+		 freq: 5400000; power_limit: 23.0;
+		 freq: 5450000; power_limit: 23.0;
+		 freq: 5500000; power_limit: 24.0;
+		 freq: 5700000; power_limit: 24.0;
+		 freq: 5750000; power_limit: 23.0;
+		 freq: 6000000; power_limit: 23.0;
+
+
+oct counters show
+switch_register_write = 8209
+switch_register_read  = 12725584
+modem_restart  = 0
+arq_ratio_reconnect  = 0
+evm_reconnect  = 0
+oct radio arq_stat
+
+Downlink ARQ statistic
+                         Stream 0                         |                         Stream 1
+            Total           Error        TBER   Tot. TBER |          Total           Error        TBER   Tot. TBER
+0               0               0           0           0 |              0               0           0           0
+1               0               0           0           0 |              0               0           0           0
+2               0               0           0           0 |              0               0           0           0
+3               0               0           0           0 |              0               0           0           0
+4               0               0           0           0 |              0               0           0           0
+5               0               0           0           0 |              0               0           0           0
+6               0               0           0           0 |              0               0           0           0
+7               0               0           0           0 |              0               0           0           0
+
+Uplink ARQ statistic
+                         Stream 0                         |                         Stream 1
+            Total           Error        TBER   Tot. TBER |          Total           Error        TBER   Tot. TBER
+0               0               0           0           0 |              0               0           0           0
+1               0               0           0           0 |              0               0           0           0
+2               0               0           0           0 |              0               0           0           0
+3               0               0           0           0 |              0               0           0           0
+4               0               0           0           0 |              0               0           0           0
+5               0               0           0           0 |              0               0           0           0
+6               0               0           0           0 |              0               0           0           0
+7               0               0           0           0 |              0               0           0           0
+
+#Octoups
+oct show settings
+Settings 
+    ptp_role master {master, slave} 
+    ss_id 0 [0, 65535] 
+    name <no value> 
+    log_level debug {trace, debug, info, warning, error, fatal} 
+    log_level_modem none {none, critical, error, warning, trace, info, all} 
+    radio_auto_start on {on, off} 
+    reg_domain row {row, etsi_5.4, etsi_5.4+5.8, fcc_5.8} 
+    pass_hash <no value> 
+    radio 
+        freq_list 
+            3_5 
+                [0] 4922.5-5937.5/5 
+            5 
+                [0] 4922.5-5937.5/5 
+            7 
+                [0] 4923.5-5936.5/7 
+            10 
+                [0] 4925-5935/10 
+            14 
+                [0] 4927-5933/14 
+            15 
+                [0] 4927.5-5932.5/15 
+            20 
+                [0] 4930-5930/20 
+            28 
+                [0] 4934-5926/28 
+            30 
+                [0] 4935-5925/30 
+            40 
+                [0] 5000-5100 
+        bw 20 {3_5, 5, 7, 10, 14, 15, 20, 28, 30, 40} 
+        frame_length 5 {1, 2, 5, 10} 
+        guard_interval 1/16 {1/8, 1/16} 
+        freq_dl 4930 [4800, 6000] 
+        freq_ul 4930 [4800, 6000] 
+        tx_power 23 [0;33m2 [0m[-10, 27] 
+        atpc on {on, off} 
+        atpc_target_rssi -55 [-70, -30] 
+        atpc_threshold 1 [1, 5] 
+        amc_strategy normal {off, aggressive, normal, conservative} 
+        amc_algorithm dynamic_evm {dynamic_evm} 
+        dl_mcs 256-QAM-7/8 {QPSK-1/4(0), QPSK-1/3(1), QPSK-1/2(2), QPSK-5/8(3), QPSK-3/4(4), 16-QAM-1/2(5), 16-QAM-5/8(6), 16-QAM-3/4(7), 64-QAM-2/3(8), 64-QAM-3/4(9), 64-QAM-5/6(10), 256-QAM-3/4(11), 256-QAM-13/16(12), 256-QAM-7/8(13)} 
+        ul_mcs 256-QAM-7/8 {QPSK-1/4(0), QPSK-1/3(1), QPSK-1/2(2), QPSK-5/8(3), QPSK-3/4(4), 16-QAM-1/2(5), 16-QAM-5/8(6), 16-QAM-3/4(7), 64-QAM-2/3(8), 64-QAM-3/4(9), 64-QAM-5/6(10), 256-QAM-3/4(11), 256-QAM-13/16(12), 256-QAM-7/8(13)} 
+        harq on {on, off} 
+        auto_dl_ul_ratio off {on, off} 
+        dl_ul_ratio 50 {8, 17, 25, 33, 42, 50, 58, 67, 75, 83, 92} 
+        dfs off {dfs_rd, off, idfs_rd, idfs} 
+        lbt off {on, off} 
+        cac_duration 60 [0, 1000] 
+        cac_duration_long 600 [0, 1000] 
+        eirp enable {disable, enable} 
+        antenna_gain 0 [0;33m23 [0m[0, 60] 
+        cable_loss 0 [0;33m2 [0m[0, 50] 
+    network 
+        ip_address_list 
+            [0] 
+                ip_address 10.10.10.11 
+                net_mask 24 [8, 32] 
+                vlan off {off, on} 
+                vlan_id <no value> [1, 4096] 
+                dhcp disable {disable, enable} 
+            [1] 
+                ip_address 192.168.102.130 
+                net_mask 24 [8, 32] 
+                vlan off {off, on} 
+                vlan_id <no value> [1, 4096] 
+                dhcp disable {disable, enable} 
+        default_gateway 1.1.1.1 
+        stp <no value> {off} 
+        route_list 
+    switch 
+        ports 
+            [0] 
+                name ge0 
+                mode auto {auto, 10BaseT-halfduplex, 10BaseT-halfduplex-manual, 10BaseT-fullduplex, 10BaseT-fullduplex-manual, 100BaseTX-halfduplex, 100BaseTX-halfduplex-manual, 100BaseTX-fullduplex, 100BaseTX-fullduplex-manual, 1000BaseTX-fullduplex, 1000BaseTX-fullduplex-manual} 
+                state up {down, up} 
+                description <no value> 
+        links 
+            ge0-radio off {off, on} 
+            ge0-mgmt on {off, on} 
+            radio-mgmt on {off, on} 
+        qos on {off, on} 
+        vlan_switching on {off, on} 
+        vlan_intervals 
+            [0] 
+                description default 
+                priority <no value> [0, 7] 
+                intervals 
+                    [0] 1 
+                port_modes 
+                    [0] 
+                        mode untagged {off, access, untagged, tagged} 
+                        port_name ge0 
+                    [1] 
+                        mode untagged {off, access, untagged, tagged} 
+                        port_name radio 
+                    [2] 
+                        mode untagged {off, access, untagged, tagged} 
+                        port_name mgmt 
+    spectrum 
+        freq_interval 4800-6000/5 
+        bw 40 {3_5, 5, 7, 10, 14, 15, 20, 28, 30, 40} 
+        scan_period brief {brief, full} 
+    security 
+        acl 
+            subnets 
+        radius 
+            auth off {off, on} 
+        ssh off {off, on} 
+        telnet on {off, on} 
+    sntp 
+        time_sync off {off, on} 
+    snmp 
+        monitoring off {off, on} 
+        contact <no value> 
+        location <no value> 
+        v1_support enable {disable, enable} 
+        community public 
+
+oct show status
+Status 
+    device 
+        device_type ptp 
+        device_role master 
+        name <no value> 
+        sw_version H18S14-OCTOPUS_PTPv1.3.0 
+        build Aug 29 2019 16:38:32 
+        serial_number 700081 
+        hw_platform Xilinx zynq rev.3 666 MHz Board: rev.1 
+        license Factory License granted at 13/01/2020 16:37:41 
+        part_number <no value> 
+        fwid 019O0014 
+        uptime 605995 
+        reboot_reason manual delayed restart 
+        firmware_updated false 
+        older_version false 
+    radio 
+        state started 
+        remain_wait_time <no value> 
+        sector_id 0 
+        bw 20 
+        frame_length 5 
+        guard_interval 1/16 
+        dl_ul_ratio <no value> 
+        auto_dl_ul_ratio off 
+        dfs <no value> 
+        amc_strategy normal 
+        amc_algorithm dynamic_evm 
+        tx_power_0 23.0 
+        tx_power_1 23.2 
+        remote_tx_power_0 <no value> 
+        remote_tx_power_1 <no value> 
+        distance 0 
+        ss_id <no value> 
+        license_freq_intervals 
+        detected_rx_power <no value> 
+        temperature 48 
+        link_time <no value> 
+        downlink 
+            freq 4930 
+            mcs_0 <no value> 
+            mcs_1 <no value> 
+            capacity <no value> 
+            arq_ratio_0 <no value> 
+            arq_ratio_1 <no value> 
+            rssi_0 <no value> 
+            rssi_1 <no value> 
+            target_rssi_0 <no value> 
+            target_rssi_1 <no value> 
+            crosstalk_0 <no value> 
+            crosstalk_1 <no value> 
+            evm_0 <no value> 
+            evm_1 <no value> 
+            tx_attenuation_0 13.50 
+            tx_attenuation_1 12.00 
+            counters_0 
+                count <no value> 
+                lost_count <no value> 
+                lost_ratio <no value> 
+                throughput <no value> 
+            counters_1 
+                count <no value> 
+                lost_count <no value> 
+                lost_ratio <no value> 
+                throughput <no value> 
+        uplink 
+            freq 4930 
+            mcs_0 <no value> 
+            mcs_1 <no value> 
+            capacity <no value> 
+            arq_ratio_0 <no value> 
+            arq_ratio_1 <no value> 
+            rssi_0 <no value> 
+            rssi_1 <no value> 
+            target_rssi_0 <no value> 
+            target_rssi_1 <no value> 
+            crosstalk_0 <no value> 
+            crosstalk_1 <no value> 
+            evm_0 <no value> 
+            evm_1 <no value> 
+            tx_attenuation_0 <no value> 
+            tx_attenuation_1 <no value> 
+            counters_0 
+                count <no value> 
+                lost_count <no value> 
+                lost_ratio <no value> 
+                throughput <no value> 
+            counters_1 
+                count <no value> 
+                lost_count <no value> 
+                lost_ratio <no value> 
+                throughput <no value> 
+        capability 
+            dl_slots 6 
+            ul_slots 6 
+            lost_slots 0 
+            max_dl_capacity_1 95616 
+            max_dl_capacity_2 105768 
+            max_dl_capacity_5 111858 
+            max_dl_capacity_10 115400 
+            max_ul_capacity_1 95616 
+            max_ul_capacity_2 105768 
+            max_ul_capacity_5 111858 
+            max_ul_capacity_10 115400 
+            rtt_1 3 
+            rtt_2 5 
+            rtt_5 13 
+            rtt_10 25 
+        availability 
+            link_time <no value> 
+            total_time <no value> 
+            radio_availability <no value> 
+            disconnect_count <no value> 
+            last_outage <no value> 
+            total_outage <no value> 
+            mcs 
+                [0] 
+                    modulation QPSK-1/4 
+                    dl_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    dl_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                [1] 
+                    modulation QPSK-1/3 
+                    dl_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    dl_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                [2] 
+                    modulation QPSK-1/2 
+                    dl_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    dl_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                [3] 
+                    modulation QPSK-5/8 
+                    dl_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    dl_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                [4] 
+                    modulation QPSK-3/4 
+                    dl_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    dl_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                [5] 
+                    modulation 16-QAM-1/2 
+                    dl_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    dl_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                [6] 
+                    modulation 16-QAM-5/8 
+                    dl_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    dl_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                [7] 
+                    modulation 16-QAM-3/4 
+                    dl_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    dl_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                [8] 
+                    modulation 64-QAM-2/3 
+                    dl_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    dl_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                [9] 
+                    modulation 64-QAM-3/4 
+                    dl_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    dl_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                [10] 
+                    modulation 64-QAM-5/6 
+                    dl_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    dl_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                [11] 
+                    modulation 256-QAM-3/4 
+                    dl_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    dl_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                [12] 
+                    modulation 256-QAM-13/16 
+                    dl_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    dl_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                [13] 
+                    modulation 256-QAM-7/8 
+                    dl_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    dl_1 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_0 
+                        link_time <no value> 
+                        ratio <no value> 
+                    ul_1 
+                        link_time <no value> 
+                        ratio <no value> 
+    ports 
+        [0] 
+            name ge0 
+            state up 
+            mode 100BaseTX 
+            duplex full 
+            media copper 
+            rx_counters 
+                count 2923252 
+                lost_count 0 
+                lost_ratio 0.0 
+                throughput 19 
+            tx_counters 
+                count 1047089 
+                lost_count 0 
+                lost_ratio 0.0 
+                throughput 298 
+            error_counters 
+                vlan_errors 0 
+                runt_len_errors 0 
+                oversize_len_errors 0 
+                fcs_errors 0 
+                port_overflow_errors 0 
+    antenna_alignment 
+        [0] 
+            rssi <no value> 
+            crosstalk <no value> 
+            sinr <no value> 
+        [1] 
+            rssi <no value> 
+            crosstalk <no value> 
+            sinr <no value> 
+    spectrum 
+        status 
+            state empty 
+            progress <no value> 
+            last_scan_time <no value> 
+            freq_interval <no value> 
+            bw <no value> 
+            scan_period <no value> 
+        points 
+    reg_domains 
+        [0] 
+            domain_id etsi_5.4 
+            domain_description ETSI 5.4 
+            intervals 
+                [0] 
+                    range 5470-5725 
+                    power 30.00 
+                    power_type EIRP 
+                    lbt mandatory 
+                    radar_detection mandatory 
+        [1] 
+            domain_id etsi_5.4+5.8 
+            domain_description ETSI 5.4+5.8 
+            intervals 
+                [0] 
+                    range 5470-5725 
+                    power 30.00 
+                    power_type EIRP 
+                    lbt mandatory 
+                    radar_detection mandatory 
+                [1] 
+                    range 5725-5875 
+                    power 36.00 
+                    power_type EIRP 
+                    lbt optional 
+                    radar_detection mandatory 
+        [2] 
+            domain_id fcc_5.8 
+            domain_description <no value> 
+            intervals 
+                [0] 
+                    range 5725-5850 
+                    power <no value> 
+                    power_type none 
+                    lbt optional 
+                    radar_detection optional 
+        [3] 
+            domain_id row 
+            domain_description Rest of the World 
+            intervals 
+                [0] 
+                    range <no value> 
+                    power <no value> 
+                    power_type none 
+                    lbt optional 
+                    radar_detection optional 
+    license 
+        device_role ptp 
+        min_tx_power -10.0 
+        max_tx_power 27.0 
+        bw 
+            [0] 3500 
+            [1] 5000 
+            [2] 7000 
+            [3] 10000 
+            [4] 14000 
+            [5] 15000 
+            [6] 20000 
+            [7] 28000 
+            [8] 30000 
+            [9] 40000 
+        freq_list 
+            [0] 4920-5940 
+        reg_domains 
+            [0] row 
+            [1] etsi_5.4 
+            [2] etsi_5.4+5.8 
+            [3] fcc_5.8 
+        antenna_gain <no value> 
+    freq_map 
+        status 
+            state off 
+            scan_period <no value> 
+            scan_duration <no value> 
+        bsu_points 
+            [0] 
+                freq 4930 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [1] 
+                freq 4950 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [2] 
+                freq 4970 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [3] 
+                freq 4990 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [4] 
+                freq 5010 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [5] 
+                freq 5030 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [6] 
+                freq 5050 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [7] 
+                freq 5070 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [8] 
+                freq 5090 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [9] 
+                freq 5110 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [10] 
+                freq 5130 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [11] 
+                freq 5150 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [12] 
+                freq 5170 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [13] 
+                freq 5190 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [14] 
+                freq 5210 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [15] 
+                freq 5230 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [16] 
+                freq 5250 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [17] 
+                freq 5270 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [18] 
+                freq 5290 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [19] 
+                freq 5310 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [20] 
+                freq 5330 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [21] 
+                freq 5350 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [22] 
+                freq 5370 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [23] 
+                freq 5390 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [24] 
+                freq 5410 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [25] 
+                freq 5430 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [26] 
+                freq 5450 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [27] 
+                freq 5470 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [28] 
+                freq 5490 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [29] 
+                freq 5510 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [30] 
+                freq 5530 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [31] 
+                freq 5550 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [32] 
+                freq 5570 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [33] 
+                freq 5590 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [34] 
+                freq 5610 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [35] 
+                freq 5630 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [36] 
+                freq 5650 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [37] 
+                freq 5670 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [38] 
+                freq 5690 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [39] 
+                freq 5710 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [40] 
+                freq 5730 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [41] 
+                freq 5750 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [42] 
+                freq 5770 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [43] 
+                freq 5790 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [44] 
+                freq 5810 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [45] 
+                freq 5830 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [46] 
+                freq 5850 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [47] 
+                freq 5870 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [48] 
+                freq 5890 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [49] 
+                freq 5910 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [50] 
+                freq 5930 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+        su_points 
+            [0] 
+                freq 4930 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [1] 
+                freq 4950 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [2] 
+                freq 4970 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [3] 
+                freq 4990 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [4] 
+                freq 5010 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [5] 
+                freq 5030 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [6] 
+                freq 5050 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [7] 
+                freq 5070 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [8] 
+                freq 5090 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [9] 
+                freq 5110 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [10] 
+                freq 5130 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [11] 
+                freq 5150 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [12] 
+                freq 5170 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [13] 
+                freq 5190 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [14] 
+                freq 5210 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [15] 
+                freq 5230 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [16] 
+                freq 5250 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [17] 
+                freq 5270 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [18] 
+                freq 5290 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [19] 
+                freq 5310 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [20] 
+                freq 5330 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [21] 
+                freq 5350 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [22] 
+                freq 5370 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [23] 
+                freq 5390 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [24] 
+                freq 5410 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [25] 
+                freq 5430 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [26] 
+                freq 5450 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [27] 
+                freq 5470 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [28] 
+                freq 5490 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [29] 
+                freq 5510 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [30] 
+                freq 5530 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [31] 
+                freq 5550 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [32] 
+                freq 5570 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [33] 
+                freq 5590 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [34] 
+                freq 5610 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [35] 
+                freq 5630 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [36] 
+                freq 5650 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [37] 
+                freq 5670 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [38] 
+                freq 5690 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [39] 
+                freq 5710 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [40] 
+                freq 5730 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [41] 
+                freq 5750 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [42] 
+                freq 5770 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [43] 
+                freq 5790 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [44] 
+                freq 5810 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [45] 
+                freq 5830 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [46] 
+                freq 5850 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [47] 
+                freq 5870 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [48] 
+                freq 5890 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [49] 
+                freq 5910 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+            [50] 
+                freq 5930 
+                rssi_avg_0 <no value> 
+                rssi_avg_1 <no value> 
+                rssi_max_0 <no value> 
+                rssi_max_1 <no value> 
+                radar_detected <no value> 
+    freq_black_list 
+
+
+#System log
+sys log show
+-168:19:55.348 Board temperature sensor: found at 0x9a
+-168:19:55.347 EVENTER: Process started
+-168:19:55.314 DFFS: User space 16992304 bytes
+-168:19:55.199 Last reboot reason: manual delayed restart
+-168:19:55.127 SYSLOG: Len 2048, Qsize 1024
+-168:19:55.084 phy0: phy found d072004d model: Qualcomm AR8035 phy_addr: 0x04
+-168:19:55.072 eth0: link down
+-168:19:53.071 eth0: media changed to 100 Mbps Full duplex auto
+-168:19:49.571 eth0: link down
+-168:19:49.571 ctl: Heater enable threshold is -8 degrees Celsius
+-168:19:49.360 eth0: link down
+-168:19:49.358 Debug   CLI        Run "octopus stop"
+-168:19:49.358 Unknown command: stop
+-168:19:49.358 Octopus application isn't started.
+-168:19:49.358 Please run 'octopus start' command to start application.
+-168:19:49.358 Debug   CLI        Run "octopus start ptp"
+-168:19:49.356 Info    WFC        Device info: type = PTP; role = SU; freq = 5; hw = h18
+-168:19:49.308 Debug   Web        http/static/js/0.11e154b8.chunk.js cached (87734 bytes)
+-168:19:49.300 Debug   Web        http/static/js/2.8bf9df5a.chunk.js cached (2507 bytes)
+-168:19:49.145 Debug   Web        http/static/js/main.3d612668.js cached (1474735 bytes)
+-168:19:49.132 Debug   Web        http/static/js/1.b4cf27b1.chunk.js cached (47511 bytes)
+-168:19:49.112 Debug   Web        http/static/css/main.97a97404.css cached (119499 bytes)
+-168:19:49.103 Debug   Web        http/asset-manifest.json cached (295 bytes)
+-168:19:49.093 Debug   Web        http/index.html cached (2969 bytes)
+-168:19:49.082 Debug   Web        http/service-worker.js cached (3374 bytes)
+-168:19:49.071 Debug   Web        http/device/favicon/apple-touch-icon-60x60-precomposed.png cached (1806 bytes)
+-168:19:49.059 Debug   Web        http/device/favicon/apple-touch-icon-144x144-precomposed.png cached (3559 bytes)
+-168:19:49.047 Debug   Web        http/device/favicon/windows-tile-70x70.png cached (2088 bytes)
+-168:19:49.031 Debug   Web        http/device/favicon/windows-tile-310x310.png cached (12691 bytes)
+-168:19:49.018 Debug   Web        http/device/favicon/apple-touch-icon-72x72-precomposed.png cached (2039 bytes)
+-168:19:49.005 Debug   Web        http/device/favicon/apple-touch-icon.png cached (1736 bytes)
+-168:19:48.992 Debug   Web        http/device/favicon/apple-touch-icon-precomposed.png cached (1736 bytes)
+-168:19:48.977 Debug   Web        http/device/favicon/apple-touch-icon-152x152-precomposed.png cached (3770 bytes)
+-168:19:48.961 Debug   Web        http/device/favicon/windows-tile-150x150.png cached (4976 bytes)
+-168:19:48.946 Debug   Web        http/device/favicon/favicon.png cached (3137 bytes)
+-168:19:48.930 Debug   Web        http/device/favicon/apple-touch-icon-114x114-precomposed.png cached (2935 bytes)
+-168:19:48.915 Debug   Web        http/device/favicon/favicon.ico cached (7406 bytes)
+-168:19:48.898 Debug   Web        http/device/favicon/apple-touch-icon-120x120-precomposed.png cached (3043 bytes)
+-168:19:48.881 Debug   Web        http/device/favicon/windows-tile-144x144.png cached (4703 bytes)
+-168:19:48.864 Debug   Web        http/device/favicon/apple-touch-icon-76x76-precomposed.png cached (2142 bytes)
+-168:19:48.847 Debug   Web        http/device/info.json cached (1219 bytes)
+-168:19:48.828 Debug   Web        http/device/logo/logo.svg cached (9655 bytes)
+-168:19:48.810 Debug   Web        http/device/favicon.ico cached (7406 bytes)
+-168:19:48.780 Debug   Web        http/font/opensansbold.ttf cached (54044 bytes)
+-168:19:48.752 Debug   Web        http/font/opensansbold.woff2 cached (24448 bytes)
+-168:19:48.722 Debug   Web        http/font/opensans.woff cached (31836 bytes)
+-168:19:48.694 Debug   Web        http/font/opensans.woff2 cached (24908 bytes)
+-168:19:48.663 Debug   Web        http/font/opensansbold.woff cached (31512 bytes)
+-168:19:48.630 Debug   Web        http/font/opensans.ttf cached (52472 bytes)
+-168:19:48.630 Debug   Web        Web server task was started
+-168:19:48.630 Debug   Timer task Timer manager: Routine task was started
+-168:19:48.615 Debug   REST API   FrequencyBlackList: Read file from flash error: file not found
+-168:19:48.590 Debug   WFC        Counter timer is started with period 1000 ms
+-168:19:48.581 Debug   CLI        Run "octopus set ptp_role master"
+-168:19:48.579 Debug   CLI        Run "octopus set ss_id 0"
+-168:19:48.577 Debug   CLI        Run "octopus set log_level debug"
+-168:19:48.574 Debug   CLI        Run "octopus set log_level_modem none"
+-168:19:48.572 Debug   CLI        Run "octopus set radio_auto_start on"
+-168:19:48.570 Debug   CLI        Run "octopus clear radio.freq_list.3_5"
+-168:19:48.567 Debug   CLI        Run "octopus set radio.freq_list.3_5[0] 4922.5-5937.5/5"
+-168:19:48.564 Debug   CLI        Run "octopus clear radio.freq_list.5"
+-168:19:48.561 Debug   CLI        Run "octopus set radio.freq_list.5[0] 4922.5-5937.5/5"
+-168:19:48.557 Debug   CLI        Run "octopus clear radio.freq_list.7"
+-168:19:48.553 Debug   CLI        Run "octopus set radio.freq_list.7[0] 4923.5-5936.5/7"
+-168:19:48.548 Debug   CLI        Run "octopus clear radio.freq_list.10"
+-168:19:48.543 Debug   CLI        Run "octopus set radio.freq_list.10[0] 4925-5935/10"
+-168:19:48.538 Debug   CLI        Run "octopus clear radio.freq_list.14"
+-168:19:48.533 Debug   CLI        Run "octopus set radio.freq_list.14[0] 4927-5933/14"
+-168:19:48.528 Debug   CLI        Run "octopus clear radio.freq_list.15"
+-168:19:48.522 Debug   CLI        Run "octopus set radio.freq_list.15[0] 4927.5-5932.5/15"
+-168:19:48.517 Debug   CLI        Run "octopus clear radio.freq_list.20"
+-168:19:48.511 Debug   CLI        Run "octopus set radio.freq_list.20[0] 4930-5930/20"
+-168:19:48.505 Debug   CLI        Run "octopus clear radio.freq_list.28"
+-168:19:48.499 Debug   CLI        Run "octopus set radio.freq_list.28[0] 4934-5926/28"
+-168:19:48.493 Debug   CLI        Run "octopus clear radio.freq_list.30"
+-168:19:48.487 Debug   CLI        Run "octopus set radio.freq_list.30[0] 4935-5925/30"
+-168:19:48.481 Debug   CLI        Run "octopus clear radio.freq_list.40"
+-168:19:48.475 Debug   CLI        Run "octopus set radio.freq_list.40[0] 5000-5100"
+-168:19:48.468 Debug   CLI        Run "octopus set radio.sector_id 0"
+-168:19:48.462 Debug   CLI        Run "octopus set radio.bw 20"
+-168:19:48.456 Debug   CLI        Run "octopus set radio.frame_length 5"
+-168:19:48.450 Debug   CLI        Run "octopus set radio.guard_interval 1/16"
+-168:19:48.443 Debug   CLI        Run "octopus set radio.fixed_freq off"
+-168:19:48.437 Debug   CLI        Run "octopus set radio.freq_dl 4930"
+-168:19:48.431 Debug   CLI        Run "octopus set radio.freq_ul 4930"
+-168:19:48.425 Debug   CLI        Run "octopus set radio.tx_power 30"
+-168:19:48.418 Debug   CLI        Run "octopus set radio.atpc on"
+-168:19:48.412 Debug   CLI        Run "octopus set radio.atpc_target_rssi -55"
+-168:19:48.406 Debug   CLI        Run "octopus set radio.atpc_threshold 1"
+-168:19:48.400 Debug   CLI        Run "octopus set radio.amc_strategy normal"
+-168:19:48.393 Debug   CLI        Run "octopus set radio.amc_algorithm dynamic_evm"
+-168:19:48.387 Debug   CLI        Run "octopus set radio.dl_mcs 256-QAM-7/8"
+-168:19:48.381 Debug   CLI        Run "octopus set radio.ul_mcs 256-QAM-7/8"
+-168:19:48.375 Debug   CLI        Run "octopus set radio.harq on"
+-168:19:48.368 Debug   CLI        Run "octopus set radio.auto_dl_ul_ratio off"
+-168:19:48.362 Debug   CLI        Run "octopus set radio.dl_ul_ratio 50"
+-168:19:48.355 Debug   CLI        Run "octopus set radio.dfs off"
+-168:19:48.349 Debug   CLI        Run "octopus set radio.lbt off"
+-168:19:48.343 Debug   CLI        Run "octopus set radio.cac_duration 60"
+-168:19:48.336 Debug   CLI        Run "octopus set radio.cac_duration_long 600"
+-168:19:48.330 Debug   CLI        Run "octopus set radio.eirp disable"
+-168:19:48.324 Debug   CLI        Run "octopus set radio.antenna_gain 0"
+-168:19:48.317 Debug   CLI        Run "octopus set radio.cable_loss 0"
+-168:19:48.311 Debug   CLI        Run "octopus set switch.links.ge0-radio off"
+-168:19:48.305 Debug   CLI        Run "octopus set switch.links.ge0-mgmt on"
+-168:19:48.299 Debug   CLI        Run "octopus set switch.links.radio-mgmt on"
+-168:19:48.292 Debug   CLI        Run "octopus set switch.qos on"
+-168:19:48.286 Debug   CLI        Run "octopus set switch.vlan_switching on"
+-168:19:48.280 Debug   CLI        Run "octopus set switch.vlan_intervals[0].description default"
+-168:19:48.273 Debug   CLI        Run "octopus clear switch.vlan_intervals[0].intervals"
+-168:19:48.267 Found new inconsistency of the settings
+-168:19:48.267 Debug   CLI        Run "octopus set switch.vlan_intervals[0].intervals[0] 1"
+-168:19:48.261 Debug   CLI        Run "octopus set switch.vlan_intervals[0].port_modes[0].mode untagged"
+-168:19:48.254 Debug   CLI        Run "octopus set switch.vlan_intervals[0].port_modes[0].port_name ge0"
+-168:19:48.248 Debug   CLI        Run "octopus set switch.vlan_intervals[0].port_modes[1].mode untagged"
+-168:19:48.242 Debug   CLI        Run "octopus set switch.vlan_intervals[0].port_modes[1].port_name radio"
+-168:19:48.236 Debug   CLI        Run "octopus set switch.vlan_intervals[0].port_modes[2].mode untagged"
+-168:19:48.229 Debug   CLI        Run "octopus set switch.vlan_intervals[0].port_modes[2].port_name mgmt"
+-168:19:48.223 Debug   CLI        Run "octopus set spectrum.freq_interval 4800-6000/5"
+-168:19:48.217 Debug   CLI        Run "octopus set spectrum.bw 40"
+-168:19:48.210 Debug   CLI        Run "octopus set spectrum.scan_period brief"
+-168:19:48.204 Debug   CLI        Run "octopus start ptp"
+-168:19:48.204 Application is already started
+-168:19:48.204 Debug   CLI        Run "octopus apply"
+-168:19:48.203 Debug   WFC        init_license_statuses: Searching for reg_domain named row
+-168:19:48.203 Debug   Switch API link_ports() link = 1, first_port = 1, second_port = 8
+-168:19:48.203 Debug   Switch API link_ports() link = 0, first_port = 1, second_port = 4
+-168:19:48.203 Debug   Switch API link_ports() link = 1, first_port = 4, second_port = 8
+-168:19:48.203 Debug   Switch API SwitchAPI::init_qos_config() default_prio = 1
+-168:19:48.174 Debug   Switch API SwitchAPI::set_port_config() port=8, mode = 3, default_vlan = 1
+-168:19:48.174 Debug   Switch API SwitchAPI::set_port_config() port=1, mode = 3, default_vlan = 1
+-168:19:48.174 Debug   Switch API SwitchAPI::set_port_config() port=4, mode = 3, default_vlan = 1
+-168:19:48.173 Info    Open AMP   Transport start: starting...
+-168:19:48.173 Debug   Open AMP   remoteproc_init: <fwm://sw_mac_bsu.elf>
+-168:19:47.938 Debug   Open AMP   plload: <fwm://hw_bsu.bin.7z020>
+-168:19:47.354 eth0: media changed to 100 Mbps Full duplex auto
+-168:19:46.596 ge0: link down
+Last message was repeated 1 times
+-168:19:45.778 Debug   Open AMP   Task blocked
+-168:19:45.778 OpenAMP channel Open AMP master create
+-168:19:45.778 Debug   Open AMP   channel_created_cb()
+-168:19:45.778 Debug   Open AMP   on_transport_created()
+-168:19:45.778 Debug   Open AMP   Unblock task
+-168:19:45.777 Debug   Open AMP   Task unblocked
+-168:19:45.777 Info    Open AMP   Transport start: successful
+-168:19:45.777 Debug   Peer       sync_queue_pool successfully inited
+-168:19:45.777 Debug   WFC        Create timeout timer (2) with 10000 ms for message EVT_I_AM_ALIVE
+-168:19:45.777 Debug   Switch API Read from switch register 0x1 (0x83c10004), val = 0x00000001
+-168:19:45.777 Debug   Switch API Writer to switch register 0x1 (0x83c10004), val = 0x00000000
+-168:19:45.777 Debug   Switch API Flush switch settings
+-168:19:45.777 Debug   Switch API Read from switch register 0x2 (0x83c10008), val = 0x10000000
+-168:19:45.777 Debug   Switch API Writer to switch register 0x2 (0x83c10008), val = 0x70000000
+-168:19:45.777 Debug   Switch API Writer to switch register 0x10 (0x83c10040), val = 0x4c000000
+-168:19:45.777 Debug   Switch API Writer to switch register 0x10 (0x83c10040), val = 0x52000000
+-168:19:45.777 Debug   Switch API Writer to switch register 0x10 (0x83c10040), val = 0x62000000
+-168:19:45.777 Debug   Switch API Writer to switch register 0x16 (0x83c10058), val = 0x4007c000
+-168:19:45.777 Debug   Switch API Writer to switch register 0x16 (0x83c10058), val = 0x400bc000
+-168:19:45.777 Debug   Switch API Writer to switch register 0x16 (0x83c10058), val = 0x400fc000
+-168:19:45.777 Debug   Switch API Writer to switch register 0x16 (0x83c10058), val = 0x4013c000
+-168:19:45.777 Debug   Switch API Writer to switch register 0x16 (0x83c10058), val = 0x4017c000
+-168:19:45.777 Debug   Switch API Writer to switch register 0x16 (0x83c10058), val = 0x401bc000
+-168:19:45.777 Debug   Switch API Writer to switch register 0x16 (0x83c10058), val = 0x401fc000
+-168:19:45.777 Debug   Switch API Writer to switch register 0x16 (0x83c10058), val = 0x4023c000
+-168:19:45.777 Debug   Switch API Writer to switch register 0x16 (0x83c10058), val = 0x4027c000
+-168:19:45.777 Debug   Switch API Writer to switch register 0x16 (0x83c10058), val = 0x402bc000
+-168:19:45.776 Debug   Switch API Skipped 4085 log messages with writing to switch register
+-168:19:45.776 Debug   Switch API Writer to switch register 0x1e (0x83c10078), val = 0x40078000
+-168:19:45.776 Debug   Switch API Writer to switch register 0x1e (0x83c10078), val = 0x40080000
+-168:19:45.776 Debug   Switch API Writer to switch register 0x1e (0x83c10078), val = 0x400c0000
+-168:19:45.776 Debug   Switch API Writer to switch register 0x1e (0x83c10078), val = 0x40100000
+-168:19:45.776 Debug   Switch API Writer to switch register 0x1e (0x83c10078), val = 0x40140000
+-168:19:45.776 Debug   Switch API Writer to switch register 0x1e (0x83c10078), val = 0x40180000
+-168:19:45.776 Debug   Switch API Writer to switch register 0x1e (0x83c10078), val = 0x401c0000
+-168:19:45.776 Debug   Switch API Writer to switch register 0x1e (0x83c10078), val = 0x40200000
+-168:19:45.776 Debug   Switch API Writer to switch register 0x1e (0x83c10078), val = 0x40240000
+-168:19:45.776 Debug   Switch API Writer to switch register 0x1e (0x83c10078), val = 0x40280000
+-168:19:45.775 Debug   Switch API Skipped 4085 log messages with writing to switch register
+-168:19:45.775 Debug   Switch API Writer to switch register 0x15 (0x83c10054), val = 0xdc000000
+-168:19:45.775 Debug   Switch API Writer to switch register 0x17 (0x83c1005c), val = 0x43800000
+-168:19:45.775 Debug   Switch API Writer to switch register 0x17 (0x83c1005c), val = 0x4b000000
+-168:19:45.775 Debug   Switch API Writer to switch register 0x17 (0x83c1005c), val = 0x52800000
+-168:19:45.775 Debug   Switch API Writer to switch register 0x17 (0x83c1005c), val = 0x5a000000
+-168:19:45.775 Debug   Switch API Writer to switch register 0x17 (0x83c1005c), val = 0x61800000
+-168:19:45.775 Debug   Switch API Writer to switch register 0x17 (0x83c1005c), val = 0x69000000
+-168:19:45.775 Debug   Switch API Writer to switch register 0x17 (0x83c1005c), val = 0x70800000
+-168:19:45.775 Debug   Switch API Writer to switch register 0x17 (0x83c1005c), val = 0x78000000
+-168:19:45.775 Debug   Switch API Writer to switch register 0x19 (0x83c10064), val = 0xd0018100
+-168:19:45.775 Debug   Switch API Writer to switch register 0x1a (0x83c10068), val = 0xd0018100
+-168:19:45.775 Debug   Switch API Writer to switch register 0x1b (0x83c1006c), val = 0xd0018100
+-168:19:45.775 Debug   Switch API SwitchAPI::fdb_config() auto_learning = 1
+-168:19:45.775 Debug   Switch API Read from switch register 0x7 (0x83c1001c), val = 0x04960001
+-168:19:45.775 Debug   Switch API Writer to switch register 0x7 (0x83c1001c), val = 0x04960001
+-168:19:45.775 Debug   Switch API Read from switch register 0x3 (0x83c1000c), val = 0xfe000000
+-168:19:45.775 Debug   Switch API Writer to switch register 0x3 (0x83c1000c), val = 0x92000000
+-168:19:45.775 Info    WFC        -------------------- Radio state: configuring --------------------
+-168:19:45.765 Debug   WFC        Modem API is started
+-168:19:45.765 Debug   Switch API Flush switch settings
+-168:19:45.764 HwM: 7004
+-168:19:44.915 Info    SW MAC     Rmodem v1.2 successfully initialized
+-168:19:44.915 Info    SW MAC     Running Ad9361 digital interface time tune...
+-168:19:44.586 ge0: media changed to 100 Mbps Full duplex auto
+-168:19:43.353 Info    SW MAC     Ad9361 digital interface time tune SUCCESS
+-168:19:43.353 Info    SW MAC     RX FEC v3.3 successfully initialized
+-168:19:43.353 Info    SW MAC     TX Control v3.9 successfully initialized
+-168:19:43.353 Info    SW MAC     DFE v2.4 successfully initialized
+-168:19:43.170 Info    SW MAC     BS FD v5.64 successfully initialized
+-168:19:43.170 Info    SW MAC     Common block v1.3 successfully initialized
+-168:19:43.170 Info    SW MAC     BS HW MAC v8.0 successfully initialized
+-168:19:43.170 Warning SW MAC     DFE FIFO buffer problem
+-168:19:43.170 Debug   WFC        Delete timeout timer (2)
+-168:19:43.165 Configuration changes:
+-168:19:43.165 ======================
+-168:19:43.159 - octopus set   radio.tx_power 30
+-168:19:43.159 + octopus set   radio.tx_power 27
+-168:19:43.159 
+-168:19:43.159 + octopus set   reg_domain row
+-168:19:43.159 ======================
+-168:19:43.149 *** Please change default Login and Password !!! ***
+-168:19:43.149 
+-168:19:43.149 Current configuration saved successfully
+-168:19:43.149 Debug   Catalina   Create EEPROM structure
+-168:19:43.026 Debug   WFC        XtalTempCalData_v1::init: xtal compensation data v1 found
+-168:19:43.026 Debug   Catalina   Create EEPROM structure
+-168:19:42.901 Debug   WFC        Freq list is build
+-168:19:42.901 Debug   WFC        Freq channels: DL = 0, UL = 0
+-168:19:42.900 Debug   WFC        4930000 4950000 4970000 4990000 5010000 5030000 5050000 5070000 
+-168:19:42.900 Debug   WFC        5090000 5110000 5130000 5150000 5170000 5190000 5210000 5230000 
+-168:19:42.900 Debug   WFC        5250000 5270000 5290000 5310000 5330000 5350000 5370000 5390000 
+-168:19:42.900 Debug   WFC        5410000 5430000 5450000 5470000 5490000 5510000 5530000 5550000 
+-168:19:42.900 Debug   WFC        5570000 5590000 5610000 5630000 5650000 5670000 5690000 5710000 
+-168:19:42.900 Debug   WFC        5730000 5750000 5770000 5790000 5810000 5830000 5850000 5870000 
+-168:19:42.900 Debug   WFC        5890000 5910000 5930000 
+-168:19:42.898 Debug   WFC        Create timeout timer (3) with 10000 ms for message PAR_EVT_ESSENTIAL_PARAMS_SET
+-168:19:42.898 Info    WFC        -------------------- Radio state: config_set --------------------
+-168:19:40.316 Debug   WFC        Delete timeout timer (3)
+-168:19:40.316 Debug   WFC        Create timeout timer (4) with 1000 ms for message EVT_SECTOR_ENABLE_COMPLETED
+-168:19:40.316 Info    WFC        -------------------- Radio state: enabling --------------------
+-168:19:40.120 Debug   WFC        Delete timeout timer (4)
+-168:19:40.103 *** Please change default Login and Password !!! ***
+-168:19:40.103 
+-168:19:40.103 Current configuration saved successfully
+-168:19:40.103 Info    WFC        -------------------- Radio state: started --------------------
+-101:41:57.869 [0;31mError   OS API     Malformed HTTPS connection[0m
+Last message was repeated 1 times
+-96:06:01.536 #1>  logon as <1> from 192.168.102.111 by telnet
+-96:05:37.925 Debug   CLI        Run "octopus op"
+-96:05:33.704 Debug   CLI        Run "octopus app"
+-96:05:33.703 Debug   WFC        init_license_statuses: Searching for reg_domain named row
+-96:05:33.703 Debug   Switch API link_ports() link = 1, first_port = 1, second_port = 8
+-96:05:33.703 Debug   Switch API link_ports() link = 0, first_port = 1, second_port = 4
+-96:05:33.703 Debug   Switch API link_ports() link = 1, first_port = 4, second_port = 8
+-96:05:33.703 Debug   Switch API SwitchAPI::init_qos_config() default_prio = 1
+-96:05:33.673 Debug   Switch API SwitchAPI::set_port_config() port=8, mode = 3, default_vlan = 1
+-96:05:33.673 Debug   Switch API SwitchAPI::set_port_config() port=1, mode = 3, default_vlan = 1
+-96:05:33.673 Debug   Switch API SwitchAPI::set_port_config() port=4, mode = 3, default_vlan = 1
+-96:05:33.667 Configuration changes:
+-96:05:33.667 ======================
+-96:05:33.661 - octopus set   radio.tx_power 27
+-96:05:33.661 + octopus set   radio.tx_power 23
+-96:05:33.661 
+-96:05:33.661 - octopus set   radio.eirp disable
+-96:05:33.661 + octopus set   radio.eirp enable
+-96:05:33.661 
+-96:05:33.661 + snmpd start
+-96:05:33.661 ======================
+-96:05:33.651 Debug   Switch API Flush switch settings
+-00:00:00.058 Debug   CLI        Run "octopus swmac_info"
+-00:00:00.057 Debug   CLI        Run "octopus radio stat -s"
+-00:00:00.054 Debug   CLI        Run "octopus show calibration"
+
+#System
+date
+Tue May 14 01:20:55 GMT 2019  (not valid)
+sys info -f
+SYSTEM      OCTOPUS-PTP WANFleX H18S14-OCTOPUS_PTPv1.3.0 * Aug 29 2019 16:38:32
+            * SN:700081 * Uptime: 7 days 00:19:55
+            Firmware ID: 018O0012
+            PN:Q5-23/???
+
+MEMORY      56.5 MB total
+            Malloc stats
+              Total:59252704  Free:37546264  Allocated:21706440 (36.63%)
+              Max:26495360 (44.71%)
+            Calls
+              malloc:476608724  free:476964178  realloc:434748  calloc:64633 
+            miss:0
+            
+            5982 mbufs, 4744 clusters free
+            268 mbufs in use:
+                 256 mbufs allocated to data
+                  12 mbufs allocated to packet headers
+            256/5000 mapped pages in use
+            9419 Kbytes allocated to network (5% in use)
+            
+            EthI   :   0(1000,0) 
+            ge0    :   0(32,0) 
+            
+            ------- System objects stats ------
+              Object     Capac. Current   Max
+            ----------- ------- ------- -------
+            Tasks           128      20      20
+            Timers           40       4       4
+            Semaphores       95      34      34
+            MQueues          20       8       8
+            Extentions        4       2       2
+            Workspace Required: 75696
+                     Allocated: 614400
+
+L2CACHE     Size: 524288
+
+CPU         Processor: Xilinx zynq rev.3 666 MHz Board: rev.1
+            CPU Load   2%   1%(10s)   1%(30s)   1%(60s)   1%(300s)
+            Detailed: Isr: 0.38%  Tasks: 1.91%  Idle: 97.69%
+            Reset status: Unknown
+
+FLASH       Flash device 0: N25Q256, Size 32M, Sector size 64K, Page size 256,
+            Boot sector #0, DFFS sector #7
+
+DFFS        Files=10, Used 7692288 bytes, Free 24724800 bytes
+            FlashSize=32320 KB, 505 Sectors of 64 KB, 32320 blocks of 1024 bytes
+
+PMON        XADC
+              PWR     Curr    Min    Max
+            -------  ------ ------ ------
+            Vccint    0.99   0.99   1.00 
+            Vccaux    1.78   1.78   1.79 
+            Vccbram   1.00   0.99   1.00 
+            Vccoddr   1.50   1.50   1.51 
+            T Cels    +49.3  +42.9  +51.3 
+
+TPM         h18 Device temperatures:
+            BOARD: +38.0 degrees Celsius
+            CPU:   +49.2 degrees Celsius
+
+LICENSE     Factory License granted at 13/01/2020 16:37:41
+            id={79605398-7582-41c5-8d3f-943aceba64e4}
+
+FPGA        Xilinx ZYNQ 7z020
+            Loaded bitstream: fwm://hw_bsu.bin.7z020
+            Bitstream time:   Mon Aug 19 19:47:49 2019
+            List of IP modules:
+                    Module name         Version    Base addr. End addr.
+             ------------------------- ----------  ---------- ----------
+              ZYNQ_processing_system7_0 5.5        0xfc000000 0xfcffffff
+              gig_tri_temac_tri_mode_eth_mac_0 9.0        0x83c00000 0x83c0ffff
+              oct_switch_ss_pmp_0       3.11       0x83c10000 0x83c1ffff
+              oct_sysbus_0              4.11       0x43c00000 0x43c0ffff
+
+PHY         Qualcomm AR8035
+            	Physical link info:
+            	Link is UP, auto Full-duplex, 100 Mbps
+            	Capabilities:          Self  Peer
+            	     Auto-Negotiation:   +     +  
+            	  10 Mbps Half-duplex:   +     +  
+            	  10 Mbps Full-duplex:   +     +  
+            	 100 Mbps Half-duplex:   +     +  
+            	 100 Mbps Full-duplex:   +     +  
+            	1000 Mbps Half-duplex:   +     -  
+            	1000 Mbps Full-duplex:   +     -  
+            	PHY chip: Qualcomm AR8035 ID: d072004d
+
+ps
+Name   Init/Cur    Pri  State    CPU
+
+TCFP (08192/00852)   5  Wevnt   0.00%
+EVTS (12288/00644) 100  SUSP    0.00%
+STAT (04096/00408)  75  DELAY   0.00%
+sysl (05120/00836) 254  Act     0.00%
+EthI (09216/00956)  50  Wevnt   0.00%
+feci (08192/00288)  15  Wevnt   0.00%
+fect (04096/00296)  15  Wevnt   0.00%
+phyd (04096/00708) 100  Wevnt   0.01%
+Heat (04096/00384) 253  DELAY   0.00%
+BASH (11264/01196)  50  Wsem    0.00%
+trap (06144/00488) 121  SUSP    0.00%
+wtsk (16384/05380)  75  Act     1.95%
+ttsk (32768/02156)  10  DELAY   0.02%
+asqt (32768/02868)  10  Wmsg    0.00%
+oami (08192/01332)   5  Wevnt   0.00%
+TELD (08192/00748)  99  SUSP    0.00%
+chdd (12288/00520) 110  SUSP    0.00%
+PSRT (04096/00892) 155  Wevnt   0.00%
+TTY1 (11264/03756)  95  SUSP    0.00%
+snmp (09216/01864) 121  SUSP    0.00%
+
+CPU Load   2%   1%(10s)   1%(30s)   1%(60s)   1%(300s)
+Detailed: Isr: 0.38%  Tasks: 1.91%  Idle: 97.69%
+ISR: 4006 pps
+
+oct show license
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<license description="Factory License" granted="13/01/2020 16:37:41" id="{79605398-7582-41c5-8d3f-943aceba64e4}">
+    <device description="Device">
+        <options SN="700081" description="SN:700081"/>
+        <options PN="Quanta-5/5X.500.500|150-H18" description="PN:Q5-23/???"/>
+        <options Model="Quanta-5"/>
+        <options Platform="XC7Z020-1CLG400I 667 MHz (H1855-01) - H18.rev 01"/>
+        <options Radios="H18-55-01/TL0061.1"/>
+        <specification name="Q5-23/???"/>
+    </device>
+    <wanflex description="Operational parameters">
+        <options EthMaxRate="153600" description="Ethernet rate limit: 150 Mbps"/>
+        <feature description="Radio H18-55-01 (0) parameters" name="R0">
+            <option MaximumTransmitRate="500000" description="Maximum Transmit Rate: 500 Mbps"/>
+            <option BandwidthMask="16895" description="Available Channel Widths: 3.5 Mhz 5 Mhz 7 Mhz 10 Mhz 14 Mhz 15 Mhz 20 Mhz 28 Mhz 30 Mhz 40 Mhz"/>
+            <option MaxLinks="1" description="Link: Point to Point"/>
+            <option TransmitPowersTenthdbm="-100,270" description="Power levels: -10.0,27.0 dBm"/>
+            <option FrequencyList="4920-5940" description="Supported Frequencies: 4920 - 5940 MHz"/>
+            <option RegDomainList="row,etsi_5.4,etsi_5.4+5.8,fcc_5.8" description="Supported Regulatory Domains: Rest of the World, ETSI 5.4, ETSI 5.4+5.8, FCC 5.8 (U-NII 3)"/>
+        </feature>
+    </wanflex>
+</license>
+
+panic show all
+
+Last panic logging is enabled
+Missalign exceptions statistic
+Total:   0
+Skipped: 0
+Half:    0
+Word:    0
+Multi:   0
+
+#Interface statistic
+ifc -a
+lo0: flags=8009<UP,LOOPBACK,MULTICAST> mtu 1500
+        inet 127.0.0.1 netmask 0xffffffff 
+
+eth0: flags=8003<UP,BROADCAST,MULTICAST> mtu 1500
+        inet 10.10.10.11 netmask 0xffffff00 broadcast 10.10.10.255
+        ether 00:04:35:0a:ae:b1 
+
+	eth0: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            2549653     | Packets               1047138     |
+	| Bytes              508293870   | Bytes                 1118250456  |
+	| Load (kbps)        20          | Load (kbps)           312         |
+	| Load (pps)         20          | Load (pps)            35          |
+	+--------------------------------+-----------------------------------+
+	| CRC errors         0           |                                   |
+	+--------------------------------+-----------------------------------+
+
+ge0: flags=1<UP> mtu 1500
+        inet 0.0.0.0 netmask 0x0 
+
+	Physical link is UP, 100 Mbps Full-duplex, Auto
+	PHY chip: Qualcomm AR8035 ID: d072004d
+	+--------------------------------+------+-----+
+	|                 Supported modes| Self |Peer |
+	+--------------------------------+------+-----+
+	|                Auto-Negotiation| yes  | yes |
+	|             10 Mbps Half-duplex| yes  | yes |
+	|             10 Mbps Full-duplex| yes  | yes |
+	|            100 Mbps Half-duplex| yes  | yes |
+	|            100 Mbps Full-duplex| yes  | yes |
+	|           1000 Mbps Half-duplex| yes  |  -  |
+	|           1000 Mbps Full-duplex| yes  |  -  |
+	+--------------------------------+------+-----+
+
+	ge0: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            0           | Packets               0           |
+	| Bytes              0           | Bytes                 0           |
+	| Load (kbps)        0           | Load (kbps)           0           |
+	| Load (pps)         0           | Load (pps)            0           |
+	+--------------------------------+-----------------------------------+
+
+null0: flags=8802<BROADCAST,NULL,MULTICAST> mtu 1500
+
+net -i
+Name      Network            Address               Ipkts Ierrs      Opkts Oerrs
+lo0       Link:                                        0     0          0     0
+lo0       127.0.0.1/32       127.0.0.1       
+eth0      Link:              0004350aaeb1        2549653     0    1047138     0
+eth0      10.10.10.0/24      10.10.10.11     
+eth0      192.168.102.0/24   192.168.102.130 
+ge0       Link:                                        0     0          0     0
+ge0       none               none             
+null0*    Link:                                        0     0          0     0
+
+
+#ARP records
+arp -a
+192.168.102.111 at 7824af9e7e57 via eth0
+192.168.102.134 at 000c29d3f067 via eth0
+192.168.102.201 at f8f082733f72 via eth0
+
+#Routes table
+net -r
+Routing tables
+Destination        Gateway            Flags     Refs     Use  Interface
+10.10.10.0/24      link#2             UC          0        0  eth0
+127.0.0.1          127.0.0.1          UH          0        0  lo0
+192.168.102.0/24   link#2             UC          0        0  eth0
+192.168.102.111    78:24:af:9e:7e:57  UHL        12     9233  eth0
+192.168.102.134    00:0c:29:d3:f0:67  UHL         1    19843  eth0
+192.168.102.201    f8:f0:82:73:3f:72  UHL         0        0  eth0
+224.0.0.0/8        127.0.0.1          UGS         0        0  lo0
+
+
+#Switch
+#Switch mode
+oct switch show mode
+	Switch mode statuses
+	+-------------------------+-----------------------+
+	| Switch mode             |  State                |
+	+-------------------------+-----------------------+
+	| STP                     |  off                  |
+	| Port based VLAN         |  on                   |
+	| VLAN                    |  on                   |
+	| QoS                     |  on                   |
+	| IGMP snooping           |  off                  |
+	+-------------------------+-----------------------+
+
+#Switch connectivity matrix
+oct switch show links
+	VLAN based switching
+	+-------+-------+-------+-------+
+	|       | mgmt    ge0     radio |
+	+-------+-------+-------+-------+
+	| mgmt  |           +       +   |
+	+-------+-------+-------+-------+
+	| ge0   |   +               -   |
+	+-------+-------+-------+-------+
+	| radio |   +       -           |
+	+-------+-------+-------+-------+
+
+#FDB records
+oct switch show fdb
+	SW FDB statistics
+	VLAN ID	MAC address		Port
+	0	00:04:35:0a:ae:b1	mgmt
+	0	00:04:35:0a:ae:b4	ge0
+	0	00:04:35:0a:ae:b7	ge0
+	0	00:0c:29:73:f0:92	ge0
+	0	00:0c:29:d3:f0:67	ge0
+	0	00:0f:23:8b:a5:10	ge0
+	0	02:04:35:03:0a:20	ge0
+	0	04:d4:c4:af:c2:69	ge0
+	0	0c:9d:92:77:eb:a0	ge0
+	0	0c:9d:92:7e:df:b1	ge0
+	0	10:7b:44:16:c6:82	ge0
+	0	38:2c:4a:b0:b5:e6	ge0
+	0	38:63:bb:ad:39:dd	ge0
+	0	40:16:7e:21:71:00	ge0
+	0	6c:3b:e5:51:e3:8d	ge0
+	0	70:62:b8:5f:eb:28	ge0
+	0	74:d0:2b:25:f9:05	ge0
+	0	78:24:af:9e:7e:57	ge0
+	0	90:2b:34:1f:e3:08	ge0
+	0	c4:a8:1d:7e:93:75	ge0
+	0	e0:3f:49:46:53:b9	ge0
+	0	e0:69:95:84:7a:48	ge0
+	0	f8:f0:82:73:3f:72	ge0
+
+#Switch statistic
+oct switch show stat
+	MGMT port statistics
+	+-------------------------------------------+-------------------------------------------+
+	|             Receive statistics            |             Transmit statistics           |
+	+-------------------------------------------+-------------------------------------------+
+	| Packets              1047131              | Packets              3093412              |
+	| Load (pps)           32                   | Load (pps)           36                   |
+	+-------------------------------------------+-------------------------------------------+
+	| VLAN errors          0                                                                |
+	| Runt len errors      0                                                                |
+	| Oversize len errors  0                                                                |
+	| Port overflow errors 41                                                               |
+	+-------------------------------------------+-------------------------------------------+
+
+	ge0 port statistics
+	+-------------------------------------------+-------------------------------------------+
+	|             Receive statistics            |             Transmit statistics           |
+	+-------------------------------------------+-------------------------------------------+
+	| Packets              2923252              | Packets              1047089              |
+	| Bytes                533669842            | Bytes                1119014129           |
+	| Load (kbps)          19                   | Load (kbps)          298                  |
+	| Load (pps)           18                   | Load (pps)           32                   |
+	+-------------------------------------------+-------------------------------------------+
+	| VLAN errors          0                                                                |
+	| Runt len errors      0                                                                |
+	| Oversize len errors  0                                                                |
+	| FCS errors           0                                                                |
+	| Port overflow errors 0                                                                |
+	+-------------------------------------------+-------------------------------------------+
+
+	Radio port statistics
+	+-------------------------------------------+-------------------------------------------+
+	|             Receive statistics            |             Transmit statistics           |
+	+-------------------------------------------+-------------------------------------------+
+	| Packets              0                    | Packets              0                    |
+	| Bytes                0                    | Bytes                0                    |
+	| Load (kbps)          0                    | Load (kbps)          0                    |
+	| Load (pps)           0                    | Load (pps)           0                    |
+	+-------------------------------------------+-------------------------------------------+
+	| VLAN errors          0                                                                |
+	| Runt len errors      0                                                                |
+	| Oversize len errors  0                                                                |
+	| FCS errors           0                                                                |
+	| Port overflow errors 0                                                                |
+	+-------------------------------------------+-------------------------------------------+
