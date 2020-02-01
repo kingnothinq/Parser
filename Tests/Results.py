@@ -1,10 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import os
-
-
 def test(device):
+
     if ("H11" in device.firmware) or ("H08" in device.firmware):
 
 

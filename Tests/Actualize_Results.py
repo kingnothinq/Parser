@@ -2,42 +2,49 @@
 # -*- coding: utf-8 -*-
 
 import os
-import re
 
-def names():
+def list_of_tests():
 
-    new_tests = []
     series = []
     for folder in os.listdir("F:\Parser\Tests"):
         if (".py" not in folder) and ("__" not in folder):
-
             series.append(folder)
-    #print(series)
+
+    new_tests = dict.fromkeys(series,[])
 
     for model in series:
+        temp = []
         for test in os.listdir("F:\Parser\Tests\\" + model):
-            print(test)
-            if (".py" in os.listdir("F:\Parser\Tests\\" + test)) and ("__" not in os.listdir("F:\Parser\Tests\\" + test)):
-            """
-        print(os.listdir("F:\Parser\Tests\\"+test))
-        
-            print(test)
+            if (".py" in test) and ("__" not in test):
+                temp.append(test)
+        new_tests[model] = temp
+
+    return new_tests
+
+def actualize():
+
+    print(list(list_of_tests().keys()))
+
+    with open("F:\Parser\Tests\Results.py", 'ar') as file:
+        for line in file:
+            if "if (\"H11\" in device.firmware) or (\"H08\" in device.firmware):" in line:
+                print(line)
+            #print(line)
+            pass
+
+actualize()
 
 
-def actualize_test():
-    R5000_tests = os.listdir("F:\Parser\Tests\R5000")
-    XG_tests = os.listdir("F:\Parser\Tests\XG")
-    Quanta_tests = os.listdir("F:\Parser\Tests\Quanta")
 
-    #print(R5000_tests)
-    ##print(Quanta_tests)
-
-    tests = os.listdir("F:\Parser\Tests")
-    #print(tests)
 """
-names()
-
-
-
-
-#actualize_test()
+открыть файл
+найти строку
+внести изменения
+перезаписать файл
+def result_export(serial_number, model, results):
+    with open(("F:\Parser\Report\{}_result.txt".format(serial_number)), 'w') as result:
+        result.write("Serial Number is {}\nModel is {}\n".format(serial_number, model))
+        result.write("Test results:\n")
+        for problem in results:
+            result.write(problem + "\n")
+"""
