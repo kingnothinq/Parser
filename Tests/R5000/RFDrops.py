@@ -4,7 +4,7 @@
 import re
 
 
-def drops(device):
+def test(device):
     for line in device.rawdcard:
         if re.search(r"\|\sq\d+\s(\(?P(\d+)\))?\s+(\d+)\s\/\s(\d+)", line) is not None:
             if (int(re.search(r"\|\sq\d+\s(\(?P(\d+)\))?\s+(\d+)\s\/\s(\d+)", line).group(4)) is not 0):
