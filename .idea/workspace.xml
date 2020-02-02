@@ -10,7 +10,9 @@
       <change beforePath="$PROJECT_DIR$/Report/700081_result.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Script/RunIt.py" beforeDir="false" afterPath="$PROJECT_DIR$/Script/RunIt.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tests/Actualize_Results.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Actualize_Results.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Quanta/EVM.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Quanta/EVM.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tests/Results.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Results.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/XG/Panic.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/XG/Panic.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +34,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.RunIt">
+  <component name="RunManager" selected="Python.Actualize_Results">
     <configuration name="Actualize_Results" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Parser" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -147,8 +149,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.RunIt" />
         <item itemvalue="Python.Actualize_Results" />
+        <item itemvalue="Python.RunIt" />
         <item itemvalue="Python.Results" />
         <item itemvalue="Python.Result" />
       </list>
@@ -190,26 +192,26 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="782" y="439" key="Github.CreateGistDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580477292426" />
-    <state width="1899" height="304" key="GridCell.Tab.0.bottom" timestamp="1580552847083">
+    <state width="1899" height="304" key="GridCell.Tab.0.bottom" timestamp="1580584842536">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1898" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580485501627" />
-    <state width="1899" height="304" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1580552847083" />
-    <state width="1899" height="304" key="GridCell.Tab.0.center" timestamp="1580552847083">
+    <state width="1899" height="304" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1580584842536" />
+    <state width="1899" height="304" key="GridCell.Tab.0.center" timestamp="1580584842536">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1898" height="277" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580485501626" />
-    <state width="1899" height="304" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1580552847083" />
-    <state width="1899" height="304" key="GridCell.Tab.0.left" timestamp="1580552847083">
+    <state width="1899" height="304" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1580584842536" />
+    <state width="1899" height="304" key="GridCell.Tab.0.left" timestamp="1580584842536">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1898" height="277" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580485501626" />
-    <state width="1899" height="304" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1580552847083" />
-    <state width="1899" height="304" key="GridCell.Tab.0.right" timestamp="1580552847083">
+    <state width="1899" height="304" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1580584842536" />
+    <state width="1899" height="304" key="GridCell.Tab.0.right" timestamp="1580584842536">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1898" height="277" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580485501627" />
-    <state width="1899" height="304" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1580552847083" />
+    <state width="1899" height="304" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1580584842536" />
     <state width="1899" height="352" key="GridCell.Tab.1.bottom" timestamp="1580546455083">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>

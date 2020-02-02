@@ -33,8 +33,8 @@ if __name__ == "__main__":
                 R5000 = Parser.parse_R5000(rawdcard)
                 print("Serial Number is {}\nModel is {}\n".format(R5000.serial_number, R5000.model))
                 print("Test results:")
-                result_export(R5000.serial_number, R5000.model, Results.test(R5000), card)
-                for problem in Results.test(R5000):
+                result_export(R5000.serial_number, R5000.model, Results.tests(R5000), card)
+                for problem in Results.tests(R5000):
                     print(problem)
                 break
 
@@ -42,8 +42,8 @@ if __name__ == "__main__":
                 XG = Parser.parse_XG(rawdcard)
                 print("Serial Number is {}\nModel is {}\n".format(XG.serial_number, XG.model))
                 print("Test results:")
-                result_export(XG.serial_number, XG.model, Results.test(XG), card)
-                for problem in Results.test(XG):
+                result_export(XG.serial_number, XG.model, Results.tests(XG), card)
+                for problem in Results.tests(XG):
                     print(problem)
                 break
 
@@ -51,7 +51,7 @@ if __name__ == "__main__":
                 Quanta = Parser.parse_Quanta(rawdcard)
                 print("Serial Number is {}\nModel is {}\n".format(Quanta.serial_number, Quanta.model))
                 print("Test results:")
-                result_export(Quanta.serial_number, Quanta.model, Results.test(Quanta), card)
-                for problem in Results.test(Quanta):
+                result_export(Quanta.serial_number, Quanta.model, Results.tests(Quanta), card)
+                for problem in Results.tests(Quanta):
                     print(problem)
                 break
