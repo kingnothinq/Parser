@@ -5,14 +5,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/Parser.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Parser.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Report/199200_result.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Report/500267_result.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Report/700081_result.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/Parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/Script/Parser.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Script/RunIt.py" beforeDir="false" afterPath="$PROJECT_DIR$/Script/RunIt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/Actualize_Results.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Actualize_Results.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/Quanta/EVM.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Quanta/EVM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Actualize_Results.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Tests/Results.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Results.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/XG/Panic.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/XG/Panic.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,28 +30,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.Actualize_Results">
-    <configuration name="Actualize_Results" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Parser" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tests/Actualize_Results.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.results">
     <configuration name="Parser" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Parser" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -77,48 +52,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Result" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Parser" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Script" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Script/Result.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Results" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Parser" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tests/Results.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="RunIt" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Parser" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -126,9 +59,9 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\idemchuk\AppData\Local\Programs\Python\Python37-32\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Script" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Script/RunIt.py" />
@@ -140,19 +73,105 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="dcard_parser" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Parser" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Script" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Script/dcard_parser.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="parser" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Parser" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Script" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Script/parser.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="results" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Parser" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tests/results.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="runit" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Parser" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Script" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Script/runit.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.Parser" />
-      <item itemvalue="Python.Result" />
-      <item itemvalue="Python.Results" />
       <item itemvalue="Python.RunIt" />
-      <item itemvalue="Python.Actualize_Results" />
+      <item itemvalue="Python.runit" />
+      <item itemvalue="Python.parser" />
+      <item itemvalue="Python.dcard_parser" />
+      <item itemvalue="Python.results" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Actualize_Results" />
+        <item itemvalue="Python.results" />
+        <item itemvalue="Python.runit" />
+        <item itemvalue="Python.dcard_parser" />
+        <item itemvalue="Python.parser" />
         <item itemvalue="Python.RunIt" />
-        <item itemvalue="Python.Results" />
-        <item itemvalue="Python.Result" />
       </list>
     </recent_temporary>
   </component>
@@ -170,10 +189,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="414" y="178" width="1092" height="711" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580546633577">
+    <state x="414" y="178" width="1092" height="711" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580709006730">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="414" y="178" width="1092" height="711" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580474662918" />
+    <state x="414" y="178" width="1092" height="711" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580709006730" />
     <state x="414" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1580546633577" />
     <state x="728" y="326" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1579845477658">
       <screen x="0" y="0" width="1920" height="1050" />
@@ -192,55 +211,55 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="782" y="439" key="Github.CreateGistDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580477292426" />
-    <state width="1899" height="304" key="GridCell.Tab.0.bottom" timestamp="1580584842536">
+    <state width="1898" height="277" key="GridCell.Tab.0.bottom" timestamp="1580734675536">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580485501627" />
+    <state width="1898" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580734675536" />
     <state width="1899" height="304" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1580584842536" />
-    <state width="1899" height="304" key="GridCell.Tab.0.center" timestamp="1580584842536">
+    <state width="1898" height="277" key="GridCell.Tab.0.center" timestamp="1580734675536">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="277" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580485501626" />
+    <state width="1898" height="277" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580734675536" />
     <state width="1899" height="304" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1580584842536" />
-    <state width="1899" height="304" key="GridCell.Tab.0.left" timestamp="1580584842536">
+    <state width="1898" height="277" key="GridCell.Tab.0.left" timestamp="1580734675536">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="277" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580485501626" />
+    <state width="1898" height="277" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580734675536" />
     <state width="1899" height="304" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1580584842536" />
-    <state width="1899" height="304" key="GridCell.Tab.0.right" timestamp="1580584842536">
+    <state width="1898" height="277" key="GridCell.Tab.0.right" timestamp="1580734675536">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="277" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580485501627" />
+    <state width="1898" height="277" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580734675536" />
     <state width="1899" height="304" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1580584842536" />
-    <state width="1899" height="352" key="GridCell.Tab.1.bottom" timestamp="1580546455083">
+    <state width="1898" height="345" key="GridCell.Tab.1.bottom" timestamp="1580714346346">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="345" key="GridCell.Tab.1.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580463756606" />
+    <state width="1898" height="345" key="GridCell.Tab.1.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580714346346" />
     <state width="1899" height="352" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1580546455083" />
-    <state width="1899" height="352" key="GridCell.Tab.1.center" timestamp="1580546455082">
+    <state width="1898" height="345" key="GridCell.Tab.1.center" timestamp="1580714346346">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="345" key="GridCell.Tab.1.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580463756606" />
+    <state width="1898" height="345" key="GridCell.Tab.1.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580714346346" />
     <state width="1899" height="352" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1580546455082" />
-    <state width="1899" height="352" key="GridCell.Tab.1.left" timestamp="1580546455082">
+    <state width="1898" height="345" key="GridCell.Tab.1.left" timestamp="1580714346346">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="345" key="GridCell.Tab.1.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580463756606" />
+    <state width="1898" height="345" key="GridCell.Tab.1.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580714346346" />
     <state width="1899" height="352" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1580546455082" />
-    <state width="1899" height="352" key="GridCell.Tab.1.right" timestamp="1580546455083">
+    <state width="1898" height="345" key="GridCell.Tab.1.right" timestamp="1580714346346">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="345" key="GridCell.Tab.1.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580463756606" />
+    <state width="1898" height="345" key="GridCell.Tab.1.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580714346346" />
     <state width="1899" height="352" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1580546455083" />
-    <state x="461" y="155" key="SettingsEditor" timestamp="1580545991978">
+    <state x="461" y="155" key="SettingsEditor" timestamp="1580709017765">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="461" y="155" key="SettingsEditor/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580486635755" />
+    <state x="461" y="155" key="SettingsEditor/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580709017765" />
     <state x="461" y="155" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1580545991978" />
-    <state x="661" y="347" key="com.intellij.ide.util.TipDialog" timestamp="1580545859700">
+    <state x="661" y="347" key="com.intellij.ide.util.TipDialog" timestamp="1580708701083">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="661" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1579845430277" />
+    <state x="661" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580708701083" />
     <state x="661" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1580545859700" />
     <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1580471685742">
       <screen x="0" y="0" width="1920" height="1050" />
