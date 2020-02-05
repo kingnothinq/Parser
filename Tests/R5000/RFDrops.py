@@ -10,6 +10,6 @@ def test(device):
             if (int(re.search(r"\|\sq\d+\s(\(?P(\d+)\))?\s+(\d+)\s\/\s(\d+)", line).group(4)) is not 0):
                 return '* Packet drops detected in the amount of {} in the queue {} of the radio channel. Please check QoS settings or channel capacity.\n' \
                     .format(
-                    re.search(r"\|\sq\d+\s(\(?P(\d+)\))?\s+(\d+)\s\/\s(\d+)", line).group(4),
-                    re.search(r"\|\sq\d+\s(\(?P(\d+)\))?\s+(\d+)\s\/\s(\d+)", line).group(2)
+                    search(r"\|\sq\d+\s(\(?P(\d+)\))?\s+(\d+)\s\/\s(\d+)", line).group(4),
+                    search(r"\|\sq\d+\s(\(?P(\d+)\))?\s+(\d+)\s\/\s(\d+)", line).group(2)
                 )
