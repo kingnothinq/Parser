@@ -7,20 +7,22 @@ import re
 class RawDiagnosticCard():
     """A diagnostic card"""
 
-    def __init__(self, model, serial_number, firmware, uptime, rebootreason, dcard_raw):
+    def __init__(self, model, serial_number, firmware, uptime, rebootreason, dcard_raw_text):
         self.model = model
         self.serial_number = serial_number
         self.firmware = firmware
         self.uptime = uptime
         self.rebootreason = rebootreason
-        self.dcard_raw = dcard_raw
+        self.dcard_raw_text = dcard_raw_text
 
 
 class R5000Card(RawDiagnosticCard):
     """An R5000 diagnostic card"""
 
-    def __init__(self, model, serial_number, firmware, uptime, rebootreason, dcard_raw, ethernet, radio):
-        super().__init__(model, serial_number, firmware, uptime, rebootreason, dcard_raw)
+    family = 'R5000'
+
+    def __init__(self, model, serial_number, firmware, uptime, rebootreason, dcard_raw_text, ethernet, radio):
+        super().__init__(model, serial_number, firmware, uptime, rebootreason, dcard_raw_text)
         self.ethernet = ethernet
         self.radio = radio
 
@@ -28,9 +30,11 @@ class R5000Card(RawDiagnosticCard):
 class XGCard(RawDiagnosticCard):
     """A XG diagnostic card"""
 
-    def __init__(self, model, serial_number, firmware, uptime, rebootreason, dcard_raw, rssi, cinr, modulation,
+    family = 'XG'
+
+    def __init__(self, model, serial_number, firmware, uptime, rebootreason, dcard_raw_text, rssi, cinr, modulation,
                  crosstalk, etherrors, radioerrors):
-        super().__init__(model, serial_number, firmware, uptime, rebootreason, dcard_raw)
+        super().__init__(model, serial_number, firmware, uptime, rebootreason, dcard_raw_text)
         self.rssi = rssi
         self.cinr = cinr
         self.modulation = modulation
@@ -42,9 +46,12 @@ class XGCard(RawDiagnosticCard):
 class QCard(RawDiagnosticCard):
     """A Quanta diagnostic card"""
 
-    def __init__(self, model, serial_number, firmware, uptime, rebootreason, dcard_raw, rssi, evm, modulation, crosstalk,
+    family = 'Quanta'
+
+    def __init__(self, model, serial_number, firmware, uptime, rebootreason, dcard_raw_text, rssi, evm, modulation,
+                 crosstalk,
                  etherrors, radioerrors):
-        super().__init__(model, serial_number, firmware, uptime, rebootreason, dcard_raw)
+        super().__init__(model, serial_number, firmware, uptime, rebootreason, dcard_raw_text)
         self.rssi = rssi
         self.evm = evm
         self.modulation = modulation
@@ -53,10 +60,10 @@ class QCard(RawDiagnosticCard):
         self.radioerrors = radioerrors
 
 
-def parse_r5000(dcard_raw):
+def parse_R5000(dcard_raw_text):
     """Parse an R5000 diagnostic card and fill the class instance in"""
 
-    for line in dcard_raw:
+    for line in dcard_raw_text:
 
         # Model (Part Number)
         if re.search(r"\b(R5000-[QMOSL][mxnbtcs]{2,5}/[\dX\*]{1,3}.300.2x\d{3})(.2x\d{2})?\b", line) is not None:
@@ -81,15 +88,15 @@ def parse_r5000(dcard_raw):
     ethernet = {'eth0': 0, 'eth1': 1}
     radio = {'link1': {'rssi': 1, 'cinr': 2}, 'link2': {'rssi': 1, 'cinr': 2}}
 
-    result = R5000Card(model, serial_number, firmware, uptime, rebootreason, dcard_raw, str(ethernet), str(radio))
+    result = R5000Card(model, serial_number, firmware, uptime, rebootreason, dcard_raw_text, str(ethernet), str(radio))
 
     return result
 
 
-def parse_xg(dcard_raw):
+def parse_XG(dcard_raw_text):
     """Parse a XG diagnostic card and fill the class instance in"""
 
-    for line in dcard_raw:
+    for line in dcard_raw_text:
         # Model (Part Number)
         if re.search(r"[XU]m/\dX?.\d{3,4}.\dx\d{3}(.2x\d{2})?", line) is not None:
             model = re.search(r"[XU]m/\dX?.\d{3,4}.\dx\d{3}(.2x\d{2})?", line).group()
@@ -110,14 +117,15 @@ def parse_xg(dcard_raw):
         if re.search(r"^Last reboot reason: ([\w ]*)$", line) is not None:
             rebootreason = re.search(r"^Last reboot reason: ([\w ]*)$", line).group(1)
 
-    result = XGCard(model, serial_number, firmware, uptime, rebootreason, dcard_raw, '1', '1', '1', '1', '1','1')
+    result = XGCard(model, serial_number, firmware, uptime, rebootreason, dcard_raw_text, '1', '1', '1', '1', '1', '1')
 
     return result
 
-def parse_quanta(dcard_raw):
+
+def parse_Quanta(dcard_raw_text):
     """Parse a Quanta 5 diagnostic card and fill the class instance in"""
 
-    for line in dcard_raw:
+    for line in dcard_raw_text:
         # Model (Part Number)
         if re.search(r"Q5-[\dE]+", line) is not None:
             model = re.search(r"Q5-[\dE]+", line).group()
@@ -138,6 +146,6 @@ def parse_quanta(dcard_raw):
         if re.search(r"^Last reboot reason: ([\w ]*)$", line) is not None:
             rebootreason = re.search(r"^Last reboot reason: ([\w ]*)$", line).group(1)
 
-    result = QCard(model, serial_number, firmware, uptime, rebootreason, dcard_raw, '1', '1', '1', '1', '1','1')
+    result = QCard(model, serial_number, firmware, uptime, rebootreason, dcard_raw_text, '1', '1', '1', '1', '1', '1')
 
     return result

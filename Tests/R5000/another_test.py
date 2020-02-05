@@ -3,4 +3,4 @@
 
 def test(device):
 
-     pass
+    return '* Olololo\n'
