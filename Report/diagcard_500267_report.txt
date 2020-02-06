@@ -1,7 +1,0 @@
--------------------------------------------------------------------------
-Parsing diagnostic card: F:\Parser\DiagnosticCard\diagcard.SN-500268.txt
--------------------------------------------------------------------------
-Serial Number is 500267
-Model is Um/5X.500.2x500
-Test results:
-Device 500267 is fine

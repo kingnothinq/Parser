@@ -72,6 +72,3 @@ if __name__ == "__main__":
                 Quanta = dparser.parse_Quanta(dcard_raw_text)
                 create_report(Quanta.serial_number, Quanta.model, dtester.run_tests(Quanta), dcard_path)
                 break
-
-
-
