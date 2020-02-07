@@ -10,7 +10,12 @@ import Tests.run_tests as dtester
 
 if __name__ == "__main__":
 
-    def get_dcard_raw_text(dcard_path):
+    def get_dcard_raw_text_as_string(dcard_path):
+        """Open a diagnostic card as a list of strings"""
+        with open(dcard_path) as dcard:
+            return dcard.read()
+
+    def get_dcard_raw_text_as_list(dcard_path):
         """Open a diagnostic card as a list of strings"""
         with open(dcard_path) as dcard:
             return dcard.readlines()
@@ -50,25 +55,67 @@ if __name__ == "__main__":
 
     for dcard_path in list_of_dcards:
 
-        # Open a diagnostic card and handle it following the model
-        dcard_raw_text = get_dcard_raw_text(dcard_path)
 
+        # Open a diagnostic card and handle it following the model
+        dcard_raw_text_string = get_dcard_raw_text_as_string(dcard_path)
+        dcard_raw_text_list = get_dcard_raw_text_as_list(dcard_path)
+
+        # R5000 series
+
+        if search(r"WANFleX\WH(08|11)S\d+", dcard_raw_text_string) is not None:
+            R5000 = dparser.parse_R5000(dcard_raw_text_string, dcard_raw_text_list)
+            create_report(R5000.serial_number, R5000.model, dtester.run_tests(R5000), dcard_path)
+
+        # XG series
+
+        elif search(r"WANFleX\WH12S\d+", dcard_raw_text_string) is not None:
+            XG = dparser.parse_XG(dcard_raw_text_string, dcard_raw_text_list)
+            create_report(XG.serial_number, XG.model, dtester.run_tests(XG), dcard_path)
+
+        # Quanta series
+
+        elif search(r"WANFleX\WH18S\d+", dcard_raw_text_string) is not None:
+            Quanta = dparser.parse_Quanta(dcard_raw_text_string, dcard_raw_text_list)
+            create_report(Quanta.serial_number, Quanta.model, dtester.run_tests(Quanta), dcard_path)
+
+
+        """
         for line in dcard_raw_text:
 
             # R5000 series
-            if search(r"WANFleX\WH(08|11)S\d+", line):
+            
+            if search(r"WANFleX\WH(08|11)S\d+", line) is not None:
                 R5000 = dparser.parse_R5000(dcard_raw_text)
                 create_report(R5000.serial_number, R5000.model, dtester.run_tests(R5000), dcard_path)
                 break
 
+
             # XG series
-            elif search(r"WANFleX\WH12S\d+", line):
+            if search(r"WANFleX\WH12S\d+", line) is not None:
                 XG = dparser.parse_XG(dcard_raw_text)
-                create_report(XG.serial_number, XG.model, dtester.run_tests(XG), dcard_path)
+                #print(XG.subfamily, XG.model, XG.serial_number, XG.firmware, XG.uptime, XG.rebootreason)
+                #print(XG.settings)
+                #print(XG.radio_status['Link status'])
+
+                #print(XG.radio_status['Measured Distance'])
+
+                #print(XG.radio_status['Master']['Role'])
+                print(XG.radio_status['Master']['Carrier 0'])
+                print(XG.radio_status['Master']['Carrier 1'])
+
+                #print(XG.radio_status['Slave']['Role'])
+                print(XG.radio_status['Slave']['Carrier 0'])
+                print(XG.radio_status['Slave']['Carrier 1'])
+
+                #print(dtester.run_tests(XG))
+                #create_report(XG.serial_number, XG.model, dtester.run_tests(XG), dcard_path)
                 break
 
             # Quanta series
-            elif search(r"WANFleX\WH18S\d+", line):
+
+            elif search(r"WANFleX\WH18S\d+", line) is not None:
                 Quanta = dparser.parse_Quanta(dcard_raw_text)
                 create_report(Quanta.serial_number, Quanta.model, dtester.run_tests(Quanta), dcard_path)
                 break
+            """
+
