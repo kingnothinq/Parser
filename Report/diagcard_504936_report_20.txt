@@ -1,7 +1,0 @@
--------------------------------------------------------------------------
-Parsing diagnostic card: F:\Parser\DiagnosticCard\diagcard.SN-504936.txt
--------------------------------------------------------------------------
-Serial Number is 504936
-Model is Xm/5X.1000.4x150.2x26
-Test results:
-Device 504936 is fine

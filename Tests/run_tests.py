@@ -9,7 +9,19 @@ def run_tests(device):
     """Look for all available tests for the requested device and runs them"""
 
     def import_test(device, test_name):
-        """Dynamic modules (tests) import"""
+        """Dynamic modules (tests) import
+
+        A module must follow the next template:
+        def test(device):
+            #check problem
+            if something_happens:
+                #rerurn results
+                return string_with_problem
+            else:
+                #return None
+                pass
+        """
+
         module = import_module('.' + str(test_name.stem), 'Tests.' + device.family)
         return module.test(device)
 

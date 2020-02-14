@@ -1,0 +1,7 @@
+-------------------------------------------------------------------------
+Parsing diagnostic card: F:\Parser\DiagnosticCard\diagcard.SN-506026.txt
+-------------------------------------------------------------------------
+Serial Number is 506026
+Model is Xm/5X.1000.4x300.2x23
+Test results:
+* There is bla

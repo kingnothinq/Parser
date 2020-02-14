@@ -1,0 +1,959 @@
+==[        date        ]===============================================================================================
+Fri Nov 01 01:39:21 GMT 2019  (not valid)
+
+==[     sys uptime     ]===============================================================================================
+Uptime: 00:38:21
+Last reboot reason: hardware reset
+
+==[       sys ver      ]===============================================================================================
+
+XG WANFleX H12S10v1.8.1 * Nov 25 2019 10:42:48 * SN:502628
+Processor: DAN ARM926EJ-S 600 MHz rev.D
+PN:Xm/5X.1000.4x150.2x23
+
+==[    config show     ]===============================================================================================
+# XG WANFleX H12S10v1.8.1 * Nov 25 2019 10:42:48 * SN:502628
+
+#System parameters
+ #Factory password mode: single
+ sys name ShiZiShan_RS~/ShenMei_WareHouse
+ sys user admin
+ setpass $1$Xnb64$wLq1jaN900OGpC9BpOYEB0
+   
+#XG configuration
+ #Grids:
+  # xg -grids-carrier-ix=0 \
+  #    -grids-band=10 -grids=5000-5850/10 \
+  #    -grids-band=20 -grids=5000-5850/20 \
+  #    -grids-band=40 -grids=4920-5980/40
+  # xg -grids-carrier-ix=1 \
+  #    -grids-band=10 -grids=5020-5850/10 \
+  #    -grids-band=20 -grids=5040-5840/20 \
+  #    -grids-band=40 -grids=4920,5080-5960/40
+ 
+ #General settings:
+  # xg -type master
+  # xg -tdd-sync-src freerun
+  # xg -dbg-rf-module-max-carrier 1
+  # xg -autosync-link-settings no
+ 
+ #Link shared settings (Radio Front End):
+  # xg -cell-id 0
+  # xg -channel-width 10
+  # xg -freq-dl [0]5000,[1]5600
+  # xg -freq-ul [0]5000,[1]5700
+  # xg -short-cp 0
+  # xg -freq-auto 0
+ 
+ #Link shared settings (Frame Config):
+  # xg -max-distance 5
+  # xg -sframelen 2
+  # xg -tdd-profile 0
+  # xg -tdd-profile-auto-switching 1
+ 
+ #RF per-station settings:
+  # xg -txpwr 0
+  # xg -ctrl-block-boost 0
+  # xg -atpc-master-enable 1
+  # xg -atpc-target-rssi -55
+  # xg -atpc-rssi-threshold 1
+  # xg -antenna-gain 0
+ 
+ #Modulation related:
+  # xg -amc-strategy normal
+  # xg -max-mcs 5
+ 
+ #DFS/RSSI scan/Radar detection:
+  # xg -idfs-enable 1
+  # xg -idfs-rssi-threshold 1
+  # xg -idfs-ffs-time 300
+  # xg -idfs-rdrdt-enable 0
+  # xg -idfs-fix-dl-ul 0
+ 
+ #Ethernet datapath related:
+  # xg -traffic-prioritization 1
+  # xg -1588-sync-tai 0
+ 
+ #Supplementary:
+  # xg -config-restore-index 8
+ 
+ xg -v3-start
+ xg -v3 04a3beac1e151c60cfe7718b92c5c541.HDLoiDbJkFPrNEwj/2kSqLj1aYhJacu4opfaez1
+ xg -v3 l4bA2RdSu3HjAb59/o74D4THRtSqmhSsv8NmiPwXJgZP30dO1QRnu6+MxRwUXT8A7x+yfmqt
+ xg -v3 LusMeZD135okp+ditW6iFcXJNbRs1i/4tLElBhSiynPIm6E9vq0vQtQFydaEW5nMOTl8x3xz
+ xg -v3 UDQBLKlMldwSCOBuYC/XRiFgKynGfJ6yItJqZT36tqr8uAIM/rSmYI4uyAkARem6r5jNhctj
+ xg -v3 3VeQx5lb09/hi+f+yOHdrFYBxPhFih5SMvWfweJMwsEIsWCFA5vn/K8t+eOkU0vJsGrSayCd
+ xg -v3 xSqE3LgJom1ZKh5kzsLFbYjHqONWXcPMNIy1g0HmB70eHg8T8mwi19Kv7w+V1XeIP+KuuKDO
+ xg -v3 uD0PwTy1OjXw0tAfLeo+0xtgFOCA33I0RYJojZufa7qZOkx2FPvgvnpj2LqTNf7IY9+FFaNr
+ xg -v3 jrAMgnc3BLn5iTLELcdWq9cQ4c3V5Zujh7xKdEXUX8axD8dobXp3gDth+LVMi2r+o9rH/rTu
+ xg -v3 ZIXSvf2JV0LCRwzO6VO/HZU4tThlvcvRYcBQHldic83MWMIYEO/DSH9bdXlUEfQpRYQHdIa4
+ xg -v3 4D5PNvrhOhKEgsTa57R3lIvAQ2Aea1OC2+sE9VlPuhhdEfpRkdGkgwairEzgYQ0s4acyuSjR
+ xg -v3 DkHHq9vvbHqJurax9BNVGbiBSuaj+JgoWMgqE29lCSHMd7ZSv83a5M4A9hltqTZob+74+Vas
+ xg -v3 AVKukxk8me5s0dc88+WN7S0dar4Rd3tdvf7yqq39qC7/lHU0ezEo/jhJSBmDKSNynOa+0hBs
+ xg -v3 ERNNHkJsqtTKBpCIXDw==
+ xg -v3-end
+   
+#Physical wired ports configuration
+ port -vlan=1 -priority=0
+ 
+ port 0 -allow=1 -notmember=all
+ 
+ port 1 -disallow=all -notmember=all
+ 
+ port s -allow=1 -notmember=all
+ 
+ port r -allow=1 -notmember=all
+ 
+ port m -allow=1 -notmember=all
+ port m -qosmode=strict
+ 
+   
+#Interfaces parameters
+ ifc lo0    127.0.0.1/32
+ ifc ge0    media auto mtu 1500 up
+ ifc ge1    media auto mtu 1500 up
+ ifc sfp    media auto mtu 1500 up
+ ifc radio  down
+ ifc mgmt   mtu 1500 up
+ ifc mgmt   10.10.10.2/24
+   
+#SNTP configuration
+ sntp -server='211.22.103.157'
+   
+#WEB configurator
+ webcfg start
+   
+#LLDP parameters
+ lldp ge0 enable txrx
+ lldp ge1 enable txrx
+ lldp sfp enable txrx
+ lldp radio enable txrx
+   
+#WD configuration
+ wd -on-wd-panic 1
+ wd -on-assert-panic 2
+ wd -downlink-timer 60
+ wd -case-enable LINKDOWN
+ wd -case-enable XG_TIMEOUT
+ wd -case-disable RLM_FG_TIMEOUT
+ wd -case-enable MCHL_ADM_TIMEOUT
+ wd -case-enable TXPWR
+ wd -case-enable HTA
+ wd -case-disable PP
+ wd -case-enable UD
+ wd -case-enable SIN
+   
+#IEEE1588 config
+ ptpd start
+   
+
+==[      xg stat       ]===============================================================================================
++-------------------+---------------------------------------+
+|Wireless Link      |STOPPED                                |
+|status             |                                       |
+|Measured Distance  |---                                    |
+|Channel Width      |10 MHz                                 |
+|DL/UL Ratio        |48/52 (auto)                           |
+|Frame Period       |2 ms                                   |
++-------------------+---------------------------------------+
++----+--------------+------------------+-------------------+
+|    Device Type    |               Master                 |
++----+--------------+------------------+-------------------+
+|RLM State          |                                      |
+|Tx Capacity        |                0 kbps                |
+|Tx/Rx Packets      |                 0/0                  |
++----+--------------+------------------+-------------------+
+|                   |           Carrier 0 (Down)           |
++----+--------------+------------------+-------------------+
+|Tx/Rx Frequency    |                0 MHz                 |
+|DFS status         |               NO_INIT                |
+|Tx/Rx Frames       |                 0/0                  |
+|Rx Bad Frames      |                  0                   |
+|Rx Acc FER         |               0e0 (0%)               |
+|AMC Mode           |                 Auto                 |
++----+--------------+------------------+-------------------+
+|                   |     Stream 0     |     Stream 1      |
++----+--------------+------------------+-------------------+
+|TX  |MCS           |QPSK 1/4 (0)      |QPSK 1/4 (0)       |
+|    |Power         |---               |---                |
+|    |Gain          |---               |---                |
++----+--------------+------------------+-------------------+
+|RX  |MCS           |QPSK 1/4 (0)      |QPSK 1/4 (0)       |
+|    |CINR          |0 dB              |0 dB               |
+|    |RSSI          |-90 dBm           |-90 dBm            |
+|    |GAIN          |0 db (---)        |0 db (---)         |
+|    |ADC RSSI      |-90 dBFS          |-90 dBFS           |
+|    |STOD          |---               |---                |
+|    |Crosstalk     |0 dB              |0 dB               |
+|    |OK TBS        |0                 |0                  |
+|    |Bad TBS       |0                 |0                  |
+|    |Errors Ratio  |0e0 (0%)          |0e0 (0%)           |
++----+--------------+------------------+-------------------+
+
+==[         ctl        ]===============================================================================================
+Internal temperature is +35.0 degrees Celsius.
+
+==[     xg rf temp     ]===============================================================================================
+temperature unavailable
+
+==[     panic show     ]===============================================================================================
+
+Last panic logging is enabled
+Missalign exceptions statistic
+Total:   6
+Skipped: 0
+Half:    0
+Word:    6
+Multi:   0
+
+==[    sys log show    ]===============================================================================================
+-00:38:21.474 EVENTER: Process started
+-00:38:21.318 DFFS: User space 8946609 bytes
+-00:38:21.316 Last reboot reason: hardware reset
+-00:38:21.203 [XG]: detected rf_module#0: RMU_56_10
+-00:38:21.093 [XG]: detected rf_module#1: RMU_56_10
+-00:38:20.987 AppendFreqValidatorFromLicensePerChannelWidth: carrier[1]: default_freq_dl = 5450000, default_freq_ul = 5450000
+Last message was repeated 2 times
+-00:38:19.985 atpc master successfully started
+-00:38:19.985 atpc slave successfully started
+-00:38:19.968 SYSLOG: Len 16384, Qsize 4024
+-00:38:19.768 marvell switch ntu
+-00:38:19.756 SWITCH ID: 0x3521
+-00:38:19.743 ge0: phy found 0eb10141 model: Marvell 88E6352 Copper PHY
+-00:38:19.729 ge1: phy found 0eb10141 model: Marvell 88E6352 Copper PHY
+-00:38:19.715 sfp: phy found 0ea10141 model: Marvell 88E6352 Fiber PHY
+-00:38:16.681 ge0: media changed to 1000 Mbps Full duplex auto
+-00:38:13.175 ctl: Heater is disabled.
+-00:38:12.972 xg: Carrier 1 grid can not be set manually
+Last message was repeated 2 times
+-00:38:12.945 ge0: link down
+-00:38:11.929 PTPd: ptp daemon started
+-00:38:11.922 PTPd: now in state PTP_LISTENING
+-00:38:11.921 HwM: 3401
+-00:38:10.225 webcfg: service started.
+-00:38:08.913 ge0: media changed to 1000 Mbps Full duplex auto
+-00:37:59.858 PTPd:   now in state PTP_MASTER
+-00:23:36.810 webcfg: logon as <admin> from 10.10.10.66 by http
+-00:21:32.078 #1>  Login failed as "admina" from 10.10.10.66  by telnet
+
+==[       license      ]===============================================================================================
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<license description="Factory License" granted="18/12/2017 14:18:31" id="{635b4645-61d7-4118-b830-2f3ab8ea62d8}">
+    <device description="Device">
+        <options SN="502628" description="SN:502628" />
+        <options PN="Xm/5X.500.2x150.2x23/5X.500.2x150-H12" description="PN:Xm/5X.1000.4x150.2x23" />
+        <options ProductionDate="18/12/2017 14:18:31+0500" description="Production Date: 18 Dec 2017 14:18:31 YEKT" />
+        <options Model="Xm" />
+        <options Platform="DAN3400 600 MHz (H12YY-02-1000) - H12.rev 02" />
+        <options IDU="IDU-BS-G(60W)" />
+        <options Radios="RMU-56-10-01(3)/186981, RMU-56-10-02(3)/187008" />
+        <options Antennas="MA-WA56-DP23IF" />
+        <specification decimal="NFDA2.158.034-11" name="Xm/5X.1000.4x150.2kh23">
+            <part decimal="NFDA5.216.097" name="RCU-XX" type="Plata">
+                <characteristic name="Attenuation" value="5" />
+            </part>
+        </specification>
+    </device>
+    <wanflex description="Operational parameters">
+        <feature description="rf5.0 interface parameters" name="rf5.0">
+            <option MaximumTransmitRate="500000" description="Maximum Transmit Rate: 500 Mbps" />
+            <option BandwidthMask="3" description="Available Channel Widths: 10 Mhz 20 Mhz" />
+            <option DoubleBandwidthEnabled="1" description="40 MHz channel width is available" />
+            <option ChangePower="1" />
+            <option MaxLinks="1" description="Link: Point to Point" />
+            <option TransmitPowers="1,150" description="Power levels: 1,150 mW" />
+            <option TransmitPowersTenthdbm="0,140,220" description="Power levels: 0.0,14.0,22.0 dBm" />
+            <option RegDomain="FCC" description="Regulatory domain: FCC" />
+            <option RxChainMask="3" />
+            <option TxChainMask="3" />
+            <option rfmode="" />
+            <option FrequencyList="4910,4930,4950,4970,4990,5010,5030,5050,5070,5090,5110,5130,5150,5170,5190,5210,5230,5250,5270,5290,5310,5330,5350,5370,5390,5410,5430,5450,5470,5490,5510,5530,5550,5570,5590,5610,5630,5650,5670,5690,5710,5730,5750,5770,5790,5810,5830,5850,5870,5890,5910,5930,5950,5970,5990" description="Supported Frequencies: 4910 - 5990 MHz" />
+        </feature>
+        <feature description="rf5.1 interface parameters" name="rf5.1">
+            <option MaximumTransmitRate="500000" description="Maximum Transmit Rate: 500 Mbps" />
+            <option BandwidthMask="3" description="Available Channel Widths: 10 Mhz 20 Mhz" />
+            <option DoubleBandwidthEnabled="1" description="40 MHz channel width is available" />
+            <option ChangePower="1" />
+            <option MaxLinks="1" description="Link: Point to Point" />
+            <option TransmitPowers="1,150" description="Power levels: 1,150 mW" />
+            <option TransmitPowersTenthdbm="0,140,220" description="Power levels: 0.0,14.0,22.0 dBm" />
+            <option RegDomain="FCC" description="Regulatory domain: FCC" />
+            <option RxChainMask="3" />
+            <option TxChainMask="3" />
+            <option rfmode="" />
+            <option FrequencyList="4910,4930,4950,4970,4990,5010,5030,5050,5070,5090,5110,5130,5150,5170,5190,5210,5230,5250,5270,5290,5310,5330,5350,5370,5390,5410,5430,5450,5470,5490,5510,5530,5550,5570,5590,5610,5630,5650,5670,5690,5710,5730,5750,5770,5790,5810,5830,5850,5870,5890,5910,5930,5950,5970,5990" description="Supported Frequencies: 4910 - 5990 MHz" />
+        </feature>
+    </wanflex>
+</license>
+
+==[       xg cap       ]===============================================================================================
+Radio capabilities
+
+General properties
+
+Number of carriers: 2
+Frame periods supported (ms):
+   {2, 4, 5, 10}
+Channel widths available (MHz):
+   {10, 20, 40}
+
+Configuration (Channel width 10 MHz, allocated DL/UL ratio 48:52 (28:30 air blocks), frame period 2 ms, ttg/rtg (4:2 air blocks), traffic prioritization: 1):
++-------+-------------------+-------------------+--------------+
+| MCS   | Modulation        | DL/UL capacity,   | Total rate,  |
+|       |                   | kbps              | kbps         |
++-------+-------------------+-------------------+--------------+
+| 0     | QPSK 1/4          | 2240/2400         | 4640         |
+| 1     | QPSK 1/2          | 5824/6240         | 12064        |
+| 2     | QPSK 3/4          | 9408/10080        | 19488        |
+| 3     | QAM16 1/2         | 12992/13920       | 26912        |
+| 4     | QAM16 3/4         | 20160/21600       | 41760        |
+| 5     | QAM64 4/6         | 27328/29280       | 56608        |
+| 6     | QAM64 5/6         | 34496/36960       | 71456        |
+| 7     | QAM256 6/8        | 41664/44640       | 86304        |
+| 8     | QAM256 7/8        | 48832/52320       | 101152       |
+| 9     | QAM256 30/32      | 52416/56160       | 108576       |
+| 10    | QAM1024 8/10      | 56000/60000       | 116000       |
++-------+-------------------+-------------------+--------------+
+
+Carrier 0
+
+Radio module name: RMU-56-10-01(3)/186981
+Antenna methods supported: MIMO
+Duplex types supported: TDD, H-FDD
+Frequency range: 4900..6000 MHz
+Tx power range: 0..22/1 dBm
+
+Lower..upper central frequencies: 4910..5990 MHz
+Frequency grid (user-defined): 5000-5850/10 MHz
+Frequency list (86 channels):
+5000, 5010, 5020, 5030, 5040, 5050, 5060, 5070, 5080, 5090, 5100, 5110, 5120, 5130, 5140, 5150, 5160, 5170, 5180, 5190, 5200, 5210, 5220, 5230, 5240, 5250, 5260, 5270, 5280, 5290, 5300, 5310, 5320, 5330, 5340, 5350, 5360, 5370, 5380, 5390, 5400, 5410, 5420, 5430, 5440, 5450, 5460, 5470, 5480, 5490, 5500, 5510, 5520, 5530, 5540, 5550, 5560, 5570, 5580, 5590, 5600, 5610, 5620, 5630, 5640, 5650, 5660, 5670, 5680, 5690, 5700, 5710, 5720, 5730, 5740, 5750, 5760, 5770, 5780, 5790, 5800, 5810, 5820, 5830, 5840, 5850 MHz
+
+Carrier 1
+
+Radio module name: RMU-56-10-02(3)/187008
+Antenna methods supported: MIMO
+Duplex types supported: TDD, H-FDD
+Frequency range: 4900..6000 MHz
+Tx power range: 0..22/1 dBm
+
+Lower..upper central frequencies: 4910..5990 MHz
+Frequency grid (user-defined): 5020-5850/10 MHz
+Frequency list (84 channels):
+5020, 5030, 5040, 5050, 5060, 5070, 5080, 5090, 5100, 5110, 5120, 5130, 5140, 5150, 5160, 5170, 5180, 5190, 5200, 5210, 5220, 5230, 5240, 5250, 5260, 5270, 5280, 5290, 5300, 5310, 5320, 5330, 5340, 5350, 5360, 5370, 5380, 5390, 5400, 5410, 5420, 5430, 5440, 5450, 5460, 5470, 5480, 5490, 5500, 5510, 5520, 5530, 5540, 5550, 5560, 5570, 5580, 5590, 5600, 5610, 5620, 5630, 5640, 5650, 5660, 5670, 5680, 5690, 5700, 5710, 5720, 5730, 5740, 5750, 5760, 5770, 5780, 5790, 5800, 5810, 5820, 5830, 5840, 5850 MHz
+
+TDD Profile 0:
+  DL/UL ratio: 48/52
+
+==[     xgs  -last     ]===============================================================================================
+Nothing to show
+
+==[     xgdfs  -st     ]===============================================================================================
+Uptime[0]:
+ UL: -
+ DL: -
+FFS cnt UL: 0, DL: 0 
+
+Freq UL/DL stat
+
+==[   xgdfs -list -q   ]===============================================================================================
+5000  -                                                                      
+5010  -                                                                      
+5020  -                                                                      
+5030  -                                                                      
+5040  -                                                                      
+5050  -                                                                      
+5060  -                                                                      
+5070  -                                                                      
+5080  -                                                                      
+5090  -                                                                      
+5100  -                                                                      
+5110  -                                                                      
+5120  -                                                                      
+5130  -                                                                      
+5140  -                                                                      
+5150  -                                                                      
+5160  -                                                                      
+5170  -                                                                      
+5180  -                                                                      
+5190  -                                                                      
+5200  -                                                                      
+5210  -                                                                      
+5220  -                                                                      
+5230  -                                                                      
+5240  -                                                                      
+5250  -                                                                      
+5260  -                                                                      
+5270  -                                                                      
+5280  -                                                                      
+5290  -                                                                      
+5300  -                                                                      
+5310  -                                                                      
+5320  -                                                                      
+5330  -                                                                      
+5340  -                                                                      
+5350  -                                                                      
+5360  -                                                                      
+5370  -                                                                      
+5380  -                                                                      
+5390  -                                                                      
+5400  -                                                                      
+5410  -                                                                      
+5420  -                                                                      
+5430  -                                                                      
+5440  -                                                                      
+5450  -                                                                      
+5460  -                                                                      
+5470  -                                                                      
+5480  -                                                                      
+5490  -                                                                      
+5500  -                                                                      
+5510  -                                                                      
+5520  -                                                                      
+5530  -                                                                      
+5540  -                                                                      
+5550  -                                                                      
+5560  -                                                                      
+5570  -                                                                      
+5580  -                                                                      
+5590  -                                                                      
+5600  -                                                                      
+5610  -                                                                      
+5620  -                                                                      
+5630  -                                                                      
+5640  -                                                                      
+5650  -                                                                      
+5660  -                                                                      
+5670  -                                                                      
+5680  -                                                                      
+5690  -                                                                      
+5700  -                                                                      
+5710  -                                                                      
+5720  -                                                                      
+5730  -                                                                      
+5740  -                                                                      
+5750  -                                                                      
+5760  -                                                                      
+5770  -                                                                      
+5780  -                                                                      
+5790  -                                                                      
+5800  -                                                                      
+5810  -                                                                      
+5820  -                                                                      
+5830  -                                                                      
+5840  -                                                                      
+5850  -                                                                      
+
+==[     port  dump     ]===============================================================================================
+	Port R-limit QOS Mode Link   Speed
+	==== ======= ======== ==== =========
+	  0  ------- wrr        UP 1000 Mbps
+	  1  ------- wrr      down
+	  s  ------- wrr      down
+	  r     1000 wrr      down
+	  m  ------- strict   ---- ---------
+
+==[      port vtt      ]===============================================================================================
+	VID  0 1 s r m STP Prio
+	==== = = = = = === ====
+	   1 n - n n n  -  0(0)
+total 1 entries
+
+==[      port stt      ]===============================================================================================
+STU table is empty
+
+==[      port fdb      ]===============================================================================================
+FDB total entries: 2
+	 VID  Destination    Port    Status  T-left
+	===== ============ ========= ======= ======
+
+==[       ifc -a       ]===============================================================================================
+lo0: flags=8009<UP,LOOPBACK,MULTICAST> mtu 1500
+        inet 127.0.0.1 netmask 0xffffffff 
+
+mgmt: flags=8003<UP,BROADCAST,MULTICAST> mtu 1500
+        inet 10.10.10.2 netmask 0xffffff00 broadcast 10.10.10.255
+        ether 00:04:35:07:ab:64 
+
+	mgmt: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            6877        | Packets               13526       |
+	| Bytes              1251717     | Bytes                 1528006     |
+	| Load (kbps)        9           | Load (kbps)           5           |
+	| Load (pps)         7           | Load (pps)            9           |
+	+--------------------------------+-----------------------------------+
+
+ge0: flags=101<UP,PROMISC> mtu 1500
+        inet 0.0.0.0 netmask 0x0 
+
+	Physical link is UP, 1000 Mbps Full-duplex, Auto
+	PHY chip: Marvell 88E6352 Copper PHY ID: 0eb10141
+	+--------------------------------+------+-----+
+	|                 Supported modes| Self |Peer |
+	+--------------------------------+------+-----+
+	|                Auto-Negotiation| yes  | yes |
+	|             10 Mbps Half-duplex| yes  | yes |
+	|             10 Mbps Full-duplex| yes  | yes |
+	|            100 Mbps Half-duplex| yes  | yes |
+	|            100 Mbps Full-duplex| yes  | yes |
+	|           1000 Mbps Half-duplex| yes  | yes |
+	|           1000 Mbps Full-duplex| yes  | yes |
+	+--------------------------------+------+-----+
+
+	ge0: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            1459        | Packets               7680        |
+	| Bytes              307506      | Bytes                 1159398     |
+	| Load (kbps)        13          | Load (kbps)           8           |
+	| Load (pps)         10          | Load (pps)            13          |
+	+--------------------------------+-----------------------------------+
+	| CRC errors         0           | CRC errors            0           |
+	| Pause packets      0           | Excessive deferrals   0           |
+	| Bad octets         0           | Excessive collisions  0           |
+	| Rx errors          0           | Late collisions       0           |
+	| Runts              0           | Multiple collisions   0           |
+	| Short packets      0           | Single collisions     0           |
+	| Long packets       0           |                                   |
+	+--------------------------------+-----------------------------------+
+
+ge1: flags=101<UP,PROMISC> mtu 1500
+        inet 0.0.0.0 netmask 0x0 
+
+	Physical link is DOWN
+	PHY chip: Marvell 88E6352 Copper PHY ID: 0eb10141
+	+--------------------------------+------+-----+
+	|                 Supported modes| Self |Peer |
+	+--------------------------------+------+-----+
+	|                Auto-Negotiation| yes  |  -  |
+	|             10 Mbps Half-duplex| yes  |  -  |
+	|             10 Mbps Full-duplex| yes  |  -  |
+	|            100 Mbps Half-duplex| yes  |  -  |
+	|            100 Mbps Full-duplex| yes  |  -  |
+	|           1000 Mbps Half-duplex| yes  |  -  |
+	|           1000 Mbps Full-duplex| yes  |  -  |
+	+--------------------------------+------+-----+
+
+	ge1: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            0           | Packets               0           |
+	| Bytes              0           | Bytes                 0           |
+	| Load (kbps)        0           | Load (kbps)           0           |
+	| Load (pps)         0           | Load (pps)            0           |
+	+--------------------------------+-----------------------------------+
+	| CRC errors         0           | CRC errors            0           |
+	| Pause packets      0           | Excessive deferrals   0           |
+	| Bad octets         0           | Excessive collisions  0           |
+	| Rx errors          0           | Late collisions       0           |
+	| Runts              0           | Multiple collisions   0           |
+	| Short packets      0           | Single collisions     0           |
+	| Long packets       0           |                                   |
+	+--------------------------------+-----------------------------------+
+
+sfp: flags=101<UP,PROMISC> mtu 1500
+        inet 0.0.0.0 netmask 0x0 
+
+	Physical link is DOWN
+	PHY chip: Marvell 88E6352 Fiber PHY ID: 0ea10141
+	+--------------------------------+------+-----+
+	|                 Supported modes| Self |Peer |
+	+--------------------------------+------+-----+
+	|                Auto-Negotiation| yes  |  -  |
+	|             10 Mbps Half-duplex|  -   |  -  |
+	|             10 Mbps Full-duplex|  -   |  -  |
+	|            100 Mbps Half-duplex|  -   |  -  |
+	|            100 Mbps Full-duplex|  -   |  -  |
+	|           1000 Mbps Half-duplex| yes  |  -  |
+	|           1000 Mbps Full-duplex| yes  |  -  |
+	+--------------------------------+------+-----+
+
+	sfp: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            0           | Packets               0           |
+	| Bytes              0           | Bytes                 0           |
+	| Load (kbps)        0           | Load (kbps)           0           |
+	| Load (pps)         0           | Load (pps)            0           |
+	+--------------------------------+-----------------------------------+
+	| CRC errors         0           | CRC errors            0           |
+	| Pause packets      0           | Excessive deferrals   0           |
+	| Bad octets         0           | Excessive collisions  0           |
+	| Rx errors          0           | Late collisions       0           |
+	| Runts              0           | Multiple collisions   0           |
+	| Short packets      0           | Single collisions     0           |
+	| Long packets       0           |                                   |
+	+--------------------------------+-----------------------------------+
+
+radio: flags=100<PROMISC> mtu 1500
+        inet 0.0.0.0 netmask 0x0 
+
+	radio link is DOWN
+
+	radio: administrative status DOWN
+	+--------------------------------+-------------------------------------------+
+	|       Receive statistics       |            Transmit statistics            |
+	+--------------------------------+-------------------------------------------+
+	| Packets            0           | Packets               1883081045529487668 |
+	| Bytes              0           | Bytes                 12291525946490315169|
+	| Load (kbps)        0           | Load (kbps)           0                   |
+	| Load (pps)         0           | Load (pps)            0                   |
+	+--------------------------------+-------------------------------------------+
+	| Runts              0           |                                           |
+	| Short packets      0           |                                           |
+	| Long packets       0           |                                           |
+	+--------------------------------+-------------------------------------------+
+
+null0: flags=8802<BROADCAST,NULL,MULTICAST> mtu 1500
+
+
+==[   sys info -full   ]===============================================================================================
+SYSTEM      XG WANFleX H12S10v1.8.1 * Nov 25 2019 10:42:48 * SN:502628 * Uptime:
+            00:38:22
+            Firmware ID: 012XG0010
+            PN:Xm/5X.1000.4x150.2x23
+
+MEMORY      54.4 MB total
+            Malloc stats
+              Total:56995808  Free:42313640  Allocated:14682168 (25.76%)
+              Max:15019264 (26.35%)
+            Calls
+              malloc:221009  free:227730  realloc:30390  calloc:3426  miss:0
+            
+            5966 mbufs, 4744 clusters free
+            284 mbufs in use:
+                 256 mbufs allocated to data
+                  28 mbufs allocated to packet headers
+            256/5000 mapped pages in use
+            9423 Kbytes allocated to network (5% in use)
+            
+            EthI   :   0(1000,0) 
+            ge0    :   0(32,0) 
+            ge1    :   0(32,0) 
+            sfp    :   0(32,0) 
+            
+            ------- System objects stats ------
+              Object     Capac. Current   Max
+            ----------- ------- ------- -------
+            Tasks            64      26      26
+            Timers           70       5       6
+            Semaphores       95      42      42
+            MQueues          20       2       2
+            Extentions        4       2       2
+            Workspace Required: 58912
+                     Allocated: 102400
+
+CPU         Processor: DAN ARM926EJ-S 600 MHz rev.D
+            CPU Load  43%   4%(10s)   2%(30s)   2%(60s)   2%(300s)
+            Detailed: Isr: 1.19%  Tasks: 1.10%  Idle: 97.69%
+
+FLASH       Flash device 0: N25Q Boot sector #0, DFFS sector #7
+
+DFFS        Files=12, Used 3500032 bytes, Free 12450120 bytes
+            FlashSize=15936 KB, 249 Sectors of 64 KB, 15936 blocks of 1024 bytes
+
+TPM         max31722 Device temperatures:
+            BOARD: +35.0 degrees Celsius
+
+LICENSE     Factory License granted at 18/12/2017 14:18:31
+            id={635b4645-61d7-4118-b830-2f3ab8ea62d8}
+
+PHY0        Marvell 88E6352 Copper PHY
+            	Physical link info:
+            	Link is UP, auto Full-duplex, 1000 Mbps
+            	Capabilities:          Self  Peer
+            	     Auto-Negotiation:   +     +  
+            	  10 Mbps Half-duplex:   +     +  
+            	  10 Mbps Full-duplex:   +     +  
+            	 100 Mbps Half-duplex:   +     +  
+            	 100 Mbps Full-duplex:   +     +  
+            	1000 Mbps Half-duplex:   +     +  
+            	1000 Mbps Full-duplex:   +     +  
+            	PHY chip: Marvell 88E6352 Copper PHY ID: 0eb10141
+
+PHY1        Marvell 88E6352 Copper PHY
+            	Physical link info:
+            	Link is DOWN
+            	Capabilities:          Self  Peer
+            	     Auto-Negotiation:   +     -  
+            	  10 Mbps Half-duplex:   +     -  
+            	  10 Mbps Full-duplex:   +     -  
+            	 100 Mbps Half-duplex:   +     -  
+            	 100 Mbps Full-duplex:   +     -  
+            	1000 Mbps Half-duplex:   +     -  
+            	1000 Mbps Full-duplex:   +     -  
+            	PHY chip: Marvell 88E6352 Copper PHY ID: 0eb10141
+
+PHY2        Marvell 88E6352 Fiber PHY
+            	Physical link info:
+            	Link is DOWN
+            	Capabilities:          Self  Peer
+            	     Auto-Negotiation:   +     -  
+            	  10 Mbps Half-duplex:   -     -  
+            	  10 Mbps Full-duplex:   -     -  
+            	 100 Mbps Half-duplex:   -     -  
+            	 100 Mbps Full-duplex:   -     -  
+            	1000 Mbps Half-duplex:   +     -  
+            	1000 Mbps Full-duplex:   +     -  
+            	PHY chip: Marvell 88E6352 Fiber PHY ID: 0ea10141
+
+
+==[       xg info      ]===============================================================================================
+
+Commit:		ca04b789
+Date:		Wed Nov 13 11:32:15 2019 +0500
+Tag:		v1.8.1-0-gca04b789
+
+
+==[     xg ber-amc     ]===============================================================================================
++-----------------------+---------+---------+---------+---------+------+-------+------+
+| Primary               | Disabled                              | -15  |   0   |  0   |
+| Max correction up     | 0                                     | -14  |   0   |  0   |
+| Max correction down   | 0                                     | -13  |   0   |  0   |
+| Max trust             | 0                                     | -12  |   0   |  0   |
+| Min trust             | 0                                     | -11  |   0   |  0   |
+| BER                   | 1E0                                   | -10  |   0   |  0   |
+| Initial correction    | 0/0                                   |  -9  |   0   |  0   |
++-----------------------+---------+---------+---------+---------+------+-------+------+
+|          MCS          | Stream0 | Stream0 | Stream1 | Stream1 |  -8  |   0   |  0   |
+|                       |   Up    |  Down   |   Up    |  Down   |      |       |      |
++-----------------------+---------+---------+---------+---------+------+-------+------+
+| 0                     | 0       | 0       | 0       | 0       |  -7  |   0   |  0   |
+| 1                     | 0       | 0       | 0       | 0       |  -6  |   0   |  0   |
+| 2                     | 0       | 0       | 0       | 0       |  -5  |   0   |  0   |
+| 3                     | 0       | 0       | 0       | 0       |  -4  |   0   |  0   |
+| 4                     | 0       | 0       | 0       | 0       |  -3  |   0   |  0   |
+| 5                     | 0       | 0       | 0       | 0       |  -2  |   0   |  0   |
+| 6                     | 0       | 0       | 0       | 0       |  -1  |   0   |  0   |
+| 7                     | 0       | 0       | 0       | 0       |  0   |   0   |  0   |
+| 8                     | 0       | 0       | 0       | 0       |  1   |   0   |  0   |
+| 9                     | 0       | 0       | 0       | 0       |  2   |   0   |  0   |
+| 10                    | 0       | 0       | 0       | 0       |  3   |   0   |  0   |
+| 11                    | 0       | 0       | 0       | 0       |  4   |   0   |  0   |
++-----------------------+---------+---------+---------+---------+------+-------+------+
+| Window bad TBs        | 0                 | 0                 |  5   |  [0]  | [0]  |
+| Window ok TBs         | 0                 | 0                 |  6   |   0   |  0   |
+| Delta bad TBs         | 0                 | 0                 |  7   |   0   |  0   |
+| Delta ok TBs          | 0                 | 0                 |  8   |   0   |  0   |
+| Fill level/Penalty    | 0/0               | 0/0               |  9   |   0   |  0   |
+| Window error          | 0e0               | 0e0               |  10  |   0   |  0   |
+| 1 minute error        | 0e0               | 0e0               |  11  |   0   |  0   |
+| 10 minutes error      | 0e0               | 0e0               |  12  |   0   |  0   |
+| 1 hour error          | 0e0               | 0e0               |  13  |   0   |  0   |
++-----------------------+---------+---------+---------+---------+------+-------+------+
+| Window length         | 0                                     |  14  |   0   |  0   |
+| Acquisition period    | 0                                     |  15  |   0   |  0   |
+|                       |                                       |  16  |   0   |  0   |
+|                       |                                       |  17  |   0   |  0   |
+|                       |                                       |  18  |   0   |  0   |
+|                       |                                       |  19  |   0   |  0   |
+|                       |                                       |  20  |   0   |  0   |
++-----------------------+---------+---------+---------+---------+------+-------+------+
+
+==[  xg  availability  ]===============================================================================================
++----------------------------+-------------------------------------------------------------------+[K
+|                                  Link Availability Statistics                                  |[K
++----------------------------+-------------------------------------------------------------------+[K
+|Status                      |DOWN                                                               |[K
+|Current uptime              |0 days 00:00:00                                                    |[K
+|Total uptime                |0 days 00:00:00                                                    |[K
+|Availability                |0.0%                                                               |[K
+|Disconnection count         |0                                                                  |[K
+|Last outage                 |0 days 00:00:00                                                    |[K
+|Total outage                |0 days 00:00:00                                                    |[K
++----------------------------+-------------------------------------------------------------------+[K
+
+==[      xg synth      ]===============================================================================================
+synth[0]_reg6 = 0x608001f8
+ ADDR = 0x00
+ Active VCO = 63
+ VTUNE_ADC = 0x00
+ POR = 1
+ Die ID = 0x06
+ Digital Lock state = 0
+synth[1]_reg6 = 0x608001f8
+ ADDR = 0x00
+ Active VCO = 63
+ VTUNE_ADC = 0x00
+ POR = 1
+ Die ID = 0x06
+ Digital Lock state = 0
+
+==[         gps        ]===============================================================================================
+Satellites: 0
+GPS coordinates is not available
+GPS module stopped
+Total GPS      time: 00:40:22
+Total nonvalid time: 00:40:22(100%)
+Number of losses: 0
+Coordinates are invalid last 00:40:22
+SATmin= 0 SATmax= 0
+
+==[     lldp report    ]===============================================================================================
+                          LLDP Neighbors Table on ge0                          
++---------------+-------------------------------------------------------------+
+|           LLDP Mode: TxRx,  Forward: disabled,  Tagged: disabled            |
++---------------+-------------------------------------------------------------+
+
+                          LLDP Neighbors Table on ge1                          
++---------------+-------------------------------------------------------------+
+|           LLDP Mode: TxRx,  Forward: disabled,  Tagged: disabled            |
++---------------+-------------------------------------------------------------+
+
+                          LLDP Neighbors Table on sfp                          
++---------------+-------------------------------------------------------------+
+|           LLDP Mode: TxRx,  Forward: disabled,  Tagged: disabled            |
++---------------+-------------------------------------------------------------+
+
+                         LLDP Neighbors Table on radio                         
++---------------+-------------------------------------------------------------+
+|           LLDP Mode: TxRx,  Forward: disabled,  Tagged: disabled            |
++---------------+-------------------------------------------------------------+
+
+
+==[      ptp stat      ]===============================================================================================
+PTP on ge0 state: MASTER
+
+
+==[       wd log       ]===============================================================================================
+Nothing to show
+
+==[   Health monitor   ]===============================================================================================
+NPU_CPU0 	 00000000 	 [ IDLE ] 	 MMDP_TX_ETH 
+NPU_CPU1 	 00000000 	 [ IDLE ] 	 MMDP_RX 
+NPU_CPU2 	 00000000 	 [ IDLE ] 	 disp lib BG 
+TX_CPU0 	 00000000 	 [ IDLE ] 	 SPI_TU 
+TX_CPU1 	 00000000 	 [ IDLE ] 	 HWM 
+TX_CPU2 	 00000000 	 [ IDLE ] 	 MMDP_TX 
+TX_CPU3 	 00000000 	 [ IDLE ] 	 SFBI or RSQ * 
+TX_DSP0 	 00000000 	 [ IDLE ] 	 PTP_TX_DSP * 
+TX_DSP1 	 00000000 	 [ IDLE ] 	 RX_DPLL * 
+RX_DSP0 	 00000000 	 [ IDLE ] 	 PTP_RX_TD * 
+RX_DSP1 	 00000000 	 [ IDLE ] 	 PTP_RX_TD * 
+RX_DSP2 	 00000000 	 [ IDLE ] 	 PTP_RX_TD * 
+RX_DSP3 	 00000000 	 [ IDLE ] 	 PTP_RX_TD * 
+RX_CPU0 	 00000000 	 [ IDLE ] 	 BER computation 
+RX_CPU1 	 00000000 	 [ IDLE ] 	 CTC_POP 
+
+==[    xg rlm stat     ]===============================================================================================
+== RLM ==
+Link Isync Stats (RBS only):
+------------------------
+num of dsp link reports: 0
+last dsp peak: 0
+last rlm max peak: 0
+last rlm max peak cfo: 0
+num of successful link establishments: 0
+num of successful link establishments after last link loss: 0
+num of link loss: 0
+
+
+Ranging Stats:
+------------------------
+Number of Re-rangings: 0
+Number of Re-rangings at current link down: 0
+Last tx shift samples: 0
+num of phy exceed available samples: 0
+num of phy below peak_val th: 0
+num of phy non identical results:0
+last bad phy ranging meas peak: 0
+last bad phy samples: 0
+num sto fixes: 0
+last sto fix in samples: 0
+
+RLM State Machine Stats:
+------------------------
+Number of all state changes: 0
+-- State changes histogram --
+POWERUP_ST:	0
+INIT_ST:	0
+INIT_WF_PC_LINK_REQ:	0
+SYS_CLK_SYNC_ST:	0
+SYS_CLK_SYNCED_ST:	0
+CLK_SYNC_LOST_WF_LINK_STOP_ST:	0
+CLK_SYNC_LOST_LINK_DOWN_ST:	0
+PC_LINK_DOWN_ST:	0
+PC_LINK_ESTABLISH_ST:	0
+PC_LINK_VERIFY_ST:	0
+SUPER_FRAME_SYNC_ST:	0
+PC_STABILIZE_ST:	0
+RANGING_ST:	0
+RANGING_STO_ST:	0
+RANGING_WF_ACK_ST:	0
+LINK_GOING_DOWN_ST:	0
+PC_CHANGING_FREQ_ST:	0
+PC_FG_RDR_SEARCH_ST:	0
+PC_FG_RSSI_MEAS_ST:	0
+PC_FG_RSSI_MEAS_WF_ACK_ST:	0
+PC_ACTIVE_ST:	0
+
+==[     xg spooler     ]===============================================================================================
+
+==[ xgu nco-view-table ]===============================================================================================
+		[noovs]	[noovs]	[noovs]	[noovs]	[noovs]	[noovs]	[ovs]	[ovs]	[ovs]	[ovs]	[ovs]	[ovs]
+		[10]	[10]	[20]	[20]	[40]	[40]	[10]	[10]	[20]	[20]	[40]	[40]
+[ix]	[MHz]	[a0]	[a3]	[a0]	[a3]	[a0]	[a3]	[a0]	[a3]	[a0]	[a3]	[a0]	[a3]
+0:	4900	63	c0	7d	c0	67	c0	7e	c0	61	c0	18	00
+1:	6080	63	c0	7d	c0	67	c0	7e	c0	61	c0	18	00
+
+==[   RF EEPROM data   ]===============================================================================================
+EEPROM[0] FS data in SHM: 
+rf_type: RMU56 (5), rev: 10, ver: 0.0 
+
+ * * * * * * * * * 
+Found chunk: 0x0007 RMU55 tuning data, size: 24 bytes
+ [i]  [f]  [10] [10] [20] [20] [40] [40] [10] [10] [20] [20]
+  0:  4900  63   c0   7d   c0   67   c0   7e   c0   61   c0 
+  1:  6080  63   c0   7d   c0   67   c0   7e   c0   61   c0 
+ 
+ * * * * * * * * * 
+Found chunk: 0x0008 RMU55 tuning data extend, size: 4 bytes
+ [i]  [40] [40] 
+ 
+ * * * * * * * * * 
+Found chunk: 0x0005 Calibration data per freq v3, size: 736 bytes
+freq=4910000, minpwr=30, maxpwr=-10
+ vpdC: 917.65 0.907 1.322 -0.04 0.002, gainC: -156.472 4.019 0.001 -0.001 0
+ vpdC: 926.083 1.346 1.138 -0.031 0.002, gainC: -165.761 3.917 0.023 -0.001 0
+freq=5060000, minpwr=30, maxpwr=-10
+ vpdC: 919.662 1.266 1.257 -0.032 0.002, gainC: -166.474 3.71 0.045 -0.003 0
+ vpdC: 930.326 -1.997 1.758 -0.067 0.003, gainC: -181.593 3.939 0.018 -0.001 0
+freq=5220000, minpwr=30, maxpwr=-10
+ vpdC: 913.16 0.703 1.368 -0.048 0.002, gainC: -166.182 3.951 0.017 -0.001 0
+ vpdC: 924.361 0.246 1.376 -0.05 0.002, gainC: -166.122 4 0.013 -0.001 0
+freq=5380000, minpwr=30, maxpwr=-10
+ vpdC: 915.744 -0.063 1.481 -0.05 0.002, gainC: -162.684 3.96 0.016 -0.001 0
+ vpdC: 922.199 0.916 1.348 -0.049 0.002, gainC: -157.9 4.171 -0.017 0 -0
+freq=5540000, minpwr=30, maxpwr=-10
+ vpdC: 914.109 -0.413 1.635 -0.061 0.003, gainC: -157.793 4.024 0.009 -0.001 0
+ vpdC: 924.912 -2.677 1.907 -0.083 0.003, gainC: -155.925 4.105 -0.005 -0 0
+freq=5700000, minpwr=30, maxpwr=-10
+ vpdC: 915.129 -0.242 1.403 -0.036 0.002, gainC: -154.428 4.23 -0.026 0.001 -0
+ vpdC: 923.235 -0.031 1.349 -0.039 0.002, gainC: -146.289 3.958 0.026 -0.002 0
+freq=5860000, minpwr=30, maxpwr=-10
+ vpdC: 913.042 0.107 1.331 -0.029 0.002, gainC: -145.465 3.911 0.034 -0.002 0
+ vpdC: 920.634 -1.151 1.533 -0.05 0.002, gainC: -147.803 3.96 0.03 -0.002 0
+freq=5990000, minpwr=30, maxpwr=-10
+ vpdC: 911.792 -1.05 1.458 -0.031 0.002, gainC: -138.218 3.689 0.066 -0.004 0
+ vpdC: 921.353 -0.79 1.382 -0.032 0.002, gainC: -142.57 3.919 0.037 -0.003 0
+ 
+ * * * * * * * * * 
+Found chunk: 0x0006 Power restrict header, size: 4 bytes
+version: 0, revision: 1, bandsCount: 2, mcsCount: 5 
+ 
+ * * * * * * * * * 
+Found chunk: 0xc001 Power restriction chunk, size: 21 bytes
+ [freq] [bands] [mcs] [pwr]
+6060000 | 10 40 |  6  7  8  9 10 | 27 26 24 23 18 27 25 24 23 18 
+ 
+ * * * * * * * * * 
+Found chunk: 0x0009 Calibration time temperature, size: 4 bytes
+t: 33625 
+ 
+
+==[   xg trace   ]=================================================================================================
+warn: xgtrace not initialized!

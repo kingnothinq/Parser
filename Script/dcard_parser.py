@@ -9,7 +9,6 @@ from my_classes import *
 def parse_R5000(dcard_raw_text_string, dcard_raw_text_list):
     """Parse an R5000 diagnostic card and fill the class instance in"""
     for line in dcard_raw_text_list:
-
         # Model (Part Number)
         if re.search(r"\b(R5000-[QMOSL][mxnbtcs]{2,5}/[\dX\*]{1,3}.300.2x\d{3})(.2x\d{2})?\b", line) is not None:
             model = re.search(r"\b(R5000-[QMOSL][mxnbtcs]{2,5}/[\dX\*]{1,3}.300.2x\d{3})(.2x\d{2})?\b", line).group()
@@ -37,7 +36,7 @@ def parse_R5000(dcard_raw_text_string, dcard_raw_text_list):
     ethernet = {'eth0': 0, 'eth1': 1}
     radio = {'link1': {'rssi': 1, 'cinr': 2}, 'link2': {'rssi': 1, 'cinr': 2}}
 
-    result = R5000Card(subfamily, model, serial_number, firmware, uptime, rebootreason, dcard_raw_text_list,
+    result = R5000Card(model, subfamily, serial_number, firmware, uptime, rebootreason, dcard_raw_text_list,
                        dcard_raw_text_string, str(ethernet),
                        str(radio))
 
@@ -73,8 +72,8 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
                 'UL Frequency': {'Carrier 0': None, 'Carrier 1': None}, 'Short CP': None,
                 'Max distance': None, 'Frame size': None, 'UL/DL Ratio': None, 'Tx Power': None,
                 'Control Block Boost': None, 'ATPC': None, 'AMC Strategy': None, 'Max MCS': None,
-                'IDFS': None,
-                'Traffic prioritization': None}
+                'IDFS': None, 'Traffic prioritization': None,
+                'Interface Status': {'Ge0': None, 'Ge1': None, 'SFP': None, 'Radio': None}}
 
     settings['Role'] = re.search(r"# xg -type (\w+)", dcard_raw_text_string).group(1)
     settings['Bandwidth'] = re.search(r"# xg -channel-width (\d+)", dcard_raw_text_string).group(1)
@@ -102,6 +101,11 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
         1) is '1' else 'Disabled'
     settings['Traffic prioritization'] = 'Enabled' if re.search(r"# xg -traffic-prioritization (\d+)",
                                                                 dcard_raw_text_string).group(1) is '1' else 'Disabled'
+    pattern = re.findall(r"ifc\s(ge0|ge1|sfp|radio)\s+(media\s([\w\d]+)\s)?mtu\s\d+\s(up|down)", dcard_raw_text_string)
+    settings['Interface Status']['Ge0'] = pattern[0][3]
+    settings['Interface Status']['Ge1'] = pattern[1][3]
+    settings['Interface Status']['SFP'] = pattern[2][3]
+    settings['Interface Status']['Radio'] = pattern[3][3]
 
     # Radio Status
     """radio_status structure
@@ -154,160 +158,161 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
     radio_status['Measured Distance'] = re.search(r"Measured Distance\s+\|(\d+\smeters)", dcard_raw_text_string).group(
         1)
 
-    if 'local' in re.search(r"Device Type\s+\|\s+Master\s\((local|remote)\)", dcard_raw_text_string).group(1):
-        radio_status['Master']['Role'] = 'Local'
-        radio_status['Slave']['Role'] = 'Remote'
-    else:
-        radio_status['Master']['Role'] = 'Remote'
-        radio_status['Slave']['Role'] = 'Local'
+    if radio_status['Link status'] == 'UP':
+        if re.search(r"Device Type\s+\|\s+Master\s\((local|remote)\)", dcard_raw_text_string).group(1) == 'local':
+            radio_status['Master']['Role'] = 'Local'
+            radio_status['Slave']['Role'] = 'Remote'
+        else:
+            radio_status['Master']['Role'] = 'Remote'
+            radio_status['Slave']['Role'] = 'Local'
 
-    pattern = re.findall(r"(\d+)\sMHz\s+\|\s+(\d+)", dcard_raw_text_string)
-    if len(pattern) is 1:
-        radio_status['Master']['Carrier 0']['Frequency'] = pattern[0][0]
-        radio_status['Slave']['Carrier 0']['Frequency'] = pattern[0][1]
-    else:
-        radio_status['Master']['Carrier 0']['Frequency'] = pattern[0][0]
-        radio_status['Slave']['Carrier 0']['Frequency'] = pattern[0][1]
-        radio_status['Master']['Carrier 1']['Frequency'] = pattern[1][0]
-        radio_status['Slave']['Carrier 1']['Frequency'] = pattern[1][1]
+        pattern = re.findall(r"(\d+)\sMHz\s+\|\s+(\d+)", dcard_raw_text_string)
+        if len(pattern) is 1:
+            radio_status['Master']['Carrier 0']['Frequency'] = pattern[0][0]
+            radio_status['Slave']['Carrier 0']['Frequency'] = pattern[0][1]
+        else:
+            radio_status['Master']['Carrier 0']['Frequency'] = pattern[0][0]
+            radio_status['Slave']['Carrier 0']['Frequency'] = pattern[0][1]
+            radio_status['Master']['Carrier 1']['Frequency'] = pattern[1][0]
+            radio_status['Slave']['Carrier 1']['Frequency'] = pattern[1][1]
 
-    pattern = re.findall(r"DFS status\s+\|\s+(\w+)", dcard_raw_text_string)
-    radio_status['Master']['Carrier 0']['DFS'] = pattern[0]
-    radio_status['Slave']['Carrier 0']['DFS'] = pattern[0]
-    radio_status['Master']['Carrier 1']['DFS'] = pattern[0]
-    radio_status['Slave']['Carrier 1']['DFS'] = pattern[0]
+        pattern = re.findall(r"DFS status\s+\|\s+(\w+)", dcard_raw_text_string)
+        radio_status['Master']['Carrier 0']['DFS'] = pattern[0]
+        radio_status['Slave']['Carrier 0']['DFS'] = pattern[0]
+        radio_status['Master']['Carrier 1']['DFS'] = pattern[0]
+        radio_status['Slave']['Carrier 1']['DFS'] = pattern[0]
 
-    pattern = re.findall(r"([\w\d.e-]+\s\([\d.%]+\))\s+\|\s+([\w\d.e-]+\s\([\d.%]+\))", dcard_raw_text_string)
-    if len(pattern) is 1:
-        radio_status['Master']['Carrier 0']['Rx Acc FER'] = pattern[0][0]
-        radio_status['Slave']['Carrier 0']['Rx Acc FER'] = pattern[0][1]
-    else:
-        radio_status['Master']['Carrier 0']['Rx Acc FER'] = pattern[0][0]
-        radio_status['Slave']['Carrier 0']['Rx Acc FER'] = pattern[0][1]
-        radio_status['Master']['Carrier 1']['Rx Acc FER'] = pattern[1][0]
-        radio_status['Slave']['Carrier 1']['Rx Acc FER'] = pattern[1][1]
+        pattern = re.findall(r"([\w\d.e-]+\s\([\d.%]+\))\s+\|\s+([\w\d.e-]+\s\([\d.%]+\))", dcard_raw_text_string)
+        if len(pattern) is 1:
+            radio_status['Master']['Carrier 0']['Rx Acc FER'] = pattern[0][0]
+            radio_status['Slave']['Carrier 0']['Rx Acc FER'] = pattern[0][1]
+        else:
+            radio_status['Master']['Carrier 0']['Rx Acc FER'] = pattern[0][0]
+            radio_status['Slave']['Carrier 0']['Rx Acc FER'] = pattern[0][1]
+            radio_status['Master']['Carrier 1']['Rx Acc FER'] = pattern[1][0]
+            radio_status['Slave']['Carrier 1']['Rx Acc FER'] = pattern[1][1]
 
-    pattern = re.findall(r"Power\s+\|([-\d.]+\sdBm)\s+\|([-\d.]+\sdBm)\s+\|([-\d.]+\sdBm)\s+\|([-\d.]+\sdBm)",
-                         dcard_raw_text_string)
-    if len(pattern) is 1:
-        radio_status['Master']['Carrier 0']['Stream 0']['Tx Power'] = pattern[0][0]
-        radio_status['Master']['Carrier 0']['Stream 1']['Tx Power'] = pattern[0][1]
-        radio_status['Slave']['Carrier 0']['Stream 0']['Tx Power'] = pattern[0][2]
-        radio_status['Slave']['Carrier 0']['Stream 1']['Tx Power'] = pattern[0][3]
-    else:
-        radio_status['Master']['Carrier 0']['Stream 0']['Tx Power'] = pattern[0][0]
-        radio_status['Master']['Carrier 0']['Stream 1']['Tx Power'] = pattern[0][1]
-        radio_status['Slave']['Carrier 0']['Stream 0']['Tx Power'] = pattern[0][2]
-        radio_status['Slave']['Carrier 0']['Stream 1']['Tx Power'] = pattern[0][3]
-        radio_status['Master']['Carrier 1']['Stream 0']['Tx Power'] = pattern[1][0]
-        radio_status['Master']['Carrier 1']['Stream 1']['Tx Power'] = pattern[1][1]
-        radio_status['Slave']['Carrier 1']['Stream 0']['Tx Power'] = pattern[1][2]
-        radio_status['Slave']['Carrier 1']['Stream 1']['Tx Power'] = pattern[1][3]
+        pattern = re.findall(r"Power\s+\|([-\d.]+\sdBm)\s+\|([-\d.]+\sdBm)\s+\|([-\d.]+\sdBm)\s+\|([-\d.]+\sdBm)",
+                             dcard_raw_text_string)
+        if len(pattern) is 1:
+            radio_status['Master']['Carrier 0']['Stream 0']['Tx Power'] = pattern[0][0]
+            radio_status['Master']['Carrier 0']['Stream 1']['Tx Power'] = pattern[0][1]
+            radio_status['Slave']['Carrier 0']['Stream 0']['Tx Power'] = pattern[0][2]
+            radio_status['Slave']['Carrier 0']['Stream 1']['Tx Power'] = pattern[0][3]
+        else:
+            radio_status['Master']['Carrier 0']['Stream 0']['Tx Power'] = pattern[0][0]
+            radio_status['Master']['Carrier 0']['Stream 1']['Tx Power'] = pattern[0][1]
+            radio_status['Slave']['Carrier 0']['Stream 0']['Tx Power'] = pattern[0][2]
+            radio_status['Slave']['Carrier 0']['Stream 1']['Tx Power'] = pattern[0][3]
+            radio_status['Master']['Carrier 1']['Stream 0']['Tx Power'] = pattern[1][0]
+            radio_status['Master']['Carrier 1']['Stream 1']['Tx Power'] = pattern[1][1]
+            radio_status['Slave']['Carrier 1']['Stream 0']['Tx Power'] = pattern[1][2]
+            radio_status['Slave']['Carrier 1']['Stream 1']['Tx Power'] = pattern[1][3]
 
-    pattern = re.findall(r"Gain\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)",
-                         dcard_raw_text_string)
-    if len(pattern) is 1:
-        radio_status['Master']['Carrier 0']['Stream 0']['Tx Gain'] = pattern[0][0]
-        radio_status['Master']['Carrier 0']['Stream 1']['Tx Gain'] = pattern[0][1]
-        radio_status['Slave']['Carrier 0']['Stream 0']['Tx Gain'] = pattern[0][2]
-        radio_status['Slave']['Carrier 0']['Stream 1']['Tx Gain'] = pattern[0][3]
-    else:
-        radio_status['Master']['Carrier 0']['Stream 0']['Tx Gain'] = pattern[0][0]
-        radio_status['Master']['Carrier 0']['Stream 1']['Tx Gain'] = pattern[0][1]
-        radio_status['Slave']['Carrier 0']['Stream 0']['Tx Gain'] = pattern[0][2]
-        radio_status['Slave']['Carrier 0']['Stream 1']['Tx Gain'] = pattern[0][3]
-        radio_status['Master']['Carrier 1']['Stream 0']['Tx Gain'] = pattern[1][0]
-        radio_status['Master']['Carrier 1']['Stream 1']['Tx Gain'] = pattern[1][1]
-        radio_status['Slave']['Carrier 1']['Stream 0']['Tx Gain'] = pattern[1][2]
-        radio_status['Slave']['Carrier 1']['Stream 1']['Tx Gain'] = pattern[1][3]
+        pattern = re.findall(r"Gain\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)",
+                             dcard_raw_text_string)
+        if len(pattern) is 1:
+            radio_status['Master']['Carrier 0']['Stream 0']['Tx Gain'] = pattern[0][0]
+            radio_status['Master']['Carrier 0']['Stream 1']['Tx Gain'] = pattern[0][1]
+            radio_status['Slave']['Carrier 0']['Stream 0']['Tx Gain'] = pattern[0][2]
+            radio_status['Slave']['Carrier 0']['Stream 1']['Tx Gain'] = pattern[0][3]
+        else:
+            radio_status['Master']['Carrier 0']['Stream 0']['Tx Gain'] = pattern[0][0]
+            radio_status['Master']['Carrier 0']['Stream 1']['Tx Gain'] = pattern[0][1]
+            radio_status['Slave']['Carrier 0']['Stream 0']['Tx Gain'] = pattern[0][2]
+            radio_status['Slave']['Carrier 0']['Stream 1']['Tx Gain'] = pattern[0][3]
+            radio_status['Master']['Carrier 1']['Stream 0']['Tx Gain'] = pattern[1][0]
+            radio_status['Master']['Carrier 1']['Stream 1']['Tx Gain'] = pattern[1][1]
+            radio_status['Slave']['Carrier 1']['Stream 0']['Tx Gain'] = pattern[1][2]
+            radio_status['Slave']['Carrier 1']['Stream 1']['Tx Gain'] = pattern[1][3]
 
-    pattern = re.findall(
-        r"RX\s+\|MCS\s+\|([\w\d]+\s\d+\/\d+\s\(\d+\))\s+\|([\w\d]+\s\d+\/\d+\s\(\d+\))\s+\|([\w\d]+\s\d+\/\d+\s\(\d+\))\s+\|([\w\d]+\s\d+\/\d+\s\(\d+\))",
-        dcard_raw_text_string)
-    if len(pattern) is 1:
-        radio_status['Master']['Carrier 0']['Stream 0']['MCS'] = pattern[0][0]
-        radio_status['Master']['Carrier 0']['Stream 1']['MCS'] = pattern[0][1]
-        radio_status['Slave']['Carrier 0']['Stream 0']['MCS'] = pattern[0][2]
-        radio_status['Slave']['Carrier 0']['Stream 1']['MCS'] = pattern[0][3]
-    else:
-        radio_status['Master']['Carrier 0']['Stream 0']['MCS'] = pattern[0][0]
-        radio_status['Master']['Carrier 0']['Stream 1']['MCS'] = pattern[0][1]
-        radio_status['Slave']['Carrier 0']['Stream 0']['MCS'] = pattern[0][2]
-        radio_status['Slave']['Carrier 0']['Stream 1']['MCS'] = pattern[0][3]
-        radio_status['Master']['Carrier 1']['Stream 0']['MCS'] = pattern[1][0]
-        radio_status['Master']['Carrier 1']['Stream 1']['MCS'] = pattern[1][1]
-        radio_status['Slave']['Carrier 1']['Stream 0']['MCS'] = pattern[1][2]
-        radio_status['Slave']['Carrier 1']['Stream 1']['MCS'] = pattern[1][3]
+        pattern = re.findall(
+            r"RX\s+\|MCS\s+\|([\w\d]+\s\d+\/\d+\s\(\d+\))\s+\|([\w\d]+\s\d+\/\d+\s\(\d+\))\s+\|([\w\d]+\s\d+\/\d+\s\(\d+\))\s+\|([\w\d]+\s\d+\/\d+\s\(\d+\))",
+            dcard_raw_text_string)
+        if len(pattern) is 1:
+            radio_status['Master']['Carrier 0']['Stream 0']['MCS'] = pattern[0][0]
+            radio_status['Master']['Carrier 0']['Stream 1']['MCS'] = pattern[0][1]
+            radio_status['Slave']['Carrier 0']['Stream 0']['MCS'] = pattern[0][2]
+            radio_status['Slave']['Carrier 0']['Stream 1']['MCS'] = pattern[0][3]
+        else:
+            radio_status['Master']['Carrier 0']['Stream 0']['MCS'] = pattern[0][0]
+            radio_status['Master']['Carrier 0']['Stream 1']['MCS'] = pattern[0][1]
+            radio_status['Slave']['Carrier 0']['Stream 0']['MCS'] = pattern[0][2]
+            radio_status['Slave']['Carrier 0']['Stream 1']['MCS'] = pattern[0][3]
+            radio_status['Master']['Carrier 1']['Stream 0']['MCS'] = pattern[1][0]
+            radio_status['Master']['Carrier 1']['Stream 1']['MCS'] = pattern[1][1]
+            radio_status['Slave']['Carrier 1']['Stream 0']['MCS'] = pattern[1][2]
+            radio_status['Slave']['Carrier 1']['Stream 1']['MCS'] = pattern[1][3]
 
-    pattern = re.findall(r"CINR\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)",
-                         dcard_raw_text_string)
-    if len(pattern) is 1:
-        radio_status['Master']['Carrier 0']['Stream 0']['CINR'] = pattern[0][0]
-        radio_status['Master']['Carrier 0']['Stream 1']['CINR'] = pattern[0][1]
-        radio_status['Slave']['Carrier 0']['Stream 0']['CINR'] = pattern[0][2]
-        radio_status['Slave']['Carrier 0']['Stream 1']['CINR'] = pattern[0][3]
-    else:
-        radio_status['Master']['Carrier 0']['Stream 0']['CINR'] = pattern[0][0]
-        radio_status['Master']['Carrier 0']['Stream 1']['CINR'] = pattern[0][1]
-        radio_status['Slave']['Carrier 0']['Stream 0']['CINR'] = pattern[0][2]
-        radio_status['Slave']['Carrier 0']['Stream 1']['CINR'] = pattern[0][3]
-        radio_status['Master']['Carrier 1']['Stream 0']['CINR'] = pattern[1][0]
-        radio_status['Master']['Carrier 1']['Stream 1']['CINR'] = pattern[1][1]
-        radio_status['Slave']['Carrier 1']['Stream 0']['CINR'] = pattern[1][2]
-        radio_status['Slave']['Carrier 1']['Stream 1']['CINR'] = pattern[1][3]
+        pattern = re.findall(r"CINR\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)",
+                             dcard_raw_text_string)
+        if len(pattern) is 1:
+            radio_status['Master']['Carrier 0']['Stream 0']['CINR'] = pattern[0][0]
+            radio_status['Master']['Carrier 0']['Stream 1']['CINR'] = pattern[0][1]
+            radio_status['Slave']['Carrier 0']['Stream 0']['CINR'] = pattern[0][2]
+            radio_status['Slave']['Carrier 0']['Stream 1']['CINR'] = pattern[0][3]
+        else:
+            radio_status['Master']['Carrier 0']['Stream 0']['CINR'] = pattern[0][0]
+            radio_status['Master']['Carrier 0']['Stream 1']['CINR'] = pattern[0][1]
+            radio_status['Slave']['Carrier 0']['Stream 0']['CINR'] = pattern[0][2]
+            radio_status['Slave']['Carrier 0']['Stream 1']['CINR'] = pattern[0][3]
+            radio_status['Master']['Carrier 1']['Stream 0']['CINR'] = pattern[1][0]
+            radio_status['Master']['Carrier 1']['Stream 1']['CINR'] = pattern[1][1]
+            radio_status['Slave']['Carrier 1']['Stream 0']['CINR'] = pattern[1][2]
+            radio_status['Slave']['Carrier 1']['Stream 1']['CINR'] = pattern[1][3]
 
-    pattern = re.findall(
-        r"RSSI\s+\|([-\d.]+\sdBm)(\s\([\d-]+\))?\s+\|([-\d.]+\sdBm)(\s\([\d-]+\))?\s+\|([-\d.]+\sdBm)(\s\([\d-]+\))?\s+\|([-\d.]+\sdBm)(\s\([\d-]+\))?",
-        dcard_raw_text_string)
-    if len(pattern) is 1:
-        radio_status['Master']['Carrier 0']['Stream 0']['RSSI'] = pattern[0][0]
-        radio_status['Master']['Carrier 0']['Stream 1']['RSSI'] = pattern[0][2]
-        radio_status['Slave']['Carrier 0']['Stream 0']['RSSI'] = pattern[0][4]
-        radio_status['Slave']['Carrier 0']['Stream 1']['RSSI'] = pattern[0][6]
-    else:
-        radio_status['Master']['Carrier 0']['Stream 0']['RSSI'] = pattern[0][0]
-        radio_status['Master']['Carrier 0']['Stream 1']['RSSI'] = pattern[0][2]
-        radio_status['Slave']['Carrier 0']['Stream 0']['RSSI'] = pattern[0][4]
-        radio_status['Slave']['Carrier 0']['Stream 1']['RSSI'] = pattern[0][6]
-        radio_status['Master']['Carrier 1']['Stream 0']['RSSI'] = pattern[1][0]
-        radio_status['Master']['Carrier 1']['Stream 1']['RSSI'] = pattern[1][2]
-        radio_status['Slave']['Carrier 1']['Stream 0']['RSSI'] = pattern[1][4]
-        radio_status['Slave']['Carrier 1']['Stream 1']['RSSI'] = pattern[1][6]
+        pattern = re.findall(
+            r"RSSI\s+\|([-\d.]+\sdBm)(\s\([\d-]+\))?\s+\|([-\d.]+\sdBm)(\s\([\d-]+\))?\s+\|([-\d.]+\sdBm)(\s\([\d-]+\))?\s+\|([-\d.]+\sdBm)(\s\([\d-]+\))?",
+            dcard_raw_text_string)
+        if len(pattern) is 1:
+            radio_status['Master']['Carrier 0']['Stream 0']['RSSI'] = pattern[0][0]
+            radio_status['Master']['Carrier 0']['Stream 1']['RSSI'] = pattern[0][2]
+            radio_status['Slave']['Carrier 0']['Stream 0']['RSSI'] = pattern[0][4]
+            radio_status['Slave']['Carrier 0']['Stream 1']['RSSI'] = pattern[0][6]
+        else:
+            radio_status['Master']['Carrier 0']['Stream 0']['RSSI'] = pattern[0][0]
+            radio_status['Master']['Carrier 0']['Stream 1']['RSSI'] = pattern[0][2]
+            radio_status['Slave']['Carrier 0']['Stream 0']['RSSI'] = pattern[0][4]
+            radio_status['Slave']['Carrier 0']['Stream 1']['RSSI'] = pattern[0][6]
+            radio_status['Master']['Carrier 1']['Stream 0']['RSSI'] = pattern[1][0]
+            radio_status['Master']['Carrier 1']['Stream 1']['RSSI'] = pattern[1][2]
+            radio_status['Slave']['Carrier 1']['Stream 0']['RSSI'] = pattern[1][4]
+            radio_status['Slave']['Carrier 1']['Stream 1']['RSSI'] = pattern[1][6]
 
-    pattern = re.findall(r"Crosstalk\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)",
-                         dcard_raw_text_string)
-    if len(pattern) is 1:
-        radio_status['Master']['Carrier 0']['Stream 0']['Crosstalk'] = pattern[0][0]
-        radio_status['Master']['Carrier 0']['Stream 1']['Crosstalk'] = pattern[0][1]
-        radio_status['Slave']['Carrier 0']['Stream 0']['Crosstalk'] = pattern[0][2]
-        radio_status['Slave']['Carrier 0']['Stream 1']['Crosstalk'] = pattern[0][3]
-    else:
-        radio_status['Master']['Carrier 0']['Stream 0']['Crosstalk'] = pattern[0][0]
-        radio_status['Master']['Carrier 0']['Stream 1']['Crosstalk'] = pattern[0][1]
-        radio_status['Slave']['Carrier 0']['Stream 0']['Crosstalk'] = pattern[0][2]
-        radio_status['Slave']['Carrier 0']['Stream 1']['Crosstalk'] = pattern[0][3]
-        radio_status['Master']['Carrier 1']['Stream 0']['Crosstalk'] = pattern[1][0]
-        radio_status['Master']['Carrier 1']['Stream 1']['Crosstalk'] = pattern[1][1]
-        radio_status['Slave']['Carrier 1']['Stream 0']['Crosstalk'] = pattern[1][2]
-        radio_status['Slave']['Carrier 1']['Stream 1']['Crosstalk'] = pattern[1][3]
+        pattern = re.findall(r"Crosstalk\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)",
+                             dcard_raw_text_string)
+        if len(pattern) is 1:
+            radio_status['Master']['Carrier 0']['Stream 0']['Crosstalk'] = pattern[0][0]
+            radio_status['Master']['Carrier 0']['Stream 1']['Crosstalk'] = pattern[0][1]
+            radio_status['Slave']['Carrier 0']['Stream 0']['Crosstalk'] = pattern[0][2]
+            radio_status['Slave']['Carrier 0']['Stream 1']['Crosstalk'] = pattern[0][3]
+        else:
+            radio_status['Master']['Carrier 0']['Stream 0']['Crosstalk'] = pattern[0][0]
+            radio_status['Master']['Carrier 0']['Stream 1']['Crosstalk'] = pattern[0][1]
+            radio_status['Slave']['Carrier 0']['Stream 0']['Crosstalk'] = pattern[0][2]
+            radio_status['Slave']['Carrier 0']['Stream 1']['Crosstalk'] = pattern[0][3]
+            radio_status['Master']['Carrier 1']['Stream 0']['Crosstalk'] = pattern[1][0]
+            radio_status['Master']['Carrier 1']['Stream 1']['Crosstalk'] = pattern[1][1]
+            radio_status['Slave']['Carrier 1']['Stream 0']['Crosstalk'] = pattern[1][2]
+            radio_status['Slave']['Carrier 1']['Stream 1']['Crosstalk'] = pattern[1][3]
 
-    pattern = re.findall(
-        r"Errors\sRatio\s+\|[\d\.e-]+\s\(([\d.]+%)\)\s+\|[\d\.e-]+\s\(([\d.]+%)\)\s+\|[\d\.e-]+\s\(([\d.]+%)\)\s+\|[\d\.e-]+\s\(([\d.]+%)\)",
-        dcard_raw_text_string)
-    if len(pattern) is 1:
-        radio_status['Master']['Carrier 0']['Stream 0']['Errors Ratio'] = pattern[0][0]
-        radio_status['Master']['Carrier 0']['Stream 1']['Errors Ratio'] = pattern[0][1]
-        radio_status['Slave']['Carrier 0']['Stream 0']['Errors Ratio'] = pattern[0][2]
-        radio_status['Slave']['Carrier 0']['Stream 1']['Errors Ratio'] = pattern[0][3]
-    else:
-        radio_status['Master']['Carrier 0']['Stream 0']['Errors Ratio'] = pattern[0][0]
-        radio_status['Master']['Carrier 0']['Stream 1']['Errors Ratio'] = pattern[0][1]
-        radio_status['Slave']['Carrier 0']['Stream 0']['Errors Ratio'] = pattern[0][2]
-        radio_status['Slave']['Carrier 0']['Stream 1']['Errors Ratio'] = pattern[0][3]
-        radio_status['Master']['Carrier 1']['Stream 0']['Errors Ratio'] = pattern[1][0]
-        radio_status['Master']['Carrier 1']['Stream 1']['Errors Ratio'] = pattern[1][1]
-        radio_status['Slave']['Carrier 1']['Stream 0']['Errors Ratio'] = pattern[1][2]
-        radio_status['Slave']['Carrier 1']['Stream 1']['Errors Ratio'] = pattern[1][3]
+        pattern = re.findall(
+            r"Errors\sRatio\s+\|[\d\.e-]+\s\(([\d.]+%)\)\s+\|[\d\.e-]+\s\(([\d.]+%)\)\s+\|[\d\.e-]+\s\(([\d.]+%)\)\s+\|[\d\.e-]+\s\(([\d.]+%)\)",
+            dcard_raw_text_string)
+        if len(pattern) is 1:
+            radio_status['Master']['Carrier 0']['Stream 0']['Errors Ratio'] = pattern[0][0]
+            radio_status['Master']['Carrier 0']['Stream 1']['Errors Ratio'] = pattern[0][1]
+            radio_status['Slave']['Carrier 0']['Stream 0']['Errors Ratio'] = pattern[0][2]
+            radio_status['Slave']['Carrier 0']['Stream 1']['Errors Ratio'] = pattern[0][3]
+        else:
+            radio_status['Master']['Carrier 0']['Stream 0']['Errors Ratio'] = pattern[0][0]
+            radio_status['Master']['Carrier 0']['Stream 1']['Errors Ratio'] = pattern[0][1]
+            radio_status['Slave']['Carrier 0']['Stream 0']['Errors Ratio'] = pattern[0][2]
+            radio_status['Slave']['Carrier 0']['Stream 1']['Errors Ratio'] = pattern[0][3]
+            radio_status['Master']['Carrier 1']['Stream 0']['Errors Ratio'] = pattern[1][0]
+            radio_status['Master']['Carrier 1']['Stream 1']['Errors Ratio'] = pattern[1][1]
+            radio_status['Slave']['Carrier 1']['Stream 0']['Errors Ratio'] = pattern[1][2]
+            radio_status['Slave']['Carrier 1']['Stream 1']['Errors Ratio'] = pattern[1][3]
 
     # Ethernet Status
     ethernet_status = {
@@ -353,6 +358,7 @@ def parse_Quanta(dcard_raw_text_string, dcard_raw_text_list):
     """Parse a Quanta 5 diagnostic card and fill the class instance in"""
 
     # Model (Part Number)
+    global subfamily
     model = re.search(r'([QV](5|70)-[\dE]+)', dcard_raw_text_string).group(1)
 
     # Subfamily
@@ -380,7 +386,8 @@ def parse_Quanta(dcard_raw_text_string, dcard_raw_text_list):
     # Settings
     settings = {'Role': None, 'Bandwidth': None, 'DL Frequency': None, 'UL Frequency': None, 'Frame size': None,
                 'Guard Interval': None, 'UL/DL Ratio': None, 'Tx Power': None, 'ATPC': None, 'AMC Strategy': None,
-                'Max DL MCS': None, 'Max UL MCS': None, 'DFS': None, 'ARQ': None}
+                'Max DL MCS': None, 'Max UL MCS': None, 'DFS': None, 'ARQ': None,
+                'Interface Status': {'Ge0': None, 'Radio': None}}
 
     settings['Role'] = re.search(r"ptp_role (\w+)", dcard_raw_text_string).group(1)
     settings['Bandwidth'] = re.search(r"bw (\d+)", dcard_raw_text_string).group(1)
@@ -389,19 +396,21 @@ def parse_Quanta(dcard_raw_text_string, dcard_raw_text_list):
     settings['Frame size'] = re.search(r"frame_length (\d+)", dcard_raw_text_string).group(1)
     settings['Guard Interval'] = re.search(r"guard_interval (\d+\/\d+)", dcard_raw_text_string).group(1)
 
-    if 'on' in re.search(r"radio\.dl_ul_ratio (\d+)", dcard_raw_text_string).group(1):
-        settings['UL/DL Ratio'] = re.search(r"dl_ul_ratio (\d+)", dcard_raw_text_string).group(1) + '(auto)'
+    if re.search(r"auto_dl_ul_ratio (\w+)", dcard_raw_text_string).group(1) == 'on':
+        settings['UL/DL Ratio'] = re.search(r"dl_ul_ratio (\d+)", dcard_raw_text_string).group(1) + ' (auto)'
     else:
         settings['UL/DL Ratio'] = re.search(r"dl_ul_ratio (\d+)", dcard_raw_text_string).group(1)
 
     settings['Tx Power'] = re.search(r"tx_power (\d+)", dcard_raw_text_string).group(1)
-    settings['ATPC'] = 'Enabled' if 'on' in re.search(r"atpc (on|off)", dcard_raw_text_string).group(1) else 'Disabled'
+    settings['ATPC'] = 'Enabled' if re.search(r"atpc (on|off)", dcard_raw_text_string).group(1) == 'on' else 'Disabled'
     settings['AMC Strategy'] = re.search(r"amc_strategy (\w+)", dcard_raw_text_string).group(1)
     settings['Max DL MCS'] = re.search(r"dl_mcs (([\d-]+)?(QPSK|QAM)-\d+\/\d+)", dcard_raw_text_string).group(1)
     settings['Max UL MCS'] = re.search(r"ul_mcs (([\d-]+)?(QPSK|QAM)-\d+\/\d+)", dcard_raw_text_string).group(1)
-    settings['DFS'] = 'Enabled' if 'dfs_rd' in re.search(r"dfs (dfs_rd|off)", dcard_raw_text_string).group(
-        1) else 'Disabled'
-    settings['ARQ'] = 'Enabled' if 'on' in re.search(r"harq (on|off)", dcard_raw_text_string).group(1) else 'Disabled'
+    settings['DFS'] = 'Enabled' if re.search(r"dfs (dfs_rd|off)", dcard_raw_text_string).group(
+        1) == 'dfs_rd' else 'Disabled'
+    settings['ARQ'] = 'Enabled' if re.search(r"harq (on|off)", dcard_raw_text_string).group(1) == 'on' else 'Disabled'
+    pattern = re.findall(r"ifc\sge0\s+media\s([\w\d]+)\smtu\s\d+\s(up|down)", dcard_raw_text_string)
+    settings['Interface Status']['Ge0'] = pattern[0][1]
 
     # Radio Status
     """radio_status structure
@@ -444,8 +453,8 @@ def parse_Quanta(dcard_raw_text_string, dcard_raw_text_list):
     radio_status['Downlink']['Frequency'] = pattern.group(1)
     radio_status['Uplink']['Frequency'] = pattern.group(2)
 
-    if 'connected' in radio_status['Link status']:
-        if 'master' in settings['Role']:
+    if radio_status['Link status'] == 'connected':
+        if settings['Role'] == 'master':
             pattern = re.search(r"\| TX power\s+([\d\.]+)\s\/\s([\d\.]+)\sdBm", dcard_raw_text_string)
             radio_status['Downlink']['Stream 0']['Tx Power'] = pattern.group(1)
             radio_status['Downlink']['Stream 1']['Tx Power'] = pattern.group(2)

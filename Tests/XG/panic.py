@@ -3,4 +3,5 @@
 
 def test(device):
 
-     pass
+     return '* There is bla'
+     #pass
