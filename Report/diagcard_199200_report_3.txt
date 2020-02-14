@@ -1,0 +1,9 @@
+-------------------------------------------------------------------------
+Parsing diagnostic card: F:\Parser\DiagnosticCard\diagcard.SN-199200.txt
+-------------------------------------------------------------------------
+Serial Number is 199200
+Model is R5000-Lmn/60*.300.2x200
+Test results:
+* Abnormal transmit power disbalance is detected. The radio module of the device 199200 is faulty. Please approve RMA.
+* Olololo
+* Packet drops detected in the amount of 1 in the queue 15 of the radio channel. Please check QoS settings or channel capacity.

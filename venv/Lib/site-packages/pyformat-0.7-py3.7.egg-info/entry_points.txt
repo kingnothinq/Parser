@@ -1,0 +1,3 @@
+[console_scripts]
+pyformat = pyformat:main
+

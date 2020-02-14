@@ -1,0 +1,4 @@
+autoflake>=0.6.6
+autopep8>=1.2.2
+docformatter>=0.7
+unify>=0.2
