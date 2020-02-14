@@ -3,16 +3,14 @@
 
 import re
 
-from myclasses import *
+from my_classes import *
 
 
 def parse_R5000(dcard_raw_text_string, dcard_raw_text_list):
     """Parse an R5000 diagnostic card and fill the class instance in"""
-
     for line in dcard_raw_text_list:
 
         # Model (Part Number)
-
         if re.search(r"\b(R5000-[QMOSL][mxnbtcs]{2,5}/[\dX\*]{1,3}.300.2x\d{3})(.2x\d{2})?\b", line) is not None:
             model = re.search(r"\b(R5000-[QMOSL][mxnbtcs]{2,5}/[\dX\*]{1,3}.300.2x\d{3})(.2x\d{2})?\b", line).group()
             if 'Lm' in model or 'Sm' in model:
@@ -21,22 +19,18 @@ def parse_R5000(dcard_raw_text_string, dcard_raw_text_list):
                 subfamily = 'R5000 Pro'
 
         # Serial number
-
         if re.search(r"\bSN:(\d{6})\b", line) is not None:
             serial_number = re.search(r"\bSN:(\d{6})\b", line).group(1)
 
         # Firmware
-
         if re.search(r"\bH\d{2}S\d{2}-(MINT|TDMA)[v\d.]+\b", line) is not None:
             firmware = re.search(r"\bH\d{2}S\d{2}-(MINT|TDMA)[v\d.]+\b", line).group()
 
         # Uptime
-
         if re.search(r"^Uptime: ([\d\w :]*)$", line) is not None:
             uptime = re.search(r"^Uptime: ([\d\w :]*)$", line).group(1)
 
         # Last Reboot Reason
-
         if re.search(r"^Last reboot reason: ([\w ]*)$", line) is not None:
             rebootreason = re.search(r"^Last reboot reason: ([\w ]*)$", line).group(1)
 
@@ -66,19 +60,15 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
     firmware = re.search(r"(\bH\d{2}S\d{2}[v\d.-]+\b)", dcard_raw_text_string).group(1)
 
     # Serial number
-
     serial_number = re.search(r"SN:(\d+)", dcard_raw_text_string).group(1)
 
     # Uptime
-
     uptime = re.search(r"Uptime: ([\d\w :]*)", dcard_raw_text_string).group(1)
 
     # Last Reboot Reason
-
     rebootreason = re.search(r"Last reboot reason: ([\w ]*)", dcard_raw_text_string).group(1)
 
     # Settings
-
     settings = {'Role': None, 'Bandwidth': None, 'DL Frequency': {'Carrier 0': None, 'Carrier 1': None},
                 'UL Frequency': {'Carrier 0': None, 'Carrier 1': None}, 'Short CP': None,
                 'Max distance': None, 'Frame size': None, 'UL/DL Ratio': None, 'Tx Power': None,
@@ -114,7 +104,6 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
                                                                 dcard_raw_text_string).group(1) is '1' else 'Disabled'
 
     # Radio Status
-
     """radio_status structure
 
     Link status
@@ -321,7 +310,6 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
         radio_status['Slave']['Carrier 1']['Stream 1']['Errors Ratio'] = pattern[1][3]
 
     # Ethernet Status
-
     ethernet_status = {
         'ge0': {'Status': None, 'Speed': None, 'Duplex': None, 'Negotiation': None, 'Rx CRC': None, 'Tx CRC': None},
         'ge1': {'Status': None, 'Speed': None, 'Duplex': None, 'Negotiation': None, 'Rx CRC': None, 'Tx CRC': None},
@@ -350,13 +338,12 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
     ethernet_status['sfp']['Tx CRC'] = pattern[5]
 
     # Panic
-
     panic = []
     for line in dcard_raw_text_list:
         if re.search(r"^Panic info : [\W\w]+$", line) is not None:
             panic.append(line)
 
-    result = XGCard(subfamily, model, serial_number, firmware, uptime, rebootreason, dcard_raw_text_list,
+    result = XGCard(model, subfamily, serial_number, firmware, uptime, rebootreason, dcard_raw_text_list,
                     dcard_raw_text_string, settings, radio_status, ethernet_status, panic)
 
     return result
@@ -365,32 +352,160 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
 def parse_Quanta(dcard_raw_text_string, dcard_raw_text_list):
     """Parse a Quanta 5 diagnostic card and fill the class instance in"""
 
-    for line in dcard_raw_text_list:
-        # Model (Part Number)
-        if re.search(r"[QV]5-[\dE]+", line) is not None:
-            model = re.search(r"[QV]5-[\dE]+", line).group()
-            if 'Q5' in model or 'V5' in model:
-                subfamily = 'Quanta 5'
-            else:
-                subfamily = 'Quanta 70'
+    # Model (Part Number)
+    model = re.search(r'([QV](5|70)-[\dE]+)', dcard_raw_text_string).group(1)
 
-        # Serial number
-        if re.search(r"\bSN:\d{6}\b", line) is not None:
-            serial_number = re.search(r"\bSN:(\d{6})\b", line).group(1)
+    # Subfamily
+    if 'Q5' in model:
+        subfamily = 'Quanta 5'
+    elif 'V5' in model:
+        subfamily = 'Vector 5'
+    elif 'Q70' in model:
+        subfamily = 'Quanta 70'
+    elif 'V70' in model:
+        subfamily = 'Vector 70'
 
-        # Firmware
-        if re.search(r"\bH\d{2}S\d{2}[v\d.-]+\b", line) is not None:
-            firmware = re.search(r"\bH\d{2}S\d{2}[v\d.-]+\b", line).group()
+    # Firmware
+    firmware = re.search(r"(H\d{2}S\d{2}-OCTOPUS_PTPv[\d.]+)", dcard_raw_text_string).group(1)
 
-        # Uptime
-        if re.search(r"^Uptime: ([\d\w :]*)$", line) is not None:
-            uptime = re.search(r"^Uptime: ([\d\w :]*)$", line).group(1)
+    # Serial number
+    serial_number = re.search(r"SN:(\d+)", dcard_raw_text_string).group(1)
 
-        # Last Reboot Reason
-        if re.search(r"^Last reboot reason: ([\w ]*)$", line) is not None:
-            rebootreason = re.search(r"^Last reboot reason: ([\w ]*)$", line).group(1)
+    # Uptime
+    uptime = re.search(r"Uptime: ([\d\w :]*)", dcard_raw_text_string).group(1)
 
-    result = QCard(subfamily, model, serial_number, firmware, uptime, rebootreason, dcard_raw_text_list,
-                   dcard_raw_text_string, '1', '1', '1', '1')
+    # Last Reboot Reason
+    rebootreason = re.search(r"Last reboot reason: ([\w ]*)", dcard_raw_text_string).group(1)
+
+    # Settings
+    settings = {'Role': None, 'Bandwidth': None, 'DL Frequency': None, 'UL Frequency': None, 'Frame size': None,
+                'Guard Interval': None, 'UL/DL Ratio': None, 'Tx Power': None, 'ATPC': None, 'AMC Strategy': None,
+                'Max DL MCS': None, 'Max UL MCS': None, 'DFS': None, 'ARQ': None}
+
+    settings['Role'] = re.search(r"ptp_role (\w+)", dcard_raw_text_string).group(1)
+    settings['Bandwidth'] = re.search(r"bw (\d+)", dcard_raw_text_string).group(1)
+    settings['DL Frequency'] = re.search(r"freq_dl (\d+)", dcard_raw_text_string).group(1)
+    settings['UL Frequency'] = re.search(r"freq_ul (\d+)", dcard_raw_text_string).group(1)
+    settings['Frame size'] = re.search(r"frame_length (\d+)", dcard_raw_text_string).group(1)
+    settings['Guard Interval'] = re.search(r"guard_interval (\d+\/\d+)", dcard_raw_text_string).group(1)
+
+    if 'on' in re.search(r"radio\.dl_ul_ratio (\d+)", dcard_raw_text_string).group(1):
+        settings['UL/DL Ratio'] = re.search(r"dl_ul_ratio (\d+)", dcard_raw_text_string).group(1) + '(auto)'
+    else:
+        settings['UL/DL Ratio'] = re.search(r"dl_ul_ratio (\d+)", dcard_raw_text_string).group(1)
+
+    settings['Tx Power'] = re.search(r"tx_power (\d+)", dcard_raw_text_string).group(1)
+    settings['ATPC'] = 'Enabled' if 'on' in re.search(r"atpc (on|off)", dcard_raw_text_string).group(1) else 'Disabled'
+    settings['AMC Strategy'] = re.search(r"amc_strategy (\w+)", dcard_raw_text_string).group(1)
+    settings['Max DL MCS'] = re.search(r"dl_mcs (([\d-]+)?(QPSK|QAM)-\d+\/\d+)", dcard_raw_text_string).group(1)
+    settings['Max UL MCS'] = re.search(r"ul_mcs (([\d-]+)?(QPSK|QAM)-\d+\/\d+)", dcard_raw_text_string).group(1)
+    settings['DFS'] = 'Enabled' if 'dfs_rd' in re.search(r"dfs (dfs_rd|off)", dcard_raw_text_string).group(
+        1) else 'Disabled'
+    settings['ARQ'] = 'Enabled' if 'on' in re.search(r"harq (on|off)", dcard_raw_text_string).group(1) else 'Disabled'
+
+    # Radio Status
+    """radio_status structure
+
+        Link status
+        Measured Distance
+        Downlink OR Uplink
+             Frequency
+             Tx Power
+             Stream 0 OR 1
+                 MCS
+                 RSSI
+                 EVM
+                 Crosstalk
+                 ARQ ratio
+
+        Example: radio_status['Downlink'][Stream 0']['MCS']
+        """
+
+    radio_status = {'Link status': None, 'Measured Distance': None, 'Downlink': {'Frequency': None,
+                                                                                 'Stream 0': {'Tx Power': None,
+                                                                                              'MCS': None, 'RSSI': None,
+                                                                                              'EVM': None,
+                                                                                              'Crosstalk': None,
+                                                                                              'ARQ ratio': None},
+                                                                                 'Stream 1': {'Tx Power': None,
+                                                                                              'MCS': None, 'RSSI': None,
+                                                                                              'EVM': None,
+                                                                                              'Crosstalk': None,
+                                                                                              'ARQ ratio': None}},
+                    'Uplink': {'Frequency': None,
+                               'Stream 0': {'Tx Power': None, 'MCS': None, 'RSSI': None, 'EVM': None, 'Crosstalk': None,
+                                            'ARQ ratio': None},
+                               'Stream 1': {'Tx Power': None, 'MCS': None, 'RSSI': None, 'EVM': None, 'Crosstalk': None,
+                                            'ARQ ratio': None}}}
+
+    radio_status['Link status'] = re.search(r"State\s+(\w+)", dcard_raw_text_string).group(1)
+    radio_status['Measured Distance'] = re.search(r"Distance\s+(\d+\sm)", dcard_raw_text_string).group(1)
+    pattern = re.search(r"Frequency\s+\|\s(\d+)\sMHz\s+\|\s(\d+)\sMHz", dcard_raw_text_string)
+    radio_status['Downlink']['Frequency'] = pattern.group(1)
+    radio_status['Uplink']['Frequency'] = pattern.group(2)
+
+    if 'connected' in radio_status['Link status']:
+        if 'master' in settings['Role']:
+            pattern = re.search(r"\| TX power\s+([\d\.]+)\s\/\s([\d\.]+)\sdBm", dcard_raw_text_string)
+            radio_status['Downlink']['Stream 0']['Tx Power'] = pattern.group(1)
+            radio_status['Downlink']['Stream 1']['Tx Power'] = pattern.group(2)
+            pattern = re.search(r"Remote TX power\s+([\d\.]+)\s\/\s([\d\.]+)\sdBm", dcard_raw_text_string)
+            radio_status['Uplink']['Stream 0']['Tx Power'] = pattern.group(1)
+            radio_status['Uplink']['Stream 1']['Tx Power'] = pattern.group(2)
+        else:
+            pattern = re.search(r"\| TX power\s+([\d\.]+)\s\/\s([\d\.]+)\sdBm", dcard_raw_text_string)
+            radio_status['Uplink']['Stream 0']['Tx Power'] = pattern.group(1)
+            radio_status['Uplink']['Stream 1']['Tx Power'] = pattern.group(2)
+            pattern = re.search(r"Remote TX power\s+([\d\.]+)\s\/\s([\d\.]+)\sdBm", dcard_raw_text_string)
+            radio_status['Downlink']['Stream 0']['Tx Power'] = pattern.group(1)
+            radio_status['Downlink']['Stream 1']['Tx Power'] = pattern.group(2)
+
+        for line in dcard_raw_text_list:
+            if line.startswith('| MCS'):
+                pattern = re.findall(r"(([\d-]+)?(QPSK|QAM)-\d+\/\d+)", line)
+                radio_status['Downlink']['Stream 0']['MCS'] = pattern[0][0]
+                radio_status['Downlink']['Stream 1']['MCS'] = pattern[1][0]
+                radio_status['Uplink']['Stream 0']['MCS'] = pattern[2][0]
+                radio_status['Uplink']['Stream 1']['MCS'] = pattern[3][0]
+            elif line.startswith('| RSSI'):
+                pattern = re.findall(r"([-\d.]+\sdBm)", line)
+                radio_status['Downlink']['Stream 0']['RSSI'] = pattern[0]
+                radio_status['Downlink']['Stream 1']['RSSI'] = pattern[1]
+                radio_status['Uplink']['Stream 0']['RSSI'] = pattern[2]
+                radio_status['Uplink']['Stream 1']['RSSI'] = pattern[3]
+            elif line.startswith('| EVM'):
+                pattern = re.findall(r"([-\d.]+\sdB)", line)
+                radio_status['Downlink']['Stream 0']['EVM'] = pattern[0]
+                radio_status['Downlink']['Stream 1']['EVM'] = pattern[1]
+                radio_status['Uplink']['Stream 0']['EVM'] = pattern[2]
+                radio_status['Uplink']['Stream 1']['EVM'] = pattern[3]
+            elif line.startswith('| Crosstalk'):
+                pattern = re.findall(r"([-\d.]+\sdB)", line)
+                radio_status['Downlink']['Stream 0']['Crosstalk'] = pattern[0]
+                radio_status['Downlink']['Stream 1']['Crosstalk'] = pattern[1]
+                radio_status['Uplink']['Stream 0']['Crosstalk'] = pattern[2]
+                radio_status['Uplink']['Stream 1']['Crosstalk'] = pattern[3]
+            elif line.startswith('| ARQ ratio'):
+                pattern = re.findall(r"(\d+\.\d+\s%)", line)
+                radio_status['Downlink']['Stream 0']['ARQ ratio'] = pattern[0]
+                radio_status['Downlink']['Stream 1']['ARQ ratio'] = pattern[1]
+                radio_status['Uplink']['Stream 0']['ARQ ratio'] = pattern[2]
+                radio_status['Uplink']['Stream 1']['ARQ ratio'] = pattern[3]
+
+    # Ethernet Status
+    ethernet_status = {'ge0': {'Status': None, 'Speed': None, 'Duplex': None, 'Negotiation': None, 'CRC': None}}
+
+    pattern = re.findall(r"Physical link is (\w+)(, (\d+ Mbps) ([\w-]+), (\w+))?", dcard_raw_text_string)
+    ethernet_status['ge0']['Status'] = pattern[0][0]
+    ethernet_status['ge0']['Speed'] = pattern[0][2]
+    ethernet_status['ge0']['Duplex'] = pattern[0][3]
+    ethernet_status['ge0']['Negotiation'] = pattern[0][4]
+
+    pattern = re.findall(r"CRC errors\s+(\d+)", dcard_raw_text_string)
+    ethernet_status['ge0']['CRC'] = pattern[0]
+
+    result = QCard(model, subfamily, serial_number, firmware, uptime, rebootreason, dcard_raw_text_list,
+                   dcard_raw_text_string, settings, radio_status,
+                   ethernet_status)
 
     return result

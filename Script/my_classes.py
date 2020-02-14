@@ -1,19 +1,14 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from abc import ABC, abstractmethod
-import collections
-
-
-
-# Diagnostic cards classes
+from abc import ABC
 
 class RawDiagnosticCard(ABC):
     """A diagnostic card"""
 
-    def __init__(self, subfamily, model, serial_number, firmware, uptime, rebootreason, dcard_raw_text_list, dcard_raw_text_string):
-        self.subfamily = subfamily
+    def __init__(self, model, subfamily, serial_number, firmware, uptime, rebootreason, dcard_raw_text_list, dcard_raw_text_string):
         self.model = model
+        self.subfamily = subfamily
         self.serial_number = serial_number
         self.firmware = firmware
         self.uptime = uptime
@@ -27,8 +22,8 @@ class R5000Card(RawDiagnosticCard):
 
     family = 'R5000'
 
-    def __init__(self, subfamily, model, serial_number, firmware, uptime, rebootreason, dcard_raw_text_list, dcard_raw_text_string, ethernet, radio):
-        super().__init__(subfamily, model, serial_number, firmware, uptime, rebootreason, dcard_raw_text_list, dcard_raw_text_string)
+    def __init__(self, model, subfamily, serial_number, firmware, uptime, rebootreason, dcard_raw_text_list, dcard_raw_text_string, ethernet, radio):
+        super().__init__(model, subfamily, serial_number, firmware, uptime, rebootreason, dcard_raw_text_list, dcard_raw_text_string)
         self.ethernet = ethernet
         self.radio = radio
 
@@ -38,9 +33,9 @@ class XGCard(RawDiagnosticCard):
 
     family = 'XG'
 
-    def __init__(self, subfamily, model, serial_number, firmware, uptime, rebootreason, dcard_raw_text_list, dcard_raw_text_string, settings, radio_status,
+    def __init__(self, model, subfamily, serial_number, firmware, uptime, rebootreason, dcard_raw_text_list, dcard_raw_text_string, settings, radio_status,
                  ethernet_status, panic):
-        super().__init__(subfamily, model, serial_number, firmware, uptime, rebootreason, dcard_raw_text_list, dcard_raw_text_string)
+        super().__init__(model, subfamily, serial_number, firmware, uptime, rebootreason, dcard_raw_text_list, dcard_raw_text_string)
         self.settings = settings
         self.radio_status = radio_status
         self.ethernet_status = ethernet_status
@@ -52,13 +47,12 @@ class QCard(RawDiagnosticCard):
 
     family = 'Quanta'
 
-    def __init__(self, subfamily, model, serial_number, firmware, uptime, rebootreason, dcard_raw_text_list, dcard_raw_text_string, settings, radio_status,
-                 ethernet_status, panic):
-        super().__init__(subfamily, model, serial_number, firmware, uptime, rebootreason, dcard_raw_text_list, dcard_raw_text_string)
+    def __init__(self, model, subfamily, serial_number, firmware, uptime, rebootreason, dcard_raw_text_list, dcard_raw_text_string, settings, radio_status,
+                 ethernet_status):
+        super().__init__(model, subfamily, serial_number, firmware, uptime, rebootreason, dcard_raw_text_list, dcard_raw_text_string)
         self.settings = settings
         self.radio_status = radio_status
         self.ethernet_status = ethernet_status
-        self.panic = panic
 
 # Settings classes
 
