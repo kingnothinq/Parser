@@ -22,7 +22,8 @@ def run_tests(device):
                 pass
         """
 
-        module = import_module('.' + str(test_name.stem), 'Tests.' + device.family)
+        module = import_module('.' + str(test_name.stem),
+                               'Tests.' + device.family)
         return module.test(device)
 
     test_path = Path.cwd().parent / 'Tests' / device.family

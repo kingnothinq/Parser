@@ -1,7 +1,7 @@
 
 R5000 WANFleX H11S11-TDMAv2.1.12 * Nov  1 2019 10:22:50 * SN:199200
 Processor: MPC8309 400 MHz
-PN:SkyMAN R5000-Lmn/60*.300.2x200
+PN:SkyMAN R5000-Lmn/60*.300.2x200.2x26
 
 Uptime: 3 days 02:09:16
 Last reboot reason: manual delayed restart

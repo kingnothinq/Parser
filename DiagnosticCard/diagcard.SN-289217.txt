@@ -1,0 +1,991 @@
+
+R5000 WANFleX H11S11-TDMAv2.1.12 * Nov  1 2019 10:22:50 * SN:289217
+Processor: MPC8309 400 MHz
+PN:SkyMAN R5000-Smnc/6.300.2x200.2x19
+
+Uptime: 16 days 05:41:51
+Last reboot reason: power-on reset
+Fri Feb 07 15:24:20 GMT 2020  (MINT)
+
+# R5000 WANFleX H11S11-TDMAv2.1.12 * Nov  1 2019 10:22:50 * SN:289217
+
+#Environment
+ set TZ GMT+5
+   
+#System parameters
+ #Factory password mode: single
+ sys name ZMB-ANT41
+ sys prompt ZMB-ANT41
+ sys user root
+ setpass $1$mJS6T$ktz0nn.dfbx1JYebuj8cD/
+   
+#Radio module parameters
+ rf rf5.0 grid 40 6050-6425/20
+ rf rf5.0 grid 20 6050-6425/20
+ rf rf5.0 grid 10 6050-6425/5
+ rf rf5.0 grid 5 6050-6425/5
+ rf rf5.0 band 10
+ rf rf5.0 mimo greenfield
+ rf rf5.0 freq 6165 bitr 65000 sid 86030301 burst
+ rf rf5.0 txpwr 23 pwrctl 
+   
+#DFS configuration
+ dfs rf5.0 dfsonly
+   
+#Interfaces parameters
+ ifc lo0    127.0.0.1/32
+ ifc eth0   media auto mtu 1500 up
+ ifc eth0   10.10.20.50/24
+ ifc rf5.0  mtu 1500 up
+ ifc svi100 mtu 1500 up
+            # group 100
+ ifc vlan100 mtu 1500 up
+ ifc vlan100 10.86.40.121/24
+ ifc vlan100 vlan 100 vlandev svi100
+            # group 100
+   
+#QoS manager
+ qm option dot1p rtp nodscp icmp
+ qm ch1 setpri=1 max=1000 info="Network Control"
+ qm ch4 setpri=4 info="Real Time"
+ qm ch16 setpri=16 info="Best Effort"
+ qm addout 10 ch1 swg=173 
+ qm addout 20 ch4 swg=39 
+ qm addout 30 ch16 swg=1 
+   
+#Routing parameters
+ route add default 10.86.40.254
+   
+#MINT configuration
+ mint rf5.0 -name "ZMB-ANT41"
+ mint rf5.0 -nodeid 29217
+ mint rf5.0 -type slave
+ mint rf5.0 -mode fixed
+ mint rf5.0 -key "ZMB-ANT1"
+ mint rf5.0 -mulcast 3
+ mint rf5.0 -scrambling
+ mint rf5.0 -autobitrate
+ mint rf5.0 -hiamp 2 -loamp 0
+ mint rf5.0 -log
+ mint rf5.0 prof 1 -band 10 -freq auto -sid 86030301 \
+	      -nodeid 29217 -type slave \
+	      -autobitr -mimo greenfield \
+	      -key "ZMB-ANT1"
+ mint rf5.0 -roaming enable
+ mint rf5.0 -authmode public
+ mint rf5.0 -airupdate passive
+ mint rf5.0 -rcmdserver enabled
+ mint rf5.0 start
+ 
+ mint rf5.0 tdma mode=Slave start
+ 
+   
+#MAC Switch config
+ switch list LST1 match add 'vlan 100'
+ 
+ switch group 100 add 1 eth0 rf5.0 
+ switch group 100 rule 10 permit match LST1
+ switch group 100 deny
+      # group 100 attached to 'svi100' => vlan100(100)
+ switch group 100 start
+ 
+ switch group 1 info "Best Effort"
+ switch group 1 add 2 eth0 rf5.0 
+ switch group 1 igmp-snooping on
+ switch group 1 igmp-snooping router-port on
+ switch group 1 start
+ 
+ switch start
+   
+#Switch Virtual Interface config
+ svi 100 group 100
+   
+#SNMP configuration
+ snmpd user InfiMonitor add security authNoPriv pass "LeghitAdAb" \
+       access   readWrite    class admin
+ snmpd v1disable
+ snmpd start
+   
+#WEB configurator
+ webcfg start -lang=ru
+   
+#LLDP parameters
+ lldp eth0 enable txrx
+   
+
+
+==============================================================================
+Interface rf5.0  TDS
+Node  0004352469C1  "ZMB-ANT41", Id 29217, Nid 0, (Slave)
+Freq 6165, Band 10, Sid 86030301, autoBitrate 65000 (min 6500), Noise -96 
+
+ ------- ---------------------------- ------------ -----  ------- ----- -------
+   Id         Name                        Node     Level  Bitrate Retry Options
+ ------- ---------------------------- ------------ rx/tx   rx/tx  rx/tx -------
+   08020 ZMB-ANT1                     00043514B334 14/17   52/52   0/4  /TM/
+	 load 90/4, pps 26/0, cost 51
+	  pwr 23/23, rssi -57/-56, snr 33/35
+	  dist 4.2
+	  H08v2.1.12, IP=10.86.40.81, up 14 days
+ ------- ---------------------------- ------------ -----  ------- ----- -------
+ 1 active neighbors
+ Total load: 90/4 (rx/tx), 94 (sum) Kbps
+ Total nodes in area: 11
+ Links fault 3, Routes fault 31
+
+
+
+==============================================================================
+Interface rf5.0  TDS
+Node  0004352469C1  "ZMB-ANT41", Id 29217, Nid 0, (Slave)
+Freq 6165, Band 10, Sid 86030301, autoBitrate 65000 (min 6500), Noise -96 
+
+GROUP 1    : 10 nodes : "Best Effort" : sent 540226
+	     (eth0 rf5.0)
+  0004352469B2 "ZMB-ANT5                    "  2 hops, Cost 102, (alive 4)
+  0004352469B4 "ZMB-ANT14                   "  2 hops, Cost 102, (alive 5)
+  0004352469B5 "ZMB-ANT29                   "  2 hops, Cost 102, (alive 5)
+  0004352469B9 "ZMB-ANT11                   "  2 hops, Cost 102, (alive 5)
+  0004352469BA "ZMB-ANT15                   "  2 hops, Cost 102, (alive 4)
+  0004352469C0 "ZMB-ANT10                   "  2 hops, Cost 102, (alive 4)
+  0004352469CE "ZMB-ANT8                    "  2 hops, Cost 102, (alive 4)
+  0004352469CF "ZMB-ANT42                   "  2 hops, Cost 102, (alive 4)
+  0004352469D7 "ZMB-ANT6                    "  2 hops, Cost 102, (alive 4)
+  00043514B334 "ZMB-ANT1                    "  1 hops, Cost  51, (alive 4)
+
+GROUP 100  : 10 nodes : sent 239448
+	     (eth0 rf5.0) => svi100
+  0004352469B2 "ZMB-ANT5                    "  2 hops, Cost 102, (alive 4)
+  0004352469B4 "ZMB-ANT14                   "  2 hops, Cost 102, (alive 5)
+  0004352469B5 "ZMB-ANT29                   "  2 hops, Cost 102, (alive 5)
+  0004352469B9 "ZMB-ANT11                   "  2 hops, Cost 102, (alive 5)
+  0004352469BA "ZMB-ANT15                   "  2 hops, Cost 102, (alive 4)
+  0004352469C0 "ZMB-ANT10                   "  2 hops, Cost 102, (alive 4)
+  0004352469CE "ZMB-ANT8                    "  2 hops, Cost 102, (alive 4)
+  0004352469CF "ZMB-ANT42                   "  2 hops, Cost 102, (alive 4)
+  0004352469D7 "ZMB-ANT6                    "  2 hops, Cost 102, (alive 4)
+  00043514B334 "ZMB-ANT1                    "  1 hops, Cost  51, (alive 4)
+
+
+Switch status: STARTED
+Bridge group 1(normal), READY STARTED  Interfaces : eth0(F) rf5.0(F) 
+       Info: Best Effort
+Bridge group 100(normal), READY STARTED  Interfaces : eth0(F) rf5.0(F) 
+
+Switch statistics:
+Kernel forwarded/bcasts/flooded: 1147/1523038/0
+       ignored: 0, by firewall: 0
+
+                                 +------------------ Dropped -----------------+
+ ID   Unicast    Bcast    Flood  ! STPL   UNRD    FRWL    LOOP    DISC   BACK !
+==== ========= ======== ======== !====== ======= ======= ======= ====== ======!
+ 100    482021  1523038     4112       0      15       0       0      0      60
+   1    773323 >9999999    14626       0     216       0       0      0    5908
+Total forwarded: 51061407
+        dropped: 6199
+     DB Records: 229/5000 (4%), max: 322, overflows: 0
+
+
+BlackList for group 1
+MAC Address     Source    VLAN    Time
+============ ============ ==== ==========
+
+BlackList for group 100
+MAC Address     Source    VLAN    Time
+============ ============ ==== ==========
+
+
+IGMP data for group 1
+  Mcast Routers: 
+   If:rf5.0 Mac: 0004352469B4 IP: 10.86.40.10
+
+  MCAST Group     Gateway                    Last Reporter   Mode    Age
+ =========================================================================
+  224.0.5.128     If:rf5.0 Mac: 00043514B334 192.168.1.2     EXCLUDE 113
+  Total groups:   1
+
+
+
+
+qm ch1  setpri=1 max=1000 info="Network Control"
+        cur 0 (max 0), pps 0 (max 0) (curQL=0 maxQL=0)
+        packets 0 (dropped 0), bytes 0 (dropped 0)
+qm ch4  setpri=4 info="Real Time"
+qm ch16 setpri=16 info="Best Effort"
+        packets=47512091 bytes=3015114731
+
+      0 qm addout 10 ch1 swg=173 
+      0 qm addout 20 ch4 swg=39 
+47512091 qm addout 30 ch16 swg=1 
+
+LAST SAVED SYSTEM LOG
+~~~~~~~~~~~~~~~~~~~~~
+0 link down
+10-Oct-19 14:43:15 eth0 media changed to 100 Mbps Full duplex auto
+30-Oct-19 13:42:35 logon as <root> from 10.77.1.237 by http
+31-Oct-19 10:20:55 rf5.0: Link "ZMB-ANT1" (00043514B334) DOWN: "system reconfiguration" snr <33/34>
+31-Oct-19 10:20:55 rf5.0: Network search started with 74 variants
+31-Oct-19 10:21:00 TDMA link UP, Master 00043514B334, Band 10 Freq 6165, RSSI -60
+31-Oct-19 10:21:03 TDMA link UP, Master 00043514B334, Band 10 Freq 6165, RSSI -59
+31-Oct-19 10:21:03 TDMA link UP, Master 00043514B334, Band 10 Freq 6165, RSSI -58
+31-Oct-19 10:21:04 rf5.0: Link "ZMB-ANT1" (00043514B334) UP, snr <33/36>, freq 6165
+31-Oct-19 10:21:04 rf5.0: Network found: band 10 frequency 6165, profile 1
+31-Oct-19 10:21:04 rf5.0: Last roaming discovered nodes:
+31-Oct-19 10:21:04   00043514B334 band 10 freq 6165 snr 32 links 5, prof 1, jam 0
+31-Oct-19 10:52:21 logon as <root> from 10.77.1.236 by http
+06-Nov-19 17:03:44 logon as <root> from 10.77.1.237 by http
+06-Nov-19 17:04:09 ==== WEB: System Reconfiguration ====
+06-Nov-19 17:04:09 rf5.0: Link "ZMB-ANT1" (00043514B334) DOWN: "link reconnecting" snr <32/34>
+06-Nov-19 17:04:09 rf5.0: Network search started with 74 variants
+06-Nov-19 17:04:09 snmpd: service stopped.
+06-Nov-19 17:04:09 rf5.0: MINT administratively destroyed
+06-Nov-19 17:04:09 eth0 link down
+06-Nov-19 17:04:09 16804 mbufs, 13346 clusters free
+06-Nov-19 17:04:09 519 mbufs in use:
+06-Nov-19 17:04:09      513 mbufs allocated to data
+06-Nov-19 17:04:09        6 mbufs allocated to packet headers
+06-Nov-19 17:04:09 513/13859 mapped pages in use
+06-Nov-19 17:04:09 43812 Kbytes allocated to network (3% in use)
+06-Nov-19 17:04:09 
+06-Nov-19 17:04:09 EthI   :   0(1000,0) 
+06-Nov-19 17:04:09 MintQ  :   0(800,0) 
+06-Nov-19 17:04:09 HTB    :   cur 0, max 0, drop 0, lock 0
+06-Nov-19 17:04:09 
+06-Nov-19 17:04:10 ==== WEB: Test New Configuration ====
+06-Nov-19 17:04:10 eth0 link administratively up
+06-Nov-19 17:04:10 rf5.0 link administratively up
+06-Nov-19 17:04:10 svi100 link administratively up
+06-Nov-19 17:04:10 vlan100 link administratively up
+06-Nov-19 17:04:10 rf5.0: MINT started in CPE mode (SLAVE only)
+06-Nov-19 17:04:10 rf5.0: hardware accelerated scrambling enabled
+06-Nov-19 17:04:10 rf5.0: Network search started with 74 variants
+06-Nov-19 17:04:10 rf5.0: MINT started in ROAMING mode.
+06-Nov-19 17:04:10        All RF settings are controlled by roaming profiles.
+06-Nov-19 17:04:10 Service 'webcfg' already active.
+06-Nov-19 17:04:11 TDMA link UP, Master 00043514B334, Band 10 Freq 6165, RSSI -60
+06-Nov-19 17:04:12 eth0 media changed to 100 Mbps Full duplex auto
+06-Nov-19 17:04:13 The device will restart in 245 seconds
+06-Nov-19 17:04:14 TDMA link UP, Master 00043514B334, Band 10 Freq 6165, RSSI -59
+06-Nov-19 17:04:14 rf5.0: Link "ZMB-ANT1" (00043514B334) UP, snr <34/32>, freq 6165
+06-Nov-19 17:04:14 rf5.0: Network found: band 10 frequency 6165, profile 1
+06-Nov-19 17:04:14 rf5.0: Last roaming discovered nodes:
+06-Nov-19 17:04:14   00043514B334 band 10 freq 6165 snr 34 links 7, prof 1, jam 0
+06-Nov-19 17:04:16 logon as <root> from 10.77.1.237 by http
+06-Nov-19 17:04:25 Restart stopped
+06-Nov-19 17:04:25 ==== WEB: Commit New Configuration ====
+06-Nov-19 17:04:25 
+06-Nov-19 17:04:25 Current configuration saved successfully
+26-Nov-19 14:00:12 eth0 link down
+26-Nov-19 14:00:59 eth0 media changed to 100 Mbps Full duplex auto
+26-Nov-19 18:31:45 TDMA link DOWN
+26-Nov-19 18:31:45 rf5.0: Link "ZMB-ANT1" (00043514B334) DOWN: "reset all links" snr <32/35>
+26-Nov-19 18:31:45 rf5.0: Network search started with 74 variants
+26-Nov-19 18:31:46 TDMA link UP, Master 00043514B334, Band 10 Freq 6165, RSSI -57
+26-Nov-19 18:32:06 TDMA link UP, Master 00043514B334, Band 10 Freq 6165, RSSI -60
+Last message was repeated 1 times
+14-Nov-19 00:16:37 rf5.0: Link "ZMB-ANT1" (00043514B334) UP, snr <33/36>, freq 6165
+14-Nov-19 00:16:37 rf5.0: Network found: band 10 frequency 6165, profile 1
+14-Nov-19 00:16:37 rf5.0: Last roaming discovered nodes:
+14-Nov-19 00:16:37   00043514B334 band 10 freq 6165 snr 33 links 1, prof 1, jam 0
+03-Dec-19 15:49:55 logon as <root> from 10.77.2.2 by http
+03-Dec-19 15:50:29 rf5.0: Link "ZMB-ANT1" (00043514B334) DOWN: "link reconnecting" snr <32/35>
+03-Dec-19 15:50:29 rf5.0: Network search started with 74 variants
+03-Dec-19 15:50:30 webcfg: Firmware received with length = 3837686
+03-Dec-19 15:50:30 TDMA link UP, Master 00043514B334, Band 10 Freq 6165, RSSI -59
+03-Dec-19 15:50:33 TDMA link UP, Master 00043514B334, Band 10 Freq 6165, RSSI -58
+03-Dec-19 15:50:33 TDMA link UP, Master 00043514B334, Band 10 Freq 6165, RSSI -57
+03-Dec-19 15:50:33 rf5.0: Link "ZMB-ANT1" (00043514B334) UP, snr <32/35>, freq 6165
+03-Dec-19 15:50:33 rf5.0: Network found: band 10 frequency 6165, profile 1
+03-Dec-19 15:50:33 rf5.0: Last roaming discovered nodes:
+03-Dec-19 15:50:33   00043514B334 band 10 freq 6165 snr 32 links 9, prof 1, jam 0
+03-Dec-19 15:51:04 The device will restart in 10 seconds
+03-Dec-19 15:51:09 The device will restart in 5 seconds 
+03-Dec-19 15:51:12 The device will restart in 2 seconds 
+Last Log: The device will restart in 1 seconds
+
+=====================
+console: baud rate changed to 38400 bps
+-2361:23:20.318 tcf: 250 usec per tick
+-2361:23:19.818 EVENTER: Process started
+-2361:23:19.816 DFFS: User space 7584914 bytes
+-2361:23:19.816 Last reboot reason: power-on reset
+-2361:23:19.802 SYSLOG: Len 2048, Qsize 1024
+-2361:23:18.436 rf5.0: temperature thresholds fixed
+-2361:23:18.419 phy0: address 0x01
+-2361:23:18.418 phy1: address 0xffffffff
+-2361:23:18.418 eth0: phy found a2112000 model: Texas Instruments TLK10x
+-2361:23:12.386 ctl: Heater enable threshold is -8 degrees Celsius
+-2361:23:12.386 ctl: temperature unavailable. Process stopped.
+-2361:23:12.162 rf5.0: bandwidth changed to 10 MHz
+-2361:23:12.148 rf5.0: frequency changed to 6165 MHz
+-2361:23:12.105 rf5.0: MINT started in CPE mode
+-2361:23:12.091 rf5.0: hardware accelerated scrambling enabled
+-2361:23:12.040 rf5.0: Network search started with 74 variants
+-2361:23:12.039 rf5.0: MINT started in ROAMING mode.
+-2361:23:12.039        All RF settings are controlled by roaming profiles.
+-2361:23:10.994 webcfg: service started.
+-2361:23:10.969 HwM: 8301
+-2361:23:10.969 System started, hz=1000
+-2361:23:10.905 TDMA link UP, Master 00043514B334, Band 10 Freq 6165, RSSI -57
+-2361:23:08.246 TDMA link UP, Master 00043514B334, Band 10 Freq 6165, RSSI -55
+-2361:23:08.135 TDMA link UP, Master 00043514B334, Band 10 Freq 6165, RSSI -56
+22-Jan-20 09:31:44 rf5.0: Link "ZMB-ANT1" (00043514B334) UP, snr <33/36>, freq 6165
+22-Jan-20 09:31:44 rf5.0: Network found: band 10 frequency 6165, profile 1
+22-Jan-20 09:31:44 rf5.0: Last roaming discovered nodes:
+22-Jan-20 09:31:44   00043514B334 band 10 freq 6165 snr 33 links 9, prof 1, jam 0
+22-Jan-20 09:32:12 eth0 media changed to 100 Mbps Full duplex auto
+23-Jan-20 11:12:05 TDMA link DOWN
+23-Jan-20 11:12:05 rf5.0: Link "ZMB-ANT1" (00043514B334) DOWN: "link reset" snr <32/34>
+23-Jan-20 11:12:05 rf5.0: Network search started with 74 variants
+23-Jan-20 11:12:22 TDMA link UP, Master 00043514B334, Band 10 Freq 6165, RSSI -58
+Last message was repeated 2 times
+23-Jan-20 11:12:26 rf5.0: Link "ZMB-ANT1" (00043514B334) UP, snr <33/36>, freq 6165
+12-Dec-19 20:36:48 rf5.0: Network found: band 10 frequency 6165, profile 1
+12-Dec-19 20:36:48 rf5.0: Last roaming discovered nodes:
+12-Dec-19 20:36:48   00043514B334 band 10 freq 6165 snr 32 links 7, prof 1, jam 0
+12-Dec-19 20:36:48 rf5.0: Link "ZMB-ANT1" (00043514B334)   (device rebooted)
+24-Jan-20 08:27:11 TDMA link DOWN
+24-Jan-20 08:27:11 rf5.0: Link "ZMB-ANT1" (00043514B334) DOWN: "link reset" snr <32/34>
+24-Jan-20 08:27:11 rf5.0: Network search started with 74 variants
+24-Jan-20 08:27:28 TDMA link UP, Master 00043514B334, Band 10 Freq 6165, RSSI -60
+24-Jan-20 08:27:31 TDMA link UP, Master 00043514B334, Band 10 Freq 6165, RSSI -59
+Last message was repeated 1 times
+24-Jan-20 08:27:31 rf5.0: Link "ZMB-ANT1" (00043514B334) UP, snr <33/36>, freq 6165
+13-Dec-19 07:14:21 rf5.0: Network found: band 10 frequency 6165, profile 1
+13-Dec-19 07:14:21 rf5.0: Last roaming discovered nodes:
+13-Dec-19 07:14:21   00043514B334 band 10 freq 6165 snr 33 links 1, prof 1, jam 0
+13-Dec-19 07:14:21 rf5.0: Link "ZMB-ANT1" (00043514B334)   (device rebooted)
+24-Jan-20 11:18:11 TDMA link DOWN
+24-Jan-20 11:18:11 rf5.0: Link "ZMB-ANT1" (00043514B334) DOWN: "link reset" snr <34/34>
+24-Jan-20 11:18:11 rf5.0: Network search started with 74 variants
+24-Jan-20 11:18:29 TDMA link UP, Master 00043514B334, Band 10 Freq 6165, RSSI -59
+Last message was repeated 2 times
+24-Jan-20 11:18:32 rf5.0: Link "ZMB-ANT1" (00043514B334) UP, snr <34/35>, freq 6165
+01-Nov-19 06:01:08 rf5.0: Network found: band 10 frequency 6165, profile 1
+01-Nov-19 06:01:08 rf5.0: Last roaming discovered nodes:
+01-Nov-19 06:01:08   00043514B334 band 10 freq 6165 snr 33 links 3, prof 1, jam 0
+01-Nov-19 06:01:08 rf5.0: Link "ZMB-ANT1" (00043514B334)   (device rebooted)
+07-Feb-20 12:37:16 logon as <root> from 10.86.40.12 by http
+07-Feb-20 13:29:43 Configuration changes:
+07-Feb-20 13:29:43 ======================
+07-Feb-20 13:29:43 - set CONFIG_GENERATED "WEB INTERFACE"
+07-Feb-20 13:29:43 - mint rf5.0 -minbitrate 6500
+07-Feb-20 13:29:43 
+07-Feb-20 13:29:43 - mint rf5.0 -roaming enable multiBS
+07-Feb-20 13:29:43 + mint rf5.0 -roaming enable
+07-Feb-20 13:29:43 
+07-Feb-20 13:29:43 - mint rf5.0 -airupdate passive normal
+07-Feb-20 13:29:43 + mint rf5.0 -airupdate passive
+07-Feb-20 13:29:43 ======================
+07-Feb-20 13:47:27 logoff as <root> from 10.86.40.12 by http (expired)
+07-Feb-20 15:23:46 logon as <root> from 10.86.40.12 by http
+
+
+Name   Init/Cur    Pri  State    CPU
+
+TCFP (08192/01216)   5  Wevnt   0.09%
+HTBt (09216/00216)   7  Wevnt   0.00%
+EVTS (12288/02696) 100  SUSP   11.67%
+STAT (04096/00536)  75  DELAY   0.00%
+sysl (05120/00704) 160  Wmsg    0.00%
+I160 (12288/00992)  11  Wevnt   0.73%
+T160 (08192/00960)  10  SUSP    0.56%
+RXP0 (10240/01240)  15  Wevnt   0.10%
+rfht (08192/00512)  50  Wevnt   0.00%
+EthI (09216/01592)  50  Act     3.49%
+ueci (16384/01392)  15  Wevnt   0.05%
+uect (04096/00424)  15  Wevnt   0.00%
+phyd (04096/00568) 100  Wevnt   0.00%
+BASH (11264/01264)  50  Wsem    0.00%
+SCN0 (04096/00392) 211  Wevnt   0.00%
+PSRT (04096/00272) 155  Wevnt   0.00%
+MINT (06144/01840)   9  Wevnt   0.37%
+MRUP (04096/01200)  12  Wevnt   0.00%
+SWSP (08192/00400) 100  Wevnt   0.00%
+snmp (09216/01608) 121  SUSP    0.00%
+webc (30720/02752) 100  SUSP    0.00%
+HTTP (08192/02048) 100  SUSP    0.21%
+LLDP (04096/00888) 122  Wevnt   0.00%
+TELD (08192/00432)  99  SUSP    0.00%
+exec (09216/00544) 100  SUSP    0.05%
+e$00 (32768/02048) 100  Act     6.18%
+l$00 (11264/01232) 120  Act     1.49%
+
+CPU Load  25%   5%(10s)   5%(30s)   5%(60s)   4%(300s)
+Detailed: Isr: 2.50%  Tasks: 1.48%  Idle: 96.00%
+ISR: 4341 pps
+
+
+lo0: flags=8009<UP,LOOPBACK,MULTICAST> mtu 1500
+        inet 127.0.0.1 netmask 0xffffffff 
+
+eth0: flags=8103<UP,BROADCAST,PROMISC,MULTICAST> mtu 1500
+        inet 10.10.20.50 netmask 0xffffff00 broadcast 10.10.20.255
+        ether 00:04:35:04:69:c1 
+
+	Physical link is UP, 100 Mbps Full-duplex, Auto
+	PHY chip: Texas Instruments TLK10x ID: a2112000
+	+--------------------------------+------+-----+
+	|                 Supported modes| Self |Peer |
+	+--------------------------------+------+-----+
+	|                Auto-Negotiation| yes  | yes |
+	|             10 Mbps Half-duplex| yes  | yes |
+	|             10 Mbps Full-duplex| yes  | yes |
+	|            100 Mbps Half-duplex| yes  | yes |
+	|            100 Mbps Full-duplex| yes  | yes |
+	+--------------------------------+------+-----+
+
+	eth0: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            824551      | Packets               48772527    |
+	| Bytes              112298866   | Bytes                 11717260941 |
+	| Load (kbps)        0           | Load (kbps)           69          |
+	| Load (pps)         0           | Load (pps)            32          |
+	| Frame size (bytes) 0           | Frame size (bytes)    269         |
+	+--------------------------------+-----------------------------------+
+	| CRC errors         0           | Carrier lost          0           |
+	| Pause packets      0           | Excessive deferrals   0           |
+	| Runts              0           | Late collisions       0           |
+	| Alignment errors   0           | Multiple collisions   0           |
+	| Long packets       0           | Single collisions     0           |
+	| Out of range       0           | Lost in MAC frames    0           |
+	| In range errors    0           | Excessive collision   0           |
+	| Descriptor errors  0           | Queue overflow        0           |
+	+--------------------------------+-----------------------------------+
+
+rf5.0: flags=8103<UP,BROADCAST,PROMISC,MULTICAST> mtu 1500
+        inet 0.0.0.0 netmask 0x0 
+        ether 00:04:35:24:69:c1 
+
+null0: flags=8802<BROADCAST,NULL,MULTICAST> mtu 1500
+
+svi100: flags=8003<UP,BROADCAST,MULTICAST> mtu 1500
+        inet 0.0.0.0 netmask 0x0 
+        ether 02:04:35:04:69:c1 
+
+	svi100: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            1523951     | Packets               1962        |
+	| Bytes              164583627   | Bytes                 1450440     |
+	| Load (kbps)        17          | Load (kbps)           0           |
+	| Load (pps)         5           | Load (pps)            2           |
+	+--------------------------------+-----------------------------------+
+
+vlan100: flags=8023<UP,BROADCAST,VLAN,MULTICAST> mtu 1500
+        inet 10.86.40.121 netmask 0xffffff00 broadcast 10.86.40.255
+        ether 02:04:35:04:69:c1 
+
+	vlan100: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Parent       svi100      |        VLAN ID        100         |
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            1523951     | Packets               1962        |
+	| Bytes              158487823   | Bytes                 1450440     |
+	| Load (kbps)        17          | Load (kbps)           0           |
+	| Load (pps)         5           | Load (pps)            2           |
+	| Frame size (bytes) 425         | Frame size (bytes)    0           |
+	+--------------------------------+-----------------------------------+
+
+
+Name      Network            Address               Ipkts Ierrs      Opkts Oerrs
+lo0       Link:                                      472     0        472     0
+lo0       127.0.0.1/32       127.0.0.1       
+eth0      Link:              0004350469c1         824551     0   48772528     0
+eth0      10.10.20.0/24      10.10.20.50     
+rf5.0     Link:              0004352469c1       40558157 7543843    4548649     1
+rf5.0     none               none             
+null0*    Link:                                        0     0          0     0
+svi100    Link:              0204350469c1        1523951     0       1962     0
+svi100    none               none             
+vlan100   Link:              0204350469c1        1523951     0       1962     0
+vlan100   10.86.40.0/24      10.86.40.121    
+
+
+Routing tables
+Destination        Gateway            Flags     Refs     Use  Interface
+default            10.86.40.254       UGS         0        0  vlan100
+10.10.20.0/24      link#2             UC          0        0  eth0
+10.86.40.0/24      link#6             UC          0        0  vlan100
+10.86.40.12        e8:11:32:dd:96:c1  UHL         2      680  vlan100
+10.86.40.254       link#6             UHL         1        0  vlan100
+127.0.0.1          127.0.0.1          UH          2      478  lo0
+224.0.0.0/8        127.0.0.1          UGS         0        0  lo0
+
+
+10.86.40.12 at E81132DD96C1 via vlan100
+10.86.40.254 at (incomplete) via vlan100
+
+License 'Factory License' granted at 06/12/2018 09:27:51
+  Device
+    SN:289217
+    PN:SkyMAN R5000-Smnc/6.300.2x200.2x19
+    Production Date: 6 Dec 2018 09:27:51 YEKT
+  Operational parameters
+    rf5.0 interface parameters
+      Maximum Transmit Rate: 300 Mbps
+      Available Channel Widths: 5 Mhz 10 Mhz 20 Mhz
+      40 MHz channel width is available
+      Power levels: 1,200 mW
+      Power levels: 0.0,23.0 dBm
+      PMtP CPE Only
+      Supported Frequencies: 6060 - 6420 MHz
+
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<license description="Factory License" granted="06/12/2018 09:27:51" id="{82102ff2-6ca1-4f7c-a2c5-4601c19a09a1}">
+    <device description="Device">
+        <options SN="289217" description="SN:289217" />
+        <options PN="R5000-Smnc/6.300.2x200.2x19-H11" description="PN:SkyMAN R5000-Smnc/6.300.2x200.2x19" />
+        <options ProductionDate="06/12/2018 09:27:51+0500" description="Production Date: 6 Dec 2018 09:27:51 YEKT" />
+        <options Model="R5000-S" />
+        <options Features="m - MIMO, n - H11 Platform, c - CPE" />
+        <options Platform="MPC8309 400 MHz (H11YY-02) - H11.rev 02" />
+        <options IDU="IDU-CPE(48V)" />
+        <options Radios="RMM-63-02 - НФДА5.209.304-01 (8)/00273872" />
+        <options Antennas="MT-465038/CVH" />
+        <specification decimal="NFDA2.158.029-14" name="Smnc/63.XXX.2x200.2x19" />
+    </device>
+    <wanflex description="Operational parameters">
+        <feature description="rf5.0 interface parameters" name="rf5.0">
+            <option MaximumTransmitRate="300000" description="Maximum Transmit Rate: 300 Mbps" />
+            <option BandwidthMask="16391" description="Available Channel Widths: 5 Mhz 10 Mhz 20 Mhz" />
+            <option DoubleBandwidthEnabled="1" description="40 MHz channel width is available" />
+            <option ChangePower="1" />
+            <option TransmitPowers="1,200" description="Power levels: 1,200 mW" />
+            <option TransmitPowersTenthdbm="0,230" description="Power levels: 0.0,23.0 dBm" />
+            <option CPEOnly="true" description="PMtP CPE Only" />
+            <option RxChainMask="3" />
+            <option TxChainMask="3" />
+            <option rfmode="na" />
+            <option FrequencyList="6060na,6080na,6100na,6120na,6140na,6160na,6180na,6200na,6220na,6240na,6260na,6280na,6300na,6320na,6340na,6360na,6380na,6400na,6420na" description="Supported Frequencies: 6060 - 6420 MHz" />
+        </feature>
+    </wanflex>
+</license>
+
+
+                       System events statistics:
+         Event             Raise           Send         Receptions
+--------------------- --------------- --------------- ---------------
+TASK_DELETED                        6               0               0
+TOD_CHANGED                      5824               0               0
+CONFIG_SAVED                        1               0               0
+CONFIG_SAVEWEB                      1               0               1
+HTTPD_SCRIPT                        0              54              53
+LINK_STATE                          6               0               9
+FREQ_CHANGED                        1               0               0
+NOL_CHANGED                         1               0               0
+--------------------- --------------- --------------- ---------------
+               Total:            5840              54              63
+           Overflows:               0      Conflicts:               0
+
+
+Custom pools 14, objects 29:
+8  bytes: /MA/MA (public) refcnt 2
+   Cluster 160/20, 1/1 clusters, Total 160 bytes, 10 items
+44 bytes: /MA/xmlText/xmlComment (public) refcnt 3
+   Cluster 180224/4096, 1/1 clusters, Total 180224 bytes, 2350 items
+12 bytes: /MA/MA/RSE/MA (public) refcnt 4
+   Cluster 12288/1024, 1/1 clusters, Total 12288 bytes, 458 items
+16 bytes: /MA/MUM/MRFE (public) refcnt 3
+   Cluster 163840/10240, 3/3 clusters, Total 491520 bytes, 28519 items
+4  bytes: /MA (public) refcnt 1
+   Cluster 8192/2048, 1/1 clusters, Total 8192 bytes, 615 items
+40 bytes: /MA/TCF/USL (public) refcnt 3
+   Cluster 40960/1024, 1/1 clusters, Total 40960 bytes, 128 items
+52 bytes: /MA (public) refcnt 1
+   Cluster 1040/20, 1/1 clusters, Total 1040 bytes, 0 items
+32 bytes: /SLOG/xmlAttrib (public) refcnt 2
+   Cluster 196608/6144, 3/3 clusters, Total 589824 bytes, 15696 items
+76 bytes: /xmlElement/MTP_P/MTP_NE (public) refcnt 3
+   Cluster 389120/5120, 2/2 clusters, Total 778240 bytes, 5854 items
+128 bytes: /MSEQ (public) refcnt 1
+   Cluster 4096/32, 1/1 clusters, Total 4096 bytes, 4 items
+388 bytes: /ICHUNK (public) refcnt 1
+   Cluster 38800/100, 1/1 clusters, Total 38800 bytes, 10 items
+56 bytes: /OCHUNK (public) refcnt 1
+   Cluster 5600/100, 1/1 clusters, Total 5600 bytes, 2 items
+20 bytes: /TXQ/CENTRY/NSTR (public) refcnt 3
+   Cluster 40960/2048, 1/1 clusters, Total 40960 bytes, 10 items
+28 bytes: /MTP_DE (public) refcnt 1
+   Cluster 14336/512, 1/1 clusters, Total 14336 bytes, 8 items
+
+
+SYSTEM      R5000 WANFleX H11S11-TDMAv2.1.12 * Nov  1 2019 10:22:50 * SN:289217
+            * Uptime: 16 days 05:41:51
+            Firmware ID: 011T0011
+            PN:SkyMAN R5000-Smnc/6.300.2x200.2x19
+            Flapping Indicator 0
+
+MEMORY      121.6 MB total
+            Malloc stats
+              Total:127544960  Free:60986424  Allocated:66558536 (52.18%)
+              Max:67075088 (52.58%)
+            Calls
+              malloc:51154851  free:102008087  realloc:1357619  calloc:50450242 
+            miss:0
+            
+            14505 mbufs, 11045 clusters free
+            2818 mbufs in use:
+                2814 mbufs allocated to data
+                   4 mbufs allocated to packet headers
+            2814/13859 mapped pages in use
+            44359 Kbytes allocated to network (21% in use)
+            
+            EthI   :   0(1000,0) 
+            eth0   :   0(512,0) 
+            rf5.0  :   0(600,0)  rf5.0-rx: 0(350,0)
+            MintQ  :   0(800,0) 
+            HTB    :   cur 0, max 0, drop 0, lock 0
+            
+            ------- System objects stats ------
+              Object     Capac. Current   Max
+            ----------- ------- ------- -------
+            Tasks           128      27      27
+            Timers           40       4       6
+            Semaphores       95      20      20
+            MQueues          20       1       1
+            Extentions        4       2       2
+            Workspace Required: 81960
+                     Allocated: 204800
+
+ISR         Integrated Programmable Interrupt Controller
+            No isr stat: sysdebug level is 0
+
+CPU         Processor: MPC8309 400 MHz
+            CPU Load  25%   5%(10s)   5%(30s)   5%(60s)   4%(300s)
+            Detailed: Isr: 2.50%  Tasks: 1.48%  Idle: 96.00%
+            Reset status: Power-on (0xf0000000)
+
+FLASH       Flash device 0: N25Q Boot sector #0, DFFS sector #7
+
+DFFS        Files=13, Used 4434944 bytes, Free 11518860 bytes
+            FlashSize=15936 KB, 249 Sectors of 64 KB, 15936 blocks of 1024 bytes
+
+PCI         Atheros AR9220 Wireless PCI Adapter. InfiNet Wireless RMM63 6.2 GHz
+            Radio
+            Port: 0 Bus: 0 Device: 10 Function: 0 vendor:0x168c device:0x0029
+            MEM32 at 0x80000000 size: 0x00010000 CLS: 8
+
+LICENSE     Factory License granted at 06/12/2018 09:27:51
+            id={82102ff2-6ca1-4f7c-a2c5-4601c19a09a1}
+
+RFTS        RF temperature stabilizer.
+            rf5.0: Internal Temperature is +24.0 degrees Celsius.Heater 100%
+                   Thresholds: 5/45, T-gradient: 5.0 degrees per minute
+                   Hardware:   ht: 4, cl: 0, da: 1, i2c: 0x48, fuse: 50C
+
+PHY         Texas Instruments TLK10x
+            	Physical link info:
+            	Link is UP, auto Full-duplex, 100 Mbps
+            	Capabilities:          Self  Peer
+            	     Auto-Negotiation:   +     +  
+            	  10 Mbps Half-duplex:   +     +  
+            	  10 Mbps Full-duplex:   +     +  
+            	 100 Mbps Half-duplex:   +     +  
+            	 100 Mbps Full-duplex:   +     +  
+            	PHY chip: Texas Instruments TLK10x ID: a2112000
+
+Internal temperature unavailable.
+
+rf5.0 Capabilities
+   Radio capabilities:
+   Model name:				InfiNet Wireless RMM63
+   Adapter name:			Atheros AR9220 Wireless PCI Adapter. InfiNet Wireless RMM63 6.2 GHz Radio
+   Subvendor: 0xfff1, Subid 0x6300
+   EEPROM revision:			14.16
+   MAC silicon revision:		128.2
+   PHY silicon revision:		13.0
+   5GHz analog silicon revision:	12.0
+   Power levels (dBm):			0, 23
+   (per packet power control supported)
+   Greenfield mode supported
+   MAC address:				0004352469C1
+   Bandwidth modes:			5, 10, 20, 40
+   Bitrate list:			6500, 13000, 19500, 26000,
+					39000, 52000, 58500, 65000
+   Frequency bounds (40 MHz):		6050-6425
+   Frequency grid (user defined):	6050-6425/20
+   Frequency list (17 channels):
+     6070, 6090, 6110, 6130, 6150, 6170, 6190, 6210, 6230, 6250, 6270, 6290, 
+     6310, 6330, 6350, 6370, 6390  
+
+   Frequency bounds (20 MHz):		6050-6425
+   Frequency grid (user defined):	6050-6425/20
+   Frequency list (18 channels):
+     6070, 6090, 6110, 6130, 6150, 6170, 6190, 6210, 6230, 6250, 6270, 6290, 
+     6310, 6330, 6350, 6370, 6390, 6410  
+
+   Frequency bounds (10 MHz):		6050-6425
+   Frequency grid (user defined):	6050-6425/5
+   Frequency list (74 channels):
+     6055, 6060, 6065, 6070, 6075, 6080, 6085, 6090, 6095, 6100, 6105, 6110, 
+     6115, 6120, 6125, 6130, 6135, 6140, 6145, 6150, 6155, 6160, 6165, 6170, 
+     6175, 6180, 6185, 6190, 6195, 6200, 6205, 6210, 6215, 6220, 6225, 6230, 
+     6235, 6240, 6245, 6250, 6255, 6260, 6265, 6270, 6275, 6280, 6285, 6290, 
+     6295, 6300, 6305, 6310, 6315, 6320, 6325, 6330, 6335, 6340, 6345, 6350, 
+     6355, 6360, 6365, 6370, 6375, 6380, 6385, 6390, 6395, 6400, 6405, 6410, 
+     6415, 6420  
+
+   Frequency bounds (5 MHz):		6050-6425
+   Frequency grid (user defined):	6050-6425/5
+   Frequency list (74 channels):
+     6055, 6060, 6065, 6070, 6075, 6080, 6085, 6090, 6095, 6100, 6105, 6110, 
+     6115, 6120, 6125, 6130, 6135, 6140, 6145, 6150, 6155, 6160, 6165, 6170, 
+     6175, 6180, 6185, 6190, 6195, 6200, 6205, 6210, 6215, 6220, 6225, 6230, 
+     6235, 6240, 6245, 6250, 6255, 6260, 6265, 6270, 6275, 6280, 6285, 6290, 
+     6295, 6300, 6305, 6310, 6315, 6320, 6325, 6330, 6335, 6340, 6345, 6350, 
+     6355, 6360, 6365, 6370, 6375, 6380, 6385, 6390, 6395, 6400, 6405, 6410, 
+     6415, 6420  
+
+
+
+rf5.0 Calibration
+Calibration accuracy: Default, offset -10 halfdBm
+      power:  -5   0   5  11  15     9  14  18  22  25
+      ------------------------------------------------
+6060: vpd 0:  71  77  87 111 140    52  67  88 120 154
+      vpd 1:  71  77  88 113 143    53  70  92 125 160
+      ------------------------------------------------
+6110: vpd 0:  71  78  89 113 141    51  68  90 122 156
+      vpd 1:  71  78  91 117 144    53  71  93 126 160
+      ------------------------------------------------
+6160: vpd 0:  73  79  89 112 141    53  69  90 122 157
+      vpd 1:  72  79  91 116 144    54  72  95 127 157
+      ------------------------------------------------
+6210: vpd 0:  73  79  90 114 141    53  70  91 124 159
+      vpd 1:  74  80  92 117 145    54  72  95 128 161
+      ------------------------------------------------
+6260: vpd 0:  73  79  90 114 143    53  70  91 124 157
+      vpd 1:  72  80  93 120 147    55  73  96 130 161
+      ------------------------------------------------
+6310: vpd 0:  73  79  91 115 144    54  72  94 127 159
+      vpd 1:  73  81  93 120 147    55  74  98 131 161
+      ------------------------------------------------
+6360: vpd 0:  74  80  92 117 146    54  72  95 128 160
+      vpd 1:  73  81  94 122 149    56  76 101 134 162
+      ------------------------------------------------
+6420: vpd 0:  74  81  92 118 149    55  73  96 128 161
+      vpd 1:  74  82  96 124 152    58  79 104 136 162
+
+rf5.0
+chain 0 count 86 max 137 min 133 avg 134 cur 135
+chain 1 count 57 max 142 min 133 avg 137 cur 142
+
+rf5.0
+20MHz, MCS0, limit = 25
+20MHz, MCS1, limit = 25
+20MHz, MCS2, limit = 25
+20MHz, MCS3, limit = 25
+20MHz, MCS4, limit = 25
+20MHz, MCS5, limit = 23
+20MHz, MCS6, limit = 23
+20MHz, MCS7, limit = 22
+
+rf5.0
+CTL NF:  -119 -118
+
+rf5.0 Statistics
+RF   status:    rf5.0 UP (band 10, freq 6165)  :ACTIVE
+DFS  status:    DFSONLY (mode STA) 
+TDMA status:    SLAVE (10 ms DL/UL:50%) (DL5000/UL5000)
+
++--------------------------------------+--------------------------------------+
+|          Receive statistics          |         Transmit  statistics         |
++--------------------------------------+--------------------------------------+
+| Broadcast Rate           52000       | Voice Mode                OFF        |
+| Bytes Received           2071567136  | Bytes Transmitted         3196936732 |
+| Frames Received OK       207187962   | Frames Transmitted OK     89748679   |
+| Multicast Frames         71857738    | Multicast Frames          3064868    |
++--------------------------------------+--------------------------------------+
+| Load (kbps)              109         | Load (kbps)               4          |
+| Load (pps)               27          | Load (pps)                4          |
+| Frame size (bytes)       504         | Frame size (bytes)        125        |
++--------------------------------------+--------------------------------------+
+| RX Medium Load           14.4%       | TX Medium Load            1.0%       |
+| Total Medium Busy        15.6%       | Frame Time Used           3.5%       |
++--------------------------------------+--------------------------------------+
+| Duplicate Received       119698      | Too Short/Long Frames     0 / 0      |
+| Lost frames              305395      | Aggr Subframe Retries     90811      |
+| Rx Collision             156         | Aggr Full Retries         447        |
+| FIFO Overrun             0           | FIFO Underrun/Slip        0 / 1      |
+| CRC Errors               7543843     | Excessive Retries         1          |
+| Noise Floor              -96         | Max aggr frames           12         |
+| Rx Subslots/Nodes        7 / 10      | Max aggr bytes            27834      |
+| Scrambled frames         60168041    | Scrambled frames          836894     |
+| Scramble errors          153         | Tx queue overflow         0          |
+| Rx Cap (Mbps)            24          | Tx Cap (Mbps)             7          |
++--------------------------------------+--------------------------------------+
+
+                        Software Priority Queues rf5.0                         
+                               ( count / drops )                               
++--------------------------------------+--------------------------------------+
+| q00 (P16)             333246 / 0     | q16                      0 / 0       |
+| q01 (P15)             139193 / 0     | q17 (P06)              48879 / 0     |
+| q02                     0 / 0        | q18 (P05)              34299 / 0     |
+| q03 (P14)             120935 / 0     | q19                      0 / 0       |
+| q04 (P13)               0 / 0        | q20                      0 / 0       |
+| q05 (P12)               0 / 0        | q21 (P04)                0 / 0       |
+| q06                     0 / 0        | q22 (P03)                0 / 0       |
+| q07 (P11)               0 / 0        | q23                      0 / 0       |
+| q08                     0 / 0        | q24 (P02)                0 / 0       |
+| q09 (P10)               0 / 0        | q25 (P01)                0 / 0       |
+| q10 (P09)               0 / 0        | q26                      0 / 0       |
+| q11                     0 / 0        | q27                      0 / 0       |
+| q12                     0 / 0        | q28 (P00)              40968 / 0     |
+| q13 (P08)               0 / 0        | q29                   508364 / 1     |
+| q14 (P07)               0 / 0        | q30                    4444 / 0      |
+| q15                     0 / 0        | q31                   1229825 / 0    |
++--------------------------------------+--------------------------------------+
+
+Phy errors: total 168
+  Rx Abort                       = 156
+  Rx interrupted by Tx           = 7
+  OFDM restart                   = 5
+
+
+resets due to: tx stuck 0(0), rx stuck 0(0), mib 0, high load 0
+ PCI fatal intr 0, PCI PERR intr 0, NF cal stuck 0, total 28
+misoctl 1, selfcorr 1, durupdate 0, mim_ena 1, virtcs 0, truecinr 0
+
+nodes 1   turbo rdr ads rbc trail                             
+bl 73, gi 146, sd 2 + bd 163 + ifs 30 + pr 64 = 259 : MB 357    
+txdlen = 405 (17), ssg 4, mrt 8, ldt 600, tj 2 (a 0.7, ma 4, m -30, c 3)      
+slip 1, lb 293364, mlb 61 sl 93, mfr 24 mrc 3 cm 44 bp 56 br 1 lu 1     
+slot 7, mcl 13, miql 12, miqd 3989, mbql 14, mbqd 4726 (172), mbqc 4  
+lh 4197 lf 5762 zf 2072 bf 0, mf 354996, rc 119698 rf 119698, luc 800 lbc 147855 ec 82208918  
+fr 0, sf 33, ufr 798854, rdr 470, mg 0, mb 0, cpu 25        
+
+rf5.0
+RF   status:    rf5.0 UP (band 10, freq 6165)  :ACTIVE
+DFS  status:    DFSONLY (mode STA) 
+TDMA status:    SLAVE (10 ms DL/UL:50%) (DL5000/UL5000)
+
+                             Rate Code Statistics                              
++---------------------------+---------------------+---------------------------+
+|          Receive          |       Bitrate       |         Transmit          |
++---------------------------+---------------------+---------------------------+
+| MCS0             0     0% |  3250  SS BPSK  1/2 | MCS0             0     0% |
+| MCS1      24812649  33.9% |  6500  SS QPSK  1/2 | MCS1        272156   5.9% |
+| MCS2             0     0% |  9750  SS QPSK  3/4 | MCS2             0     0% |
+| MCS3             0     0% | 13000  SS QAM16 1/2 | MCS3             0     0% |
+| MCS4             0     0% | 19500  SS QAM16 3/4 | MCS4             0     0% |
+| MCS5             0     0% | 26000  SS QAM64 2/3 | MCS5             0     0% |
+| MCS6             0     0% | 29250  SS QAM64 3/4 | MCS6             0     0% |
+| MCS7             0     0% | 32500  SS QAM64 5/6 | MCS7             0     0% |
++---------------------------+---------------------+---------------------------+
+| MCS8             0     0% |  6500  DS BPSK  1/2 | MCS8             0     0% |
+| MCS9      13603118  18.5% | 13000  DS QPSK  1/2 | MCS9        390746   8.5% |
+| MCS10     30992913  42.3% | 19500  DS QPSK  3/4 | MCS10      2334434  51.3% |
+| MCS11      2487921   3.4% | 26000  DS QAM16 1/2 | MCS11        76104   1.6% |
+| MCS12       300298   0.4% | 39000  DS QAM16 3/4 | MCS12       268332   5.8% |
+| MCS13       932785   1.2% | 52000  DS QAM64 2/3 | MCS13      1156172  25.4% |
+| MCS14        27405     0% | 58500  DS QAM64 3/4 | MCS14        50699   1.1% |
+| MCS15            5     0% | 65000  DS QAM64 5/6 | MCS15            6     0% |
++---------------------------+---------------------+---------------------------+
+| Other            0        |                     | Other            0        |
++---------------------------+---------------------+---------------------------+
+
+rf5.0 Source Analysis
+Freq:6165 Band:10
+ Pulses: 8, level 31 (-59), pps 2, CRC: 37        
+      49  (13/-79)   6500 (6165,10 MHz)  n <0004352469B5 ZMB-ANT29
+     179  (08/-83)   6500 (6165,10 MHz)  n <0004352469B9 ZMB-ANT11
+      26  (05/-88)   6500 (6165,10 MHz)  n <0004352469CF ZMB-ANT42
+     746  (30/-59)   6500 (6165,10 MHz) TN <00043514B334 ZMB-ANT1
+
+rf5.0: NOL is empty
+
+
+           MAC          Out/Rep    %   SNR      Drop/Err
+rf5.0  00043514B334 1132575/78105 06  30:30        0/1     ZMB-ANT1           
+							   la=1532 
+rf5.0  FFFFFFFFFFFF 1531322/0     00  00:00        0/0   
+
+Burst: Send 4198+4599 (max 13, avg 1), Recv 7911074+15846903 (max 16, avg 2)
+PHS:   packets 4562, bytes 97864 (max 56, avg 21)
+
+IP statistics:
+ips_total           1131582 (total packets received)
+ips_badsum                0 (checksum bad)
+ips_tooshort              0 (packet too short)
+ips_toosmall              0 (not enough data)
+ips_badhlen               0 (ip header length < data size)
+ips_badlen                0 (ip length < ip header length)
+ips_fragments             0 (fragments received)
+ips_fragdropped           0 (frags dropped (dups,ipstat. out of space))
+ips_fragtimeout           0 (fragments timed out)
+ips_forward               0 (packets forwarded)
+ips_cantforward         363 (packets rcvd for unreachable dest)
+ips_redirectsent          0 (packets forwarded on same net)
+ips_noproto               0 (unknown or unsupported protocol)
+ips_delivered       1131219 (datagrams delivered to upper level
+ips_localout           2653 (total ip packets generated here)
+ips_odropped              0 (lost packets due to nobufs,ipstat. etc.)
+ips_reassembled           0 (total packets reassembled ok)
+ips_fragmented            0 (datagrams sucessfully fragmented)
+ips_ofragments            0 (output fragments created)
+ips_cantfrag              0 (don't fragment flag was set,ipstat. etc.)
+ips_badoptions            0 (error in option processing)
+ips_noroute               0 (packets discarded due to no route)
+ips_badvers               0 (ip version != 4)
+ips_rawout                0 (total raw ip packets generated)
+ips_badfrags              0 (malformed fragments (bad length))
+ips_rcvmemdrop            0 (frags dropped for lack of memory)
+ips_toolong               0 (ip length > max ip packet size)
+
+ICMP statistics:
+icps_error                0 ( # of calls to icmp_error )
+icps_badcode              0 ( icmp_code out of range )
+icps_tooshort             0 ( packet < ICMP_MINLEN )
+icps_checksum             0 ( bad checksum )
+icps_badlen               0 ( calculated bound mismatch )
+icps_reflect              0 ( number of responses )
+icps_bmcastecho           0 ( rejected broadcast icmps )
+
+UDP statistics:
+udps_ipackets       1129607
+udps_opackets             0
+udps_hdrops               0
+udps_badsum               0
+udps_badlen               0
+udps_noport               0
+udps_fullsock             0
+udps_pcbhashmiss          0
+0.0.0.0:0 snmp
+0.0.0.0:161 snmp
+
+RAW statistics:
+raws_ipackets             0 (total input packets)
+raws_fullsock             0 (not delivered, input socket full)
+raws_opackets             0 (total output packets)
+0.0.0.0:0 snmp
+
+TCP statistics:
+0.0.0.0:23 TELD
+0.0.0.0:443 HTTP
+0.0.0.0:80 HTTP
+127.0.0.1:37655 <- 127.0.0.1:2251 l$00
+127.0.0.1:2251 <- 127.0.0.1:37655 e$00
+10.86.40.121:80 <- 10.86.40.12:53914 HTTP
+10.86.40.121:80 <- 10.86.40.12:53915 HTTP
+127.0.0.1:37655 l$00
+
+                         LLDP Neighbors Table on eth0                          
++---------------+-------------------------------------------------------------+
+|           LLDP Mode: TxRx,  Forward: disabled,  Tagged: disabled            |
++---------------+-------------------------------------------------------------+
+| ChassisID:    | 00:B1:E3:95:67:80 (mac)                                     |
+| SysName:      | ZMB-SW47-IE1000                                             |
+| SysDescr:     | IE1000 Industrial Ethernet Switch                           |
+| Caps:         | Bridge*                                                     |
+| PortID:       | 2 (local)                                                   |
+| PortDescr:    | FastEthernet 1/2                                            |
+| Last report:  | 29 seconds ago, TTL 120 seconds, Age 16 days 05:41:09       |
++---------------+-------------------------------------------------------------+
+
+
