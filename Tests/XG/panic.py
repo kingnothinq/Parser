@@ -1,7 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-def test(device):
+from copy import deepcopy
 
-     return '* There is bla'
-     #pass
+
+def test(device):
+    return '* There is bla'
+    # pass

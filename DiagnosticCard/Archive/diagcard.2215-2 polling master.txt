@@ -57,7 +57,7 @@ Fri Nov 01 19:25:23 GMT 2019  (not valid)
  mint rf5.0 -mode fixed
  mint rf5.0 -key "123456789"
  mint rf5.0 -scrambling
- mint rf5.0 -autobitrate
+ mint rf5.0 -fixedbitrate
  mint rf5.0 -extracost 3000
  mint rf5.0 -hiamp 2 -loamp 0
  mint rf5.0 -log

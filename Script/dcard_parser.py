@@ -11,7 +11,7 @@ def parse_R5000(dcard_raw_text_string, dcard_raw_text_list):
     """Parse an R5000 diagnostic card and fill the class instance in"""
 
     # Model (Part Number)
-    model = re.search(r"(R5000-[QMOSL][mxnbtcs]{2,5}/[\dX\*]{1,3}.300.2x\d{3})(.2x\d{2})?",
+    model = re.search(r'(R5000-[QMOSL][mxnbtcs]{2,5}/[\dX\*]{1,3}.300.2x\d{3})(.2x\d{2})?',
                       dcard_raw_text_string).group()
 
     # Subfamily
@@ -21,36 +21,151 @@ def parse_R5000(dcard_raw_text_string, dcard_raw_text_list):
         subfamily = 'R5000 Pro'
 
     # Serial number
-    serial_number = re.search(r"SN:(\d+)", dcard_raw_text_string).group(1)
+    serial_number = re.search(r'SN:(\d+)', dcard_raw_text_string).group(1)
 
     # Firmware
-    firmware = re.search(r"H\d{2}S\d{2}-(MINT|TDMA)[v\d.]+", dcard_raw_text_string).group()
+    firmware = re.search(r'H\d{2}S\d{2}-(MINT|TDMA)[v\d.]+', dcard_raw_text_string).group()
 
     # Uptime
-    uptime = re.search(r"Uptime: ([\d\w :]*)", dcard_raw_text_string).group(1)
+    uptime = re.search(r'Uptime: ([\d\w :]*)', dcard_raw_text_string).group(1)
 
     # Last Reboot Reason
-    reboot_reason = re.search(r"Last reboot reason: ([\w ]*)",
-                              dcard_raw_text_string).group(1)
+    reboot_reason = re.search(r'Last reboot reason: ([\w ]*)', dcard_raw_text_string).group(1)
 
     # Settings
-    radio_profile = {'Frequency': None, 'Bandwidth': None, 'Max bitrate': None, 'Auto bitrate': None, 'MIMO': None}
+    radio_profile = {'Frequency': None, 'Bandwidth': None, 'Max bitrate': None, 'Auto bitrate': None, 'MIMO': None,
+                     'SID': None, 'Status': None, 'Greenfield': None}
     radio_settings = {'Type': None, 'ATPC': None, 'Tx Power': None, 'Extnoise': None, 'DFS': None, 'Polling': None,
                       'Frame size': None, 'UL/DL ratio': None, 'Distance': None, 'Target RSSI': None, 'TSync': None,
                       'Scrambling': None, 'Profile': radio_profile}
     switch_group_settings = {'Order': None, 'Flood': None, 'STP': None, 'Management': None, 'Mode': None,
                              'Interfaces': None, 'Vlan': None, 'Rules': None}
-    interfaces_settings = {'eth0': None, 'eth1': None,
-                           settings = {'Role': None, 'Interface Status': {
-        'eth0': None,
-        'eth1': None,
-        'rf5.0': None}, 'QM': None, 'MINT': mint
+    interfaces_settings = {'eth0': None, 'eth1': None, 'rf5.0': None}
+    qos_settings = {'Rules': None, 'License': None}
+    settings = {'Radio': radio_settings, 'Switch': switch_group_settings, 'Interface Status': interfaces_settings,
+                'QoS': qos_settings}
 
-                                       }
+    # Radio Settings
+    radio_settings['Type'] = re.search(r'mint rf5\.0 -type (\w+)', dcard_raw_text_string).group(1)
 
-    ethernet_status = '1'
+    pattern = re.search(r'rf5\.0 txpwr (\d+)\s?(pwrctl)?\s?(extnoise (\d+))?', dcard_raw_text_string)
+    radio_settings['Tx Power'] = pattern.group(1)
+    radio_settings['ATPC'] = 'Disabled' if not pattern.group(2) else 'Enabled'
+    if pattern.group(3): radio_settings['Extnoise'] = pattern.group(4)
+
+    radio_settings['DFS'] = re.search(r'dfs rf5\.0 (dfsradar|dfsonly|dfsoff)', dcard_raw_text_string).group(1)
+
+    pattern = re.search(r'mint rf5\.0 -(scrambling)', dcard_raw_text_string)
+    radio_settings['Scrambling'] = 'Disabled' if pattern is None else 'Enabled'
+
+    pattern = re.search(r'mint rf5\.0 poll start (qos)?', dcard_raw_text_string)
+    radio_settings['Polling'] = 'Enabled' if pattern is None else 'Disabled'
+
+    pattern = re.search(r'mint rf5\.0 tdma mode=Master win=(\d+) dist=(\d+) dlp=(\d+)', dcard_raw_text_string)
+    radio_settings['Frame size'] = pattern.group(1)
+    radio_settings['Distance'] = pattern.group(2)
+    radio_settings['UL/DL ratio'] = pattern.group(3)
+
+    pattern = re.search(r'mint rf5\.0 tdma rssi=([-\d]+)', dcard_raw_text_string)
+    radio_settings['Target RSSI'] = pattern.group(1)
+
+    pattern = re.search(r'tsync enable', dcard_raw_text_string)
+    radio_settings['TSync'] = 'Enabled' if pattern is None else 'Disabled'
+
+    if radio_settings['Type'] == 'master':
+        pattern = re.search(r'rf rf5\.0 freq (\d+) bitr (\d+) sid (\d+)', dcard_raw_text_string)
+        radio_profile['Frequency'] = pattern.group(1)
+        radio_profile['Max bitrate'] = pattern.group(2)
+        radio_profile['SID'] = pattern.group(3)
+
+        pattern = re.search(r'rf rf5\.0 band (\d+)', dcard_raw_text_string)
+        radio_profile['Bandwidth'] = pattern.group(1)
+
+        pattern = re.search(r'mint rf5\.0 -(auto|fixed)bitrate( ([\d-]+))?', dcard_raw_text_string)
+        if pattern.group(1) == 'auto' and pattern.group(3) is None:
+            radio_profile['Auto bitrate'] = 'Enabled'
+        elif pattern.group(1) == 'auto' and pattern.group(3) is not None:
+            radio_profile['Auto bitrate'] = 'Enabled. Modification is ' + str(pattern.group(3))
+        else:
+            radio_profile['Auto bitrate'] = 'Disabled. Fixed bitrate is ' + radio_profile['Max bitrate']
+
+        pattern = re.search(r'rf rf5\.0 (mimo|miso|siso)( (greenfield))?', dcard_raw_text_string)
+        radio_profile['MIMO'] = pattern.group(1)
+        radio_profile['Greenfield'] = 'Enabled' if pattern.group(3) == 'greenfield' else 'Disabled'
+
+    else:
+        pattern = re.findall(r'mint rf5\.0 prof (\d+)'
+                             r'( (disable))?'
+                             r' -band (\d+)'
+                             r' -freq ([\d\w]+)'
+                             r'( -bitr (\d+))?'
+                             r' -sid (\d+) \\'
+                             r'\n\s+-nodeid (\d+)'
+                             r' -type slave \\'
+                             r'\n\s+-(auto|fixed)bitr( ([-+\d]+))?'
+                             r' -(mimo|miso|siso)'
+                             r' (greenfield)?', dcard_raw_text_string, re.DOTALL)
+
+        radio_settings['Profile'] = {profile_id: deepcopy(radio_profile)
+                                     for profile_id in [profile[0] for profile in pattern]}
+
+        for key, prodile_id in enumerate(radio_settings['Profile']):
+            radio_settings['Profile'][prodile_id]['Frequency'] = pattern[key][4]
+            radio_settings['Profile'][prodile_id]['Bandwidth'] = pattern[key][3]
+            radio_settings['Profile'][prodile_id]['Max bitrate'] = pattern[key][6] if pattern[key][6] != '' else 'Max'
+
+            if pattern[key][9] == 'auto' and pattern[key][11] == '':
+                radio_settings['Profile'][prodile_id]['Auto bitrate'] = 'Enabled'
+            elif pattern[key][9] == 'auto' and pattern[key][11] != '':
+                radio_settings['Profile'][prodile_id]['Auto bitrate'] = \
+                    'Enabled. Modification is ' + pattern[key][11]
+            else:
+                radio_settings['Profile'][prodile_id]['Auto bitrate'] = \
+                    'Disabled. Fixed bitrate is ' + radio_settings['Profile'][prodile_id]['Max bitrate']
+
+            radio_settings['Profile'][prodile_id]['MIMO'] = pattern[key][12]
+            radio_settings['Profile'][prodile_id]['SID'] = pattern[key][7]
+            radio_settings['Profile'][prodile_id]['Status'] = 'Disabled' \
+                if pattern[key][2] == 'disable' else 'Enabled'
+            radio_settings['Profile'][prodile_id]['Greenfield'] = 'Enabled' \
+                if pattern[key][13] == 'greenfield' else 'Disabled'
+
+    # Switch Settings
+    # This section will be added in the future
+    switch_groups = set(re.findall(r'switch group (\d+)?', dcard_raw_text_string))
+    settings['Switch'] = {sw_group_id: deepcopy(switch_group_settings) for sw_group_id in switch_groups}
+
+    # Interface Settings
+    pattern = re.findall(r'ifc\s(eth\d+|rf5\.0)\s+(media\s([\w\d-]+)\s)?(mtu\s\d+\s)?(up|down)', dcard_raw_text_string)
+    for interface in pattern:
+        if interface[0] == 'eth0':
+            settings['Interface Status']['eth0'] = pattern[0][4]
+        elif interface[0] == 'eth1':
+            settings['Interface Status']['eth1'] = pattern[1][4]
+        elif interface[0] == 'rf5.0' and len(pattern) is 3:
+            settings['Interface Status']['rf5.0'] = pattern[2][4]
+        elif interface[0] == 'rf5.0' and len(pattern) is 2:
+            settings['Interface Status']['rf5.0'] = pattern[1][4]
+
+    # QoS
+    # This section will be added in the future
+
+    # Radio Status
+    link = {}
+    radio_status = 1
+
+    if 'TDMA' in firmware:
+        pattern = re.findall(r'\s+\d+\s+([\w\d\S]+)\s+([\w\d]+) '
+                             r'(\d+)\/(\d+)\s+(\d+)\/(\d+)\s+(\d+)\/(\d+)\s+([\/\w])+'
+                             r'\s+load (\d+)\/(\d+), pps (\d+)\/(\d+), cost (\d+)'
+                             r'\s+pwr ([\d\.-]+)\/([\d\.-]+), rssi ([\d\.\-\*]+)\/([\d\.\-\*]+), snr (\d+)\/(\d+)'
+                             r'\s+dist ([\d\.-]+)'
+                             r'\s+(H\d{2}v[v\d.]+), IP=([\d\.])+, up ([\d\w :]*)'
+                             , dcard_raw_text_string, re.DOTALL)
+        print(pattern)
+
     radio_status = '1'
-    settings = '1'
+    ethernet_status = '1'
 
     result = R5000Card(model, subfamily, serial_number, firmware, uptime,
                        reboot_reason, dcard_raw_text_list, dcard_raw_text_string,
@@ -73,16 +188,16 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
         subfamily = 'XG 1000'
 
     # Serial number
-    serial_number = re.search(r"SN:(\d+)", dcard_raw_text_string).group(1)
+    serial_number = re.search(r'SN:(\d+)', dcard_raw_text_string).group(1)
 
     # Firmware
-    firmware = re.search(r"(\bH\d{2}S\d{2}[v\d.-]+\b)",
+    firmware = re.search(r'(\bH\d{2}S\d{2}[v\d.-]+\b)',
                          dcard_raw_text_string).group(1)
     # Uptime
-    uptime = re.search(r"Uptime: ([\d\w :]*)", dcard_raw_text_string).group(1)
+    uptime = re.search(r'Uptime: ([\d\w :]*)', dcard_raw_text_string).group(1)
 
     # Last Reboot Reason
-    reboot_reason = re.search(r"Last reboot reason: ([\w ]*)",
+    reboot_reason = re.search(r'Last reboot reason: ([\w ]*)',
                               dcard_raw_text_string).group(1)
 
     # Settings
@@ -116,57 +231,57 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
         }
     }
 
-    settings['Role'] = re.search(r"# xg -type (\w+)",
+    settings['Role'] = re.search(r'# xg -type (\w+)',
                                  dcard_raw_text_string).group(1)
-    settings['Bandwidth'] = re.search(r"# xg -channel-width (\d+)",
+    settings['Bandwidth'] = re.search(r'# xg -channel-width (\d+)',
                                       dcard_raw_text_string).group(1)
 
-    pattern = re.findall(r"# xg -freq-(u|d)l (\[0\])?(\d+),?(\[1\])?(\d+)?",
+    pattern = re.findall(r'# xg -freq-(u|d)l (\[0\])?(\d+),?(\[1\])?(\d+)?',
                          dcard_raw_text_string)
     settings['DL Frequency']['Carrier 0'] = pattern[0][2]
     settings['DL Frequency']['Carrier 1'] = pattern[0][4]
     settings['UL Frequency']['Carrier 0'] = pattern[1][2]
     settings['UL Frequency']['Carrier 1'] = pattern[1][4]
 
-    pattern = re.search(r"# xg -short-cp (\d+)",
+    pattern = re.search(r'# xg -short-cp (\d+)',
                         dcard_raw_text_string).group(1)
     settings['Short CP'] = 'Enabled' if pattern is '1' else 'Disabled'
 
-    settings['Max distance'] = re.search(r"# xg -max-distance (\d+)",
+    settings['Max distance'] = re.search(r'# xg -max-distance (\d+)',
                                          dcard_raw_text_string).group(1)
-    settings['Frame size'] = re.search(r"# xg -sframelen (\d+)",
+    settings['Frame size'] = re.search(r'# xg -sframelen (\d+)',
                                        dcard_raw_text_string).group(1)
     settings['UL/DL Ratio'] = re.search(
-        r"DL\/UL\sRatio\s+\|(\d+/\d+(\s\(auto\))?)",
+        r'DL\/UL\sRatio\s+\|(\d+/\d+(\s\(auto\))?)',
         dcard_raw_text_string).group(1)
-    settings['Tx Power'] = re.search(r"# xg -txpwr (\d+)",
+    settings['Tx Power'] = re.search(r'# xg -txpwr (\d+)',
                                      dcard_raw_text_string).group(1)
 
-    pattern = re.search(r"# xg -ctrl-block-boost (\d+)",
+    pattern = re.search(r'# xg -ctrl-block-boost (\d+)',
                         dcard_raw_text_string).group(1)
     settings[
         'Control Block Boost'] = 'Enabled' if pattern is '1' else 'Disabled'
 
-    pattern = re.search(r"# xg -atpc-master-enable (\d+)",
+    pattern = re.search(r'# xg -atpc-master-Enabled (\d+)',
                         dcard_raw_text_string).group(1)
     settings['ATPC'] = 'Enabled' if pattern is '1' else 'Disabled'
 
-    settings['AMC Strategy'] = re.search(r"# xg -amc-strategy (\w+)",
+    settings['AMC Strategy'] = re.search(r'# xg -amc-strategy (\w+)',
                                          dcard_raw_text_string).group(1)
-    settings['Max MCS'] = re.search(r"# xg -max-mcs (\d+)",
+    settings['Max MCS'] = re.search(r'# xg -max-mcs (\d+)',
                                     dcard_raw_text_string).group(1)
 
-    pattern = re.search(r"# xg -idfs-enable (\d+)",
+    pattern = re.search(r'# xg -idfs-Enabled (\d+)',
                         dcard_raw_text_string).group(1)
     settings['IDFS'] = 'Enabled' if pattern is '1' else 'Disabled'
 
-    pattern = re.search(r"# xg -traffic-prioritization (\d+)",
+    pattern = re.search(r'# xg -traffic-prioritization (\d+)',
                         dcard_raw_text_string).group(1)
     settings[
         'Traffic prioritization'] = 'Enabled' if pattern is '1' else 'Disabled'
 
     pattern = re.findall(
-        r"ifc\s(ge0|ge1|sfp|radio)\s+(media\s([\w\d-]+)\s)?(mtu\s\d+\s)?(\w+)",
+        r'ifc\s(ge0|ge1|sfp|radio)\s+(media\s([\w\d-]+)\s)?(mtu\s\d+\s)?(\w+)',
         dcard_raw_text_string)
     settings['Interface Status']['Ge0'] = pattern[0][4]
     settings['Interface Status']['Ge1'] = pattern[1][4]
@@ -220,10 +335,10 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
         'Slave': deepcopy(role)
     }
 
-    radio_status['Link status'] = re.search(r"Wireless Link\s+\|(\w+)",
+    radio_status['Link status'] = re.search(r'Wireless Link\s+\|(\w+)',
                                             dcard_raw_text_string).group(1)
 
-    pattern = re.search(r"Device Type\s+\|\s+(Master|Slave)\s+(\()?(\w+)?",
+    pattern = re.search(r'Device Type\s+\|\s+(Master|Slave)\s+(\()?(\w+)?',
                         dcard_raw_text_string)
     if not pattern.group(3) and pattern.group(1) == 'Master':
         radio_status['Master']['Role'] = 'Local'
@@ -240,11 +355,11 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
 
     if radio_status['Link status'] == 'UP':
         radio_status['Measured Distance'] = re.search(
-            r"Measured Distance\s+\|(\d+\smeters|-+)",
+            r'Measured Distance\s+\|(\d+\smeters|-+)',
             dcard_raw_text_string).group(1)
 
         pattern = re.findall(
-            r"Frequency\s+\|\s+(\d+)\sMHz(\s+\|\s+(\d+)\sMHz)?",
+            r'Frequency\s+\|\s+(\d+)\sMHz(\s+\|\s+(\d+)\sMHz)?',
             dcard_raw_text_string)
         if len(pattern) is 1:
             radio_status['Master']['Carrier 0']['Frequency'] = pattern[0][0]
@@ -255,14 +370,14 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
             radio_status['Master']['Carrier 1']['Frequency'] = pattern[1][0]
             radio_status['Slave']['Carrier 1']['Frequency'] = pattern[1][2]
 
-        pattern = re.findall(r"DFS status\s+\|\s+(\w+)", dcard_raw_text_string)
+        pattern = re.findall(r'DFS status\s+\|\s+(\w+)', dcard_raw_text_string)
         radio_status['Master']['Carrier 0']['DFS'] = pattern[0]
         radio_status['Slave']['Carrier 0']['DFS'] = pattern[0]
         radio_status['Master']['Carrier 1']['DFS'] = pattern[0]
         radio_status['Slave']['Carrier 1']['DFS'] = pattern[0]
 
         pattern = re.findall(
-            r"Rx\sAcc\sFER\s+\|\s+([\w\d.e-]+\s\([\d.%]+\))(\s+\|\s+([\w\d.e-]+\s\([\d.%]+\)))?",
+            r'Rx\sAcc\sFER\s+\|\s+([\w\d.e-]+\s\([\d.%]+\))(\s+\|\s+([\w\d.e-]+\s\([\d.%]+\)))?',
             dcard_raw_text_string)
         if len(pattern) is 1:
             radio_status['Master']['Carrier 0']['Rx Acc FER'] = pattern[0][0]
@@ -274,7 +389,7 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
             radio_status['Slave']['Carrier 1']['Rx Acc FER'] = pattern[1][2]
 
         pattern = re.findall(
-            r"Power\s+\|([-\d.]+\sdBm)\s+\|([-\d.]+\sdBm)(\s+\|([-\d.]+\sdBm)\s+\|([-\d.]+\sdBm))?",
+            r'Power\s+\|([-\d.]+\sdBm)\s+\|([-\d.]+\sdBm)(\s+\|([-\d.]+\sdBm)\s+\|([-\d.]+\sdBm))?',
             dcard_raw_text_string)
         if len(pattern) is 1:
             radio_status['Master']['Carrier 0']['Stream 0'][
@@ -304,7 +419,7 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
                 'Tx Power'] = pattern[1][4]
 
         pattern = re.findall(
-            r"Gain\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)(\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB))?",
+            r'Gain\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)(\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB))?',
             dcard_raw_text_string)
         if len(pattern) is 1:
             radio_status['Master']['Carrier 0']['Stream 0'][
@@ -334,7 +449,10 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
                 'Tx Gain'] = pattern[1][4]
 
         pattern = re.findall(
-            r"RX\s+\|MCS\s+\|([\w\d]+\s\d+\/\d+\s\(\d+\))\s+\|([\w\d]+\s\d+\/\d+\s\(\d+\))(\s+\|([\w\d]+\s\d+\/\d+\s\(\d+\))\s+\|([\w\d]+\s\d+\/\d+\s\(\d+\)))?",
+            r'RX\s+\|MCS\s+\|([\w\d]+\s\d+\/\d+\s\(\d+\))\s+\|'
+            r'([\w\d]+\s\d+\/\d+\s\(\d+\))(\s+\|'
+            r'([\w\d]+\s\d+\/\d+\s\(\d+\))\s+\|'
+            r'([\w\d]+\s\d+\/\d+\s\(\d+\)))?',
             dcard_raw_text_string)
         if len(pattern) is 1:
             radio_status['Master']['Carrier 0']['Stream 0']['MCS'] = pattern[
@@ -364,7 +482,7 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
                 4]
 
         pattern = re.findall(
-            r"CINR\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)(\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB))?",
+            r'CINR\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)(\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB))?',
             dcard_raw_text_string)
         if len(pattern) is 1:
             radio_status['Master']['Carrier 0']['Stream 0']['CINR'] = pattern[
@@ -394,7 +512,10 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
                 1][4]
 
         pattern = re.findall(
-            r"RSSI\s+\|([-\d.]+\sdBm)(\s\([\d-]+\))?\s+\|([-\d.]+\sdBm)(\s\([\d-]+\))?(\s+\|([-\d.]+\sdBm)(\s\([\d-]+\))?\s+\|([-\d.]+\sdBm)(\s\([\d-]+\))?)?",
+            r'RSSI\s+\|([-\d.]+\sdBm)(\s\([\d-]+\))?\s+\|'
+            r'([-\d.]+\sdBm)(\s\([\d-]+\))?(\s+\|'
+            r'([-\d.]+\sdBm)(\s\([\d-]+\))?\s+\|'
+            r'([-\d.]+\sdBm)(\s\([\d-]+\))?)?',
             dcard_raw_text_string)
         if len(pattern) is 1:
             radio_status['Master']['Carrier 0']['Stream 0']['RSSI'] = pattern[
@@ -424,7 +545,7 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
                 1][7]
 
         pattern = re.findall(
-            r"Crosstalk\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)(\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB))?",
+            r'Crosstalk\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB)(\s+\|([-\d.]+\sdB)\s+\|([-\d.]+\sdB))?',
             dcard_raw_text_string)
         if len(pattern) is 1:
             radio_status['Master']['Carrier 0']['Stream 0'][
@@ -454,7 +575,10 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
                 'Crosstalk'] = pattern[1][4]
 
         pattern = re.findall(
-            r"(TBER|Errors\sRatio)\s+\|[\d\.e-]+\s\(([\d.]+%)\)\s+\|[\d\.e-]+\s\(([\d.]+%)\)(\s+\|[\d\.e-]+\s\(([\d.]+%)\)\s+\|[\d\.e-]+\s\(([\d.]+%)\))?",
+            r'(TBER|Errors\sRatio)\s+\|[\d\.e-]+\s\(([\d.]+%)\)\s+\|'
+            r'[\d\.e-]+\s\(([\d.]+%)\)(\s+\|'
+            r'[\d\.e-]+\s\(([\d.]+%)\)\s+\|'
+            r'[\d\.e-]+\s\(([\d.]+%)\))?',
             dcard_raw_text_string)
         if len(pattern) is 1:
             radio_status['Master']['Carrier 0']['Stream 0'][
@@ -499,7 +623,7 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
     }
 
     pattern = re.findall(
-        r"Physical link is (\w+)(, (\d+ Mbps) ([\w-]+), (\w+))?",
+        r'Physical link is (\w+)(, (\d+ Mbps) ([\w-]+), (\w+))?',
         dcard_raw_text_string)
     ethernet_status['ge0']['Status'] = pattern[0][0]
     ethernet_status['ge1']['Status'] = pattern[1][0]
@@ -514,7 +638,7 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
     ethernet_status['ge1']['Negotiation'] = pattern[1][4]
     ethernet_status['sfp']['Negotiation'] = pattern[2][4]
 
-    pattern = re.findall(r"CRC errors\s+(\d+)", dcard_raw_text_string)
+    pattern = re.findall(r'CRC errors\s+(\d+)', dcard_raw_text_string)
     ethernet_status['ge0']['Rx CRC'] = pattern[0]
     ethernet_status['ge1']['Rx CRC'] = pattern[2]
     ethernet_status['sfp']['Rx CRC'] = pattern[4]
@@ -525,7 +649,7 @@ def parse_XG(dcard_raw_text_string, dcard_raw_text_list):
     # Panic
     panic = []
     for line in dcard_raw_text_list:
-        if re.search(r"^Panic info : [\W\w]+$", line) is not None:
+        if re.search(r'^Panic info : [\W\w]+$', line) is not None:
             panic.append(line)
 
     result = XGCard(model, subfamily, serial_number, firmware, uptime,
@@ -542,7 +666,7 @@ def parse_Quanta(dcard_raw_text_string, dcard_raw_text_list):
     model = re.search(r'([QV](5|70)-[\dE]+)', dcard_raw_text_string).group(1)
 
     # Subfamily
-    #global subfamily
+    # global subfamily
     if 'Q5' in model:
         subfamily = 'Quanta 5'
     elif 'V5' in model:
@@ -553,17 +677,17 @@ def parse_Quanta(dcard_raw_text_string, dcard_raw_text_list):
         subfamily = 'Vector 70'
 
     # Firmware
-    firmware = re.search(r"(H\d{2}S\d{2}-OCTOPUS_PTPv[\d.]+)",
+    firmware = re.search(r'(H\d{2}S\d{2}-OCTOPUS_PTPv[\d.]+)',
                          dcard_raw_text_string).group(1)
 
     # Serial number
-    serial_number = re.search(r"SN:(\d+)", dcard_raw_text_string).group(1)
+    serial_number = re.search(r'SN:(\d+)', dcard_raw_text_string).group(1)
 
     # Uptime
-    uptime = re.search(r"Uptime: ([\d\w :]*)", dcard_raw_text_string).group(1)
+    uptime = re.search(r'Uptime: ([\d\w :]*)', dcard_raw_text_string).group(1)
 
     # Last Reboot Reason
-    reboot_reason = re.search(r"Last reboot reason: ([\w ]*)",
+    reboot_reason = re.search(r'Last reboot reason: ([\w ]*)',
                               dcard_raw_text_string).group(1)
 
     # Settings
@@ -588,47 +712,47 @@ def parse_Quanta(dcard_raw_text_string, dcard_raw_text_list):
         }
     }
 
-    settings['Role'] = re.search(r"ptp_role (\w+)",
+    settings['Role'] = re.search(r'ptp_role (\w+)',
                                  dcard_raw_text_string).group(1)
-    settings['Bandwidth'] = re.search(r"bw (\d+)",
+    settings['Bandwidth'] = re.search(r'bw (\d+)',
                                       dcard_raw_text_string).group(1)
-    settings['DL Frequency'] = re.search(r"freq_dl (\d+)",
+    settings['DL Frequency'] = re.search(r'freq_dl (\d+)',
                                          dcard_raw_text_string).group(1)
-    settings['UL Frequency'] = re.search(r"freq_ul (\d+)",
+    settings['UL Frequency'] = re.search(r'freq_ul (\d+)',
                                          dcard_raw_text_string).group(1)
-    settings['Frame size'] = re.search(r"frame_length (\d+)",
+    settings['Frame size'] = re.search(r'frame_length (\d+)',
                                        dcard_raw_text_string).group(1)
-    settings['Guard Interval'] = re.search(r"guard_interval (\d+\/\d+)",
+    settings['Guard Interval'] = re.search(r'guard_interval (\d+\/\d+)',
                                            dcard_raw_text_string).group(1)
 
-    if re.search(r"auto_dl_ul_ratio (\w+)",
+    if re.search(r'auto_dl_ul_ratio (\w+)',
                  dcard_raw_text_string).group(1) == 'on':
         settings['UL/DL Ratio'] = re.search(
-            r"dl_ul_ratio (\d+)", dcard_raw_text_string).group(1) + ' (auto)'
+            r'dl_ul_ratio (\d+)', dcard_raw_text_string).group(1) + ' (auto)'
     else:
-        settings['UL/DL Ratio'] = re.search(r"dl_ul_ratio (\d+)",
+        settings['UL/DL Ratio'] = re.search(r'dl_ul_ratio (\d+)',
                                             dcard_raw_text_string).group(1)
 
-    settings['Tx Power'] = re.search(r"tx_power (\d+)",
+    settings['Tx Power'] = re.search(r'tx_power (\d+)',
                                      dcard_raw_text_string).group(1)
     settings['ATPC'] = 'Enabled' if re.search(
-        r"atpc (on|off)",
+        r'atpc (on|off)',
         dcard_raw_text_string).group(1) == 'on' else 'Disabled'
-    settings['AMC Strategy'] = re.search(r"amc_strategy (\w+)",
+    settings['AMC Strategy'] = re.search(r'amc_strategy (\w+)',
                                          dcard_raw_text_string).group(1)
     settings['Max DL MCS'] = re.search(
-        r"dl_mcs (([\d-]+)?(QPSK|QAM)-\d+\/\d+)",
+        r'dl_mcs (([\d-]+)?(QPSK|QAM)-\d+\/\d+)',
         dcard_raw_text_string).group(1)
     settings['Max UL MCS'] = re.search(
-        r"ul_mcs (([\d-]+)?(QPSK|QAM)-\d+\/\d+)",
+        r'ul_mcs (([\d-]+)?(QPSK|QAM)-\d+\/\d+)',
         dcard_raw_text_string).group(1)
     settings['DFS'] = 'Enabled' if re.search(
-        r"dfs (dfs_rd|off)",
+        r'dfs (dfs_rd|off)',
         dcard_raw_text_string).group(1) == 'dfs_rd' else 'Disabled'
     settings['ARQ'] = 'Enabled' if re.search(
-        r"harq (on|off)",
+        r'harq (on|off)',
         dcard_raw_text_string).group(1) == 'on' else 'Disabled'
-    pattern = re.findall(r"ifc\sge0\s+media\s([\w\d]+)\smtu\s\d+\s(up|down)",
+    pattern = re.findall(r'ifc\sge0\s+media\s([\w\d]+)\smtu\s\d+\s(up|down)',
                          dcard_raw_text_string)
     settings['Interface Status']['Ge0'] = pattern[0][1]
 
@@ -670,64 +794,64 @@ def parse_Quanta(dcard_raw_text_string, dcard_raw_text_list):
         'Uplink': deepcopy(role)
     }
 
-    radio_status['Link status'] = re.search(r"State\s+(\w+)",
+    radio_status['Link status'] = re.search(r'State\s+(\w+)',
                                             dcard_raw_text_string).group(1)
     radio_status['Measured Distance'] = re.search(
-        r"Distance\s+(\d+\sm)", dcard_raw_text_string).group(1)
-    pattern = re.search(r"Frequency\s+\|\s(\d+)\sMHz\s+\|\s(\d+)\sMHz",
+        r'Distance\s+(\d+\sm)', dcard_raw_text_string).group(1)
+    pattern = re.search(r'Frequency\s+\|\s(\d+)\sMHz\s+\|\s(\d+)\sMHz',
                         dcard_raw_text_string)
     radio_status['Downlink']['Frequency'] = pattern.group(1)
     radio_status['Uplink']['Frequency'] = pattern.group(2)
 
     if radio_status['Link status'] == 'connected':
         if settings['Role'] == 'master':
-            pattern = re.search(r"\| TX power\s+([\d\.]+)\s\/\s([\d\.]+)\sdBm",
+            pattern = re.search(r'\| TX power\s+([\d\.]+)\s\/\s([\d\.]+)\sdBm',
                                 dcard_raw_text_string)
             radio_status['Downlink']['Stream 0']['Tx Power'] = pattern.group(1)
             radio_status['Downlink']['Stream 1']['Tx Power'] = pattern.group(2)
             pattern = re.search(
-                r"Remote TX power\s+([\d\.]+)\s\/\s([\d\.]+)\sdBm",
+                r'Remote TX power\s+([\d\.]+)\s\/\s([\d\.]+)\sdBm',
                 dcard_raw_text_string)
             radio_status['Uplink']['Stream 0']['Tx Power'] = pattern.group(1)
             radio_status['Uplink']['Stream 1']['Tx Power'] = pattern.group(2)
         else:
-            pattern = re.search(r"\| TX power\s+([\d\.]+)\s\/\s([\d\.]+)\sdBm",
+            pattern = re.search(r'\| TX power\s+([\d\.]+)\s\/\s([\d\.]+)\sdBm',
                                 dcard_raw_text_string)
             radio_status['Uplink']['Stream 0']['Tx Power'] = pattern.group(1)
             radio_status['Uplink']['Stream 1']['Tx Power'] = pattern.group(2)
             pattern = re.search(
-                r"Remote TX power\s+([\d\.]+)\s\/\s([\d\.]+)\sdBm",
+                r'Remote TX power\s+([\d\.]+)\s\/\s([\d\.]+)\sdBm',
                 dcard_raw_text_string)
             radio_status['Downlink']['Stream 0']['Tx Power'] = pattern.group(1)
             radio_status['Downlink']['Stream 1']['Tx Power'] = pattern.group(2)
 
         for line in dcard_raw_text_list:
             if line.startswith('| MCS'):
-                pattern = re.findall(r"(([\d-]+)?(QPSK|QAM)-\d+\/\d+)", line)
+                pattern = re.findall(r'(([\d-]+)?(QPSK|QAM)-\d+\/\d+)', line)
                 radio_status['Downlink']['Stream 0']['MCS'] = pattern[0][0]
                 radio_status['Downlink']['Stream 1']['MCS'] = pattern[1][0]
                 radio_status['Uplink']['Stream 0']['MCS'] = pattern[2][0]
                 radio_status['Uplink']['Stream 1']['MCS'] = pattern[3][0]
             elif line.startswith('| RSSI'):
-                pattern = re.findall(r"([-\d.]+\sdBm)", line)
+                pattern = re.findall(r'([-\d.]+\sdBm)', line)
                 radio_status['Downlink']['Stream 0']['RSSI'] = pattern[0]
                 radio_status['Downlink']['Stream 1']['RSSI'] = pattern[1]
                 radio_status['Uplink']['Stream 0']['RSSI'] = pattern[2]
                 radio_status['Uplink']['Stream 1']['RSSI'] = pattern[3]
             elif line.startswith('| EVM'):
-                pattern = re.findall(r"([-\d.]+\sdB)", line)
+                pattern = re.findall(r'([-\d.]+\sdB)', line)
                 radio_status['Downlink']['Stream 0']['EVM'] = pattern[0]
                 radio_status['Downlink']['Stream 1']['EVM'] = pattern[1]
                 radio_status['Uplink']['Stream 0']['EVM'] = pattern[2]
                 radio_status['Uplink']['Stream 1']['EVM'] = pattern[3]
             elif line.startswith('| Crosstalk'):
-                pattern = re.findall(r"([-\d.]+\sdB)", line)
+                pattern = re.findall(r'([-\d.]+\sdB)', line)
                 radio_status['Downlink']['Stream 0']['Crosstalk'] = pattern[0]
                 radio_status['Downlink']['Stream 1']['Crosstalk'] = pattern[1]
                 radio_status['Uplink']['Stream 0']['Crosstalk'] = pattern[2]
                 radio_status['Uplink']['Stream 1']['Crosstalk'] = pattern[3]
             elif line.startswith('| ARQ ratio'):
-                pattern = re.findall(r"(\d+\.\d+\s%)", line)
+                pattern = re.findall(r'(\d+\.\d+\s%)', line)
                 radio_status['Downlink']['Stream 0']['ARQ ratio'] = pattern[0]
                 radio_status['Downlink']['Stream 1']['ARQ ratio'] = pattern[1]
                 radio_status['Uplink']['Stream 0']['ARQ ratio'] = pattern[2]
@@ -745,14 +869,14 @@ def parse_Quanta(dcard_raw_text_string, dcard_raw_text_list):
     }
 
     pattern = re.findall(
-        r"Physical link is (\w+)(, (\d+ Mbps) ([\w-]+), (\w+))?",
+        r'Physical link is (\w+)(, (\d+ Mbps) ([\w-]+), (\w+))?',
         dcard_raw_text_string)
     ethernet_status['ge0']['Status'] = pattern[0][0]
     ethernet_status['ge0']['Speed'] = pattern[0][2]
     ethernet_status['ge0']['Duplex'] = pattern[0][3]
     ethernet_status['ge0']['Negotiation'] = pattern[0][4]
 
-    pattern = re.findall(r"CRC errors\s+(\d+)", dcard_raw_text_string)
+    pattern = re.findall(r'CRC errors\s+(\d+)', dcard_raw_text_string)
     ethernet_status['ge0']['CRC'] = pattern[0]
 
     result = QCard(model, subfamily, serial_number, firmware, uptime,

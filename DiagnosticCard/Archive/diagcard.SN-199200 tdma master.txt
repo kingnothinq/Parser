@@ -95,14 +95,32 @@ Mon Jan 20 11:58:00 GMT 2020  (SNTP)
  
    
 #MAC Switch config
- switch group 1 add 1 eth0 rf5.0 
- switch group 1 flood-unicast on
+ switch list LST2 match add 'host 1.1.1.1'
+ 
+ switch group 1 add 1 rf5.0 
+ switch group 1 igmp-snooping on
+ switch group 1 igmp-snooping router-port on
       # group 1 attached to 'svi1'
  switch group 1 start
  
- switch group 2 add 2 rf5.0 
+ switch group 2 add 2 eth1 rf5.0 
       # group 2 attached to 'svi2'
  switch group 2 start
+ 
+ switch group 30 add 3 eth0 rf5.0 
+ switch group 30 start
+ 
+ switch group 20 add 4 eth0 rf5.0 
+ switch group 20 start
+ 
+ switch group 144 add 5 eth0:0 eth1:144 rf5.0 
+ switch group 144 vlan 123
+ switch group 144 start
+ 
+ switch group 333 add 6 eth0 rf5.0 vlan155 
+ switch group 333 rule 10 permit match LST2
+ switch group 333 deny
+ switch group 333 start
  
  switch stpblock on
  switch start

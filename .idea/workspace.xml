@@ -3,20 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="b076e524-eee4-4235-a93a-9cd72d728b4e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiagnosticCard/diag_master_700081_2019-05-14_01-20-55.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiagnosticCard/diag_master_700840_2019-05-07_01-13-46.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiagnosticCard/diagcard.SN-199200 - Copy.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiagnosticCard/diagcard.SN-199200.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DiagnosticCard/diagcard.SN-199200.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiagnosticCard/diagcard.SN-500002_slave201_03.04.19.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiagnosticCard/diagcard.SN-500020.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiagnosticCard/diagcard.SN-500268.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiagnosticCard/diagcard.SN-502628.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiagnosticCard/diagcard.SN-504936.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiagnosticCard/diagcard.SN-506026.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/diagcard.2215-2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/diagcard.2223-2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/diagcard.SN-199200.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/diagcard.SN-289217.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/diagcard.SN-308020.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Script/dcard_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/Script/dcard_parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/my_classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/Script/my_classes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Script/runit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Script/runit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/run_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/run_tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/XG/panic.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/XG/panic.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +18,17 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="kingnothinq &lt;flicker@ya.ru&gt;" />
+      </list>
+    </option>
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1WpTEEZO24xrySJlmxNEPZS6vyW" />
@@ -37,7 +42,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/venv/Scripts/pylint.exe" />
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
-    <property name="settings.editor.selected.configurable" value="preferences.yapf" />
+    <property name="settings.editor.selected.configurable" value="ics" />
   </component>
   <component name="RunManager" selected="Python.runit">
     <configuration name="Parser" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
@@ -61,27 +66,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="RunIt" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Parser" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="C:\Users\idemchuk\AppData\Local\Programs\Python\Python37-32\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Script" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Script/RunIt.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="dcard_parser" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Parser" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -95,6 +79,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Script/dcard_parser.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="panic" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Parser" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Tests/XG" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tests/XG/panic.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -168,19 +173,19 @@
     </configuration>
     <list>
       <item itemvalue="Python.Parser" />
-      <item itemvalue="Python.RunIt" />
       <item itemvalue="Python.runit" />
       <item itemvalue="Python.parser" />
       <item itemvalue="Python.dcard_parser" />
       <item itemvalue="Python.results" />
+      <item itemvalue="Python.panic" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.runit" />
+        <item itemvalue="Python.panic" />
         <item itemvalue="Python.results" />
         <item itemvalue="Python.dcard_parser" />
         <item itemvalue="Python.parser" />
-        <item itemvalue="Python.RunIt" />
       </list>
     </recent_temporary>
   </component>
@@ -195,7 +200,20 @@
       <option name="presentableId" value="Default" />
       <updated>1579845422779</updated>
     </task>
+    <task id="LOCAL-00001" summary="Version 0.72">
+      <created>1582034613841</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1582034613841</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Version 0.72" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 0.72" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="182" key="#Notifications" timestamp="1582012932572">
@@ -224,6 +242,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="707" y="379" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582008128136" />
+    <state x="614" y="118" key="CommitChangelistDialog2" timestamp="1582034609865">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="614" y="118" key="CommitChangelistDialog2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582034609865" />
     <state x="92" y="92" width="1736" height="866" key="DiffContextDialog" timestamp="1580484692076">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -237,25 +259,29 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="782" y="439" key="Github.CreateGistDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580477292426" />
-    <state width="1898" height="265" key="GridCell.Tab.0.bottom" timestamp="1582012811464">
+    <state x="753" y="390" key="Github.CreatePullRequestDialog" timestamp="1582034831708">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="265" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582012811464" />
+    <state x="753" y="390" key="Github.CreatePullRequestDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582034831708" />
+    <state width="1898" height="265" key="GridCell.Tab.0.bottom" timestamp="1582121842122">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1898" height="265" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582121842122" />
     <state width="1899" height="198" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1581681629089" />
-    <state width="1898" height="265" key="GridCell.Tab.0.center" timestamp="1582012811464">
+    <state width="1898" height="265" key="GridCell.Tab.0.center" timestamp="1582121842122">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="265" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582012811464" />
+    <state width="1898" height="265" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582121842122" />
     <state width="1899" height="198" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1581681629088" />
-    <state width="1898" height="265" key="GridCell.Tab.0.left" timestamp="1582012811464">
+    <state width="1898" height="265" key="GridCell.Tab.0.left" timestamp="1582121842121">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="265" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582012811464" />
+    <state width="1898" height="265" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582121842121" />
     <state width="1899" height="198" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1581681629088" />
-    <state width="1898" height="265" key="GridCell.Tab.0.right" timestamp="1582012811464">
+    <state width="1898" height="265" key="GridCell.Tab.0.right" timestamp="1582121842122">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="265" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582012811464" />
+    <state width="1898" height="265" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582121842122" />
     <state width="1899" height="198" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1581681629089" />
     <state width="1898" height="345" key="GridCell.Tab.1.bottom" timestamp="1581929826145">
       <screen x="0" y="0" width="1920" height="1050" />
@@ -277,11 +303,15 @@
     </state>
     <state width="1898" height="345" key="GridCell.Tab.1.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1581929826145" />
     <state width="1898" height="345" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1580743971613" />
-    <state x="461" y="155" key="SettingsEditor" timestamp="1582012943838">
+    <state x="461" y="155" key="SettingsEditor" timestamp="1582034698527">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="461" y="155" key="SettingsEditor/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582012943838" />
+    <state x="461" y="155" key="SettingsEditor/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582034698527" />
     <state x="461" y="155" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1581669829728" />
+    <state x="552" y="256" key="Vcs.Push.Dialog.v2" timestamp="1582034742339">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="552" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582034742339" />
     <state x="661" y="347" key="com.intellij.ide.util.TipDialog" timestamp="1580708701083">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>

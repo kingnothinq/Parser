@@ -1,0 +1,1031 @@
+
+R5000 WANFleX H08S11-TDMAv2.1.7 * Sep  6 2018 16:33:48 * SN:229379
+Processor: PPC460EX 1000 MHz
+PN:SkyMAN R5000-Omxs/5.300.2x500
+
+Uptime: 00:02:58
+Last reboot reason: manual restart
+*** Please change default Login and Password !!! ***
+Thu Jun 14 01:03:58 GMT 2018  (not valid)
+
+# R5000 WANFleX H08S11-TDMAv2.1.7 * Sep  6 2018 16:33:48 * SN:229379
+
+#Environment
+ set CONFIG_GENERATED "WEB INTERFACE"
+   
+#System parameters
+ #Factory password mode: single
+ sys name Unknown node
+ sys prompt Unknown node
+ sys user root
+ dport 115200
+   
+#Radio module parameters
+ rf rf5.0 grid 40 4890-6050/10
+ rf rf5.0 grid 20 4890-6050/10
+ rf rf5.0 grid 10 4890-6050/5
+ rf rf5.0 grid 5 4890-6050/5
+ rf rf5.0 band 20
+ rf rf5.0 mimo
+ rf rf5.0 freq 4890 bitr 130000 sid 10101010 burst
+ rf rf5.0 txpwr 27 pwrctl 
+ #  Instant DFS module installed
+   
+#DFS configuration
+ dfs rf5.0 dfsoff
+ dfs rf5.0 freq auto
+ dfs rf5.0 cot off
+ #   Instant DFS module installed
+   
+#Interfaces parameters
+ ifc lo0    127.0.0.1/32
+ ifc eth0   media auto mtu 1500 up
+ ifc eth0   10.10.20.1/24
+ ifc rf5.0  mtu 1500 up
+ ifc svi1   info "L2 Management Interface"
+ ifc svi1   mtu 1500 up
+            # group 1
+ ifc svi1   10.10.10.1/24
+   
+#QoS manager
+ qm option dot1p rtp nodscp icmp
+   
+#MINT configuration
+ mint rf5.0 -name "Unknown node"
+ mint rf5.0 -nodeid 29379
+ mint rf5.0 -type master
+ mint rf5.0 -mode fixed
+ mint rf5.0 -mulcast 3
+ mint rf5.0 -autobitrate
+ mint rf5.0 -minbitrate 13000
+ mint rf5.0 -hiamp 2 -loamp 0
+ mint rf5.0 -log
+ mint rf5.0 -roaming leader
+ mint rf5.0 -authmode public
+ mint rf5.0 -airupdate passive normal
+ mint rf5.0 -rcmdserver enabled
+ mint rf5.0 start
+ 
+ mint rf5.0 tdma mode=Master win=5 dist=70 dlp=0 start
+ mint rf5.0 tdma rssi=-35 turbo
+ 
+   
+#MAC Switch config
+ switch group 1 add 1 eth0 rf5.0 
+ switch group 1 igmp-snooping on
+ switch group 1 igmp-snooping router-port on
+      # group 1 attached to 'svi1'
+ switch group 1 start
+ 
+ switch start
+   
+#Switch Virtual Interface config
+ svi 1 group 1
+   
+#WEB configurator
+ webcfg start
+   
+#LLDP parameters
+ lldp eth0 enable txrx
+   
+#Time synchronization config
+ tsync enable
+   
+
+
+==============================================================================
+Interface rf5.0  TDM (5 ms DL/UL:Auto) (RSSI=-35 Dist=70) (Sync 0 us)
+Node  000435138003  "Unknown node", Id 29379, Nid 0, (Master)
+Freq 4890, Band 20, Sid 10101010, autoBitrate 130000 (min 13000), Noise -97 
+
+ No active neighbors
+ -------------------
+ Point-To-Point mode
+ Total nodes in area: 1
+
+
+
+==============================================================================
+Interface rf5.0  TDM (5 ms DL/UL:Auto) (RSSI=-35 Dist=70) (Sync 0 us)
+Node  000435138003  "Unknown node", Id 29379, Nid 0, (Master)
+Freq 4890, Band 20, Sid 10101010, autoBitrate 130000 (min 13000), Noise -97 
+
+GROUP 1 : 0 nodes : svi1 : sent 0
+
+
+Switch status: STARTED
+Bridge group 1(normal), READY STARTED  Interfaces : eth0(F) rf5.0(F) 
+
+Switch statistics:
+Kernel forwarded/bcasts/flooded: 95/0/0
+       ignored: 0, by firewall: 0
+
+                                 +------------------ Dropped -----------------+
+ ID   Unicast    Bcast    Flood  ! STPL   UNRD    FRWL    LOOP    DISC   BACK !
+==== ========= ======== ======== !====== ======= ======= ======= ====== ======!
+   1       792        4        0       0       0       0       0      0       0
+Total forwarded: 891
+        dropped: 0
+     DB Records: 3/5000 (0%), max: 3, overflows: 0
+
+
+
+IGMP data for group 1
+  Mcast Routers: 
+   NONE
+
+  MCAST Group     Gateway                    Last Reporter   Mode    Age
+ =========================================================================
+  Total groups:   0
+
+
+
+
+
+
+LAST SAVED SYSTEM LOG
+~~~~~~~~~~~~~~~~~~~~~
+ PCIE0: absent.
+ PCIE1: unused.
+ ctl: start convert return 0x1
+ tcf: 250 usec per tick
+ EVENTER: Process started
+ DFFS: User space 6439588 bytes
+ Last reboot reason: unexpected restart
+ eth0: phy found 0e110141 model: Marvell 88E1118
+ eth0 link down
+ ctl: Heater enable threshold is -8 degrees Celsius
+ ctl: temperature unavailable. Process stopped.
+ rf5.1: Instant DFS started
+ eth0 link down
+ rf5.0: frequency changed to 4890 MHz
+ rf5.0: set bitrate to maximum
+ rf5.0: 100 dBm is out of range. Using nearest value 27 dBm
+ Transmit power range changed to 0..27 dBm.
+ rf5.0: MINT licensed to point-to-point mode
+ Default roaming profile created
+ rf5.0: Network search started with 117 variants
+ No additional commands found
+ webcfg: service started.
+ HwM: 4601
+ System started.
+ eth0 media changed to 100 Mbps Full duplex auto
+ logon as <1> from 10.10.10.254 by http
+ ==== WEB: System Reconfiguration ====
+ rf5.0: MINT administratively destroyed
+ eth0 link down
+ 16294 mbufs, 12836 clusters free
+ 1029 mbufs in use:
+     1023 mbufs allocated to data
+        6 mbufs allocated to packet headers
+ 1023/13859 mapped pages in use
+ 43933 Kbytes allocated to network (7% in use)
+ 
+ EthI   :   0(1000,0) 
+ rf5.1  :   0(350,0) 
+ MintQ  :   0(800,0) 
+ HTB    :   cur 0, max 0, drop 0, lock 0
+ 
+ ==== WEB: Test New Configuration ====
+ rf5.0: bandwidth changed to 20 MHz
+ rf5.0: frequency changed to 4890 MHz
+ rf5.0: set bitrate to maximum
+ eth0 link administratively up
+ eth0 link down
+ rf5.0 link administratively up
+ svi1 link administratively up
+ MINT TDMA started: Mode Master, DL2226, UL2226, GI274
+Last message was repeated 1 times
+ TIMESYNC: status changed wait
+ Service 'webcfg' already active.
+ rf5.1: Instant DFS ready to go
+ POLLTIME: switch to PPS mode
+ eth0 media changed to 100 Mbps Full duplex auto
+ The device will restart in 245 seconds
+ TIMESYNC: status changed desync
+ TIMESYNC: status changed sync PPS
+ logon as <1> from 10.10.10.254 by http
+ Restart stopped
+ ==== WEB: Commit New Configuration ====
+ *** Please change default Login and Password !!! ***
+ 
+ Current configuration saved successfully
+ eth0 link down
+ POLLTIME: switch to free-running mode
+ TIMESYNC: status changed wait
+ [SYSTEM]: TIMESYNC: lost synchronization source
+ TIMESYNC PPS: invalid PPS 25370 ms (67028070780 ticks)
+ POLLTIME: switch to PPS mode
+ TIMESYNC: status changed desync
+ eth0 media changed to 100 Mbps Full duplex auto
+ TIMESYNC: status changed sync PPS
+ logon as <1> from 10.10.10.254 by http
+Last Log: logon as <1> from 10.10.10.254 by http
+
+=====================
+PCIE0: absent.
+PCIE1: unused.
+-00:02:58.692 ctl: start convert return 0x1
+-00:02:58.692 tcf: 250 usec per tick
+-00:02:58.192 EVENTER: Process started
+-00:02:58.190 DFFS: User space 6436816 bytes
+-00:02:57.837 Last reboot reason: manual restart
+-00:02:54.481 eth0: phy found 0e110141 model: Marvell 88E1118
+-00:02:54.371 eth0 link down
+-00:02:54.029 ctl: Heater enable threshold is -8 degrees Celsius
+-00:02:54.028 ctl: temperature unavailable. Process stopped.
+-00:02:53.978 rf5.1: Instant DFS started
+-00:02:53.816 rf5.0: bandwidth changed to 20 MHz
+-00:02:53.816 rf5.0: frequency changed to 4890 MHz
+-00:02:53.804 Transmit power range changed to 0..27 dBm.
+-00:02:53.783 eth0 link down
+-00:02:53.762 rf5.0: MINT licensed to point-to-point mode
+-00:02:53.677 MINT TDMA started: Mode Master, DL2226, UL2226, GI274
+Last message was repeated 1 times
+-00:02:53.415 webcfg: service started.
+-00:02:52.674 TIMESYNC: status changed wait
+-00:02:52.674 HwM: 4601
+-00:02:52.674 System started.
+-00:02:51.508 POLLTIME: switch to PPS mode
+-00:02:51.428 rf5.1: Instant DFS ready to go
+-00:02:51.415 eth0 media changed to 100 Mbps Full duplex auto
+-00:02:49.508 TIMESYNC: status changed desync
+-00:02:40.508 TIMESYNC: status changed sync PPS
+-00:02:31.597 logon as <1> from 10.10.10.254 by http
+
+
+Name   Init/Cur    Pri  State    CPU
+
+TCFP (08192/00592)   5  Wevnt   0.02%
+HTBt (09216/00232)   7  Wevnt   0.00%
+EVTS (12288/02656) 100  SUSP    3.46%
+STAT (04096/00288)  75  DELAY   0.00%
+sysl (05120/00464) 160  Wmsg    0.00%
+I160 (12288/00848)  11  Wevnt   0.06%
+T160 (08192/00704)  10  SUSP    0.21%
+RXP0 (10240/00232)  15  Wevnt   0.00%
+rfht (08192/00472)  50  Wevnt   0.07%
+I161 (12288/00664)  11  Wevnt   0.00%
+T161 (08192/00592)  10  Wevnt   0.00%
+RXP1 (10240/00232)  15  Wevnt   0.00%
+EthI (09216/01520)  50  Act     0.13%
+feci (10240/00856)  15  Wevnt   0.01%
+fect (04096/00224)  14  Wevnt   0.00%
+phyd (04096/00576) 100  Wevnt   0.00%
+iDFS (12288/00784) 100  DELAY   0.00%
+nmea (08192/00496)  50  Wmsg    0.08%
+ppst (08192/00832)   5  Wmsg    0.00%
+BASH (11264/01440)  50  Wsem    0.00%
+SCN1 (04096/00320) 211  Wevnt   0.00%
+MINT (06144/00480)   9  Wevnt   0.00%
+MRUP (04096/00272)  12  Wevnt   0.00%
+SWSP (08192/00304) 100  Wevnt   0.00%
+webc (30720/02504) 100  SUSP    0.00%
+HTTP (08192/02048) 100  SUSP    0.05%
+LLDP (04096/00880)  80  Wevnt   0.00%
+TELD (08192/00448)  99  SUSP    0.00%
+exec (09216/00544) 100  SUSP    0.01%
+e$02 (32768/02192) 100  Act     0.81%
+l$02 (11264/00776) 120  Act     0.08%
+
+CPU Load   5%   5%(10s)   5%(30s)   5%(60s)   5%(300s)
+Detailed: Isr: 3.87%  Tasks: 0.49%  Idle: 95.62%
+ISR: 4830 pps
+
+
+lo0: flags=8009<UP,LOOPBACK,MULTICAST> mtu 1500
+        inet 127.0.0.1 netmask 0xffffffff 
+
+eth0: flags=8103<UP,BROADCAST,PROMISC,MULTICAST> mtu 1500
+        inet 10.10.20.1 netmask 0xffffff00 broadcast 10.10.20.255
+        ether 00:04:35:03:80:03 
+
+	Physical link is UP, 100 Mbps Full-duplex, Auto
+	PHY chip: Marvell 88E1118 ID: 0e110141
+	+--------------------------------+------+-----+
+	|                 Supported modes| Self |Peer |
+	+--------------------------------+------+-----+
+	|                Auto-Negotiation| yes  | yes |
+	|             10 Mbps Half-duplex| yes  | yes |
+	|             10 Mbps Full-duplex| yes  | yes |
+	|            100 Mbps Half-duplex| yes  | yes |
+	|            100 Mbps Full-duplex| yes  | yes |
+	|           1000 Mbps Half-duplex| yes  |  -  |
+	|           1000 Mbps Full-duplex| yes  |  -  |
+	+--------------------------------+------+-----+
+
+	eth0: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            220         | Packets               585         |
+	| Bytes              51694       | Bytes                 348006      |
+	| Load (kbps)        22          | Load (kbps)           0           |
+	| Load (pps)         3           | Load (pps)            0           |
+	| Frame size (bytes) 916         | Frame size (bytes)    0           |
+	+--------------------------------+-----------------------------------+
+	| CRC errors         0           | CRC errors            0           |
+	| Pause packets      0           | Carrier lost          0           |
+	| Bad packets        0           | Excessive deferrals   0           |
+	| Overruns           0           | Excessive collisions  0           |
+	| Runts              0           | Late collisions       0           |
+	| Short packets      0           | Multiple collisions   0           |
+	| Alignment errors   0           | Single collisions     0           |
+	| Long packets       0           | Underruns             0           |
+	| Out of range       0           | Queue overflow        0           |
+	| In range errors    0           | Descriptor errors     0           |
+	| Format errors      0           |                                   |
+	+--------------------------------+-----------------------------------+
+
+rf5.0: flags=8103<UP,BROADCAST,PROMISC,MULTICAST> mtu 1500
+        inet 0.0.0.0 netmask 0x0 
+        ether 00:04:35:13:80:03 
+
+rf5.1: flags=8003<UP,BROADCAST,MULTICAST> mtu 1500
+        ether 00:00:00:00:00:00 
+
+null0: flags=8802<BROADCAST,NULL,MULTICAST> mtu 1500
+
+svi1: flags=8003<UP,BROADCAST,MULTICAST> mtu 1500
+        inet 10.10.10.1 netmask 0xffffff00 broadcast 10.10.10.255
+        ether 02:04:35:03:80:03 
+	Info: "L2 Management Interface"
+
+	svi1: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            216         | Packets               580         |
+	| Bytes              51010       | Bytes                 347232      |
+	| Load (kbps)        22          | Load (kbps)           0           |
+	| Load (pps)         2           | Load (pps)            0           |
+	+--------------------------------+-----------------------------------+
+
+
+Name      Network            Address               Ipkts Ierrs      Opkts Oerrs
+lo0       Link:                                      127     0        127     0
+lo0       127.0.0.1/32       127.0.0.1       
+eth0      Link:              000435038003            220     0        585     0
+eth0      10.10.20.0/24      10.10.20.1      
+rf5.0     Link:              000435138003              0     0       2810     0
+rf5.0     none               none             
+rf5.1     Link:              000000000000              0     0          0     0
+null0*    Link:                                        0     0          0     0
+svi1      Link:              020435038003            216     0        580     0
+svi1      10.10.10.0/24      10.10.10.1      
+
+
+Routing tables
+Destination        Gateway            Flags     Refs     Use  Interface
+10.10.10.0/24      link#6             UC          0        0  svi1
+10.10.10.254       64:70:02:10:78:12  UHL         1      579  svi1
+10.10.20.0/24      link#2             UC          0        0  eth0
+127.0.0.1          127.0.0.1          UH          2      127  lo0
+224.0.0.0/8        127.0.0.1          UGS         0        0  lo0
+
+
+10.10.10.254 at 647002107812 via svi1
+
+License 'Factory License' granted at 02/10/2017 12:04:05
+  Device
+    SN:229379
+    PN:SkyMAN R5000-Omxs/5.300.2x500
+    Production Date: 2 Oct 2017 12:04:05 UZT
+  Operational parameters
+    rf5.0 interface parameters
+      Maximum Transmit Rate: 300 Mbps
+      Available Channel Widths: 5 Mhz 10 Mhz 20 Mhz
+      40 MHz channel width is available
+      Link: Point to Point
+      Power levels: 63,200,500 mW
+      Power levels: -10.0,2.0,7.0,14.0,18.0,23.0,27.0 dBm
+      Supported Frequencies: 4900 - 6040 MHz
+    rf5.1 interface parameters
+      Maximum Transmit Rate: 300 Mbps
+      Available Channel Widths: 5 Mhz 10 Mhz 20 Mhz
+      40 MHz channel width is available
+      Power levels: -10.0 dBm
+      Supported Frequencies: 4900 - 6040 MHz
+
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<license description="Factory License" granted="02/10/2017 12:04:05" id="{581472b0-803b-4693-9232-1c270e234007}">
+    <device description="Device">
+        <options SN="229379" description="SN:229379" />
+        <options PN="R5000-Omxs/5.300.2x500-H08" description="PN:SkyMAN R5000-Omxs/5.300.2x500" />
+        <options ProductionDate="02/10/2017 12:04:05+0500" description="Production Date: 2 Oct 2017 12:04:05 UZT" />
+        <options Model="R5000-O" />
+        <options Features="m - MIMO, x - Gigabit-H08, s - Instant DFS" />
+        <options Platform="PPC 460EX 1000 MHz (H08YY-02-2PCI) - H08.rev 02" />
+        <options IDU="IDU-BS-G" />
+        <options Radios="RMM-55-10:192482, RRM-55-01:166166" />
+        <specification decimal="NFDA2.158.012-16" name="Omxs/5X.XXX.2x500" />
+    </device>
+    <wanflex description="Operational parameters">
+        <feature description="rf5.0 interface parameters" name="rf5.0">
+            <option MaximumTransmitRate="300000" description="Maximum Transmit Rate: 300 Mbps" />
+            <option BandwidthMask="7" description="Available Channel Widths: 5 Mhz 10 Mhz 20 Mhz" />
+            <option DoubleBandwidthEnabled="1" description="40 MHz channel width is available" />
+            <option ChangePower="1" />
+            <option MaxLinks="1" description="Link: Point to Point" />
+            <option TransmitPowers="63,200,500" description="Power levels: 63,200,500 mW" />
+            <option TransmitPowersTenthdbm="-100,20,70,140,180,230,270" description="Power levels: -10.0,2.0,7.0,14.0,18.0,23.0,27.0 dBm" />
+            <option RxChainMask="3" />
+            <option TxChainMask="3" />
+            <option rfmode="na" />
+            <option FrequencyList="4900na,4920na,4940na,4960na,4980na,5000na,5020na,5040na,5060na,5080na,5100na,5120na,5140na,5160na,5180na,5200na,5220na,5240na,5260na,5280na,5300na,5320na,5340na,5360na,5380na,5400na,5420na,5440na,5460na,5480na,5500na,5520na,5540na,5560na,5580na,5600na,5620na,5640na,5660na,5680na,5700na,5720na,5740na,5760na,5780na,5800na,5820na,5840na,5860na,5880na,5900na,5920na,5940na,5960na,5980na,6000na,6020na,6040na" description="Supported Frequencies: 4900 - 6040 MHz" />
+        </feature>
+        <feature description="rf5.1 interface parameters" name="rf5.1">
+            <option MaximumTransmitRate="300000" description="Maximum Transmit Rate: 300 Mbps" />
+            <option BandwidthMask="7" description="Available Channel Widths: 5 Mhz 10 Mhz 20 Mhz" />
+            <option DoubleBandwidthEnabled="1" description="40 MHz channel width is available" />
+            <option ChangePower="1" />
+            <option TransmitPowersTenthdbm="-100" description="Power levels: -10.0 dBm" />
+            <option RxChainMask="3" />
+            <option TxChainMask="3" />
+            <option rfmode="na" />
+            <option FrequencyList="4900na,4920na,4940na,4960na,4980na,5000na,5020na,5040na,5060na,5080na,5100na,5120na,5140na,5160na,5180na,5200na,5220na,5240na,5260na,5280na,5300na,5320na,5340na,5360na,5380na,5400na,5420na,5440na,5460na,5480na,5500na,5520na,5540na,5560na,5580na,5600na,5620na,5640na,5660na,5680na,5700na,5720na,5740na,5760na,5780na,5800na,5820na,5840na,5860na,5880na,5900na,5920na,5940na,5960na,5980na,6000na,6020na,6040na" description="Supported Frequencies: 4900 - 6040 MHz" />
+        </feature>
+    </wanflex>
+</license>
+
+SYSTEM      R5000 WANFleX H08S11-TDMAv2.1.7 * Sep  6 2018 16:33:48 * SN:229379 *
+            Uptime: 00:02:58
+            Firmware ID: 008T0011
+            PN:SkyMAN R5000-Omxs/5.300.2x500
+            Boot monitor: Tue Feb 10 11:38:53 2015 (up to date)
+
+MEMORY      120.9 MB total
+            Malloc stats
+              Total:126792592  Free:60602672  Allocated:66189920 (52.20%)
+              Max:66350288 (52.32%)
+            Calls
+              malloc:119389  free:102913  realloc:16149  calloc:752  miss:0
+            
+            15800 mbufs, 12339 clusters free
+            1523 mbufs in use:
+                1520 mbufs allocated to data
+                   3 mbufs allocated to packet headers
+            1520/13859 mapped pages in use
+            44051 Kbytes allocated to network (11% in use)
+            
+            EthI   :   0(1000,0) 
+            eth0   :   0(600,0) 
+            rf5.0  :   0(400,0)  rf5.0-rx: 0(350,0)
+            rf5.1  :   0(350,0) 
+            svi1   :   0(64,0) 
+            MintQ  :   0(800,0) 
+            HTB    :   cur 0, max 0, drop 0, lock 0
+            
+            ------- System objects stats ------
+              Object     Capac. Current   Max
+            ----------- ------- ------- -------
+            Tasks           128      31      31
+            Timers           40       3       5
+            Semaphores       95      21      21
+            MQueues          20       3       3
+            Extentions        4       2       2
+            Workspace Required: 81960
+                     Allocated: 204800
+
+ISR         Universal Interrupt Controller
+            No isr stat
+
+L2CACHE     Size: 256 Kb For Instructions.
+
+DDR2        Open-eye size 214
+
+CPU         Processor: PPC460EX 1000 MHz
+            CPU Load   5%   5%(10s)   5%(30s)   5%(60s)   5%(300s)
+            Detailed: Isr: 3.87%  Tasks: 0.49%  Idle: 95.62%
+            Reset status: Unknown
+
+FLASH       Flash device 0: INTEL StrataFlash Memory Bottom (p33 128MBIT)
+
+DFFS        Files=13, Used 5075712 bytes, Free 10971324 bytes
+            FlashSize=16000 KB, 125 Sectors of 128 KB, 64000 blocks of 256 bytes
+
+LICENSE     Factory License granted at 02/10/2017 12:04:05
+            id={581472b0-803b-4693-9232-1c270e234007}
+
+PCI0        Atheros AR9220 Wireless PCI Adapter. InfiNet Wireless RMM55 5.5 GHz
+            Radio rev 10
+            Port: 0 Bus: 0 Device: 1 Function: 0 vendor:0x168c device:0x0029
+            MEM32 at 0x80000000 size: 0x00010000 CLS: 8
+
+PCI1        Atheros AR9220 Wireless PCI Adapter. InfiNet Wireless RRM55 5.5 GHz
+            Receiver rev 01
+            Port: 0 Bus: 0 Device: 2 Function: 0 vendor:0x168c device:0x0029
+            MEM32 at 0x80010000 size: 0x00010000 CLS: 8
+
+RFTS        RF temperature stabilizer.
+            rf5.0: Internal Temperature is +29.0 degrees Celsius.Heater 0%
+                   Thresholds: -10/30, T-gradient: 5.0 degrees per minute
+                   Hardware:   ht: 4, cl: 5, da: 6, i2c: 0x48, fuse: 50C
+
+PHY         Marvell 88E1118
+            	Physical link info:
+            	Link is UP, auto Full-duplex, 100 Mbps
+            	Capabilities:          Self  Peer
+            	     Auto-Negotiation:   +     +  
+            	  10 Mbps Half-duplex:   +     +  
+            	  10 Mbps Full-duplex:   +     +  
+            	 100 Mbps Half-duplex:   +     +  
+            	 100 Mbps Full-duplex:   +     +  
+            	1000 Mbps Half-duplex:   +     -  
+            	1000 Mbps Full-duplex:   +     -  
+            	PHY chip: Marvell 88E1118 ID: 0e110141
+
+Internal temperature unavailable.
+
+
+                       System events statistics:
+         Event             Raise           Send         Receptions
+--------------------- --------------- --------------- ---------------
+TASK_DELETED                        7               0               0
+HTTPD_SCRIPT                        0              13              12
+LINK_STATE                          4               0               3
+FREQ_CHANGED                        1               0               0
+NMEA                              695               0               0
+--------------------- --------------- --------------- ---------------
+               Total:             707              13              15
+           Overflows:               0      Conflicts:               0
+
+
+Custom pools (13):
+8  bytes: /MA/MA (public) refcnt 2
+   Cluster 160/20, 1/1 clusters, Total 160 bytes, 7 items
+44 bytes: /MA/xmlText/xmlComment (public) refcnt 3
+   Cluster 180224/4096, 1/1 clusters, Total 180224 bytes, 2987 items
+12 bytes: /MA/MA/MA (public) refcnt 3
+   Cluster 12288/1024, 2/2 clusters, Total 24576 bytes, 1488 items
+16 bytes: /MA/MUM (public) refcnt 2
+   Cluster 131072/8192, 4/4 clusters, Total 524288 bytes, 24409 items
+4  bytes: /MA (public) refcnt 1
+   Cluster 8192/2048, 1/1 clusters, Total 8192 bytes, 1647 items
+40 bytes: /MA/TCF (public) refcnt 2
+   Cluster 24000/600, 1/1 clusters, Total 24000 bytes, 129 items
+52 bytes: /MA (public) refcnt 1
+   Cluster 1040/20, 1/1 clusters, Total 1040 bytes, 0 items
+32 bytes: /SLOG/xmlAttrib (public) refcnt 2
+   Cluster 131072/4096, 3/3 clusters, Total 393216 bytes, 10454 items
+76 bytes: /xmlElement (public) refcnt 1
+   Cluster 311296/4096, 2/2 clusters, Total 622592 bytes, 6190 items
+128 bytes: /MSEQ (public) refcnt 1
+   Cluster 4096/32, 1/1 clusters, Total 4096 bytes, 0 items
+388 bytes: /ICHUNK (public) refcnt 1
+   Cluster 38800/100, 1/1 clusters, Total 38800 bytes, 0 items
+60 bytes: /OCHUNK (public) refcnt 1
+   Cluster 6000/100, 1/1 clusters, Total 6000 bytes, 1 items
+20 bytes: /TXQ (public) refcnt 1
+   Cluster 40960/2048, 1/1 clusters, Total 40960 bytes, 0 items
+
+
+
+         Status: sync PPS
+  Total enabled: 00:02:52
+  Total valid  : 00:02:40(93%)
+  Valid time   : 00:02:40
+  Lost  count  : 0
+  Last message : Offset: +0.1 us, Freq: 999987115 hz, df: -82 hz, jitter: 0
+  Time offset histogram:
+     ^
+     |
+-2.0 +
+     |
+-1.0 +
+     | 1%
+-0.5 +
+     |||||||||||||||||||||||||||||||||||||||||||||||||| 99%
+ 0.5 +
+     |
+ 1.0 +
+     |
+ 2.0 +
+     |
+     v
+  Offset (us): min -0.6, max +0.4, cur  0.0
+  Jitter (us): max  0.3
+
+
+rf5.0 Capabilities
+   Radio capabilities:
+   Model name:				InfiNet Wireless RMM55 Rev10
+   Adapter name:			Atheros AR9220 Wireless PCI Adapter. InfiNet Wireless RMM55 5.5 GHz Radio rev 10
+   Subvendor: 0xfff1, Subid 0x5510
+   EEPROM revision:			14.16
+   MAC silicon revision:		128.2
+   PHY silicon revision:		13.0
+   5GHz analog silicon revision:	12.0
+   Power levels (dBm):			-10, 2, 7, 14, 18, 23, 27
+   Automatic Power Control range (dBm):	0..27
+   Greenfield mode supported
+   MAC address:				000435138003
+   Bandwidth modes:			5, 10, 20, 40
+   Bitrate list:			13000, 26000, 39000, 52000,
+					78000, 104000, 117000, 130000
+   Frequency bounds (40 MHz):		4890-6050
+   Frequency grid (user defined):	4890-6050/10
+   Frequency list (116 channels):
+     4890, 4900, 4910, 4920, 4930, 4940, 4950, 4960, 4970, 4980, 4990, 5000, 
+     5010, 5020, 5030, 5040, 5050, 5060, 5070, 5080, 5090, 5100, 5110, 5120, 
+     5130, 5140, 5150, 5160, 5170, 5180, 5190, 5200, 5210, 5220, 5230, 5240, 
+     5250, 5260, 5270, 5280, 5290, 5300, 5310, 5320, 5330, 5340, 5350, 5360, 
+     5370, 5380, 5390, 5400, 5410, 5420, 5430, 5440, 5450, 5460, 5470, 5480, 
+     5490, 5500, 5510, 5520, 5530, 5540, 5550, 5560, 5570, 5580, 5590, 5600, 
+     5610, 5620, 5630, 5640, 5650, 5660, 5670, 5680, 5690, 5700, 5710, 5720, 
+     5730, 5740, 5750, 5760, 5770, 5780, 5790, 5800, 5810, 5820, 5830, 5840, 
+     5850, 5860, 5870, 5880, 5890, 5900, 5910, 5920, 5930, 5940, 5950, 5960, 
+     5970, 5980, 5990, 6000, 6010, 6020, 6030, 6040  
+   Frequency bounds (20 MHz):		4890-6050
+   Frequency grid (user defined):	4890-6050/10
+   Frequency list (117 channels):
+     4890, 4900, 4910, 4920, 4930, 4940, 4950, 4960, 4970, 4980, 4990, 5000, 
+     5010, 5020, 5030, 5040, 5050, 5060, 5070, 5080, 5090, 5100, 5110, 5120, 
+     5130, 5140, 5150, 5160, 5170, 5180, 5190, 5200, 5210, 5220, 5230, 5240, 
+     5250, 5260, 5270, 5280, 5290, 5300, 5310, 5320, 5330, 5340, 5350, 5360, 
+     5370, 5380, 5390, 5400, 5410, 5420, 5430, 5440, 5450, 5460, 5470, 5480, 
+     5490, 5500, 5510, 5520, 5530, 5540, 5550, 5560, 5570, 5580, 5590, 5600, 
+     5610, 5620, 5630, 5640, 5650, 5660, 5670, 5680, 5690, 5700, 5710, 5720, 
+     5730, 5740, 5750, 5760, 5770, 5780, 5790, 5800, 5810, 5820, 5830, 5840, 
+     5850, 5860, 5870, 5880, 5890, 5900, 5910, 5920, 5930, 5940, 5950, 5960, 
+     5970, 5980, 5990, 6000, 6010, 6020, 6030, 6040, 6050  
+   Frequency bounds (10 MHz):		4890-6050
+   Frequency grid (user defined):	4890-6050/5
+   Frequency list (233 channels):
+     4890, 4895, 4900, 4905, 4910, 4915, 4920, 4925, 4930, 4935, 4940, 4945, 
+     4950, 4955, 4960, 4965, 4970, 4975, 4980, 4985, 4990, 4995, 5000, 5005, 
+     5010, 5015, 5020, 5025, 5030, 5035, 5040, 5045, 5050, 5055, 5060, 5065, 
+     5070, 5075, 5080, 5085, 5090, 5095, 5100, 5105, 5110, 5115, 5120, 5125, 
+     5130, 5135, 5140, 5145, 5150, 5155, 5160, 5165, 5170, 5175, 5180, 5185, 
+     5190, 5195, 5200, 5205, 5210, 5215, 5220, 5225, 5230, 5235, 5240, 5245, 
+     5250, 5255, 5260, 5265, 5270, 5275, 5280, 5285, 5290, 5295, 5300, 5305, 
+     5310, 5315, 5320, 5325, 5330, 5335, 5340, 5345, 5350, 5355, 5360, 5365, 
+     5370, 5375, 5380, 5385, 5390, 5395, 5400, 5405, 5410, 5415, 5420, 5425, 
+     5430, 5435, 5440, 5445, 5450, 5455, 5460, 5465, 5470, 5475, 5480, 5485, 
+     5490, 5495, 5500, 5505, 5510, 5515, 5520, 5525, 5530, 5535, 5540, 5545, 
+     5550, 5555, 5560, 5565, 5570, 5575, 5580, 5585, 5590, 5595, 5600, 5605, 
+     5610, 5615, 5620, 5625, 5630, 5635, 5640, 5645, 5650, 5655, 5660, 5665, 
+     5670, 5675, 5680, 5685, 5690, 5695, 5700, 5705, 5710, 5715, 5720, 5725, 
+     5730, 5735, 5740, 5745, 5750, 5755, 5760, 5765, 5770, 5775, 5780, 5785, 
+     5790, 5795, 5800, 5805, 5810, 5815, 5820, 5825, 5830, 5835, 5840, 5845, 
+     5850, 5855, 5860, 5865, 5870, 5875, 5880, 5885, 5890, 5895, 5900, 5905, 
+     5910, 5915, 5920, 5925, 5930, 5935, 5940, 5945, 5950, 5955, 5960, 5965, 
+     5970, 5975, 5980, 5985, 5990, 5995, 6000, 6005, 6010, 6015, 6020, 6025, 
+     6030, 6035, 6040, 6045, 6050  
+   Frequency bounds (5 MHz):		4890-6050
+   Frequency grid (user defined):	4890-6050/5
+   Frequency list (233 channels):
+     4890, 4895, 4900, 4905, 4910, 4915, 4920, 4925, 4930, 4935, 4940, 4945, 
+     4950, 4955, 4960, 4965, 4970, 4975, 4980, 4985, 4990, 4995, 5000, 5005, 
+     5010, 5015, 5020, 5025, 5030, 5035, 5040, 5045, 5050, 5055, 5060, 5065, 
+     5070, 5075, 5080, 5085, 5090, 5095, 5100, 5105, 5110, 5115, 5120, 5125, 
+     5130, 5135, 5140, 5145, 5150, 5155, 5160, 5165, 5170, 5175, 5180, 5185, 
+     5190, 5195, 5200, 5205, 5210, 5215, 5220, 5225, 5230, 5235, 5240, 5245, 
+     5250, 5255, 5260, 5265, 5270, 5275, 5280, 5285, 5290, 5295, 5300, 5305, 
+     5310, 5315, 5320, 5325, 5330, 5335, 5340, 5345, 5350, 5355, 5360, 5365, 
+     5370, 5375, 5380, 5385, 5390, 5395, 5400, 5405, 5410, 5415, 5420, 5425, 
+     5430, 5435, 5440, 5445, 5450, 5455, 5460, 5465, 5470, 5475, 5480, 5485, 
+     5490, 5495, 5500, 5505, 5510, 5515, 5520, 5525, 5530, 5535, 5540, 5545, 
+     5550, 5555, 5560, 5565, 5570, 5575, 5580, 5585, 5590, 5595, 5600, 5605, 
+     5610, 5615, 5620, 5625, 5630, 5635, 5640, 5645, 5650, 5655, 5660, 5665, 
+     5670, 5675, 5680, 5685, 5690, 5695, 5700, 5705, 5710, 5715, 5720, 5725, 
+     5730, 5735, 5740, 5745, 5750, 5755, 5760, 5765, 5770, 5775, 5780, 5785, 
+     5790, 5795, 5800, 5805, 5810, 5815, 5820, 5825, 5830, 5835, 5840, 5845, 
+     5850, 5855, 5860, 5865, 5870, 5875, 5880, 5885, 5890, 5895, 5900, 5905, 
+     5910, 5915, 5920, 5925, 5930, 5935, 5940, 5945, 5950, 5955, 5960, 5965, 
+     5970, 5975, 5980, 5985, 5990, 5995, 6000, 6005, 6010, 6015, 6020, 6025, 
+     6030, 6035, 6040, 6045, 6050  
+
+
+rf5.0 Calibration
+Calibration accuracy: Default, offset 0 halfdBm
+      power:   0   3   7  11  15     9  14  19  23  27
+      ------------------------------------------------
+4800: vpd 0:   1   3   6  13  25     5  12  25  44  76
+      vpd 1:   1   2   5   9  18     3   9  20  36  65
+      ------------------------------------------------
+4980: vpd 0:   1   3   6  11  22     3  10  22  39  67
+      vpd 1:   1   1   4  10  20     4   9  20  38  70
+      ------------------------------------------------
+5160: vpd 0:   1   3   7  14  26     4  12  26  45  77
+      vpd 1:   1   2   5  10  19     3   9  20  36  67
+      ------------------------------------------------
+5340: vpd 0:   1   4   9  18  33     6  15  33  56  96
+      vpd 1:   1   3   7  14  27     5  12  27  48  84
+      ------------------------------------------------
+5520: vpd 0:   1   3   8  16  30     5  14  30  52  88
+      vpd 1:   1   3   6  13  26     4  12  28  49  85
+      ------------------------------------------------
+5700: vpd 0:   2   5  13  25  46     8  21  44  75 123
+      vpd 1:   1   4   8  17  32     5  15  33  57  99
+      ------------------------------------------------
+5880: vpd 0:   2   5  11  21  39     7  18  39  66 111
+      vpd 1:   1   4  10  19  37     7  18  38  65 111
+      ------------------------------------------------
+6060: vpd 0:   2   5  12  24  46     9  22  46  77 127
+      vpd 1:   1   4   9  19  36     6  16  36  62 106
+
+rf5.0
+chain 0 count 82 max 73 min 71 avg 71 cur 72
+chain 1 count 83 max 78 min 61 avg 66 cur 76
+
+rf5.0
+20MHz, MCS0, limit = 27
+20MHz, MCS1, limit = 27
+20MHz, MCS2, limit = 27
+20MHz, MCS3, limit = 27
+20MHz, MCS4, limit = 27
+20MHz, MCS5, limit = 26
+20MHz, MCS6, limit = 25
+20MHz, MCS7, limit = 24
+
+rf5.0
+CTL NF:  -119 -120
+
+rf5.0 Statistics
+RF rf5.0 status UP (band 20, freq 4890)  :ACTIVE
+DFS  status     OFF
+TDMA status     Master (5 ms DL/UL:Auto) (DL2500/UL2500)
+
++--------------------------------------+--------------------------------------+
+|          Receive statistics          |         Transmit  statistics         |
++--------------------------------------+--------------------------------------+
+| Broadcast Rate           13000       | Voice Mode                OFF        |
+| Bytes Received           0           | Bytes Transmitted         3219499    |
+| Frames Received OK       0           | Frames Transmitted OK     37355      |
+| Multicast Frames         0           | Multicast Frames          2810       |
++--------------------------------------+--------------------------------------+
+| Load (kbps)              0           | Load (kbps)               16         |
+| Load (pps)               0           | Load (pps)                16         |
+| Frame size (bytes)       0           | Frame size (bytes)        125        |
++--------------------------------------+--------------------------------------+
+| RX Medium Load           0.0%        | TX Medium Load            1.7%       |
+| Total Medium Busy        2.0%        | Frame Time Used           4.7%       |
++--------------------------------------+--------------------------------------+
+| Duplicate Received       0           | Too Short/Long Frames     0 / 0      |
+| Lost frames              0           | Aggr Subframe Retries     0          |
+| Rx Collision             0           | Aggr Full Retries         0          |
+| FIFO Overrun             0           | FIFO Underrun             0          |
+| CRC Errors               0           | Excessive Retries         0          |
+| Noise Floor              -97         | Max aggr frames           0          |
+| Rx Subslots/Nodes        1 / 0       | Max aggr bytes            0          |
+| Scrambled frames         0           | Scrambled frames          0          |
+| Scramble errors          0           | Tx queue overflow         0          |
+| Rx Time Limit (us)       1720        | Tx Time Limit (us)        1720       |
+| Rx Cap (Mbps)            0           | Tx Cap (Mbps)             0          |
++--------------------------------------+--------------------------------------+
+
+                        Software Priority Queues rf5.0                         
+                               ( count / drops )                               
++--------------------------------------+--------------------------------------+
+| q00 (P16)               0 / 0        | q16                      0 / 0       |
+| q01 (P15)               0 / 0        | q17 (P06)                0 / 0       |
+| q02                     0 / 0        | q18 (P05)                0 / 0       |
+| q03 (P14)               0 / 0        | q19                      0 / 0       |
+| q04 (P13)               0 / 0        | q20                      0 / 0       |
+| q05 (P12)               0 / 0        | q21 (P04)                0 / 0       |
+| q06                     0 / 0        | q22 (P03)                0 / 0       |
+| q07 (P11)               0 / 0        | q23                      0 / 0       |
+| q08                     0 / 0        | q24 (P02)                0 / 0       |
+| q09 (P10)               0 / 0        | q25 (P01)                0 / 0       |
+| q10 (P09)               0 / 0        | q26                      0 / 0       |
+| q11                     0 / 0        | q27                      0 / 0       |
+| q12                     0 / 0        | q28 (P00)                0 / 0       |
+| q13 (P08)               0 / 0        | q29                      2 / 0       |
+| q14 (P07)               0 / 0        | q30                      0 / 0       |
+| q15                     0 / 0        | q31                    1401 / 0      |
++--------------------------------------+--------------------------------------+
+
+Phy errors: total 0
+
+
+resets due to: tx stuck 0(0), rx stuck 0(0), mib 0, high load 0
+ PCI fatal intr 0, PCI PERR intr 0, NF cal stuck 0, total 10
+misoctl 1, selfcorr 0, durupdate 0, mim_ena 1, virtcs 0, truecinr 0
+
+nodes 0   turbo prt ads rbc trail                             
+bl 79, gi 274, sd 1 + bd 94 + ifs 15 + pr 36 = 146     
+txdlen = 2080 (1720), rxdlen = 2080 (1720), dlen 360, ssg 4, mrt 0      
+slip 2, mfr 16 mrc 1 cm 44 bp 54 br 1, la 1, cw 10, iD 0 oD 0     
+slot 1, mcl 1, miql 1, miqd 1022, mbql 3, mbqd 2168 (104), mbqc 2  
+lh 0 lf 0 zf 0 bf 0, mf 0, rc 0 rf 0, luc 0 lbc 0 ec 33140  
+fr 0, sf 0, ufr 0, mg 160000, mb 0, cpu 5        
+
+rf5.0
+RF rf5.0 status UP (band 20, freq 4890)  :ACTIVE
+DFS  status     OFF
+TDMA status     Master (5 ms DL/UL:Auto) (DL2500/UL2500)
+
+                            Rate Code Statistics                            
++-------------------------+-------------------+----------------------------+
+|         Receive         |      Bitrate      |          Transmit          |
++-------------------------+-------------------+----------------------------+
+| MCS0             0   0% |   6500  BPSK  1/2 | MCS0             0      0% |
+| MCS1             0   0% |  13000  QPSK  1/2 | MCS1          2810  100.0% |
+| MCS2             0   0% |  19500  QPSK  3/4 | MCS2             0      0% |
+| MCS3             0   0% |  26000  QAM16 1/2 | MCS3             0      0% |
+| MCS4             0   0% |  39000  QAM16 3/4 | MCS4             0      0% |
+| MCS5             0   0% |  52000  QAM64 2/3 | MCS5             0      0% |
+| MCS6             0   0% |  58500  QAM64 3/4 | MCS6             0      0% |
+| MCS7             0   0% |  65000  QAM64 5/6 | MCS7             0      0% |
++-------------------------+-------------------+----------------------------+
+| MCS8             0   0% |  13000  BPSK  1/2 | MCS8             0      0% |
+| MCS9             0   0% |  26000  QPSK  1/2 | MCS9             0      0% |
+| MCS10            0   0% |  39000  QPSK  3/4 | MCS10            0      0% |
+| MCS11            0   0% |  52000  QAM16 1/2 | MCS11            0      0% |
+| MCS12            0   0% |  78000  QAM16 3/4 | MCS12            0      0% |
+| MCS13            0   0% | 104000  QAM64 2/3 | MCS13            0      0% |
+| MCS14            0   0% | 117000  QAM64 3/4 | MCS14            0      0% |
+| MCS15            0   0% | 130000  QAM64 5/6 | MCS15            0      0% |
++-------------------------+-------------------+----------------------------+
+| Other            0      |                   | Other            0         |
++-------------------------+-------------------+----------------------------+
+
+rf5.0 Source Analysis
+Freq:4890 Band:20
+
+rf5.0: NOL is empty
+
+4890  : density    520, noise  -96   active
+4900  : density    480, noise  -97         
+4910  : density    440, noise  -98         
+4920  : density    480, noise  -99         
+4930  : density    440, noise  -99         
+4940  : density    400, noise  -99         
+4950  : density    360, noise  -99         
+4960  : density    360, noise  -99         
+4970  : density    360, noise  -99         
+4980  : density    360, noise  -99         
+4990  : density    360, noise  -99         
+5000  : density    360, noise  -99         
+5010  : density    360, noise  -99         
+5020  : density    319, noise -100   next  
+5030  : density    320, noise -100         
+5040  : density    320, noise -100         
+5050  : density    319, noise -100         
+5060  : density    320, noise -100         
+5070  : density    320, noise -100         
+5080  : density    359, noise  -99         
+5090  : density    360, noise  -99         
+5100  : density    399, noise  -98         
+5110  : density    400, noise  -98         
+5120  : density    359, noise  -99         
+5130  : density    359, noise -100         
+5140  : density    359, noise  -99         
+5150  : density      0, noise    0   check  (UNCHECKED)
+5160  : density      0, noise    0          (UNCHECKED)
+5170  : density      0, noise    0          (UNCHECKED)
+5180  : density      0, noise    0          (UNCHECKED)
+5190  : density      0, noise    0          (UNCHECKED)
+5200  : density      0, noise    0          (UNCHECKED)
+5210  : density      0, noise    0          (UNCHECKED)
+5220  : density      0, noise    0          (UNCHECKED)
+5230  : density      0, noise    0          (UNCHECKED)
+5240  : density      0, noise    0          (UNCHECKED)
+5250  : density      0, noise    0          (UNCHECKED)
+5260  : density      0, noise    0          (UNCHECKED)
+5270  : density      0, noise    0          (UNCHECKED)
+5280  : density      0, noise    0          (UNCHECKED)
+5290  : density      0, noise    0          (UNCHECKED)
+5300  : density      0, noise    0          (UNCHECKED)
+5310  : density      0, noise    0          (UNCHECKED)
+5320  : density      0, noise    0          (UNCHECKED)
+5330  : density      0, noise    0          (UNCHECKED)
+5340  : density      0, noise    0          (UNCHECKED)
+5350  : density      0, noise    0          (UNCHECKED)
+5360  : density      0, noise    0          (UNCHECKED)
+5370  : density      0, noise    0          (UNCHECKED)
+5380  : density      0, noise    0          (UNCHECKED)
+5390  : density      0, noise    0          (UNCHECKED)
+5400  : density      0, noise    0          (UNCHECKED)
+5410  : density      0, noise    0          (UNCHECKED)
+5420  : density      0, noise    0          (UNCHECKED)
+5430  : density      0, noise    0          (UNCHECKED)
+5440  : density      0, noise    0          (UNCHECKED)
+5450  : density      0, noise    0          (UNCHECKED)
+5460  : density      0, noise    0          (UNCHECKED)
+5470  : density      0, noise    0          (UNCHECKED)
+5480  : density    360, noise -100         
+5490  : density    320, noise -101         
+5500  : density    320, noise -101         
+5510  : density    320, noise -101         
+5520  : density    320, noise -101         
+5530  : density    320, noise -100         
+5540  : density    320, noise -101         
+5550  : density    319, noise -101         
+5560  : density    320, noise -100         
+5570  : density    320, noise -100         
+5580  : density    319, noise -100         
+5590  : density    320, noise -100         
+5600  : density    400, noise  -99         
+5610  : density    440, noise  -98         
+5620  : density    480, noise  -98         
+5630  : density    480, noise  -97         
+5640  : density    520, noise  -96         
+5650  : density    560, noise  -96         
+5660  : density    560, noise  -95         
+5670  : density    600, noise  -95         
+5680  : density    640, noise  -94         
+5690  : density    640, noise  -94         
+5700  : density    640, noise  -94         
+5710  : density    640, noise  -94         
+5720  : density    640, noise  -93         
+5730  : density    680, noise  -92         
+5740  : density    680, noise  -92         
+5750  : density    720, noise  -91         
+5760  : density    679, noise  -91         
+5770  : density    679, noise  -91         
+5780  : density    680, noise  -91         
+5790  : density    680, noise  -91         
+5800  : density    720, noise  -90         
+5810  : density    720, noise  -90         
+5820  : density    719, noise  -90         
+5830  : density    720, noise  -91         
+5840  : density    680, noise  -91         
+5850  : density    640, noise  -92         
+5860  : density    640, noise  -92         
+5870  : density    640, noise  -92         
+5880  : density    640, noise  -92         
+5890  : density    640, noise  -92         
+5900  : density    639, noise  -92         
+5910  : density    639, noise  -92         
+5920  : density    640, noise  -92         
+5930  : density    640, noise  -92         
+5940  : density    640, noise  -92         
+5950  : density    640, noise  -92         
+5960  : density    679, noise  -91         
+5970  : density    679, noise  -91         
+5980  : density    720, noise  -91         
+5990  : density    719, noise  -90         
+6000  : density    825, noise -100         
+6010  : density   1134, noise -100         
+6020  : density   1220, noise  -99         
+6030  : density   1208, noise -100         
+6040  : density   1360, noise  -99         
+6050  : density   1453, noise  -99         
+
+
+
+           MAC          Out/Rep    %   SNR      Drop/Err
+rf5.0  FFFFFFFFFFFF    1438/0     00  00:00        0/0   
+
+Burst: Send 0+0 (max 0, avg 0), Recv 0+0 (max 0, avg 0)
+PHS:   packets 0, bytes 0 (max 0, avg 0)
+
+IP statistics:
+ips_total               665 (total packets received)
+ips_badsum                0 (checksum bad)
+ips_tooshort              0 (packet too short)
+ips_toosmall              0 (not enough data)
+ips_badhlen               0 (ip header length < data size)
+ips_badlen                0 (ip length < ip header length)
+ips_fragments             0 (fragments received)
+ips_fragdropped           0 (frags dropped (dups,ipstat. out of space))
+ips_fragtimeout           0 (fragments timed out)
+ips_forward               0 (packets forwarded)
+ips_cantforward           0 (packets rcvd for unreachable dest)
+ips_redirectsent          0 (packets forwarded on same net)
+ips_noproto               0 (unknown or unsupported protocol)
+ips_delivered           665 (datagrams delivered to upper level
+ips_localout           1030 (total ip packets generated here)
+ips_odropped              0 (lost packets due to nobufs,ipstat. etc.)
+ips_reassembled           0 (total packets reassembled ok)
+ips_fragmented            0 (datagrams sucessfully fragmented)
+ips_ofragments            0 (output fragments created)
+ips_cantfrag              0 (don't fragment flag was set,ipstat. etc.)
+ips_badoptions            0 (error in option processing)
+ips_noroute               0 (packets discarded due to no route)
+ips_badvers               0 (ip version != 4)
+ips_rawout                0 (total raw ip packets generated)
+ips_badfrags              0 (malformed fragments (bad length))
+ips_rcvmemdrop            0 (frags dropped for lack of memory)
+ips_toolong               0 (ip length > max ip packet size)
+
+ICMP statistics:
+icps_error                0 ( # of calls to icmp_error )
+icps_oldshort             0 ( no error 'cuz old ip too short )
+icps_oldicmp              0 ( no error 'cuz old was icmp )
+icps_badcode              0 ( icmp_code out of range )
+icps_tooshort             0 ( packet < ICMP_MINLEN )
+icps_checksum             0 ( bad checksum )
+icps_badlen               0 ( calculated bound mismatch )
+icps_reflect              0 ( number of responses )
+icps_bmcastecho           0 ( rejected broadcast icmps )
+
+
+                         LLDP Neighbors Table on eth0                          
++---------------+-------------------------------------------------------------+
+|                     LLDP Mode: TxRx,  Forward: disabled                     |
++---------------+-------------------------------------------------------------+
+| ChassisID:    | IW-183272 (local)                                           |
+| SysName:      | Slave                                                       |
+| SysDescr:     | Infinet Wireless R5000 WANFleX H11S01-MINTv1.90.32          |
+| Caps:         | Repeater*, Bridge*, Router*                                 |
+| PortID:       | 00:04:35:02:CB:E8 (mac)                                     |
+| PortDescr:    | eth0, Slave                                                 |
+| MFS:          | 1728 bytes                                                  |
+| MgmtIP:       | 10.10.10.2, 10.10.20.2                                      |
+| Last report:  | 4 seconds ago, TTL 181 seconds, Age 00:02:17                |
++---------------+-------------------------------------------------------------+
+
+

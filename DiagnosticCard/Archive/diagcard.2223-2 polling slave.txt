@@ -65,6 +65,18 @@ Fri Feb 08 19:54:57 GMT 2019  (not valid)
 	      -nodeid 09930 -type slave \
 	      -autobitr -mimo \
 	      -key "123456789"
+ mint rf5.0 prof 2 -band 5 -freq 6100 -sid 10101010 \
+	      -nodeid 09203 -type slave \
+	      -autobitr -mimo greenfield
+ mint rf5.0 prof 3 -band 40 -freq 6070 -sid 10101010 \
+	      -nodeid 09203 -type slave \
+	      -autobitr -mimo greenfield
+ mint rf5.0 prof 4 -band 20 -freq auto -bitr 78000 -sid 10101010 \
+	      -nodeid 09203 -type slave \
+	      -autobitr +3 -mimo greenfield		  
+ mint rf5.0 prof 55 disable -band 20 -freq auto -bitr 78000 -sid 10101010 \
+	      -nodeid 09203 -type slave \
+	      -autobitr +3 -mimo greenfield		  
  mint rf5.0 -roaming enable
  mint rf5.0 -authmode public
  mint rf5.0 -airupdate passive normal
