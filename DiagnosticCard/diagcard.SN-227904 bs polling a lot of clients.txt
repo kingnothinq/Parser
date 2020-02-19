@@ -1,0 +1,1178 @@
+
+R5000 WANFleX H08S01-MINTv1.90.37 * Oct 16 2019 15:11:09 * SN:227904
+Processor: PPC460EX 1000 MHz
+PN:SkyMAN R5000-Mmxtb/6.300.2x200.2x16
+
+Uptime: 02:25:08
+Last reboot reason: manual restart
+Thu Oct 17 11:29:18 GMT 2019  (SNTP)
+
+# R5000 WANFleX H08S01-MINTv1.90.37 * Oct 16 2019 15:11:09 * SN:227904
+
+#System parameters
+ #Factory password mode: single
+ sys name Oreh_z6_3_E300063_naShaturu
+ sys prompt Oreh_z6_3_E300063
+ sys user alex
+ setpass $1$nUSMU$Q0wc3r0S8ZgscqMmEBYbb0
+ sys log 80.252.128.229
+   
+#ACL rules
+ acl add $ACLOCAL net 10.1.255.254 10.10.0.0/16 10.110.0.0/16 80.252.128.0/24
+ acl add $ACLOCAL net 80.252.134.228/30 80.252.143.132/30 80.252.143.136/29
+ acl add $ACLOCAL net 88.84.200.202 
+ acl add $IEXT net 10.10.0.0/16 10.110.0.0/16 10.111.0.0/16 10.112.0.0/16
+ acl add $IEXT net 10.115.0.0/16 80.252.128.88/29 
+   
+#Radio module parameters
+ rf rf5.0 band 20
+ rf rf5.0 mimo
+ rf rf5.0 freq 6362 bitr 104000 sid E300063 burst
+ rf rf5.0 txpwr 23 distance auto(17) 
+   
+#DFS configuration
+ dfs rf5.0 dfsoff
+ dfs rf5.0 freq auto
+ dfs rf5.0 cot off
+   
+#Interfaces parameters
+ ifc lo0    127.0.0.1/32
+ ifc eth0   media auto mtu 1500 up
+ ifc eth0   10.110.17.7/24
+ ifc rf5.0  mtu 1500 up
+ ifc rf5.0  10.1.1.1/30
+ ifc vlan9  mtu 1500 up
+ ifc vlan9  10.10.117.211/29
+ ifc vlan9  vlan 9 vlandev eth0
+   
+#QoS manager
+ qm option nodot1p nortp nodscp noicmp
+ qm ch1 addpri=3 info="icmp"
+ qm ch2 addpri=12 info="Critical Customer Traffic"
+ qm add 5 ch2 -f "vlan 305"
+ qm add 10 ch1 -f "host 10.111.17.234"
+   
+#MINT configuration
+ mint rf5.0 -name "Oreh_z6_3_E30006"
+ mint rf5.0 -nodeid 27904
+ mint rf5.0 -type master
+ mint rf5.0 -mode fixed
+ mint rf5.0 -scrambling
+ mint rf5.0 -autobitrate
+ mint rf5.0 -hiamp 2 -loamp 0
+ mint rf5.0 -log
+ mint rf5.0 -roaming leader
+ mint rf5.0 -authmode public
+ mint rf5.0 addn -mac 00043522037C -info "ProfCap" -tip 10.111.17.122 \
+		 -lip 10.111.17.121 -mask 255.255.255.252 -tgw 10.111.17.121
+ mint rf5.0 addn -mac 0004351326EE -info "Kurovskoe_machta" \
+		 -tip 10.110.117.110 -lip 10.110.117.109 -mask 255.255.255.252 \
+		 -tgw 10.110.117.109
+ mint rf5.0 addn -mac 000435226471 -info "Dixi_oktabrskaya_16" \
+		 -tip 10.111.117.70 -lip 10.111.117.69 -mask 255.255.255.252 \
+		 -tgw 10.111.117.69
+ mint rf5.0 addn -mac 000435226479 -info "YIK_Vokzal" -tip 10.111.17.178 \
+		 -lip 10.111.17.177 -mask 255.255.255.252 -tgw 10.111.17.177
+ mint rf5.0 addn -mac 000435226D19 -disabled -info "AutoBus" -tip 10.111.17.58 \
+		 -lip 10.111.17.57 -mask 255.255.255.252 -tgw 10.111.17.57
+ mint rf5.0 addn -mac 000435226D41 -info "RTR_Gubino" -tip 10.111.17.94 \
+		 -lip 10.111.17.93 -mask 255.255.255.252 -tgw 10.111.17.93
+ mint rf5.0 addn -mac 000435227565 -info "Oreh_Voroncovskaya7_Bolnica" \
+		 -tip 10.111.117.226 -lip 10.111.117.225 -mask 255.255.255.252 \
+		 -tgw 10.111.117.225
+ mint rf5.0 addn -mac 000435227567 -info "Video_Snopok_Shkola" \
+		 -tip 10.111.117.110 -lip 10.111.117.109 -mask 255.255.255.252 \
+		 -tgw 10.111.117.109
+ mint rf5.0 addn -mac 00043522757B -disabled
+ mint rf5.0 addn -mac 00043522773E -info "Video_Snopok_Detsad" \
+		 -tip 10.111.117.114 -lip 10.111.117.113 -mask 255.255.255.252 \
+		 -tgw 10.111.117.113
+ mint rf5.0 addn -mac 000435247D02 -info "Video_Krasina_19" -tip 10.10.217.230 \
+		 -lip 10.10.217.229 -mask 255.255.255.252 -tgw 10.10.217.229
+ mint rf5.0 addn -mac 000435247D04 -info "Vcam_Torfobreket" -tip 10.10.217.242 \
+		 -lip 10.10.217.241 -mask 255.255.255.252 -tgw 10.10.217.241
+ mint rf5.0 addn -mac 000435247D05 -info "Video_Priozer_Detsad" \
+		 -tip 10.111.117.138 -lip 10.111.117.137 -mask 255.255.255.252 \
+		 -tgw 10.111.117.137
+ mint rf5.0 addn -mac 000435247D0A -info "RTR_Likino_Maya" -tip 10.111.117.58 \
+		 -lip 10.111.117.57 -mask 255.255.255.252 -tgw 10.111.117.57
+ mint rf5.0 addn -mac 000435247D1C -info "SVN_Vereya_School19" \
+		 -tip 10.10.217.178 -lip 10.10.217.177 -mask 255.255.255.252 \
+		 -tgw 10.10.217.177
+ mint rf5.0 addn -mac 00043522B125 -info "VCamera_Barishnikova" \
+		 -tip 10.111.117.154 -lip 10.111.117.153 -mask 255.255.255.252 \
+		 -tgw 10.111.117.153
+ mint rf5.0 addn -mac 00043520C9A4 -info "OSB_055-2" -tip 10.111.17.234 \
+		 -lip 10.111.17.233 -mask 255.255.255.252 -tgw 10.111.17.233
+ mint rf5.0 addn -mac 00043520C9A9 -info "VTB_Centr7" -tip 10.111.17.82 \
+		 -lip 10.111.17.81 -mask 255.255.255.252 -tgw 10.111.17.81
+ mint rf5.0 addn -mac 00043520CA47 -info "TransRemKom" -tip 10.111.17.250 \
+		 -lip 10.111.17.249 -mask 255.255.255.252 -tgw 10.111.17.249
+ mint rf5.0 addn -mac 00043520CFA4 -info "IBRIS" -tip 10.110.17.236 \
+		 -mask 255.255.255.0 -tgw 10.110.17.1
+ mint rf5.0 addn -mac 00043520D30C -info "Steklomash" -tip 10.10.117.118 \
+		 -lip 10.10.117.117 -mask 255.255.255.252 -tgw 10.10.117.117
+ mint rf5.0 -airupdate passive
+ mint rf5.0 -rcmdserver enabled
+ mint rf5.0 poll start
+ mint rf5.0 start
+ 
+   
+#MAC Switch config
+ switch list VLANS numrange add 79 147 305 1800-1801 1803-1808 1817 3129
+ 
+ switch group 1 add 1 eth0 rf5.0 
+ switch group 1 vlan VLANS
+ switch group 1 trunk on
+ switch group 1 start
+ 
+ switch start
+   
+#SNMP configuration
+ snmpd community "FlexPublic"
+ snmpd start
+   
+#SNMP Trap Sender
+ trapd dstaddr 80.252.128.199
+ trapd type syslog enable
+ trapd start
+   
+#RSHD configuration
+ rshd enable igor 80.252.128.92 Sidor
+ rshd start
+   
+#SNTP configuration
+ sntp -server='80.252.128.2' -interval=600 start
+   
+#WEB configurator
+ webcfg start
+   
+#Add-on devices control
+ ctl heater off
+   
+#ARDA configuration
+ arda interface eth0
+ arda interface lo0
+ arda interface null0
+ arda interface rf5.0
+ arda interface vlan9
+ arda end
+   
+#ARDA RIP configuration
+ arip start
+ arip router
+ arip  version 2
+ arip  redistribute connected
+ arip  redistribute static
+ arip  network eth0
+ arip  network rf5.0
+ arip  network vlan9
+ arip  distribute-list Default out rf5.0
+ arip  distribute-list Default in vlan9
+ arip access-list Default deny 0.0.0.0/1
+ arip access-list Default deny 128.0.0.0/1
+ arip access-list Default permit any
+ arip end
+   
+#LLDP parameters
+ lldp eth0 enable txrx
+   
+
+
+==============================================================================
+Interface rf5.0
+Node  000435137A40  "Oreh_z6_3_E30006", Id 27904, Nid 0, (Master)(polling)
+Freq 6362, Band 20, Sid E300063, autoBitrate 104000 (min 13000), Noise -92 
+
+ ------- ---------------------------- ------------ -----  ------- ----- -------
+   Id         Name                        Node     Level  Bitrate Retry Options
+ ------- ---------------------------- ------------ rx/tx   rx/tx  rx/tx -------
+   00074 Bolnica4                     000435227565 29/19   52/104 15/0  /S/
+	 load 12/16, pps 9/3, cost 51
+	  pwr 23/23, snr 37/39, dist 2
+	  H11v1.90.37, IP=10.111.117.226, up 02:24:24
+   00074 VCamera_Barishnikova         00043522B125 22/15   78/104  4/0  /S/
+	 load 7/25, pps 6/10, cost 51
+	  pwr 23/23, snr 34/37, dist 2
+	  H11v1.90.37, IP=10.111.117.154, up 02:18:36
+   01620 OSB_055-2                    00043520C9A4 20/16   52/104  0/0  /S/
+	 load 202/223, pps 25/19, cost 51
+	  pwr 23/23, snr 28/36, dist 3
+	  H07v1.90.37, IP=10.111.17.234, up 02:24:20
+   04146 Video_Krasina_19             000435247D02 20/21  104/104  0/0  /S/
+	 load 10332/278, pps 470/29, cost 51
+	  pwr 23/23, snr 39/41, dist 3
+	  H11v1.90.37, IP=10.10.217.230, up 02:23:15
+   04148 Torfobriketnaya_4            000435247D04 24/16   13/78  28/10 /S/
+	 load 1321/50, pps 64/22, cost 51
+	  pwr 23/23, snr 26/29, dist 2
+	  H11v1.90.37, IP=10.10.217.242, up 02:24:24
+   04149 Video_Priozer_Detsad         000435247D05 27/19   26/78  25/0  /S/
+	 load 3043/133, pps 155/26, cost 51
+	  pwr 23/23, snr 30/31, dist 6
+	  H11v1.90.37, IP=10.111.117.138, up 02:24:24
+   04154 RTR_Likino_1A                000435247D0A 20/16   52/78   7/1  /S/
+	 load 4665/166, pps 215/38, cost 51
+	  pwr 23/23, snr 27/30, dist 10
+	  H11v1.90.37, IP=10.111.117.58, up 02:24:24
+   04172 SVN_Vereja_School19          000435247D1C 17/19   78/78   6/0  /S/
+	 load 5279/192, pps 256/26, cost 51
+	  pwr 23/23, snr 30/31, dist 9
+	  H11v1.90.37, IP=10.10.217.178, up 02:24:24
+   51840 TransRemKom                  00043520CA47 18/19   78/104  1/0  /S/
+	 load 3/2, pps 3/0, cost 51
+	  pwr 23/23, snr 31/38, dist 7
+	  H07v1.90.37, IP=10.111.17.250, up 02:24:20
+   59041 RTR_Gubino                   000435226D41 12/12   13/26   4/0  /S/
+	 load 3/2, pps 3/0, cost 51
+	  pwr 23/23, snr 14/14, dist 17
+	  H11v1.90.37, IP=10.111.17.94, up 02:24:24
+   61127 Video_Snopok_Shkola          000435227567 16/12   52/78   2/1  /S/
+	 load 5815/202, pps 282/29, cost 51
+	  pwr 23/23, snr 24/24, dist 12
+	  H11v1.90.37, IP=10.111.117.110, up 02:24:23
+   61598 Video_Snopok_Detsad          00043522773E 18/20   26/39   6/4  /S/
+	 load 2840/100, pps 142/23, cost 51
+	  pwr 23/23, snr 23/24, dist 12
+	  H11v1.90.37, IP=10.111.117.114, up 02:24:24
+ ------- ---------------------------- ------------ -----  ------- ----- -------
+ 12 active neighbors
+ Total load: 33522/1389 (rx/tx), 34911 (sum) Kbps
+ Total nodes in area: 13
+
+ 9 Inactive static nodes:
+ -------------------------
+ 00043522037C    10.111.17.122  "ProfCap"  
+ 0004351326EE   10.110.117.110  "Kurovskoe_machta"  
+ 000435226471    10.111.117.70  "Dixi_oktabrskaya_16"  
+ 000435226479    10.111.17.178  "YIK_Vokzal"  
+ 000435226D19     10.111.17.58  "AutoBus"  =DISABLED=
+ 00043522757B                   "Unknown node"  =DISABLED=
+ 00043520C9A9     10.111.17.82  "VTB_Centr7"  
+ 00043520CFA4    10.110.17.236  "IBRIS"  
+ 00043520D30C    10.10.117.118  "Steklomash"  
+
+
+
+==============================================================================
+Interface rf5.0
+Node  000435137A40  "Oreh_z6_3_E30006", Id 27904, Nid 0, (Master)(polling)
+Freq 6362, Band 20, Sid E300063, autoBitrate 104000 (min 13000), Noise -92 
+
+GROUP 1    : 0 nodes : sent 711741 (trunk)
+	     (eth0 rf5.0)
+
+GROUP 79   : 7 nodes : sent 15086 (dynamic) (in-trunk 1)
+  000435227567 "Video_Snopok_Shkola         "  1 hops, Cost  51, (alive 4)
+  00043522773E "Video_Snopok_Detsad         "  1 hops, Cost  51, (alive 4)
+  000435247D02 "Video_Krasina_19            "  1 hops, Cost  51, (alive 5)
+  000435247D04 "Torfobriketnaya_4           "  1 hops, Cost  51, (alive 4)
+  000435247D05 "Video_Priozer_Detsad        "  1 hops, Cost  51, (alive 5)
+  000435247D0A "RTR_Likino_1A               "  1 hops, Cost  51, (alive 4)
+  000435247D1C "SVN_Vereja_School19         "  1 hops, Cost  51, (alive 4)
+
+GROUP 147  : 1 nodes : sent 247537 (dynamic) (in-trunk 1)
+  00043522B125 "VCamera_Barishnikova        "  1 hops, Cost  51, (alive 5)
+
+GROUP 305  : 7 nodes : sent 21754303 (dynamic) (in-trunk 1)
+  000435227567 "Video_Snopok_Shkola         "  1 hops, Cost  51, (alive 4)
+  00043522773E "Video_Snopok_Detsad         "  1 hops, Cost  51, (alive 4)
+  000435247D02 "Video_Krasina_19            "  1 hops, Cost  51, (alive 5)
+  000435247D04 "Torfobriketnaya_4           "  1 hops, Cost  51, (alive 4)
+  000435247D05 "Video_Priozer_Detsad        "  1 hops, Cost  51, (alive 5)
+  000435247D0A "RTR_Likino_1A               "  1 hops, Cost  51, (alive 4)
+  000435247D1C "SVN_Vereja_School19         "  1 hops, Cost  51, (alive 4)
+
+GROUP 1800 : 1 nodes : sent 14883 (dynamic) (in-trunk 1)
+  000435247D0A "RTR_Likino_1A               "  1 hops, Cost  51, (alive 4)
+
+GROUP 1801 : 1 nodes : sent 109807 (dynamic) (in-trunk 1)
+  000435247D0A "RTR_Likino_1A               "  1 hops, Cost  51, (alive 4)
+
+GROUP 1803 : 1 nodes : sent 147 (dynamic) (in-trunk 1)
+  000435247D0A "RTR_Likino_1A               "  1 hops, Cost  51, (alive 4)
+
+GROUP 1804 : 1 nodes : sent 257411 (dynamic) (in-trunk 1)
+  000435247D0A "RTR_Likino_1A               "  1 hops, Cost  51, (alive 4)
+
+GROUP 1805 : 1 nodes : sent 13552 (dynamic) (in-trunk 1)
+  000435247D0A "RTR_Likino_1A               "  1 hops, Cost  51, (alive 4)
+
+GROUP 1806 : 1 nodes : sent 1 (dynamic) (in-trunk 1)
+  000435247D0A "RTR_Likino_1A               "  1 hops, Cost  51, (alive 4)
+
+GROUP 1807 : 1 nodes : sent 1 (dynamic) (in-trunk 1)
+  000435247D0A "RTR_Likino_1A               "  1 hops, Cost  51, (alive 4)
+
+GROUP 1808 : 1 nodes : sent 1 (dynamic) (in-trunk 1)
+  000435247D0A "RTR_Likino_1A               "  1 hops, Cost  51, (alive 4)
+
+GROUP 3129 : 1 nodes : sent 449269 (dynamic) (in-trunk 1)
+  000435227565 "Bolnica4                    "  1 hops, Cost  51, (alive 4)
+
+
+Switch status: STARTED
+Bridge group 1(trunk), READY STARTED  Interfaces : eth0(F) rf5.0(F) 
+
+Switch statistics:
+Kernel forwarded/bcasts/flooded: 2181794/133896/0
+       ignored: 7565, by firewall: 0
+
+                                 +------------------ Dropped -----------------+
+ ID   Unicast    Bcast    Flood  ! STPL   UNRD    FRWL    LOOP    DISC   BACK !
+==== ========= ======== ======== !====== ======= ======= ======= ====== ======!
+   1  57108877   505512   258402       0   62247       0       0      0      17
+Total forwarded: 60188481
+        dropped: 62264
+     DB Records: 237/5000 (4%), max: 257, overflows: 0
+
+
+BlackList for group 1
+MAC Address     Source    VLAN    Time
+============ ============ ==== ==========
+
+
+
+
+qm ch1  addpri=3 info="icmp"
+        packets=7132 bytes=10742404
+qm ch2  addpri=12 info="Critical Customer Traffic"
+        packets=11259732 bytes=774727401
+
+11259619 qm add 5 ch2 -f "vlan 305"
+   7738 qm add 10 ch1 -f "host 10.111.17.234"
+
+LAST SAVED SYSTEM LOG
+~~~~~~~~~~~~~~~~~~~~~
+12:51:12 rf5.0: Link "Torfobriketnaya_4" (000435247D04) DOWN: "administrative unit restart" snr <28/30>
+16-Oct-19 12:51:48 rf5.0: Link "Video_Priozer_Detsad" (000435247D05) UP, snr <32/32>, freq 6362
+16-Oct-19 12:53:11 Oreh_z6_3_E300063#2>  logon as <alex> from 80.252.128.92 by telnet
+16-Oct-19 12:53:42 rf5.0: Link "Torfobriketnaya_4" (000435247D04) UP, snr <27/30>, freq 6362
+16-Oct-19 12:54:29 rf5.0: Link "VCamera_Barishnikova" (00043522B125) UP, snr <37/41>, freq 6362
+16-Oct-19 12:55:52 rf5.0: Link "Bolnica4" (000435227565) UP, snr <41/41>, freq 6362
+16-Oct-19 13:02:02 Oreh_z6_3_E300063#1>  logoff as <alex> from 80.252.128.92 by telnet
+16-Oct-19 13:05:08 rf5.0: Link "Video_Snopok_Shkola" (000435227567) UP, snr <24/25>, freq 6362
+16-Oct-19 13:05:56 rf5.0: Link "OSB_055-2" (00043520C9A4) UP, snr <29/35>, freq 6362
+16-Oct-19 13:13:57 Oreh_z6_3_E300063#1>  logon as <alex> from 80.252.128.92 by telnet
+16-Oct-19 13:16:07 logon as <alex> from 80.252.128.92 by http
+Last message was repeated 1 times
+16-Oct-19 13:28:10 Oreh_z6_3_E300063#1>  logoff as <alex> from 80.252.128.92 by telnet
+16-Oct-19 13:34:59 Oreh_z6_3_E300063#1>  logon as <alex> from 80.252.128.92 by telnet
+16-Oct-19 13:35:17 Oreh_z6_3_E300063#1>  logoff as <alex> from 80.252.128.92 by telnet
+16-Oct-19 13:35:22 Oreh_z6_3_E300063#1>  logon as <alex> from 80.252.128.92 by telnet
+16-Oct-19 13:35:23 Oreh_z6_3_E300063#1>  logoff as <alex> from 80.252.128.92 by telnet
+16-Oct-19 13:36:17 Oreh_z6_3_E300063#1>  logon as <alex> from 80.252.128.92 by telnet
+16-Oct-19 13:36:22 Oreh_z6_3_E300063#1>  logoff as <alex> from 80.252.128.92 by telnet
+16-Oct-19 13:47:15 Oreh_z6_3_E300063#1>  logon as <alex> from 80.252.128.92 by telnet
+16-Oct-19 13:48:27 rf5.0: frequency changed to 6340 MHz
+16-Oct-19 13:48:40 rf5.0: frequency changed to 6392 MHz
+16-Oct-19 13:48:56 rf5.0: Link "RTR_Gubino" (000435226D41) UP, snr <16/16>, freq 6392
+16-Oct-19 13:49:05 rf5.0: Link "Bolnica4" (000435227565) DOWN: "link reconnecting" snr <39/40>
+16-Oct-19 13:49:05 rf5.0: Link "RTR_Gubino" (000435226D41) DOWN: "link reconnecting" snr <16/16>
+16-Oct-19 13:49:05 rf5.0: Link "TransRemKom" (00043520CA47) DOWN: "link reconnecting" snr <32/39>
+16-Oct-19 13:49:06 rf5.0: RFSENSOR started 6020-6440 bw 20 step 1 mask 0xff
+16-Oct-19 13:49:10 rf5.0: Link "Video_Snopok_Shkola" (000435227567) DOWN: "lost control channel" snr <26/25>
+16-Oct-19 13:49:10 rf5.0: Link "Video_Snopok_Detsad" (00043522773E) DOWN: "lost control channel" snr <25/25>
+16-Oct-19 13:49:10 rf5.0: Link "Video_Krasina_19" (000435247D02) DOWN: "lost control channel" snr <40/41>
+16-Oct-19 13:49:10 rf5.0: Link "Torfobriketnaya_4" (000435247D04) DOWN: "lost control channel" snr <27/30>
+16-Oct-19 13:49:11 rf5.0: Link "Video_Priozer_Detsad" (000435247D05) DOWN: "lost control channel" snr <30/32>
+16-Oct-19 13:49:11 rf5.0: Link "RTR_Likino_1A" (000435247D0A) DOWN: "lost control channel" snr <28/29>
+16-Oct-19 13:49:11 rf5.0: Link "SVN_Vereja_School19" (000435247D1C) DOWN: "lost control channel" snr <31/32>
+16-Oct-19 13:49:11 rf5.0: Link "VCamera_Barishnikova" (00043522B125) DOWN: "lost control channel" snr <37/40>
+16-Oct-19 13:49:11 rf5.0: Link "OSB_055-2" (00043520C9A4) DOWN: "lost control channel" snr <28/34>
+16-Oct-19 13:49:46 rf5.0: RFSENSOR stopped
+16-Oct-19 13:49:55 rf5.0: frequency changed to 6412 MHz
+16-Oct-19 13:50:07 rf5.0: Link "SVN_Vereja_School19" (000435247D1C) UP, snr <31/32>, freq 6412
+16-Oct-19 13:50:07 rf5.0: Link "Video_Priozer_Detsad" (000435247D05) UP, snr <33/32>, freq 6412
+16-Oct-19 13:50:07 rf5.0: Link "Video_Krasina_19" (000435247D02) UP, snr <40/42>, freq 6412
+16-Oct-19 13:50:07 rf5.0: Link "Torfobriketnaya_4" (000435247D04) UP, snr <28/31>, freq 6412
+16-Oct-19 13:50:07 rf5.0: Link "Video_Snopok_Shkola" (000435227567) UP, snr <27/25>, freq 6412
+16-Oct-19 13:50:07 rf5.0: Link "Bolnica4" (000435227565) UP, snr <37/39>, freq 6412
+16-Oct-19 13:50:07 rf5.0: Link "RTR_Gubino" (000435226D41) UP, snr <17/16>, freq 6412
+16-Oct-19 13:50:07 rf5.0: Link "Video_Snopok_Detsad" (00043522773E) UP, snr <24/25>, freq 6412
+16-Oct-19 13:50:07 rf5.0: Link "RTR_Likino_1A" (000435247D0A) UP, snr <29/29>, freq 6412
+16-Oct-19 13:50:10 rf5.0: Link "TransRemKom" (00043520CA47) UP, snr <34/39>, freq 6412
+16-Oct-19 13:50:10 rf5.0: Link "OSB_055-2" (00043520C9A4) UP, snr <25/34>, freq 6412
+16-Oct-19 13:53:16 rf5.0: Link "VCamera_Barishnikova" (00043522B125) UP, snr <37/42>, freq 6412
+17-Oct-19 06:03:43 Oreh_z6_3_E300063#1>  logoff as <alex> from 80.252.128.92 by telnet
+17-Oct-19 08:45:12 Oreh_z6_3_E300063#1>  logon as <alex> from 80.252.128.92 by telnet
+17-Oct-19 09:03:54 System restarted
+17-Oct-19 09:03:54 rf5.0: Link "Bolnica4" (000435227565) DOWN: "link reconnecting" snr <36/38>
+17-Oct-19 09:03:54 rf5.0: Link "Torfobriketnaya_4" (000435247D04) DOWN: "link reconnecting" snr <27/30>
+17-Oct-19 09:03:54 rf5.0: Link "Video_Priozer_Detsad" (000435247D05) DOWN: "link reconnecting" snr <29/31>
+17-Oct-19 09:03:54 rf5.0: Link "TransRemKom" (00043520CA47) DOWN: "link reconnecting" snr <30/37>
+Last Log: rf5.0: Link "TransRemKom" (00043520CA47) DOWN: "link reconnecting" snr <30/37>
+
+=====================
+PCIE0: absent.
+PCIE1: absent.
+-3922:28:19.006 tcf: 250 usec per tick
+-3922:28:18.506 EVENTER: Process started
+-3922:28:18.504 DFFS: User space 6275928 bytes
+-3922:28:18.201 Last reboot reason: manual restart
+-3922:28:18.098 UPGRADE: Boot monitor: Tue Feb 10 11:38:53 2015 (up to date)
+-3922:28:18.097 SYSLOG: Len 2048, Qsize 1024
+-3922:28:16.488 rf5.0: temperature thresholds fixed
+-3922:28:16.475 eth0: phy found 0e110141 model: Marvell 88E1118
+-3922:28:16.367 eth0 link down
+-3922:28:13.607 eth0 media changed to 1000 Mbps Full duplex auto
+-3922:28:10.107 eth0 link down
+-3922:28:10.098 ctl: Heater enable threshold is -8 degrees Celsius
+-3922:28:09.898 rf5.0: bandwidth changed to 20 MHz
+-3922:28:09.886 rf5.0: frequency changed to 6362 MHz
+-3922:28:09.865 eth0 link down
+-3922:28:09.840 rf5.0: hardware accelerated scrambling enabled
+-3922:28:09.501 webcfg: service started.
+-3922:28:08.763 ctl: Heater is disabled.
+-3922:28:08.756 ARIPd (2.0) starts
+-3922:28:08.630 HwM: 4601
+-3922:28:08.630 System started, hz=1000
+-3922:28:06.937 eth0 media changed to 1000 Mbps Full duplex auto
+-3922:27:33.732 rf5.0: Link "SVN_Vereja_School19" (000435247D1C) UP, snr <31/30>, freq 6362
+-3922:27:33.496 rf5.0: Link "Bolnica4" (000435227565) UP, snr <40/39>, freq 6362
+-3922:27:33.492 rf5.0: Link "Torfobriketnaya_4" (000435247D04) UP, snr <28/29>, freq 6362
+-3922:27:33.479 rf5.0: Link "RTR_Likino_1A" (000435247D0A) UP, snr <30/29>, freq 6362
+-3922:27:33.478 rf5.0: Link "Video_Snopok_Detsad" (00043522773E) UP, snr <24/23>, freq 6362
+-3922:27:33.020 rf5.0: Link "Video_Priozer_Detsad" (000435247D05) UP, snr <27/32>, freq 6362
+-3922:27:33.007 rf5.0: Link "RTR_Gubino" (000435226D41) UP, snr <15/14>, freq 6362
+-3922:27:33.006 rf5.0: Link "Video_Snopok_Shkola" (000435227567) UP, snr <24/24>, freq 6362
+-3922:27:29.779 rf5.0: Link "TransRemKom" (00043520CA47) UP, snr <33/38>, freq 6362
+-3922:27:29.777 rf5.0: Link "OSB_055-2" (00043520C9A4) UP, snr <31/35>, freq 6362
+17-Oct-19 09:06:04 rf5.0: Link "Video_Krasina_19" (000435247D02) UP, snr <40/39>, freq 6362
+17-Oct-19 09:07:06 Oreh_z6_3_E300063#1>  logon as <alex> from 80.252.128.92 by telnet
+17-Oct-19 09:10:43 rf5.0: Link "VCamera_Barishnikova" (00043522B125) UP, snr <35/39>, freq 6362
+17-Oct-19 09:36:33 logon as <alex> from 80.252.128.92 by http
+17-Oct-19 09:39:38 Oreh_z6_3_E300063#1>  logoff as <alex> from 80.252.128.92 by telnet
+17-Oct-19 10:54:32 Oreh_z6_3_E300063#1>  logon as <alex> from 80.252.128.92 by telnet
+17-Oct-19 11:25:22 Oreh_z6_3_E300063#2>  logon as <alex> from 80.252.128.92 by telnet
+17-Oct-19 11:28:28 Oreh_z6_3_E300063#3>  logon as <alex> from 80.252.128.92 by telnet
+17-Oct-19 11:28:32 Oreh_z6_3_E300063#3>  logoff as <alex> from 80.252.128.92 by telnet
+17-Oct-19 11:28:48 logon as <alex> from 80.252.128.92 by http
+
+
+Name   Init/Cur    Pri  State    CPU
+
+TCFP (08192/00952)   5  Wevnt   0.11%
+HTBt (09216/00232)   7  Wevnt   0.00%
+EVTS (12288/02464) 100  SUSP    7.61%
+STAT (04096/00368)  75  DELAY   0.00%
+sysl (05120/01296) 160  Wmsg    0.00%
+I160 (12288/00936)  10  Wevnt   1.74%
+T160 (08192/00760)  11  Wevnt  16.86%
+RXP0 (10240/01184)  15  Wevnt   4.54%
+rfht (08192/00480)  50  Wevnt   0.00%
+EthI (09216/01448)  50  Act     0.96%
+feci (10240/01416)  15  Wevnt   2.12%
+fect (04096/00336)  14  Wevnt   0.00%
+phyd (04096/00648) 100  Wevnt   0.00%
+BASH (11264/01304)  50  Wsem    0.00%
+MINT (06144/03272)   9  Wevnt   0.06%
+MRUP (04096/00720)  12  Wevnt   0.00%
+SWSP (08192/00368) 100  Wevnt   0.00%
+snmp (09216/01384) 121  SUSP    0.00%
+trap (06144/01176) 121  SUSP    0.00%
+RSHD (09216/00688) 115  SUSP    0.00%
+sntp (05120/01432)  85  SUSP    0.00%
+webc (30720/02520) 100  SUSP    0.00%
+HTTP (08192/02048) 100  SUSP    0.09%
+ARDA (08192/01488)  81  SUSP    0.00%
+ARIP (08192/02504)  81  SUSP    0.00%
+LLDP (04096/00888) 122  Wevnt   0.00%
+TELD (08192/00656)  99  SUSP    0.00%
+TTY1 (11264/05512)  95  DELAY   0.09%
+TTY2 (11264/02184)  95  SUSP    0.00%
+exec (09216/00544) 100  SUSP    0.02%
+e$00 (32768/02176) 100  Act     2.37%
+l$00 (11264/01232) 120  Act     0.41%
+
+CPU Load  37%  36%(10s)  38%(30s)  42%(60s)  39%(300s)
+Detailed: Isr: 2.11%  Tasks: 34.10%  Idle: 63.77%
+ISR: 4051 pps
+
+
+lo0: flags=8009<UP,LOOPBACK,MULTICAST> mtu 1500
+        inet 127.0.0.1 netmask 0xffffffff 
+
+eth0: flags=8103<UP,BROADCAST,PROMISC,MULTICAST> mtu 1500
+        inet 10.110.17.7 netmask 0xffffff00 broadcast 10.110.17.255
+        ether 00:04:35:03:7a:40 
+
+	Physical link is UP, 1000 Mbps Full-duplex, Auto
+	PHY chip: Marvell 88E1118 ID: 0e110141
+	+--------------------------------+------+-----+
+	|                 Supported modes| Self |Peer |
+	+--------------------------------+------+-----+
+	|                Auto-Negotiation| yes  | yes |
+	|             10 Mbps Half-duplex| yes  | yes |
+	|             10 Mbps Full-duplex| yes  | yes |
+	|            100 Mbps Half-duplex| yes  | yes |
+	|            100 Mbps Full-duplex| yes  | yes |
+	|           1000 Mbps Half-duplex| yes  |  -  |
+	|           1000 Mbps Full-duplex| yes  | yes |
+	+--------------------------------+------+-----+
+
+	eth0: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            23846958    | Packets               35683616    |
+	| Bytes              2664313344  | Bytes                 45590743829 |
+	| Load (kbps)        1490        | Load (kbps)           36200       |
+	| Load (pps)         2157        | Load (pps)            3546        |
+	| Frame size (bytes) 86          | Frame size (bytes)    1276        |
+	+--------------------------------+-----------------------------------+
+	| CRC errors         0           | CRC errors            0           |
+	| Pause packets      0           | Carrier lost          0           |
+	| Bad packets        0           | Excessive deferrals   0           |
+	| Runts              0           | Excessive collisions  0           |
+	| Short packets      0           | Late collisions       0           |
+	| Alignment errors   0           | Multiple collisions   0           |
+	| Long packets       0           | Single collisions     0           |
+	| Out of range       0           | Underruns             0           |
+	| In range errors    0           | Queue overflow        0           |
+	| Format errors      0           | Descriptor errors     0           |
+	+--------------------------------+-----------------------------------+
+
+rf5.0: flags=8103<UP,BROADCAST,PROMISC,MULTICAST> mtu 1500
+        inet 10.1.1.1 netmask 0xfffffffc broadcast 10.1.1.3
+        ether 00:04:35:13:7a:40 
+
+null0: flags=8802<BROADCAST,NULL,MULTICAST> mtu 1500
+
+vlan9: flags=8023<UP,BROADCAST,VLAN,MULTICAST> mtu 1500
+        inet 10.10.117.211 netmask 0xfffffff8 broadcast 10.10.117.215
+        ether 00:04:35:03:7a:40 
+
+	vlan9: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Parent       eth0        |        VLAN ID        9           |
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            725645      | Packets               680029      |
+	| Bytes              566628794   | Bytes                 313966566   |
+	| Load (kbps)        322         | Load (kbps)           234         |
+	| Load (pps)         97          | Load (pps)            100         |
+	| Frame size (bytes) 414         | Frame size (bytes)    292         |
+	+--------------------------------+-----------------------------------+
+
+
+Name      Network            Address               Ipkts Ierrs      Opkts Oerrs
+lo0       Link:                                      774     0        774     0
+lo0       127.0.0.1/32       127.0.0.1       
+eth0      Link:              000435037a40       23846965     0   35683624     0
+eth0      10.110.17.0/24     10.110.17.7     
+rf5.0     Link:              000435137a40         376616 18221      79659     9
+rf5.0     10.1.1.0/30        10.1.1.1        
+rf5.0     10.10.217.176/30   10.10.217.177   
+rf5.0     10.111.117.224/30  10.111.117.225  
+rf5.0     10.10.217.240/30   10.10.217.241   
+rf5.0     10.111.117.56/30   10.111.117.57   
+rf5.0     10.111.117.112/30  10.111.117.113  
+rf5.0     10.111.117.136/30  10.111.117.137  
+rf5.0     10.111.17.92/30    10.111.17.93    
+rf5.0     10.111.117.108/30  10.111.117.109  
+rf5.0     10.111.17.248/30   10.111.17.249   
+rf5.0     10.111.17.232/30   10.111.17.233   
+rf5.0     10.10.217.228/30   10.10.217.229   
+rf5.0     10.111.117.152/30  10.111.117.153  
+null0*    Link:                                        0     0          0     0
+vlan9     Link:              000435037a40         725645     0     680029     0
+vlan9     10.10.117.208/29   10.10.117.211   
+
+
+Routing tables
+Destination        Gateway            Flags     Refs     Use  Interface
+default            10.10.117.209      UG3         7   679032  vlan9
+10.1.1.0/30        link#3             UC          0        0  rf5.0
+10.10.117.208/29   link#5             UC          0        0  vlan9
+10.10.117.209      bc:16:65:3d:fe:20  UHL         1        0  vlan9
+10.10.217.64/30    10.110.17.6        UG3         0        0  eth0
+10.10.217.72/29    10.110.17.6        UG3         0        0  eth0
+10.10.217.80/30    10.110.17.6        UG3         0        0  eth0
+10.10.217.176/30   link#3             UC          0        0  rf5.0
+10.10.217.178      00:04:35:24:7d:1c  UHL         0       47  rf5.0
+10.10.217.192/30   10.110.17.6        UG3         0        0  eth0
+10.10.217.208/30   10.110.17.6        UG3         0        0  eth0
+10.10.217.216/30   10.110.17.6        UG3         0        0  eth0
+10.10.217.220/30   10.110.17.6        UG3         0        0  eth0
+10.10.217.228/30   link#3             UC          0        0  rf5.0
+10.10.217.230      00:04:35:24:7d:02  UHL         0       13  rf5.0
+10.10.217.240/30   link#3             UC          0        0  rf5.0
+10.10.217.242      00:04:35:24:7d:04  UHL         0       32  rf5.0
+10.110.17.0/24     link#2             UC          0        0  eth0
+10.110.17.1        bc:16:65:3d:fe:20  UHL         0     6349  eth0
+10.110.17.6        link#2             UHL        41        0  eth0
+10.111.17.12/30    10.110.17.6        UG3         0        0  eth0
+10.111.17.40/30    10.110.17.6        UG3         0        0  eth0
+10.111.17.52/30    10.110.17.6        UG3         0        0  eth0
+10.111.17.56/30    10.111.117.58      UG3         0      122  rf5.0
+10.111.17.60/30    10.111.117.58      UG3         0       34  rf5.0
+10.111.17.68/30    10.110.17.6        UG3         0        0  eth0
+10.111.17.92/30    link#3             UC          0        0  rf5.0
+10.111.17.94       00:04:35:22:6d:41  UHL         3      210  rf5.0
+10.111.17.96/30    10.110.17.6        UG3         0        0  eth0
+10.111.17.104/30   10.110.17.6        UG3         0        0  eth0
+10.111.17.116/30   10.111.117.58      UG3         0       36  rf5.0
+10.111.17.120/30   10.111.117.58      UG3         0       62  rf5.0
+10.111.17.156/30   10.111.17.94       UG3         0       46  rf5.0
+10.111.17.172/30   10.111.117.58      UG3         0       40  rf5.0
+10.111.17.180/30   10.111.117.58      UG3         0       92  rf5.0
+10.111.17.184/29   10.111.117.58      UG3         0     1128  rf5.0
+10.111.17.192/29   10.111.17.94       UG3         0      723  rf5.0
+10.111.17.200/30   10.110.17.6        UG3         0        0  eth0
+10.111.17.232/30   link#3             UC          0        0  rf5.0
+10.111.17.234      00:04:35:20:c9:a4  UHL         2     4483  rf5.0
+10.111.17.236/30   10.111.17.234      UG3         0   626260  rf5.0
+10.111.17.248/30   link#3             UC          0        0  rf5.0
+10.111.17.250      00:04:35:20:ca:47  UHL         1      210  rf5.0
+10.111.17.252/30   10.111.17.250      UG3         0        0  rf5.0
+10.111.117.0/30    10.110.17.6        UG3         0        0  eth0
+10.111.117.4/30    10.110.17.6        UG3         0        0  eth0
+10.111.117.12/30   10.110.17.6        UG3         0        0  eth0
+10.111.117.24/30   10.111.117.58      UG3         0       38  rf5.0
+10.111.117.28/30   10.110.17.6        UG3         0        0  eth0
+10.111.117.48/29   10.111.117.58      UG3         0     2408  rf5.0
+10.111.117.56/30   link#3             UC          0        0  rf5.0
+10.111.117.58      00:04:35:24:7d:0a  UHL        14       47  rf5.0
+10.111.117.68/30   10.110.17.6        UG3         0        0  eth0
+10.111.117.80/30   10.111.117.58      UG3         0       38  rf5.0
+10.111.117.84/30   10.110.17.6        UG3         0        0  eth0
+10.111.117.88/30   10.111.117.58      UG3         0       38  rf5.0
+10.111.117.92/30   10.110.17.6        UG3         0        0  eth0
+10.111.117.100/30  10.110.17.6        UG3         0        0  eth0
+10.111.117.104/30  10.110.17.6        UG3         0        0  eth0
+10.111.117.108/30  link#3             UC          0        0  rf5.0
+10.111.117.110     00:04:35:22:75:67  UHL         0       35  rf5.0
+10.111.117.112/30  link#3             UC          0        0  rf5.0
+10.111.117.114     00:04:35:22:77:3e  UHL         0      131  rf5.0
+10.111.117.128/30  10.110.17.6        UG3         0        0  eth0
+10.111.117.132/30  10.110.17.6        UG3         0        0  eth0
+10.111.117.136/30  link#3             UC          0        0  rf5.0
+10.111.117.138     00:04:35:24:7d:05  UHL         0       26  rf5.0
+10.111.117.140/30  10.110.17.6        UG3         0        0  eth0
+10.111.117.152/30  link#3             UC          0        0  rf5.0
+10.111.117.154     00:04:35:22:b1:25  UHL         0       14  rf5.0
+10.111.117.168/30  10.110.17.6        UG3         0        0  eth0
+10.111.117.176/30  10.110.17.6        UG3         0        0  eth0
+10.111.117.180/30  10.110.17.6        UG3         0        0  eth0
+10.111.117.196/30  10.110.17.6        UG3         0        0  eth0
+10.111.117.224/30  link#3             UC          0        0  rf5.0
+10.111.117.226     00:04:35:22:75:65  UHL         0      210  rf5.0
+80.252.132.56/29   10.110.17.6        UG3         0        0  eth0
+80.252.138.16/29   10.110.17.6        UG3         0        0  eth0
+80.252.140.28/30   10.111.117.58      UG3         0    39299  rf5.0
+80.252.150.220/30  10.111.17.94       UG3         0     6195  rf5.0
+80.252.151.136/30  10.110.17.6        UG3         0        0  eth0
+80.252.157.156/30  10.110.17.6        UG3         0        0  eth0
+80.252.159.100/30  10.110.17.6        UG3         0        0  eth0
+88.84.196.76/30    10.110.17.6        UG3         0        0  eth0
+88.84.198.224/30   10.110.17.6        UG3         0        0  eth0
+88.84.210.72/30    10.110.17.6        UG3         0        0  eth0
+88.84.214.28/30    10.110.17.6        UG3         0        0  eth0
+88.84.214.188/30   10.111.117.58      UG3         0    60281  rf5.0
+94.253.1.176/29    10.110.17.6        UG3         0        0  eth0
+94.253.4.28/30     10.110.17.6        UG3         0        0  eth0
+94.253.5.68/30     10.111.117.58      UG3         0     6591  rf5.0
+94.253.11.28/30    10.111.17.234      UG3         0     3900  rf5.0
+127.0.0.1          127.0.0.1          UH          5      780  lo0
+224.0.0.0/8        127.0.0.1          UGS         0     5114  lo0
+
+
+10.10.117.209 at BC16653DFE20 via vlan9
+10.10.217.178 at 000435247D1C via rf5.0
+10.10.217.230 at 000435247D02 via rf5.0
+10.10.217.242 at 000435247D04 via rf5.0
+10.110.17.1 at BC16653DFE20 via eth0
+10.110.17.6 at (incomplete) via eth0
+10.111.17.94 at 000435226D41 via rf5.0
+10.111.17.234 at 00043520C9A4 via rf5.0
+10.111.17.250 at 00043520CA47 via rf5.0
+10.111.117.58 at 000435247D0A via rf5.0
+10.111.117.110 at 000435227567 via rf5.0
+10.111.117.114 at 00043522773E via rf5.0
+10.111.117.138 at 000435247D05 via rf5.0
+10.111.117.154 at 00043522B125 via rf5.0
+10.111.117.226 at 000435227565 via rf5.0
+
+License 'Factory License' granted at 20/07/2017 18:47:39
+  Device
+    SN:227904
+    PN:SkyMAN R5000-Mmxtb/6.300.2x200.2x16
+    Production Date: 20 Jul 2017 18:47:39 UZT
+  Operational parameters
+    rf5.0 interface parameters
+      Maximum Transmit Rate: 300 Mbps
+      Available Channel Widths: 5 Mhz 10 Mhz 20 Mhz
+      40 MHz channel width is available
+      Power levels: 1,200 mW
+      Power levels: 0.0,23.0 dBm
+      Supported Frequencies: 6060 - 6420 MHz, 6062 - 6412 MHz
+
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<license description="Factory License" granted="20/07/2017 18:47:39" id="{b1860232-acab-4f77-82b3-395ee9067df9}">
+    <device description="Device">
+        <options SN="227904" description="SN:227904" />
+        <options PN="R5000-Mmxtb/6.300.2x200.2x16-H08" description="PN:SkyMAN R5000-Mmxtb/6.300.2x200.2x16" />
+        <options ProductionDate="20/07/2017 18:47:39+0500" description="Production Date: 20 Jul 2017 18:47:39 UZT" />
+        <options Model="R5000-M" />
+        <options Features="m - MIMO, x - Gigabit-H08, t - Termo, b - PMP Base Station" />
+        <options Platform="PPC 460EX 1000 MHz (H08YY-03) - H08.rev 03" />
+        <options IDU="IDU-BS-G" />
+        <options Radios="RMM-63-02(m):174979" />
+        <options Antennas="MA-WD62-DP16IF" />
+        <specification decimal="NFDA2.158.013-25" name="Mmxt/63.XXX.2x200.2x1X" />
+    </device>
+    <wanflex description="Operational parameters">
+        <feature description="rf5.0 interface parameters" name="rf5.0">
+            <option MaximumTransmitRate="300000" description="Maximum Transmit Rate: 300 Mbps" />
+            <option BandwidthMask="7" description="Available Channel Widths: 5 Mhz 10 Mhz 20 Mhz" />
+            <option DoubleBandwidthEnabled="1" description="40 MHz channel width is available" />
+            <option ChangePower="1" />
+            <option TransmitPowers="1,200" description="Power levels: 1,200 mW" />
+            <option TransmitPowersTenthdbm="0,230" description="Power levels: 0.0,23.0 dBm" />
+            <option RxChainMask="3" />
+            <option TxChainMask="3" />
+            <option rfmode="na" />
+            <option FrequencyList="6060na,6062na,6065na,6067na,6070na,6072na,6075na,6077na,6080na,6082na,6085na,6087na,6090na,6092na,6095na,6097na,6100na,6102na,6105na,6107na,6110na,6112na,6115na,6117na,6120na,6122na,6125na,6127na,6130na,6132na,6135na,6137na,6140na,6142na,6145na,6147na,6150na,6152na,6155na,6157na,6160na,6162na,6165na,6167na,6170na,6172na,6175na,6177na,6180na,6182na,6185na,6187na,6190na,6192na,6195na,6197na,6200na,6202na,6205na,6207na,6210na,6212na,6215na,6217na,6220na,6222na,6225na,6227na,6230na,6232na,6235na,6237na,6240na,6242na,6245na,6247na,6250na,6252na,6255na,6257na,6260na,6262na,6265na,6267na,6270na,6272na,6275na,6277na,6280na,6282na,6285na,6287na,6290na,6292na,6295na,6297na,6300na,6302na,6305na,6307na,6310na,6312na,6315na,6317na,6320na,6322na,6325na,6327na,6330na,6332na,6335na,6337na,6340na,6342na,6345na,6347na,6350na,6352na,6355na,6357na,6360na,6362na,6365na,6367na,6370na,6372na,6375na,6377na,6380na,6382na,6385na,6387na,6390na,6392na,6395na,6397na,6400na,6402na,6405na,6407na,6410na,6412na,6415na,6420na" description="Supported Frequencies: 6060 - 6420 MHz, 6062 - 6412 MHz" />
+        </feature>
+    </wanflex>
+</license>
+
+
+                       System events statistics:
+         Event             Raise           Send         Receptions
+--------------------- --------------- --------------- ---------------
+TASK_DELETED                        4               0               0
+TOD_CHANGED                        15               0               0
+HTTPD_SCRIPT                        0            3465            3464
+LINK_STATE                          8               0               9
+TRAPD_COLD_START                    1               0               0
+FREQ_CHANGED                        1               0               0
+SYSLOG_TRAP                        26               0              26
+HEATER                              3               0               0
+--------------------- --------------- --------------- ---------------
+               Total:              58            3465            3499
+           Overflows:               0      Conflicts:               0
+
+
+Custom pools 12, objects 35:
+8  bytes: /MA/MA (public) refcnt 2
+   Cluster 160/20, 1/2 clusters, Total 160 bytes, 14 items
+44 bytes: /MA/xmlText/xmlComment (public) refcnt 3
+   Cluster 180224/4096, 1/1 clusters, Total 180224 bytes, 3061 items
+12 bytes: /MA/MA/MGA/MGA/MA (public) refcnt 5
+   Cluster 12288/1024, 2/2 clusters, Total 24576 bytes, 1309 items
+16 bytes: /MA/MUM/MRFE (public) refcnt 3
+   Cluster 163840/10240, 3/3 clusters, Total 491520 bytes, 24821 items
+4  bytes: /MA/MGA/MGA (public) refcnt 3
+   Cluster 8192/2048, 1/1 clusters, Total 8192 bytes, 1406 items
+40 bytes: /MA/TCF/MGA/MGA/USL (public) refcnt 5
+   Cluster 40960/1024, 1/1 clusters, Total 40960 bytes, 466 items
+52 bytes: /MA (public) refcnt 1
+   Cluster 1040/20, 1/1 clusters, Total 1040 bytes, 0 items
+32 bytes: /SLOG/xmlAttrib/MGA/MGA (public) refcnt 4
+   Cluster 196608/6144, 2/2 clusters, Total 393216 bytes, 12152 items
+76 bytes: /xmlElement/MTP_P/MTP_NE (public) refcnt 3
+   Cluster 389120/5120, 2/2 clusters, Total 778240 bytes, 7103 items
+128 bytes: /MSEQ (public) refcnt 1
+   Cluster 4096/32, 1/1 clusters, Total 4096 bytes, 9 items
+20 bytes: /NSTR/MGA/MGA/CENTRY (public) refcnt 4
+   Cluster 40960/2048, 1/1 clusters, Total 40960 bytes, 172 items
+28 bytes: /MTP_DE (public) refcnt 1
+   Cluster 14336/512, 1/1 clusters, Total 14336 bytes, 22 items
+
+
+SYSTEM      R5000 WANFleX H08S01-MINTv1.90.37 * Oct 16 2019 15:11:09 * SN:227904
+            * Uptime: 02:25:09
+            Firmware ID: 008M0001
+            PN:SkyMAN R5000-Mmxtb/6.300.2x200.2x16
+            Boot monitor: Tue Feb 10 11:38:53 2015 (up to date)
+            Flapping Indicator 0
+
+MEMORY      120.9 MB total
+            Malloc stats
+              Total:126771440  Free:74785080  Allocated:51986360 (41.00%)
+              Max:53007264 (41.81%)
+            Calls
+              malloc:6049089  free:7260547  realloc:1743358  calloc:264780 
+            miss:0
+            
+            11948 mbufs, 9359 clusters free
+            1044 mbufs in use:
+                1035 mbufs allocated to data
+                   9 mbufs allocated to packet headers
+            1035/10394 mapped pages in use
+            33014 Kbytes allocated to network (10% in use)
+            
+            EthI   :   0(1000,0) 
+            eth0   :   0(1000,0) 
+            rf5.0  :  15(350,0)  rf5.0-rx: 0(350,0)
+            MintQ  :   0(800,0) 
+            HTB    :   cur 0, max 0, drop 0, lock 0
+            
+            ------- System objects stats ------
+              Object     Capac. Current   Max
+            ----------- ------- ------- -------
+            Tasks           128      32      32
+            Timers           40       9      10
+            Semaphores       95      23      23
+            MQueues          20       1       1
+            Extentions        4       3       3
+            Workspace Required: 81960
+                     Allocated: 204800
+
+ISR         Universal Interrupt Controller
+            No isr stat
+
+L2CACHE     Size: 256 Kb For Instructions.
+
+DDR2        Open-eye size 213
+
+CPU         Processor: PPC460EX 1000 MHz
+            CPU Load  37%  36%(10s)  38%(30s)  42%(60s)  39%(300s)
+            Detailed: Isr: 2.11%  Tasks: 34.10%  Idle: 63.77%
+            Reset status: Unknown
+
+FLASH       Flash device 0: INTEL StrataFlash Memory Bottom (p33 128MBIT)
+
+DFFS        Files=13, Used 5165568 bytes, Free 10882872 bytes
+            FlashSize=16000 KB, 125 Sectors of 128 KB, 64000 blocks of 256 bytes
+
+TPM         MAX 6625 Device temperatures:
+            BOARD: +22.5 degrees Celsius
+
+PCI         Atheros AR9220 Wireless PCI Adapter. InfiNet Wireless RMM63 6.2 GHz
+            Radio
+            Port: 0 Bus: 0 Device: 1 Function: 0 vendor:0x168c device:0x0029
+            MEM32 at 0x80000000 size: 0x00010000 CLS: 8
+
+LICENSE     Factory License granted at 20/07/2017 18:47:39
+            id={b1860232-acab-4f77-82b3-395ee9067df9}
+
+RFTS        RF temperature stabilizer.
+            rf5.0: Internal Temperature is +20.5 degrees Celsius.Heater 0%
+                   Thresholds: 5/45, T-gradient: 5.0 degrees per minute
+                   Hardware:   ht: 4, cl: 0, da: 1, i2c: 0x48, fuse: 50C
+
+PHY         Marvell 88E1118
+            	Physical link info:
+            	Link is UP, auto Full-duplex, 1000 Mbps
+            	Capabilities:          Self  Peer
+            	     Auto-Negotiation:   +     +  
+            	  10 Mbps Half-duplex:   +     +  
+            	  10 Mbps Full-duplex:   +     +  
+            	 100 Mbps Half-duplex:   +     +  
+            	 100 Mbps Full-duplex:   +     +  
+            	1000 Mbps Half-duplex:   +     -  
+            	1000 Mbps Full-duplex:   +     +  
+            	PHY chip: Marvell 88E1118 ID: 0e110141
+
+Internal temperature is +22.5 degrees Celsius.
+
+rf5.0 Capabilities
+   Radio capabilities:
+   Model name:				InfiNet Wireless RMM63
+   Adapter name:			Atheros AR9220 Wireless PCI Adapter. InfiNet Wireless RMM63 6.2 GHz Radio
+   Subvendor: 0xfff1, Subid 0x6300
+   EEPROM revision:			14.16
+   MAC silicon revision:		128.2
+   PHY silicon revision:		13.0
+   5GHz analog silicon revision:	12.0
+   Power levels (dBm):			0, 23
+   (per packet power control supported)
+   Greenfield mode supported
+   MAC address:				000435137A40
+   Bandwidth modes:			5, 10, 20, 40
+   Bitrate list:			13000, 26000, 39000, 52000,
+					78000, 104000, 117000, 130000
+   Frequency bounds (40 MHz):		6050-6425
+   Frequency grid (license limits):	6050-6425/5,6052-6425/5
+   Frequency list (135 channels):
+     6070, 6072, 6075, 6077, 6080, 6082, 6085, 6087, 6090, 6092, 6095, 6097, 
+     6100, 6102, 6105, 6107, 6110, 6112, 6115, 6117, 6120, 6122, 6125, 6127, 
+     6130, 6132, 6135, 6137, 6140, 6142, 6145, 6147, 6150, 6152, 6155, 6157, 
+     6160, 6162, 6165, 6167, 6170, 6172, 6175, 6177, 6180, 6182, 6185, 6187, 
+     6190, 6192, 6195, 6197, 6200, 6202, 6205, 6207, 6210, 6212, 6215, 6217, 
+     6220, 6222, 6225, 6227, 6230, 6232, 6235, 6237, 6240, 6242, 6245, 6247, 
+     6250, 6252, 6255, 6257, 6260, 6262, 6265, 6267, 6270, 6272, 6275, 6277, 
+     6280, 6282, 6285, 6287, 6290, 6292, 6295, 6297, 6300, 6302, 6305, 6307, 
+     6310, 6312, 6315, 6317, 6320, 6322, 6325, 6327, 6330, 6332, 6335, 6337, 
+     6340, 6342, 6345, 6347, 6350, 6352, 6355, 6357, 6360, 6362, 6365, 6367, 
+     6370, 6372, 6375, 6377, 6380, 6382, 6385, 6387, 6390, 6392, 6395, 6397, 
+     6400, 6402, 6405  
+
+   Frequency bounds (20 MHz):		6050-6425
+   Frequency grid (license limits):	6050-6425/5,6052-6425/5
+   Frequency list (143 channels):
+     6060, 6062, 6065, 6067, 6070, 6072, 6075, 6077, 6080, 6082, 6085, 6087, 
+     6090, 6092, 6095, 6097, 6100, 6102, 6105, 6107, 6110, 6112, 6115, 6117, 
+     6120, 6122, 6125, 6127, 6130, 6132, 6135, 6137, 6140, 6142, 6145, 6147, 
+     6150, 6152, 6155, 6157, 6160, 6162, 6165, 6167, 6170, 6172, 6175, 6177, 
+     6180, 6182, 6185, 6187, 6190, 6192, 6195, 6197, 6200, 6202, 6205, 6207, 
+     6210, 6212, 6215, 6217, 6220, 6222, 6225, 6227, 6230, 6232, 6235, 6237, 
+     6240, 6242, 6245, 6247, 6250, 6252, 6255, 6257, 6260, 6262, 6265, 6267, 
+     6270, 6272, 6275, 6277, 6280, 6282, 6285, 6287, 6290, 6292, 6295, 6297, 
+     6300, 6302, 6305, 6307, 6310, 6312, 6315, 6317, 6320, 6322, 6325, 6327, 
+     6330, 6332, 6335, 6337, 6340, 6342, 6345, 6347, 6350, 6352, 6355, 6357, 
+     6360, 6362, 6365, 6367, 6370, 6372, 6375, 6377, 6380, 6382, 6385, 6387, 
+     6390, 6392, 6395, 6397, 6400, 6402, 6405, 6407, 6410, 6412, 6415  
+
+   Frequency bounds (10 MHz):		6050-6425
+   Frequency grid (license limits):	6050-6425/5,6052-6425/5
+   Frequency list (147 channels):
+     6055, 6057, 6060, 6062, 6065, 6067, 6070, 6072, 6075, 6077, 6080, 6082, 
+     6085, 6087, 6090, 6092, 6095, 6097, 6100, 6102, 6105, 6107, 6110, 6112, 
+     6115, 6117, 6120, 6122, 6125, 6127, 6130, 6132, 6135, 6137, 6140, 6142, 
+     6145, 6147, 6150, 6152, 6155, 6157, 6160, 6162, 6165, 6167, 6170, 6172, 
+     6175, 6177, 6180, 6182, 6185, 6187, 6190, 6192, 6195, 6197, 6200, 6202, 
+     6205, 6207, 6210, 6212, 6215, 6217, 6220, 6222, 6225, 6227, 6230, 6232, 
+     6235, 6237, 6240, 6242, 6245, 6247, 6250, 6252, 6255, 6257, 6260, 6262, 
+     6265, 6267, 6270, 6272, 6275, 6277, 6280, 6282, 6285, 6287, 6290, 6292, 
+     6295, 6297, 6300, 6302, 6305, 6307, 6310, 6312, 6315, 6317, 6320, 6322, 
+     6325, 6327, 6330, 6332, 6335, 6337, 6340, 6342, 6345, 6347, 6350, 6352, 
+     6355, 6357, 6360, 6362, 6365, 6367, 6370, 6372, 6375, 6377, 6380, 6382, 
+     6385, 6387, 6390, 6392, 6395, 6397, 6400, 6402, 6405, 6407, 6410, 6412, 
+     6415, 6417, 6420  
+
+   Frequency bounds (5 MHz):		6050-6425
+   Frequency grid (license limits):	6050-6425/5,6052-6425/5
+   Frequency list (148 channels):
+     6055, 6057, 6060, 6062, 6065, 6067, 6070, 6072, 6075, 6077, 6080, 6082, 
+     6085, 6087, 6090, 6092, 6095, 6097, 6100, 6102, 6105, 6107, 6110, 6112, 
+     6115, 6117, 6120, 6122, 6125, 6127, 6130, 6132, 6135, 6137, 6140, 6142, 
+     6145, 6147, 6150, 6152, 6155, 6157, 6160, 6162, 6165, 6167, 6170, 6172, 
+     6175, 6177, 6180, 6182, 6185, 6187, 6190, 6192, 6195, 6197, 6200, 6202, 
+     6205, 6207, 6210, 6212, 6215, 6217, 6220, 6222, 6225, 6227, 6230, 6232, 
+     6235, 6237, 6240, 6242, 6245, 6247, 6250, 6252, 6255, 6257, 6260, 6262, 
+     6265, 6267, 6270, 6272, 6275, 6277, 6280, 6282, 6285, 6287, 6290, 6292, 
+     6295, 6297, 6300, 6302, 6305, 6307, 6310, 6312, 6315, 6317, 6320, 6322, 
+     6325, 6327, 6330, 6332, 6335, 6337, 6340, 6342, 6345, 6347, 6350, 6352, 
+     6355, 6357, 6360, 6362, 6365, 6367, 6370, 6372, 6375, 6377, 6380, 6382, 
+     6385, 6387, 6390, 6392, 6395, 6397, 6400, 6402, 6405, 6407, 6410, 6412, 
+     6415, 6417, 6420, 6422  
+
+
+
+rf5.0 Calibration
+Calibration accuracy: Default, offset -10 halfdBm
+      power:  -5   0   5  11  15     9  13  17  20  23
+      ------------------------------------------------
+6060: vpd 0:  74  79  88 112 141    52  65  83 104 131
+      vpd 1:  74  79  87 109 139    51  63  82 101 128
+      ------------------------------------------------
+6110: vpd 0:  74  80  89 112 143    52  64  83 104 132
+      vpd 1:  73  78  87 110 139    51  64  82 102 129
+      ------------------------------------------------
+6160: vpd 0:  75  80  89 113 144    53  65  84 105 135
+      vpd 1:  75  79  88 110 141    52  63  82 102 130
+      ------------------------------------------------
+6210: vpd 0:  76  81  90 114 148    54  67  87 109 137
+      vpd 1:  75  80  89 113 145    53  66  86 106 133
+      ------------------------------------------------
+6260: vpd 0:  76  81  91 116 152    55  69  89 112 142
+      vpd 1:  75  81  91 116 149    54  67  87 109 137
+      ------------------------------------------------
+6310: vpd 0:  76  82  92 119 154    56  70  91 114 145
+      vpd 1:  74  80  91 118 152    55  68  89 112 142
+      ------------------------------------------------
+6360: vpd 0:  76  82  93 120 155    56  70  92 116 147
+      vpd 1:  76  82  92 119 153    55  69  90 113 144
+      ------------------------------------------------
+6420: vpd 0:  76  83  94 121 156    57  71  92 116 147
+      vpd 1:  75  82  93 120 155    55  70  91 115 145
+
+rf5.0
+chain 0 count 71 max 153 min 142 avg 148 cur 145
+chain 1 count 76 max 161 min 131 avg 142 cur 143
+
+rf5.0
+20MHz, MCS0, limit = 23
+20MHz, MCS1, limit = 23
+20MHz, MCS2, limit = 23
+20MHz, MCS3, limit = 23
+20MHz, MCS4, limit = 23
+20MHz, MCS5, limit = 22
+20MHz, MCS6, limit = 21
+20MHz, MCS7, limit = 20
+
+rf5.0
+CTL NF:  -117 -116
+
+rf5.0 Statistics
+RF   status:    rf5.0 UP (band 20, freq 6362)  :ACTIVE
+DFS  status:    OFF
+
++--------------------------------------+--------------------------------------+
+|          Receive statistics          |         Transmit  statistics         |
++--------------------------------------+--------------------------------------+
+| Broadcast Rate           13000       | Voice Mode                OFF        |
+| Bytes Received           968145900   | Bytes Transmitted         52330588   |
+| Packets Received OK      375789      | Packets Transmitted OK    78904      |
+| Load (kbps)              37039       | Load (kbps)               1554       |
+| Load (pps)               1791        | Load (pps)                417        |
+| Frame size (bytes)       2585        | Frame size (bytes)        465        |
++--------------------------------------+--------------------------------------+
+| RX Medium Load           83.2%       | TX Medium Load            4.1%       |
+| Total Medium Busy        87.9%       |                                      |
++--------------------------------------+--------------------------------------+
+| Duplicate Received       899         | Total Retries             763        |
+| Aggr duplicates          899         | Aggr Subframe Retries     0          |
+| Aggr drops               0           | Aggr Full Retries         84         |
+| FIFO Overrun             0           | FIFO Underrun             0          |
+| CRC Errors               18221       | Excessive Retries         9          |
+| Noise Floor              -92         | Max aggr frames           36         |
+| Noise Floor Threshold    -66         | Max aggr bytes            51464      |
+| Scrambled frames         368224      | Scrambled frames          77565      |
+| Scramble errors          0           | Tx queue overflow         0          |
++--------------------------------------+--------------------------------------+
+
+                        Software Priority Queues rf5.0                         
+                               ( count / drops )                               
++--------------------------------------+--------------------------------------+
+| q00 (P16)               0 / 0        | q16                      0 / 0       |
+| q01 (P15)             28214 / 0      | q17 (P06)               90 / 0       |
+| q02                     0 / 0        | q18 (P05)              8134 / 0      |
+| q03 (P14)               0 / 0        | q19                      0 / 0       |
+| q04 (P13)               0 / 0        | q20                      0 / 0       |
+| q05 (P12)             451358 / 4     | q21 (P04)                0 / 0       |
+| q06                     0 / 0        | q22 (P03)              1177 / 0      |
+| q07 (P11)               0 / 0        | q23                      0 / 0       |
+| q08                     0 / 0        | q24 (P02)                0 / 0       |
+| q09 (P10)               0 / 0        | q25 (P01)                0 / 0       |
+| q10 (P09)               0 / 0        | q26                      0 / 0       |
+| q11                     0 / 0        | q27                      0 / 0       |
+| q12                     0 / 0        | q28 (P00)               80 / 0       |
+| q13 (P08)               0 / 0        | q29                     708 / 0      |
+| q14 (P07)               0 / 0        | q30                      0 / 0       |
+| q15                     0 / 0        | q31                     749 / 5      |
++--------------------------------------+--------------------------------------+
+
+Phy errors: total 0
+
+
+resets due to: tx stuck 0(0), rx stuck 0(0), mib 0, high load 0
+ PCI fatal intr 0, PCI PERR intr 0, NF cal stuck 0, total 0
+misoctl 1, selfcorr 1, durupdate 1, mim_ena 0, virtcs 0, truecinr 0
+
+rf5.0 Source Analysis
+Freq:6362 Band:20
+ Pulses: 0, level  0 (0), pps 0, CRC: 381        
+      59  (13/-73)  13000 (6362,20 MHz) N <000435226D41 RTR_Gubino
+      62  (29/-50)  13000 (6362,20 MHz) N <000435227565 Bolnica4
+    1173  (17/-64)  52000 (6362,20 MHz) N <000435227567 Video_Snopok_Shkola
+     503  (20/-65)  13000 (6362,20 MHz) N <00043522773E Video_Snopok_Detsad
+    1903  (19/-50) 117000 (6362,20 MHz) N <000435247D02 Video_Krasina_19
+     247  (26/-61)  13000 (6362,20 MHz) N <000435247D04 Torfobriketnaya_4
+     555  (27/-57)  78000 (6362,20 MHz) N <000435247D05 Video_Priozer_Detsad
+    1133  (20/-60)  52000 (6362,20 MHz) N <000435247D0A RTR_Likino_1A
+    1472  (18/-57)  52000 (6362,20 MHz) N <000435247D1C SVN_Vereja_School19
+      81  (25/-53)  78000 (6362,20 MHz) N <00043522B125 VCamera_Barishnikova
+     132  (22/-58)  13000 (6362,20 MHz) N <00043520C9A4 OSB_055-2
+      59  (22/-57)  13000 (6362,20 MHz) N <00043520CA47 TransRemKom
+
+rf5.0: NOL is empty
+
+
+
+           MAC          Out/Rep                  Drop/Err
+rf5.0  000435226D41  147581/2030  (0.0/01/01)       0/1     RTR_Gubino         
+rf5.0  000435227565  308136/67    (0.0/00/00)       3/0     Bolnica4           
+rf5.0  000435227567  140085/2115  (0.0/00/01)       0/33    Video_Snopok_Shkola
+rf5.0  00043522773E  124135/2614  (0.0/00/02)       0/72    Video_Snopok_Detsad
+rf5.0  000435247D02   86041/99    (0.0/00/00)       0/0     Video_Krasina_19   
+rf5.0  000435247D04   29683/1119  (0.0/02/03)       0/1     Torfobriketnaya_4  
+rf5.0  000435247D05  151447/343   (0.0/00/00)       0/1     Video_Priozer_Detsa
+rf5.0  000435247D0A  381246/2270  (0.0/00/00)       9/5     RTR_Likino_1A      
+rf5.0  000435247D1C  175916/811   (0.0/00/00)       0/0     SVN_Vereja_School19
+rf5.0  00043522B125  214466/86    (0.0/00/00)       2/0     VCamera_Barishnikov
+rf5.0  00043520C9A4  591619/2657  (0.0/00/00)     154/1     OSB_055-2          
+rf5.0  00043520CA47  141301/250   (0.0/00/00)       0/0     TransRemKom        
+TOTAL:              2491656/14461 (0.0/00/00)     168/114  
+
+Burst: Send 1936843+21056213 (max 58, avg 10), Recv 16834803+18486508 (max 57, avg 1)
+PHS:   packets 21039711, bytes 388542368 (max 124, avg 18)
+
+IP statistics:
+ips_total           1426493 (total packets received)
+ips_badsum                0 (checksum bad)
+ips_tooshort              0 (packet too short)
+ips_toosmall              0 (not enough data)
+ips_badhlen               0 (ip header length < data size)
+ips_badlen                0 (ip length < ip header length)
+ips_fragments             0 (fragments received)
+ips_fragdropped           0 (frags dropped (dups,ipstat. out of space))
+ips_fragtimeout           0 (fragments timed out)
+ips_forward         1408435 (packets forwarded)
+ips_cantforward           0 (packets rcvd for unreachable dest)
+ips_redirectsent          0 (packets forwarded on same net)
+ips_noproto              34 (unknown or unsupported protocol)
+ips_delivered         18003 (datagrams delivered to upper level
+ips_localout          36830 (total ip packets generated here)
+ips_odropped              0 (lost packets due to nobufs,ipstat. etc.)
+ips_reassembled           0 (total packets reassembled ok)
+ips_fragmented            0 (datagrams sucessfully fragmented)
+ips_ofragments            0 (output fragments created)
+ips_cantfrag              0 (don't fragment flag was set,ipstat. etc.)
+ips_badoptions            0 (error in option processing)
+ips_noroute              33 (packets discarded due to no route)
+ips_badvers               0 (ip version != 4)
+ips_rawout              194 (total raw ip packets generated)
+ips_badfrags              0 (malformed fragments (bad length))
+ips_rcvmemdrop            0 (frags dropped for lack of memory)
+ips_toolong               0 (ip length > max ip packet size)
+
+ICMP statistics:
+icps_error               78 ( # of calls to icmp_error )
+icps_badcode              0 ( icmp_code out of range )
+icps_tooshort             0 ( packet < ICMP_MINLEN )
+icps_checksum             0 ( bad checksum )
+icps_badlen               0 ( calculated bound mismatch )
+icps_reflect              0 ( number of responses )
+icps_bmcastecho           0 ( rejected broadcast icmps )
+
+UDP statistics:
+udps_ipackets          2859
+udps_opackets          5194
+udps_hdrops               0
+udps_badsum               0
+udps_badlen               0
+udps_noport              57
+udps_fullsock             0
+udps_pcbhashmiss        266
+0.0.0.0:0 snmp
+0.0.0.0:19792 sntp
+0.0.0.0:161 snmp
+0.0.0.0:16675 sysl
+0.0.0.0:520 ARIP
+0.0.0.0:42304 trap
+
+RAW statistics:
+raws_ipackets             0 (total input packets)
+raws_fullsock             0 (not delivered, input socket full)
+raws_opackets           194 (total output packets)
+0.0.0.0:0 snmp
+
+TCP statistics:
+0.0.0.0:23 TELD
+0.0.0.0:443 HTTP
+10.10.117.211:23 <- 80.252.128.92:36431 TELD
+10.10.117.211:80 <- 80.252.128.92:35964 HTTP
+10.10.117.211:80 <- 80.252.128.92:35968 HTTP
+0.0.0.0:80 HTTP
+0.0.0.0:514 RSHD
+127.0.0.1:30829 l$00
+10.10.117.211:80 <- 80.252.128.92:34800 HTTP
+127.0.0.1:2600 ARDA
+127.0.0.1:30829 <- 127.0.0.1:43964 l$00
+127.0.0.1:43964 <- 127.0.0.1:30829 e$00
+127.0.0.1:2600 <- 127.0.0.1:48089 ARDA
+127.0.0.1:48089 <- 127.0.0.1:2600 ARIP
+10.10.117.211:23 <- 80.252.128.92:34305 TELD
+
+                         LLDP Neighbors Table on eth0                          
++---------------+-------------------------------------------------------------+
+|           LLDP Mode: TxRx,  Forward: disabled,  Tagged: disabled            |
++---------------+-------------------------------------------------------------+
+
+

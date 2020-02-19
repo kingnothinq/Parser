@@ -58,22 +58,24 @@ def parse_R5000(dcard_raw_text_string, dcard_raw_text_list):
     pattern = re.search(r'mint rf5\.0 -(scrambling)', dcard_raw_text_string)
     radio_settings['Scrambling'] = 'Disabled' if pattern is None else 'Enabled'
 
-    pattern = re.search(r'mint rf5\.0 poll start (qos)?', dcard_raw_text_string)
-    radio_settings['Polling'] = 'Enabled' if pattern is None else 'Disabled'
+    if 'TDMA' in firmware:
+        pattern = re.search(r'mint rf5\.0 tdma mode=Master win=(\d+) dist=(\d+) dlp=(\d+)', dcard_raw_text_string)
+        radio_settings['Frame size'] = pattern.group(1)
+        radio_settings['Distance'] = pattern.group(2)
+        radio_settings['UL/DL ratio'] = pattern.group(3)
 
-    pattern = re.search(r'mint rf5\.0 tdma mode=Master win=(\d+) dist=(\d+) dlp=(\d+)', dcard_raw_text_string)
-    radio_settings['Frame size'] = pattern.group(1)
-    radio_settings['Distance'] = pattern.group(2)
-    radio_settings['UL/DL ratio'] = pattern.group(3)
+        pattern = re.search(r'mint rf5\.0 tdma rssi=([-\d]+)', dcard_raw_text_string)
+        radio_settings['Target RSSI'] = pattern.group(1)
 
-    pattern = re.search(r'mint rf5\.0 tdma rssi=([-\d]+)', dcard_raw_text_string)
-    radio_settings['Target RSSI'] = pattern.group(1)
+        pattern = re.search(r'tsync enable', dcard_raw_text_string)
+        radio_settings['TSync'] = 'Enabled' if pattern is None else 'Disabled'
 
-    pattern = re.search(r'tsync enable', dcard_raw_text_string)
-    radio_settings['TSync'] = 'Enabled' if pattern is None else 'Disabled'
+    else:
+        pattern = re.search(r'mint rf5\.0 poll start (qos)?', dcard_raw_text_string)
+        radio_settings['Polling'] = 'Enabled' if pattern is None else 'Disabled'
 
     if radio_settings['Type'] == 'master':
-        pattern = re.search(r'rf rf5\.0 freq (\d+) bitr (\d+) sid (\d+)', dcard_raw_text_string)
+        pattern = re.search(r'rf rf5\.0 freq (\d+) bitr (\d+) sid ([\d\w]+)', dcard_raw_text_string)
         radio_profile['Frequency'] = pattern.group(1)
         radio_profile['Max bitrate'] = pattern.group(2)
         radio_profile['SID'] = pattern.group(3)
@@ -99,7 +101,7 @@ def parse_R5000(dcard_raw_text_string, dcard_raw_text_list):
                              r' -band (\d+)'
                              r' -freq ([\d\w]+)'
                              r'( -bitr (\d+))?'
-                             r' -sid (\d+) \\'
+                             r' -sid ([\d\w]+) \\'
                              r'\n\s+-nodeid (\d+)'
                              r' -type slave \\'
                              r'\n\s+-(auto|fixed)bitr( ([-+\d]+))?'
@@ -151,8 +153,11 @@ def parse_R5000(dcard_raw_text_string, dcard_raw_text_list):
     # This section will be added in the future
 
     # Radio Status
-    link = {}
-    radio_status = 1
+    link_status = {'Remote Name': None, 'Level Rx': None, 'Level Tx': None, 'Bitrate Rx': None,
+                   'Bitrate Tx': None, 'Load Rx': None, 'Load Tx': None, 'PPS Rx': None, 'PPS Tx': None, 'Cost': None,
+                   'Retry Rx': None, 'Retry Tx': None, 'Power Rx': None, 'Power Tx': None,
+                   'RSSI Rx': None, 'RSSI Tx': None, 'SNR Rx': None, 'SNR Tx': None, 'Distance': None, 'Firmware': None,
+                   'Uptime': None}
 
     if 'TDMA' in firmware:
         pattern = re.findall(r'\s+\d+\s+([\w\d\S]+)\s+([\w\d]+) '
@@ -162,9 +167,70 @@ def parse_R5000(dcard_raw_text_string, dcard_raw_text_list):
                              r'\s+dist ([\d\.-]+)'
                              r'\s+(H\d{2}v[v\d.]+), IP=([\d\.])+, up ([\d\w :]*)'
                              , dcard_raw_text_string, re.DOTALL)
+
+        radio_status = {mac: deepcopy(link_status) for mac in [link[1] for link in pattern]}
+
+        for key, mac in enumerate(radio_status):
+            radio_status[mac]['Remote Name'] = pattern[key][0]
+            radio_status[mac]['Level Rx'] = pattern[key][2]
+            radio_status[mac]['Level Tx'] = pattern[key][3]
+            radio_status[mac]['Bitrate Rx'] = pattern[key][4]
+            radio_status[mac]['Bitrate Tx'] = pattern[key][5]
+            radio_status[mac]['Retry Rx'] = pattern[key][6]
+            radio_status[mac]['Retry Tx'] = pattern[key][7]
+            radio_status[mac]['Load Rx'] = pattern[key][9]
+            radio_status[mac]['Load Tx'] = pattern[key][10]
+            radio_status[mac]['PPS Rx'] = pattern[key][11]
+            radio_status[mac]['PPS Tx'] = pattern[key][12]
+            radio_status[mac]['Cost'] = pattern[key][13]
+            radio_status[mac]['Power Rx'] = pattern[key][14]
+            radio_status[mac]['Power Tx'] = pattern[key][15]
+            radio_status[mac]['RSSI Rx'] = pattern[key][16]
+            radio_status[mac]['RSSI Tx'] = pattern[key][17]
+            radio_status[mac]['SNR Rx'] = pattern[key][18]
+            radio_status[mac]['SNR Tx'] = pattern[key][19]
+            radio_status[mac]['Distance'] = pattern[key][20]
+            radio_status[mac]['Firmware'] = pattern[key][21]
+            radio_status[mac]['Uptime'] = pattern[key][23]
+    else:
+        print('here we are')
+        pattern = re.findall(r'\s+\d+\s+([\w\d\S]+)\s+([\w\d]+) '
+                             r'(\d+)\/(\d+)\s+(\d+)\/(\d+)\s+(\d+)\/(\d+)\s+([\/\w])+'
+                             r'\s+load (\d+)\/(\d+), pps (\d+)\/(\d+), cost (\d+)'
+                             r'\s+pwr ([\d\.-]+)\/([\d\.-]+), snr (\d+)\/(\d+), dist ([\d\.-]+)'
+                             r'\s+dist ([\d\.-]+)'
+                             r'\s+(H\d{2}v[v\d.]+), IP=([\d\.])+, up ([\d\w :]*)'
+                             , dcard_raw_text_string, re.DOTALL)
+
         print(pattern)
 
-    radio_status = '1'
+        radio_status = {mac: deepcopy(link_status) for mac in [link[1] for link in pattern]}
+
+        for key, mac in enumerate(radio_status):
+            radio_status[mac]['Remote Name'] = pattern[key][0]
+            radio_status[mac]['Level Rx'] = pattern[key][2]
+            radio_status[mac]['Level Tx'] = pattern[key][3]
+            radio_status[mac]['Bitrate Rx'] = pattern[key][4]
+            radio_status[mac]['Bitrate Tx'] = pattern[key][5]
+            radio_status[mac]['Retry Rx'] = pattern[key][6]
+            radio_status[mac]['Retry Tx'] = pattern[key][7]
+            radio_status[mac]['Load Rx'] = pattern[key][9]
+            radio_status[mac]['Load Tx'] = pattern[key][10]
+            radio_status[mac]['PPS Rx'] = pattern[key][11]
+            radio_status[mac]['PPS Tx'] = pattern[key][12]
+            radio_status[mac]['Cost'] = pattern[key][13]
+            radio_status[mac]['Power Rx'] = pattern[key][14]
+            radio_status[mac]['Power Tx'] = pattern[key][15]
+            radio_status[mac]['RSSI Rx'] = pattern[key][16]
+            radio_status[mac]['RSSI Tx'] = pattern[key][17]
+            radio_status[mac]['SNR Rx'] = pattern[key][18]
+            radio_status[mac]['SNR Tx'] = pattern[key][19]
+            radio_status[mac]['Distance'] = pattern[key][20]
+            radio_status[mac]['Firmware'] = pattern[key][21]
+            radio_status[mac]['Uptime'] = pattern[key][23]
+
+        print(radio_status)
+
     ethernet_status = '1'
 
     result = R5000Card(model, subfamily, serial_number, firmware, uptime,
