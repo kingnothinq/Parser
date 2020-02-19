@@ -193,16 +193,12 @@ def parse_R5000(dcard_raw_text_string, dcard_raw_text_list):
             radio_status[mac]['Firmware'] = pattern[key][21]
             radio_status[mac]['Uptime'] = pattern[key][23]
     else:
-        print('here we are')
         pattern = re.findall(r'\s+\d+\s+([\w\d\S]+)\s+([\w\d]+) '
                              r'(\d+)\/(\d+)\s+(\d+)\/(\d+)\s+(\d+)\/(\d+)\s+([\/\w])+'
                              r'\s+load (\d+)\/(\d+), pps (\d+)\/(\d+), cost (\d+)'
                              r'\s+pwr ([\d\.-]+)\/([\d\.-]+), snr (\d+)\/(\d+), dist ([\d\.-]+)'
-                             r'\s+dist ([\d\.-]+)'
                              r'\s+(H\d{2}v[v\d.]+), IP=([\d\.])+, up ([\d\w :]*)'
                              , dcard_raw_text_string, re.DOTALL)
-
-        print(pattern)
 
         radio_status = {mac: deepcopy(link_status) for mac in [link[1] for link in pattern]}
 
@@ -221,15 +217,11 @@ def parse_R5000(dcard_raw_text_string, dcard_raw_text_list):
             radio_status[mac]['Cost'] = pattern[key][13]
             radio_status[mac]['Power Rx'] = pattern[key][14]
             radio_status[mac]['Power Tx'] = pattern[key][15]
-            radio_status[mac]['RSSI Rx'] = pattern[key][16]
-            radio_status[mac]['RSSI Tx'] = pattern[key][17]
-            radio_status[mac]['SNR Rx'] = pattern[key][18]
-            radio_status[mac]['SNR Tx'] = pattern[key][19]
-            radio_status[mac]['Distance'] = pattern[key][20]
-            radio_status[mac]['Firmware'] = pattern[key][21]
-            radio_status[mac]['Uptime'] = pattern[key][23]
-
-        print(radio_status)
+            radio_status[mac]['SNR Rx'] = pattern[key][16]
+            radio_status[mac]['SNR Tx'] = pattern[key][17]
+            radio_status[mac]['Distance'] = pattern[key][18]
+            radio_status[mac]['Firmware'] = pattern[key][19]
+            radio_status[mac]['Uptime'] = pattern[key][21]
 
     ethernet_status = '1'
 
