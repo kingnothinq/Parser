@@ -164,7 +164,7 @@ PN:Xm/5X.1000.4x300.2x23
 |DFS status         |               ENABLED                |               ENABLED                |
 |Tx/Rx Frames       |            444000/123714             |             444000/97734             |
 |Rx Bad Frames      |                  0                   |                  0                   |
-|Rx Acc FER         |               0e0 (0%)               |               0e0 (0%)               |
+|Rx Acc FER         |               0e0 (1%)               |               0e0 (0.01%)            |
 |AMC Mode           |                 Auto                 |                 Auto                 |
 +----+--------------+------------------+-------------------+-------------------+------------------+
 |                   |     Stream 0     |     Stream 1      |     Stream 0      |     Stream 1     |
@@ -681,7 +681,7 @@ mgmt: flags=8003<UP,BROADCAST,MULTICAST> mtu 1500
 ge0: flags=101<UP,PROMISC> mtu 1500
         inet 0.0.0.0 netmask 0x0 
 
-	Physical link is UP, 1000 Mbps Full-duplex, Auto
+	Physical link is UP, 1000 Mbps Half-duplex, Auto
 	PHY chip: Marvell 88E6352 Copper PHY ID: 0eb10141
 	+--------------------------------+------+-----+
 	|                 Supported modes| Self |Peer |
@@ -704,7 +704,7 @@ ge0: flags=101<UP,PROMISC> mtu 1500
 	| Load (kbps)        1           | Load (kbps)           0           |
 	| Load (pps)         2           | Load (pps)            1           |
 	+--------------------------------+-----------------------------------+
-	| CRC errors         0           | CRC errors            0           |
+	| CRC errors         0           | CRC errors            55          |
 	| Pause packets      0           | Excessive deferrals   0           |
 	| Bad octets         0           | Excessive collisions  0           |
 	| Rx errors          0           | Late collisions       0           |

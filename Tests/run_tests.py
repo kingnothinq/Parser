@@ -6,9 +6,11 @@ from pathlib import Path
 
 
 def run_tests(device):
-    """Look for all available tests for the requested device and runs them"""
+    """Look for all available tests for the requested device and runs them.
+    Return a list of strings with results or an empty list if all tests have passed successfully.
+    """
 
-    def import_test(device, test_name):
+    def import_test(*args):
         """Dynamic modules (tests) import
 
         A module must follow the next template:

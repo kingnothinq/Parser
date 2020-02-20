@@ -20,7 +20,7 @@ def get_dcard_raw_text_as_list(dcard_path):
         return dcard.readlines()
 
 
-def create_report(serial_number, model, tests_report, dcard_path):
+def create_report(serial_number, model, tests_report, *args):
     """Create report and save it"""
     report_name = 'diagcard_{}_report.txt'.format(serial_number)
     report_path = Path.joinpath(Path.cwd().parent / 'Report', report_name)
@@ -49,8 +49,6 @@ def create_report(serial_number, model, tests_report, dcard_path):
         report_text = [message_1_complete, message_2, message_3] + list(
             filter(None, tests_report))
 
-    # report_text = report_text  + ['\n\n\n'] +  [str(XG.settings)] + ['\n\n\n'] + [str(XG.radio_status)] + ['\n'] + [str(XG.radio_status['Link status']),'\n',str(XG.radio_status['Link status']),'\n',str(XG.radio_status['Master']['Carrier 0']),'\n',str(XG.radio_status['Slave']['Carrier 0']),'\n',str(XG.radio_status['Master']['Carrier 1']),'\n',str(XG.radio_status['Slave']['Carrier 1'])] + ['\n\n\n'] +  [str(XG.ethernet_status)]
-
     with open(report_path, 'w') as report:
         for line in report_text:
             print(line)
@@ -71,21 +69,21 @@ if __name__ == '__main__':
         # R5000 series
         if search(r'#\sR5000\sWANFleX\sH(08|11)',
                   dcard_raw_text_string) is not None:
-            R5000 = dparser.parse_R5000(dcard_raw_text_string,
+            r5000 = dparser.parse_r5000(dcard_raw_text_string,
                                         dcard_raw_text_list)
-            create_report(R5000.serial_number, R5000.model,
-                          dtester.run_tests(R5000), dcard_path)
+            create_report(r5000.serial_number, r5000.model,
+                          dtester.run_tests(r5000), dcard_path)
 
         # XG series
         elif search(r'#\sXG\sWANFleX\sH12', dcard_raw_text_string) is not None:
-            XG = dparser.parse_XG(dcard_raw_text_string, dcard_raw_text_list)
-            create_report(XG.serial_number, XG.model, dtester.run_tests(XG),
+            xg = dparser.parse_xg(dcard_raw_text_string, dcard_raw_text_list)
+            create_report(xg.serial_number, xg.model, dtester.run_tests(xg),
                           dcard_path)
 
         # Quanta series
         elif search(r'#\sOCTOPUS-PTP\sWANFleX\sH18',
                     dcard_raw_text_string) is not None:
-            Quanta = dparser.parse_Quanta(dcard_raw_text_string,
+            quanta = dparser.parse_quanta(dcard_raw_text_string,
                                           dcard_raw_text_list)
-            create_report(Quanta.serial_number, Quanta.model,
-                          dtester.run_tests(Quanta), dcard_path)
+            create_report(quanta.serial_number, quanta.model,
+                          dtester.run_tests(quanta), dcard_path)
