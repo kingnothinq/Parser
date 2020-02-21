@@ -25,10 +25,10 @@ def run_tests(device):
         """
 
         module = import_module('.' + str(test_name.stem),
-                               'Tests.' + device.family)
+                               'tests.' + device.family)
         return module.test(device)
 
-    test_path = Path.cwd().parent / 'Tests' / device.family
+    test_path = Path.cwd().parent / 'tests' / device.family
     test_results = []
 
     for test_name in list(test_path.glob('[!__]*.py')):

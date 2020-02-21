@@ -2,22 +2,42 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b076e524-eee4-4235-a93a-9cd72d728b4e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Parser.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Parser.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.2215-2 polling master.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.2223-2 polling slave.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.SN-500020.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.SN-500268.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.SN-502628.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.SN-504936.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.SN-506026.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiagnosticCard/diagcard.SN-227904 bs polling a lot of clients.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/dcard_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/Script/dcard_parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Script/runit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Script/runit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/XG/panic.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/XG/panic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/XG/radio_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/XG/radio_check.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/run_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/run_tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diag_master_700081_2019-05-14_01-20-55.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diag_master_700840_2019-05-07_01-13-46.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.309930 2223-2 polling slave.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.309993 2215-2 polling master.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.SN-199200 - Copy.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.SN-199200 tdma master.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.SN-227904 bs polling a lot of clients.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.SN-229379 tsync.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.SN-289217.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.SN-308020.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.SN-308022 bs tdma a lot of clients.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.SN-500002_slave201_03.04.19.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.SN-500020 xg link up but no remote slave.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.SN-500268 xg link up and all ok.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.SN-502628 xg link down and no remote slave.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/Archive/diagcard.SN-504936 panic.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagnosticCard/diagcard.SN-506026 xg 1000 link up and all ok.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/dcard_parser.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/my_classes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Script/runit.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Quanta/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Quanta/ethernet_check.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Quanta/evm.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/R5000/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/R5000/abnormal.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/R5000/ethernet_check.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/R5000/rfdrops.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/XG/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/XG/ethernet_check.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/XG/panic.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/XG/radio_check.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/run_tests.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +56,13 @@
         <option name="title" value="All" />
       </GitPushTagMode>
     </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="ProjectId" id="1WpTEEZO24xrySJlmxNEPZS6vyW" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -52,7 +78,7 @@
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.runit">
+  <component name="RunManager" selected="Python.runit (1)">
     <configuration name="Parser" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Parser" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -74,28 +100,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="dcard_parser" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Parser" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Script" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Script/dcard_parser.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="panic" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="__train (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Parser" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -107,7 +112,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tests/XG/panic.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tests/XG/__train.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -116,7 +121,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="parser" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="__train" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Parser" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -124,11 +129,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Script" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Tests/XG" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Script/parser.py" />
+      <option name="SCRIPT_NAME" value="F:\Parser\Tests\XG\__train.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -137,7 +142,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="results" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="runit (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Parser" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -145,11 +150,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Tests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tests/results.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/runit.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -179,21 +184,42 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="web" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Parser" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Script" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Script/web.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.Parser" />
       <item itemvalue="Python.runit" />
-      <item itemvalue="Python.parser" />
-      <item itemvalue="Python.dcard_parser" />
-      <item itemvalue="Python.results" />
-      <item itemvalue="Python.panic" />
+      <item itemvalue="Python.__train" />
+      <item itemvalue="Python.__train (1)" />
+      <item itemvalue="Python.web" />
+      <item itemvalue="Python.runit (1)" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.runit (1)" />
         <item itemvalue="Python.runit" />
-        <item itemvalue="Python.panic" />
-        <item itemvalue="Python.results" />
-        <item itemvalue="Python.dcard_parser" />
-        <item itemvalue="Python.parser" />
+        <item itemvalue="Python.web" />
+        <item itemvalue="Python.__train (1)" />
+        <item itemvalue="Python.__train" />
       </list>
     </recent_temporary>
   </component>
@@ -222,20 +248,36 @@
       <option name="project" value="LOCAL" />
       <updated>1582137620379</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Version 0.75">
+      <created>1582204647552</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1582204647552</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Version 0.8">
+      <created>1582204687483</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1582204687483</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Version 0.72" />
     <MESSAGE value="Version 0.74" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version 0.74" />
+    <MESSAGE value="Version 0.75" />
+    <MESSAGE value="Version 0.8" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 0.8" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="552" y="182" key="#Notifications" timestamp="1582137651259">
+    <state x="552" y="182" key="#Notifications" timestamp="1582261140284">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="182" key="#Notifications/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582012932572" />
+    <state x="552" y="182" key="#Notifications/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582261140284" />
     <state x="552" y="182" key="#Notifications/0.0.1920.1050@0.0.1920.1050" timestamp="1582137651259" />
     <state x="414" y="178" width="1092" height="711" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580709006730">
       <screen x="0" y="0" width="1920" height="1050" />
@@ -250,6 +292,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="739" y="291" key="#com.intellij.ide.macro.MacrosDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1581669467453" />
+    <state x="655" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1582262868246">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="655" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582262868246" />
     <state x="728" y="343" width="463" height="485" key="#com.intellij.tools.ToolEditorDialog" timestamp="1582008734845">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -259,10 +305,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="707" y="379" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582008128136" />
-    <state x="614" y="118" key="CommitChangelistDialog2" timestamp="1582204646322">
+    <state x="614" y="118" key="CommitChangelistDialog2" timestamp="1582204686593">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="614" y="118" key="CommitChangelistDialog2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582204646322" />
+    <state x="614" y="118" key="CommitChangelistDialog2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582204686593" />
     <state x="614" y="118" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1582137615955" />
     <state x="92" y="92" width="1736" height="866" key="DiffContextDialog" timestamp="1580484692076">
       <screen x="0" y="0" width="1920" height="1050" />
@@ -281,68 +327,88 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="753" y="390" key="Github.CreatePullRequestDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582034831708" />
-    <state width="1898" height="265" key="GridCell.Tab.0.bottom" timestamp="1582204554811">
+    <state width="1898" height="265" key="GridCell.Tab.0.bottom" timestamp="1582279122497">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="265" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582204554811" />
+    <state width="1898" height="265" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582279122497" />
     <state width="1899" height="198" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
-    <state width="1898" height="265" key="GridCell.Tab.0.center" timestamp="1582204554811">
+    <state width="1898" height="265" key="GridCell.Tab.0.center" timestamp="1582279122496">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="265" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582204554811" />
+    <state width="1898" height="265" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582279122496" />
     <state width="1899" height="198" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
-    <state width="1898" height="265" key="GridCell.Tab.0.left" timestamp="1582204554811">
+    <state width="1898" height="265" key="GridCell.Tab.0.left" timestamp="1582279122496">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="265" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582204554811" />
+    <state width="1898" height="265" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582279122496" />
     <state width="1899" height="198" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
-    <state width="1898" height="265" key="GridCell.Tab.0.right" timestamp="1582204554811">
+    <state width="1898" height="265" key="GridCell.Tab.0.right" timestamp="1582279122496">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="265" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582204554811" />
+    <state width="1898" height="265" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582279122496" />
     <state width="1899" height="198" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
-    <state width="1898" height="345" key="GridCell.Tab.1.bottom" timestamp="1582203918606">
+    <state width="1898" height="345" key="GridCell.Tab.1.bottom" timestamp="1582277274013">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="345" key="GridCell.Tab.1.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582203918606" />
+    <state width="1898" height="345" key="GridCell.Tab.1.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582277274013" />
     <state width="1899" height="352" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1582132464989" />
-    <state width="1898" height="345" key="GridCell.Tab.1.center" timestamp="1582203918606">
+    <state width="1898" height="345" key="GridCell.Tab.1.center" timestamp="1582277274013">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="345" key="GridCell.Tab.1.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582203918606" />
+    <state width="1898" height="345" key="GridCell.Tab.1.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582277274013" />
     <state width="1899" height="352" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1582132464989" />
-    <state width="1898" height="345" key="GridCell.Tab.1.left" timestamp="1582203918606">
+    <state width="1898" height="345" key="GridCell.Tab.1.left" timestamp="1582277274013">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="345" key="GridCell.Tab.1.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582203918606" />
+    <state width="1898" height="345" key="GridCell.Tab.1.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582277274013" />
     <state width="1899" height="352" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1582132464989" />
-    <state width="1898" height="345" key="GridCell.Tab.1.right" timestamp="1582203918606">
+    <state width="1898" height="345" key="GridCell.Tab.1.right" timestamp="1582277274013">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="345" key="GridCell.Tab.1.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582203918606" />
+    <state width="1898" height="345" key="GridCell.Tab.1.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582277274013" />
     <state width="1899" height="352" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1582132464989" />
-    <state x="461" y="155" key="SettingsEditor" timestamp="1582174488753">
+    <state x="461" y="155" key="SettingsEditor" timestamp="1582271218470">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="461" y="155" key="SettingsEditor/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582174488753" />
+    <state x="461" y="155" key="SettingsEditor/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582271218470" />
     <state x="461" y="155" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1582131382275" />
-    <state x="552" y="256" key="Vcs.Push.Dialog.v2" timestamp="1582204670891">
+    <state x="552" y="256" key="Vcs.Push.Dialog.v2" timestamp="1582204695971">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582204670891" />
+    <state x="552" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582204695971" />
     <state x="552" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1582137627609" />
+    <state x="92" y="92" width="1736" height="866" key="com.intellij.dvcs.ui.CompareBranchesDialog" timestamp="1582261221248">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="92" y="92" width="1736" height="866" key="com.intellij.dvcs.ui.CompareBranchesDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582261221248" />
     <state x="661" y="347" key="com.intellij.ide.util.TipDialog" timestamp="1580708701083">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="661" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580708701083" />
     <state x="661" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1580545859700" />
-    <state x="769" y="440" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1580743961948">
+    <state x="769" y="440" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1582261125880">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
+    <state x="769" y="440" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582261125880" />
     <state x="769" y="440" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1050@0.0.1920.1050" timestamp="1580743961948" />
+    <state x="701" y="167" key="refactoring.ChangeSignatureDialog" timestamp="1582262990946">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="701" y="167" key="refactoring.ChangeSignatureDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582262990946" />
     <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1580905563668">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580905563668" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/scripts/tests/run_tests.py</url>
+          <line>3</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
