@@ -1,18 +1,24 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from flask import Flask, render_template
+from flask import Flask, request
 from pathlib import Path
 
-if __name__ == "__main__":
-    web_service = Flask(__name__, template_folder=Path.cwd(), static_folder=Path.cwd())
+app = Flask(__name__)
 
 
-    @web_service.route('/')
-    def index():
-        return report
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'GET':
+        return 'Server is running.'
+    elif request.method == 'POST':
+        data = request.files['avatar'].read()
 
 
-    report = 'Hui sosi guboi tryasi'
+report = 'Huy sosi guboy tryasi'
 
-    web_service.run(host='0.0.0.0')
+app.run(host='0.0.0.0', debug=True)
+
+data = request.files['avatar'].read()
+with open("test.wav", mode="wb") as new:
+    new.write(data)
