@@ -4,6 +4,8 @@
 from pathlib import Path
 from re import search
 
+from jira import JIRA
+
 import dcard_parser as dparser
 import tests.run_tests as dtester
 
@@ -64,8 +66,7 @@ def create_report(serial_number, model, tests_report, *args):
     return report_text
 
 
-if __name__ == '__main__':
-
+if __name__ == "__main__":
     # Find all diagnostic cards in the folder
     list_of_dcards = list((Path.cwd() / 'dcards').glob('*.txt'))
 
@@ -95,3 +96,9 @@ if __name__ == '__main__':
             report = create_report(quanta.serial_number, quanta.model, dtester.run_tests(quanta), dc_path)
             # write_report(report, quanta.serial_number)
             debug_report(report)
+
+    jira_options = {'server': 'https://jira.infinet.ru/'}
+    jira = JIRA(options=jira_options, basic_auth=("idemchuk", "sat8753"))
+
+    report = ''.join(report)
+    comment = jira.add_comment('DESK-53647', report)

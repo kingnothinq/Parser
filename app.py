@@ -12,7 +12,7 @@ def index():
     if request.method == 'GET':
         return 'Server is running.'
     elif request.method == 'POST':
-        data = request.files['avatar'].read()
+        return report
 
 
 report = 'Huy sosi guboy tryasi'
