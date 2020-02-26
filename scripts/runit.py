@@ -98,7 +98,7 @@ if __name__ == "__main__":
             debug_report(report)
 
     jira_options = {'server': 'https://jira.infinet.ru/'}
-    jira = JIRA(options=jira_options, basic_auth=("idemchuk", "sat8753"))
+    jira = JIRA(options=jira_options, basic_auth=("idemchuk", "xxxx"))
 
     report = ''.join(report)
     comment = jira.add_comment('DESK-53647', report)
