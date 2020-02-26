@@ -1,12 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from jira import JIRA
+
 
 # import scripts.runit as run
 
 
-jira_options = {'server': 'https://jira.infinet.ru/'}
+jira_options = {'server':'https://jira.infinet.ru/'}
 jira = JIRA(options=jira_options, basic_auth=("idemchuk", "sat8753"))
 
 # new_issue = jira.create_issue(project='DESK', summary='Test jira', description='Blablabla', issuetype={'name': 'Support Request'})
@@ -20,6 +20,6 @@ issue = jira.issue('DESK-53647')
 
 for attachment in issue.fields.attachment:
     print("Name: '{filename}', size: {size}".format(
-        filename=attachment.filename, size=attachment.size))
+            filename=attachment.filename, size=attachment.size))
     # to read content use `get` method:
     print("Content: '{}'".format(attachment.get()))

@@ -154,7 +154,7 @@ PN:Xm/5X.1000.4x300.2x23
 +----+--------------+------------------+-------------------+-------------------+------------------+
 |    Device Type    |            Master (local)            |            Slave (remote)            |
 +----+--------------+------------------+-------------------+-------------------+------------------+
-|RLM State          |             PC_ACTIVE_ST             |             PC_ACTIVE_ST             |
+|RLM State          |             RANGING_ST               |             PC_ACTIVE_ST             |
 |Tx Capacity        |             167423 kbps              |             573888 kbps              |
 |Tx/Rx Packets      |               1373/925               |               922/1344               |
 +----+--------------+------------------+-------------------+-------------------+------------------+
@@ -164,25 +164,25 @@ PN:Xm/5X.1000.4x300.2x23
 |DFS status         |               ENABLED                |               ENABLED                |
 |Tx/Rx Frames       |            444000/123714             |             444000/97734             |
 |Rx Bad Frames      |                  0                   |                  0                   |
-|Rx Acc FER         |               0e0 (1%)               |               0e0 (0.01%)            |
+|Rx Acc FER         |               0e0 (3%)               |               0e0 (0.01%)            |
 |AMC Mode           |                 Auto                 |                 Auto                 |
 +----+--------------+------------------+-------------------+-------------------+------------------+
 |                   |     Stream 0     |     Stream 1      |     Stream 0      |     Stream 1     |
 +----+--------------+------------------+-------------------+-------------------+------------------+
 |TX  |MCS           |QAM64 4/6 (5)     |QAM16 3/4 (4)      |QAM1024 8/10 (10)  |QAM256 30/32 (9)  |
 |    |Power         |1.5 dBm           |4.75 dBm           |1 dBm              |3.5 dBm           |
-|    |Gain          |-32 dB            |-28 dB             |-33.25 dB          |-29.25 dB         |
+|    |Gain          |-111 dB           |-28 dB             |-33.25 dB          |-29.25 dB         |
 +----+--------------+------------------+-------------------+-------------------+------------------+
 |RX  |MCS           |QAM1024 8/10 (10) |QAM256 30/32 (9)   |QAM64 4/6 (5)      |QAM16 3/4 (4)     |
 |    |CINR          |33 dB             |30 dB              |32 dB              |30 dB             |
-|    |RSSI          |-47 dBm           |-44 dBm            |-47 dBm            |-44 dBm           |
+|    |RSSI          |-90 dBm           |-39 dBm            |-99 dBm            |-37 dBm           |
 |    |GAIN          |19 db (6)         |16 db (6)          |19 db (4)          |15 db (4)         |
 |    |ADC RSSI      |-28 dBFS          |-28 dBFS           |-28 dBFS           |-29 dBFS          |
 |    |STOD          |1.2               |1.2                |-1.9               |0.0               |
-|    |Crosstalk     |-21 dB            |-29 dB             |-22 dB             |-28 dB            |
+|    |Crosstalk     |-5 dB             |-29 dB             |-22 dB             |-5 dB             |
 |    |OK TBS        |3768301           |3768345            |2807619            |2807728           |
 |    |Bad TBS       |233               |189                |66742              |66633             |
-|    |Errors Ratio  |6.18e-5 (0.01%)   |5.02e-5 (0.01%)    |2.32e-2 (2.32%)    |2.32e-2 (2.32%)   |
+|    |Errors Ratio  |6.18e-5 (4.01%)   |5.02e-5 (0.01%)    |2.32e-2 (2.32%)    |2.32e-2 (55.32%)  |
 +----+--------------+------------------+-------------------+-------------------+------------------+
 |                   |                               Carrier 1 (Up)                                |
 +----+--------------+------------------+-------------------+-------------------+------------------+
@@ -197,7 +197,7 @@ PN:Xm/5X.1000.4x300.2x23
 +----+--------------+------------------+-------------------+-------------------+------------------+
 |TX  |MCS           |QAM16 3/4 (4)     |QAM64 4/6 (5)      |QAM256 30/32 (9)   |QAM256 30/32 (9)  |
 |    |Power         |1.75 dBm          |7 dBm              |1 dBm              |1 dBm             |
-|    |Gain          |-32 dB            |-26.75 dB          |-32.25 dB          |-32.75 dB         |
+|    |Gain          |-32 dB            |-26.75 dB          |-32.25 dB          |-12.75 dB         |
 +----+--------------+------------------+-------------------+-------------------+------------------+
 |RX  |MCS           |QAM256 30/32 (9)  |QAM256 30/32 (9)   |QAM16 3/4 (4)      |QAM64 4/6 (5)     |
 |    |CINR          |31 dB             |32 dB              |31 dB              |30 dB             |
@@ -440,6 +440,19 @@ Last message was repeated 2 times
 -00:04:51.541 ge1: phy found 0eb10141 model: Marvell 88E6352 Copper PHY
 -00:04:51.527 sfp: phy found 0ea10141 model: Marvell 88E6352 Fiber PHY
 -00:04:46.483 ge0: media changed to 1000 Mbps Full duplex auto
+-00:04:42.756 ge0: link down
+-00:04:46.483 ge0: media changed to 1000 Mbps Full duplex auto
+-00:04:42.756 ge0: link down
+-00:04:46.483 ge0: media changed to 1000 Mbps Full duplex auto
+-00:04:42.756 ge0: link down
+-00:04:46.483 ge0: media changed to 1000 Mbps Full duplex auto
+-00:04:42.756 ge0: link down
+-00:04:46.483 ge0: media changed to 1000 Mbps Full duplex auto
+-00:04:42.756 ge0: link down
+-00:04:46.483 ge0: media changed to 1000 Mbps Full duplex auto
+-00:04:42.756 ge0: link down
+-00:04:46.483 ge0: media changed to 1000 Mbps Full duplex auto
+-00:04:42.756 ge0: link down
 -00:04:42.977 ctl: Heater is disabled.
 -00:04:42.773 xg: Carrier 1 grid can not be set manually
 Last message was repeated 2 times

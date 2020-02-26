@@ -22,13 +22,15 @@ def run_tests(device):
             else:
                 #return None
                 pass
+
+        Use __ (double underscore) before file name if you need to hide a test from the importer.
         """
 
         module = import_module('.' + str(test_name.stem),
-                               'tests.' + device.family)
+                               'tests.' + str.lower(device.family))
         return module.test(device)
 
-    test_path = Path.cwd().parent / 'tests' / device.family
+    test_path = Path.cwd() / 'tests' / str.lower(device.family)
     test_results = []
 
     for test_name in list(test_path.glob('[!__]*.py')):
