@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 def test(device):
-    """Find panic and suggest a solution"""
+    """Find panic and suggest a solution."""
 
     def find_panic(panic):
-        """Return a workaround"""
+        """Return a workaround."""
 
         if 'LINKDOWN' in panic:
             result.append('* Watchdog activation detected: XG_TIMEOUT. '
@@ -67,6 +67,8 @@ def test(device):
     if len(device.panic) > 0:
         for panic in device.panic:
             find_panic(panic)
+
+    if len(result) > 0:
         return '\nPanic and asserts: \n' + '\n'.join(result)
     else:
         pass

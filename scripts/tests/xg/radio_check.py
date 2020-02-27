@@ -5,10 +5,10 @@ from re import search
 
 
 def test(device):
-    """Check radio parameters and return conclusion"""
+    """Check radio parameters and return conclusion."""
 
     def check_carrier(position, carrier_name, carrier_data):
-        """Check important carrier parameters and return the conclusion"""
+        """Check important carrier parameters and return the conclusion."""
 
         if carrier_data['Frequency'] is None:
             return
@@ -26,7 +26,7 @@ def test(device):
             check_stream(position, carrier_name, str.lower(stream), carrier_data[stream])
 
     def check_stream(position, carrier_name, stream_name, stream_data):
-        """Check important stream parameters and return the conclusion"""
+        """Check important stream parameters and return the conclusion."""
 
         check_rssi(position, carrier_name, stream_name, stream_data['RSSI'])
         check_cinr(position, carrier_name, stream_name, stream_data['CINR'])
@@ -34,7 +34,7 @@ def test(device):
         check_errors_ratio(position, carrier_name, stream_name, stream_data['Errors Ratio'])
 
     def check_rssi(position, carrier_name, stream_name, rssi):
-        """Check RSSI and return the conclusion"""
+        """Check RSSI and return the conclusion."""
 
         rssi = int(search(r'(\d+)', rssi).group(1))
         if position == 'local' and rssi < 40:
@@ -57,11 +57,11 @@ def test(device):
                           .format(rssi, stream_name, carrier_name, position, settings['Tx Power']))
 
     def check_cinr(position, carrier_name, stream_name, cinr):
-        """Check CINR and return the conclusion"""
+        """Check CINR and return the conclusion."""
 
         cinr = int(search(r'(\d+)', cinr).group(1))
         if position == 'local' and cinr < 10:
-            result.append('* CINR is {} dBm in the {} of the {} on the {} side. '
+            result.append('* CINR is {} dB in the {} of the {} on the {} side. '
                           'The quality of the signal is very low. '
                           'Only low-level modulations are available. '
                           'Please improve the quality of the signal to reach better modulations. '
@@ -73,7 +73,7 @@ def test(device):
                           'The current bandwidth is {} MHz.'
                           .format(cinr, stream_name, carrier_name, position, settings['Bandwidth']))
         elif position == 'remote' and cinr < 10:
-            result.append('* CINR is {} dBm in the {} of the {} on the {} side. '
+            result.append('* CINR is {} dB in the {} of the {} on the {} side. '
                           'The quality of the signal is very low. '
                           'Only low-level modulations are available. '
                           'Please improve the quality of the signal to reach better modulations. '
@@ -86,7 +86,7 @@ def test(device):
                           .format(cinr, stream_name, carrier_name, position, settings['Tx Power'],
                                   settings['Bandwidth']))
         elif position == 'local' and cinr < 20:
-            result.append('* CINR is {} dBm in the {} of the {} on the {} side. '
+            result.append('* CINR is {} dB in the {} of the {} on the {} side. '
                           'The quality of the signal is very low. '
                           'Only middle-level modulations are available. '
                           'Please improve the quality of the signal to reach better modulations. '
@@ -98,7 +98,7 @@ def test(device):
                           'The current bandwidth is {} MHz.'
                           .format(cinr, stream_name, carrier_name, position, settings['Bandwidth']))
         elif position == 'remote' and cinr < 20:
-            result.append('* CINR is {} dBm in the {} of the {} on the {} side. '
+            result.append('* CINR is {} dB in the {} of the {} on the {} side. '
                           'The quality of the signal is very low. '
                           'Only middle-level modulations are available. '
                           'Please improve the quality of the signal to reach better modulations. '
@@ -112,7 +112,7 @@ def test(device):
                                   settings['Bandwidth']))
 
     def check_crosstalk(position, carrier_name, stream_name, crosstalk):
-        """Check Crosstalk and return the conclusion"""
+        """Check Crosstalk and return the conclusion."""
 
         crosstalk = int(search(r'(\d+)', crosstalk).group(1))
         if crosstalk < 20:
@@ -121,7 +121,7 @@ def test(device):
                           .format(crosstalk, stream_name, carrier_name, position))
 
     def check_errors_ratio(position, carrier_name, stream_name, errors_ratio):
-        """Check Errors Ratio in the stream and return the conclusion"""
+        """Check Errors Ratio in the stream and return the conclusion."""
         errors_ratio = float(search(r'([\d\.]+)', errors_ratio).group(1))
         if errors_ratio > 1.5:
             result.append('* TBER Errors ({} %) detected in the {} of the {} on the {} side. '
@@ -131,7 +131,7 @@ def test(device):
                           .format(errors_ratio, stream_name, carrier_name, position))
 
     def check_gain(position, carrier_name, gain_stream_0, gain_stream_1):
-        """Check Gain and return the conclusion"""
+        """Check Gain and return the conclusion."""
 
         gain_stream_0 = float(search(r'([\d\.]+)', gain_stream_0).group(1))
         gain_stream_1 = float(search(r'([\d\.]+)', gain_stream_1).group(1))
@@ -151,8 +151,8 @@ def test(device):
     # Check Link statuses
     if device.radio_status['Link status'] == 'DOWN':
         result.append('* The link is not established. '
-                      'Please check the alignment, '
-                      'the settings of the remote side, '
+                      'Please check alignment, '
+                      'settings of the remote side, '
                       'LOS, the spectrum, etc.')
 
     elif device.radio_status['Link status'] == 'ERROR':

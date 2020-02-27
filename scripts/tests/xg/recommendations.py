@@ -1,25 +1,29 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from re import search
+from re import search, findall
 
 
 def test(device):
-    """Not important or not necessary recommendations"""
+    """Not important or not necessary recommendations."""
 
     result = []
 
-    # Check TP feature (It should be disabled due to a bug)
     if device.settings['Traffic prioritization'] == 'Enabled':
-        result.append('* This is not an exact QoS feature. '
+        result.append('* Traffic prioritization is not an exact QoS feature. '
                       'It is recommended to disable it due the bug (XG-1164).')
 
-    # Check Antenna Gain
     if search(r'Antenna Gain not found in license', device.dc_string) is not None:
         result.append('* Antenna Gain not found in the license. '
                       'Please set this parameter via CLI (xg -antenna-gain <gain_dBm>).')
 
-    if len(device.panic) > 0:
+    pattern = findall(r'(\d{2}):(\d{2}):(\d{2})', device.uptime)
+    if int(pattern[0][0]) <= 0 and int(pattern[0][1]) < 15:
+        result.append('* Uptime is too short ({}). '
+                      'It is recommended to wait more in order to collect more precise statistics.'
+                      .format(device.uptime))
+
+    if len(result) > 0:
         return '\nRecommendations: \n' + '\n'.join(result)
     else:
         pass

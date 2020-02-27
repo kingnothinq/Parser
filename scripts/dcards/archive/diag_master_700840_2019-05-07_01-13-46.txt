@@ -70,7 +70,7 @@ octopus set   radio.amc_algorithm dynamic_evm
 octopus set   radio.dl_mcs 256-QAM-7/8
 octopus set   radio.ul_mcs 256-QAM-7/8
 octopus set   radio.harq on
-octopus set   radio.auto_dl_ul_ratio off
+octopus set   radio.auto_dl_ul_ratio on
 octopus set   radio.dl_ul_ratio 8
 octopus set   radio.dfs dfs_rd
 octopus set   radio.lbt off
@@ -120,7 +120,7 @@ oct radio stat -s
 +--------------------------------------------------------------+-----------------------------------------+
 | State                connected                               | Temperature          35 C               |
 | Distance             318 m                                   | DFS                  Radar detection    |
-| TX power             7.3 / 7.1 dBm                           | AMC strategy         aggressive         |
+| TX power             -10 / 27 dBm                            | AMC strategy         aggressive         |
 | Remote TX power      7.1 / 7.1 dBm                           |                                         |
 +--------------------------------------------------------------+-----------------------------------------+
 | Bandwidth            40 MHz                                  | DL quota             8 %                |
@@ -135,12 +135,12 @@ oct radio stat -s
 |                    |      Stream 0      |      Stream 1      |      Stream 0      |      Stream 1      |
 +--------------------+--------------------+--------------------+--------------------+--------------------+
 | MCS                | 64-QAM-5/6 (10)    | 64-QAM-3/4 (9)     | 64-QAM-5/6 (10)    | 64-QAM-5/6 (10)    |
-| RSSI               | -55.3 dBm          | -56.4 dBm          | -56.4 dBm          | -56.7 dBm          |
-| EVM                | -23.8 dB           | -24.3 dB           | -23.3 dB           | -24.5 dB           |
-| Crosstalk          | -19.3 dB           | -33.8 dB           | -16.5 dB           | -14.0 dB           |
+| RSSI               | -90.3 dBm          | -35.4 dBm          | -87.4 dBm          | -11.7 dBm          |
+| EVM                | -9.8 dB            | -5.3 dB            | -14.3 dB           | -14.5 dB           |
+| Crosstalk          | 0 dB               | 0 dB               | -16.5 dB           | -14.0 dB           |
 | Frames             | 26789              | 26789              | 26605              | 26605              |
 | Errors             | 9                  | 24                 | 29                 | 36                 |
-| ARQ ratio          | 2.2 %              | 2.0 %              | 1.6 %              | 3.7 %              |
+| ARQ ratio          | 2.2 %              | 2.0 %              | 5.6 %              | 9.7 %              |
 | Tx attenuation     | 34.00 dB           | 34.00 dB           | 33.25 dB           | 33.50 dB           |
 +--------------------+--------------------+--------------------+--------------------+--------------------+
 oct show calibration
@@ -2886,7 +2886,7 @@ MEMORY      56.5 MB total
 L2CACHE     Size: 524288
 
 CPU         Processor: Xilinx zynq rev.3 666 MHz Board: rev.4
-            CPU Load   5%   2%(10s)   2%(30s)   2%(60s)   2%(300s)
+            CPU Load   98%   82%(10s)   2%(30s)   2%(60s)   2%(300s)
             Detailed: Isr: 0.39%  Tasks: 1.60%  Idle: 98.00%
             Reset status: Unknown
 
@@ -2906,7 +2906,7 @@ PMON        XADC
             T Cels    +33.7  +26.6  +35.1 
 
 TPM         h18 Device temperatures:
-            BOARD: +22.0 degrees Celsius
+            BOARD: +92.0 degrees Celsius
             CPU:   +34.0 degrees Celsius
 
 LICENSE     Factory License granted at 29/07/2019 10:12:54
@@ -3148,7 +3148,7 @@ oct switch show stat
 	| Load (pps)           1970                 | Load (pps)           4575                 |
 	+-------------------------------------------+-------------------------------------------+
 	| VLAN errors          0                                                                |
-	| Runt len errors      0                                                                |
+	| Runt len errors      123                                                                |
 	| Oversize len errors  0                                                                |
 	| FCS errors           0                                                                |
 	| Port overflow errors 0                                                                |

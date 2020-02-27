@@ -1,0 +1,2530 @@
+==[  sys uptime  ]===============================================================================================
+Uptime: 2 days 21:43:31
+Last reboot reason: manual delayed restart
+
+==[   xg stat    ]===============================================================================================
++-------------------+-----------------------------------------------------------------------------+
+|Wireless Link      |UP                                                                           |
+|status             |                                                                             |
+|Measured Distance  |2823 meters                                                                  |
+|Channel Width      |40 MHz                                                                       |
+|DL/UL Ratio        |39/61                                                                        |
+|Superframe Length  |5                                                                            |
++-------------------+-----------------------------------------------------------------------------+
++----+--------------+------------------+-------------------+-------------------+------------------+
+|    Device Type    |            Master (local)            |            Slave (remote)            |
++----+--------------+------------------+-------------------+-------------------+------------------+
+|RLM State          |             PC_ACTIVE_ST             |             PC_ACTIVE_ST             |
+|Tx Capacity        |              82092 kbps              |             195935 kbps              |
+|Tx/Rx Packets      |           1325056/3127817            |           3128383/1325443            |
++----+--------------+------------------+-------------------+-------------------+------------------+
+|                   |                               Carrier 0 (Up)                                |
++----+--------------+------------------+-------------------+-------------------+------------------+
+|Tx/Rx Frequency    |               5560 MHz               |               5560 MHz               |
+|DFS status         |              BG_RSSI_H               |              BG_RSSI_H               |
+|Tx/Rx Frames       |           5290000/3383396            |           5287998/1852596            |
+|Rx Bad Frames      |                 512                  |                 372                  |
+|Rx Acc FER         |           1.51e-4 (0.02%)            |           2.01e-4 (0.02%)            |
+|AMC Mode           |                 Auto                 |                 Auto                 |
++----+--------------+------------------+-------------------+-------------------+------------------+
+|                   |     Stream 0     |     Stream 1      |     Stream 0      |     Stream 1     |
++----+--------------+------------------+-------------------+-------------------+------------------+
+|TX  |MCS           |QPSK 3/4 (2)      |QAM64 5/6 (6)      |QAM64 5/6 (6)      |QAM64 5/6 (6)     |
+|    |Power         |7.0 dBm           |7.0 dBm            |7.0 dBm            |7.0 dBm           |
+|    |Gain          |-31.25 dB         |-29.75 dB          |-30.5 dB           |-30.0 dB          |
++----+--------------+------------------+-------------------+-------------------+------------------+
+|RX  |MCS           |QAM64 5/6 (6)     |QAM64 4/6 (5)      |QPSK 3/4 (2)       |QAM64 5/6 (6)     |
+|    |CINR          |24 dB             |23 dB              |27 dB              |26 dB             |
+|    |RSSI          |-63 dBm           |-64 dBm            |-62 dBm            |-65 dBm           |
+|    |GAIN          |35 db (55)        |38 db (55)         |36 db (31)         |38 db (31)        |
+|    |ADC RSSI      |-28 dBFS          |-26 dBFS           |-26 dBFS           |-27 dBFS          |
+|    |STOD          |-2.7              |-2.7               |0.0                |0.0               |
+|    |Crosstalk     |-29 dB            |-26 dB             |-21 dB             |-31 dB            |
+|    |OK TBS        |110076058         |110079063          |58515694           |58515526          |
+|    |Bad TBS       |22112             |19107              |12955              |13123             |
+|    |Acc TBER      |2.01e-4 (0.02%)   |1.74e-4 (0.02%)    |2.21e-4 (0.02%)    |2.24e-4 (0.02%)   |
++----+--------------+------------------+-------------------+-------------------+------------------+
+
+==[ sys log show ]===============================================================================================
+-69:43:30.937 EVENTER: Process started
+-69:43:30.785 DFFS: User space 8409441 bytes
+-69:43:30.670 Last reboot reason: manual delayed restart
+-69:43:30.215 [XG]: detected rf_module#0: RMU_56_10
+-69:43:30.185 xg: fixed validator: 10 -> 10
+-69:43:30.185 
+-69:43:30.185 xg: fixed validator: 1000 -> 1000
+-69:43:30.185 
+-69:43:30.180 xg: fixed validator: 0 -> 0
+-69:43:30.180 
+-69:43:29.270 atpc master successfully started
+-69:43:29.270 atpc slave successfully started
+-69:43:29.058 marvell switch ntu
+-69:43:29.046 SWITCH ID: 0x3521
+-69:43:29.033 ge0: phy found 0eb00141 model: Marvell 88E6352 Copper PHY
+-69:43:29.019 ge1: phy found 0eb00141 model: Marvell 88E6352 Copper PHY
+-69:43:29.006 sfp: phy found 0ea00141 model: Marvell 88E6352 Fiber PHY
+-69:43:22.980 ctl: Heater enable threshold is -8 degrees Celsius
+-69:43:21.746 HwM: 3401
+-69:43:21.722 [XG]: changed state STOPPED->STARTING
+-69:43:18.608 webcfg: service started.
+-69:43:18.143 ****************************************************************
+-69:43:18.143 *
+-69:43:18.143 *         XG 3200 Point to Point
+-69:43:18.143 *
+-69:43:18.143 * Station Mode:    FBS
+-69:43:18.143 * Duplex Mode:     TDD
+-69:43:18.143 * Carrier Mode:    Single
+-69:43:18.143 * PHY Profile:     30 (NLOS, 40 MHz, OVS=1.5, Short CP)
+-69:43:18.143 * Sync Source:     None
+-69:43:18.143 *  RF Type:         RMU_56_10[0]
+-69:43:18.143 * Antenna Method:  XPIC
+-69:43:18.143 * RF AGC:          Enabled
+-69:43:18.143 * Carrier:         Unlicensed 5720 MHz
+-69:43:18.143 * DFS Profile:     Duration 10, Period 1000
+-69:43:18.143 * DFS Domain:      UNKNOWN
+-69:43:18.143 * DYN DFS Mode:    NONE
+-69:43:18.143 * Ranging mode:    Auto
+-69:43:18.143 * SW Release:      1.92
+-69:43:18.143 * API Ver:         3.1
+-69:43:18.143 * Config File Ver: 1.52
+-69:43:18.143 * Build ID:        
+-69:43:18.143 * Build Date:      Jun 19 2017, 12:14:57
+-69:43:18.143 ****************************************************************
+-69:43:18.124 [XG]: changed state STARTING->DOWN
+-69:43:16.494  ***  Starting Link On Frequency 5680[MHz] ***
+-69:43:04.656 ge0: media changed to 100 Mbps Full duplex auto
+-69:42:59.690 [XG]: changed state DOWN->PHY
+-69:42:59.655 p2p client connection established
+-69:42:59.553  ***   Auth success   ***
+-69:42:59.553 [XG]: changed state PHY->UP
+-69:42:59.452 Switching mode of TDD Profile is set to auto
+-69:42:58.624 peermib registered
+-69:40:06.064 ge0: link down
+-69:39:05.761 ge0: media changed to 1000 Mbps Full duplex auto
+-69:37:57.311 [idfs]: DL freq changed: 5680 -> 5540
+-69:31:21.624 ge0: link down
+-69:30:55.491 ge0: media changed to 100 Mbps Full duplex auto
+-69:27:36.115 peermib registered
+-69:27:10.291 createVlanIpString: 
+-69:27:06.745 
+-69:27:06.745 Current configuration saved successfully
+-69:19:15.206 ge0: link down
+-69:18:32.993 ge0: media changed to 100 Mbps Full duplex auto
+-69:18:29.970 ge0: link down
+-69:17:58.812 ge0: media changed to 1000 Mbps Full duplex auto
+-69:06:43.217 [idfs]: DL freq changed: 5540 -> 5720
+-68:27:53.773 [idfs]: DL freq changed: 5720 -> 5520
+-66:35:23.373 [idfs]: DL freq changed: 5520 -> 5720
+-66:09:09.184 [idfs]: DL freq changed: 5720 -> 5520
+-64:46:28.435 [idfs]: DL freq changed: 5520 -> 5640
+-64:33:57.615 [idfs]: DL freq changed: 5640 -> 5720
+-54:35:53.348 [idfs]: DL freq changed: 5720 -> 5520
+-54:14:59.355 [idfs]: DL freq changed: 5520 -> 5720
+-54:09:58.023 [idfs]: DL freq changed: 5720 -> 5520
+-53:39:58.753 [idfs]: DL freq changed: 5520 -> 5720
+-52:37:25.797 [idfs]: DL freq changed: 5720 -> 5520
+-52:09:27.136 [idfs]: DL freq changed: 5520 -> 5720
+-51:59:01.099 [idfs]: DL freq changed: 5720 -> 5520
+-51:15:11.849 [idfs]: DL freq changed: 5520 -> 5720
+-51:05:44.545 [idfs]: DL freq changed: 5720 -> 5520
+-50:50:45.118 [idfs]: DL freq changed: 5520 -> 5720
+-50:25:56.377 [idfs]: DL freq changed: 5720 -> 5520
+-49:21:07.115 [idfs]: DL freq changed: 5520 -> 5640
+-49:16:04.533 [idfs]: DL freq changed: 5640 -> 5540
+-28:03:13.447 [idfs]: DL freq changed: 5540 -> 5680
+-27:55:28.432 [idfs]: DL freq changed: 5680 -> 5700
+-27:50:26.736 [idfs]: DL freq changed: 5700 -> 5560
+-27:36:54.808 [idfs]: DL freq changed: 5560 -> 5700
+-27:31:52.342 [idfs]: DL freq changed: 5700 -> 5560
+-27:17:19.903 [idfs]: DL freq changed: 5560 -> 5700
+-27:12:18.737 [idfs]: DL freq changed: 5700 -> 5560
+-27:03:26.019 [idfs]: DL freq changed: 5560 -> 5700
+-26:58:22.944 [idfs]: DL freq changed: 5700 -> 5680
+-26:23:21.726 [idfs]: DL freq changed: 5680 -> 5700
+-26:21:05.118 [idfs]: UL freq changed: 5680 -> 5580
+-26:18:18.406 [idfs]: DL freq changed: 5700 -> 5720
+-26:16:03.777 [idfs]: UL freq changed: 5580 -> 5660
+-26:13:17.149 [idfs]: DL freq changed: 5720 -> 5700
+-26:06:52.945 [idfs]: DL freq changed: 5700 -> 5560
+-25:52:31.672 [idfs]: DL freq changed: 5560 -> 5700
+-25:47:29.575 [idfs]: DL freq changed: 5700 -> 5680
+-25:27:46.070 [idfs]: DL freq changed: 5680 -> 5700
+-25:20:15.126 [idfs]: DL freq changed: 5700 -> 5560
+-24:57:28.696 [idfs]: DL freq changed: 5560 -> 5700
+-24:52:27.330 [idfs]: DL freq changed: 5700 -> 5680
+-24:36:23.796 [idfs]: DL freq changed: 5680 -> 5580
+-24:30:24.806 [idfs]: DL freq changed: 5580 -> 5560
+-23:58:02.528 [idfs]: DL freq changed: 5560 -> 5700
+-23:52:59.311 [idfs]: DL freq changed: 5700 -> 5680
+-23:41:42.272 [idfs]: DL freq changed: 5680 -> 5560
+-22:59:29.950 [idfs]: DL freq changed: 5560 -> 5700
+-22:51:33.696 [idfs]: DL freq changed: 5700 -> 5680
+-22:40:40.085 [idfs]: DL freq changed: 5680 -> 5700
+-22:30:44.552 [idfs]: DL freq changed: 5700 -> 5680
+-19:27:12.254 [idfs]: DL freq changed: 5680 -> 5580
+-19:19:15.915 [idfs]: DL freq changed: 5580 -> 5680
+-13:38:59.462 [idfs]: DL freq changed: 5680 -> 5580
+-13:33:56.811 [idfs]: DL freq changed: 5580 -> 5680
+-12:06:24.751 [idfs]: DL freq changed: 5680 -> 5580
+-12:01:22.160 [idfs]: DL freq changed: 5580 -> 5560
+-11:35:30.128 [idfs]: UL freq changed: 5660 -> 5640
+-11:30:28.391 [idfs]: UL freq changed: 5640 -> 5660
+-10:02:10.515 [idfs]: UL freq changed: 5660 -> 5640
+-09:57:08.500 [idfs]: UL freq changed: 5640 -> 5660
+-09:46:05.729 [idfs]: DL freq changed: 5560 -> 5680
+-04:37:12.355 [idfs]: UL freq changed: 5660 -> 5680
+-04:37:08.916 [idfs]: DL freq changed: 5680 -> 5560
+-04:32:11.044 [idfs]: UL freq changed: 5680 -> 5580
+-04:16:30.782 [idfs]: UL freq changed: 5580 -> 5560
+-01:54:28.747 [XG]: changed state UP->DOWN
+-01:54:28.746 peermib unregistered
+-01:54:28.746 p2p client connection closed
+-01:54:26.027  ***  Starting Link On Frequency 5560[MHz] ***
+-01:54:16.476 [XG]: changed state DOWN->PHY
+-01:54:16.434 p2p client connection established
+-01:54:16.332  ***   Auth success   ***
+-01:54:16.332 [XG]: changed state PHY->UP
+-01:54:15.404 peermib registered
+-01:48:20.352 [XG]: changed state UP->DOWN
+-01:48:20.351 peermib unregistered
+-01:48:20.351 p2p client connection closed
+-01:48:17.654  ***  Starting Link On Frequency 5560[MHz] ***
+-01:48:13.342 [XG]: changed state DOWN->PHY
+-01:48:13.299 p2p client connection established
+-01:48:13.201  ***   Auth success   ***
+-01:48:13.201 [XG]: changed state PHY->UP
+-01:48:12.268 peermib registered
+-01:24:25.426 [XG]: changed state UP->DOWN
+-01:24:25.425 peermib unregistered
+-01:24:25.425 p2p client connection closed
+-01:24:22.729  ***  Starting Link On Frequency 5560[MHz] ***
+-01:24:11.066 [XG]: changed state DOWN->PHY
+-01:24:11.033 p2p client connection established
+-01:24:10.926  ***   Auth success   ***
+-01:24:10.926 [XG]: changed state PHY->UP
+-01:24:09.991 peermib registered
+-01:04:27.217 [XG]: changed state UP->DOWN
+-01:04:27.216 peermib unregistered
+-01:04:27.216 p2p client connection closed
+-01:04:24.504  ***  Starting Link On Frequency 5560[MHz] ***
+-01:04:14.403 [XG]: changed state DOWN->PHY
+-01:04:14.364 p2p client connection established
+-01:04:14.262  ***   Auth success   ***
+-01:04:14.262 [XG]: changed state PHY->UP
+-01:04:13.333 peermib registered
+-00:54:08.020 [idfs]: UL freq changed: 5560 -> 5620
+-00:48:09.904 [idfs]: UL freq changed: 5620 -> 5560
+-00:44:05.399 [XG]: changed state UP->DOWN
+-00:44:05.399 peermib unregistered
+-00:44:05.398 p2p client connection closed
+-00:44:02.677  ***  Starting Link On Frequency 5560[MHz] ***
+-00:43:58.324 [XG]: changed state DOWN->PHY
+-00:43:58.245 p2p client connection established
+-00:43:58.183  ***   Auth success   ***
+-00:43:58.183 [XG]: changed state PHY->UP
+-00:43:57.215 peermib registered
+-00:26:50.575 ge0: link down
+-00:25:37.207 ge0: media changed to 1000 Mbps Full duplex auto
+-00:24:52.173 [idfs]: UL freq changed: 5560 -> 5580
+-00:19:48.772 [idfs]: UL freq changed: 5580 -> 5560
+
+==[  xg ber-amc  ]===============================================================================================
++-----------------------+---------+---------+---------+---------+------+-------+------+
+| Primary               | Enabled                               | -15  |  -5   |  -2  |
+| Max correction up     | 15                                    | -14  |  -5   |  -2  |
+| Max correction down   | 20                                    | -13  |  -5   |  -2  |
+| Max trust             | 10                                    | -12  |  -5   |  -2  |
+| Min trust             | -10                                   | -11  |  -5   |  -2  |
+| BER                   | 1E-6                                  | -10  |  -5   |  -2  |
+| Initial correction    | -5/-5                                 |  -9  |  -5   |  -2  |
++-----------------------+---------+---------+---------+---------+------+-------+------+
+|          MCS          | Stream0 | Stream0 | Stream1 | Stream1 |  -8  |  -5   |  -2  |
+|                       |   Up    |  Down   |   Up    |  Down   |      |       |      |
++-----------------------+---------+---------+---------+---------+------+-------+------+
+| 0                     | 2       | 1       | 2       | 1       |  -7  |  -5   |  -2  |
+| 1                     | 8       | 7       | 8       | 7       |  -6  |  -5   |  -2  |
+| 2                     | 9       | 8       | 9       | 8       |  -5  |  -5   |  -2  |
+| 3                     | 11      | 10      | 11      | 10      |  -4  |  -5   |  -2  |
+| 4                     | 15      | 14      | 15      | 14      |  -3  |  -5   |  -2  |
+| 5                     | 19      | 18      | 19      | 18      |  -2  |  -5   |  -2  |
+| 6                     | 23      | 22      | 23      | 22      |  -1  |  -5   |  -2  |
+| 7                     | 26      | 25      | 26      | 25      |  0   |  -5   |  -2  |
+| 8                     | 31      | 30      | 31      | 30      |  1   |  -4   |  -2  |
+| 9                     | 32      | 31      | 32      | 31      |  2   |  -4   |  -2  |
+| 10                    | 35      | 34      | 35      | 34      |  3   |  10   |  10  |
+| 11                    | 203     | 202     | 203     | 202     |  4   |  10   |  10  |
++-----------------------+---------+---------+---------+---------+------+-------+------+
+| Window bad TBs        | 0                 | 1                 |  5   |  10   |  10  |
+| Window ok TBs         | 3866850           | 3867044           |  6   |  10   |  10  |
+| Delta bad TBs         | 0                 | 0                 |  7   |  10   |  10  |
+| Delta ok TBs          | 3900              | 4095              |  8   | [10]  | [10] |
+| Fill level/Penalty    | 1000/2359         | 1000/276          |  9   |  10   |  10  |
+| Window error          | 0.0e0             | 2.59e-7           |  10  |  10   |  10  |
+| 1 minute error        | 0.0e0             | 4.31e-7           |  11  |  10   |  10  |
+| 10 minutes error      | 1.51e-6           | 6.9e-7            |  12  |  10   |  10  |
+| 1 hour error          | 3.64e-6           | 2.58e-6           |  13  |  10   |  10  |
++-----------------------+---------+---------+---------+---------+------+-------+------+
+| Window length         | 1000                                  |  14  |  10   |  10  |
+| Acquisition period    | 100                                   |  15  |  10   |  10  |
+|                       |                                       |  16  |  10   |  10  |
+|                       |                                       |  17  |  10   |  10  |
+|                       |                                       |  18  |  10   |  10  |
+|                       |                                       |  19  |  10   |  10  |
+|                       |                                       |  20  |  10   |  10  |
++-----------------------+---------+---------+---------+---------+------+-------+------+
+
+==[   xg synth   ]===============================================================================================
+synth[0]_reg6 = 0x600001f8
+ ADDR = 0x00
+ Active VCO = 63
+ VTUNE_ADC = 0x00
+ POR = 0
+ Die ID = 0x06
+ Digital Lock state = 0
+
+==[ xg rlm stat  ]===============================================================================================
+== RLM ==
+Link Isync Stats (RBS only):
+------------------------
+num of dsp link reports: 0
+last dsp peak: 0
+last rlm max peak: 0
+last rlm max peak cfo: 0
+num of successful link establishments: 0
+num of successful link establishments after last link loss: 0
+num of link loss: 0
+
+
+Ranging Stats:
+------------------------
+Number of Re-rangings: 5
+Number of Re-rangings at current link down: 0
+Last tx shift samples: 0
+num of phy exceed available samples: 1840
+num of phy below peak_val th: 0
+num of phy non identical results:1508
+last bad phy ranging meas peak: 10148
+last bad phy samples: 0
+num sto fixes: 0
+last sto fix in samples: 0
+
+RLM State Machine Stats:
+------------------------
+Number of all state changes: 365
+-- State changes histogram --
+POWERUP_ST:	0
+INIT_ST:	1
+INIT_WF_PC_LINK_REQ:	6
+SYS_CLK_SYNC_ST:	0
+SYS_CLK_SYNCED_ST:	0
+CLK_SYNC_LOST_WF_LINK_STOP_ST:	0
+CLK_SYNC_LOST_LINK_DOWN_ST:	0
+PC_LINK_DOWN_ST:	83
+PC_LINK_ESTABLISH_ST:	0
+PC_LINK_VERIFY_ST:	0
+SUPER_FRAME_SYNC_ST:	0
+PC_STABILIZE_ST:	6
+RANGING_ST:	6
+RANGING_STO_ST:	6
+RANGING_WF_ACK_ST:	6
+LINK_GOING_DOWN_ST:	5
+PC_CHANGING_FREQ_ST:	84
+PC_FG_RDR_SEARCH_ST:	0
+PC_FG_RSSI_MEAS_ST:	78
+PC_FG_RSSI_MEAS_WF_ACK_ST:	78
+PC_ACTIVE_ST:	6
+
+==[  xg ka cnt   ]===============================================================================================
+Keep-Alive Counters:
+-----------------------------------------------------------
+ TX                                  RX 
+-----------------------------------------------------------
+MMDP_TX:	63346 | 63346 | (1000) | (1000)	| RX_FD:	42697 | 42697 | (990) | (990)
+CTC_FEED:	61158 | 61158 | (2000) | (2000)	| RX_DPLL:	5773 | 5773 | (1000) | (1000)
+RSQ:		52124 | 52124 | (465) | (465)	| RX_TD:	5773 | 5773 | (1000) | (1000)
+TX_DSP:		63347 | 63347 | (1000) | (1000)	| CTC_POP:	5773 | 5773 | (1000) | (1000)
+HWM (TDD):	56568 | 56568 | (1000) | (1000)	| MMDP_RX:	62721 | 62721 | (1024) | (1024)
+			| MMDP_RX_PEND_ON_Q: 57751 | 57751 | (1221) | (1221)
+			| ISYNC:	2608 | 2608 | (0) | (0)
+Second Carrier:
+			| MMDP_RX:	0 | 0 | (0) | (0)
+			| RX_FD:	0 | 0 | (0) | (0)
+			| RX_TD:	5773 | 5773 | (1000) | (1000)
+			| ISYNC:	0 | 0 | (0) | (0)
+
+==[  xg rlm cnt  ]===============================================================================================
+
+==[    wd log    ]===============================================================================================
+Nothing to show
+
+==[     ctl      ]===============================================================================================
+Internal temperature is +45.0 degrees Celsius.
+
+==[  xg rf temp  ]===============================================================================================
+carrier 0: 50 degrees Celsius
+
+==[    tsync     ]===============================================================================================
+
+         Status: disabled
+  Total enabled: 00:00:00
+  Total valid  : 00:00:00
+  Lost  count  : 0
+  Last message : 
+  Offset (us): min +10000000.0, max -10000000.0, cur  0.0
+  Jitter (us): max  0.0
+
+
+==[     gps      ]===============================================================================================
+Satellites: 0
+GPS coordinates is not available
+GPS module stopped
+Total GPS      time: 2 days 21:45:31
+Total nonvalid time: 2 days 21:45:31(100%)
+Number of losses: 0
+Now coordinates are invalid last 2 days 21:45:31
+SATmin= 0 SATmax= 0
+
+==[  port dump   ]===============================================================================================
+	Port R-limit QOS Mode Link   Speed
+	==== ======= ======== ==== =========
+	  0  ------- wrr        UP 1000 Mbps
+	  1  ------- wrr      down
+	  s  ------- wrr      down
+	  r       81 wrr        UP    0 Mbps
+	  m  ------- wrr      ---- ---------
+
+==[   port vtt   ]===============================================================================================
+	VID  0 1 s r m STP Prio
+	==== = = = = = === ====
+	   1 n n n n n  -  ----
+total 1 entries
+
+==[   port stt   ]===============================================================================================
+STU table is empty
+
+==[   port fdb   ]===============================================================================================
+FDB total entries: 4
+	 VID  Destination    Port    Status  T-left
+	===== ============ ========= ======= ======
+
+==[ lldp report  ]===============================================================================================
+                          LLDP Neighbors Table on ge0                          
++---------------+-------------------------------------------------------------+
+|                     LLDP Mode: TxRx,  Forward: disabled                     |
++---------------+-------------------------------------------------------------+
+| ChassisID:    | D4:5D:DF:15:19:B2 (mac)                                     |
+| PortID:       | D4:5D:DF:15:19:B2 (mac)                                     |
+| AutoNeg:      | Supported, Enabled 0x0001                                   |
+| MAU:          | other or unknown                                            |
+| Last report:  | 580 seconds ago, TTL 3601 seconds, Age 00:25:29             |
++---------------+-------------------------------------------------------------+
+
+                          LLDP Neighbors Table on ge1                          
++---------------+-------------------------------------------------------------+
+|                     LLDP Mode: TxRx,  Forward: disabled                     |
++---------------+-------------------------------------------------------------+
+
+                          LLDP Neighbors Table on sfp                          
++---------------+-------------------------------------------------------------+
+|                     LLDP Mode: TxRx,  Forward: disabled                     |
++---------------+-------------------------------------------------------------+
+
+                         LLDP Neighbors Table on radio                         
++---------------+-------------------------------------------------------------+
+|                     LLDP Mode: TxRx,  Forward: disabled                     |
++---------------+-------------------------------------------------------------+
+| ChassisID:    | 00:04:35:07:B3:01 (mac)                                     |
+| SysName:      | InfiLINK-2 Al Saffa Food                                    |
+| SysDescr:     | XG WANFleX H12S10v1.7.0 IW-504577                           |
+| Caps:         | Repeater*, Bridge*                                          |
+| PortID:       | radio (local)                                               |
+| PortDescr:    | radio, InfiLINK-2 Al Saffa Food                             |
+| MFS:          | 1728 bytes                                                  |
+| MgmtIP:       | 10.10.10.2, 10.0.5.201                                      |
+| Last report:  | 22 seconds ago, TTL 183 seconds, Age 2 days 21:43:00        |
++---------------+-------------------------------------------------------------+
+
+
+==[   ptp stat   ]===============================================================================================
+PTPd is stopped
+
+==[sys info -full]===============================================================================================
+SYSTEM      XG WANFleX H12S10v1.7.0 * Jun 19 2017 12:17:18 * SN:504576 * Uptime:
+            2 days 21:43:31
+            Firmware ID: 012XG0010
+
+MEMORY      55.2 MB total
+            Malloc stats
+              Total:57896928  Free:40491640  Allocated:17405288 (30.06%)
+              Max:17872512 (30.86%)
+            Calls
+              malloc:833303  free:991135  realloc:252347  calloc:29438  miss:0
+            
+            5964 mbufs, 4744 clusters free
+            286 mbufs in use:
+                 257 mbufs allocated to data
+                  29 mbufs allocated to packet headers
+            256/5000 mapped pages in use
+            9423 Kbytes allocated to network (5% in use)
+            
+            EthI   :   0(1000,0) 
+            mgmt   :   0(1000,0) 
+            ge0    :   0(32,0) 
+            ge1    :   0(32,0) 
+            sfp    :   0(32,0) 
+            radio  :   0(32,0) 
+            
+            ------- System objects stats ------
+              Object     Capac. Current   Max
+            ----------- ------- ------- -------
+            Tasks            64      36      36
+            Timers           70      15      16
+            Semaphores       95      44      44
+            MQueues          20      18      18
+            Extentions        4       2       2
+            Workspace Required: 58912
+                     Allocated: 102400
+
+CPU         Processor: DAN ARM926EJ-S 600 MHz rev.D
+            CPU Load  18%   4%(10s)   5%(30s)   5%(60s)   4%(300s)
+            Detailed: Isr: 1.18%  Tasks: 2.54%  Idle: 96.27%
+
+FLASH       Flash device 0: N25Q Boot sector #0, DFFS sector #7
+
+DFFS        Files=12, Used 3751936 bytes, Free 12199200 bytes
+            FlashSize=15936 KB, 249 Sectors of 64 KB, 15936 blocks of 1024 bytes
+
+TPM         max31722 Device temperatures:
+            BOARD: +45.0 degrees Celsius
+
+LICENSE     Factory License granted at 02/04/2019 15:05:52
+            id={c5add35e-075d-4d04-ba62-17f042c45987}
+
+PHY0        Marvell 88E6352 Copper PHY
+            	Physical link info:
+            	Link is UP, auto Full-duplex, 1000 Mbps
+            	Capabilities:          Self  Peer
+            	     Auto-Negotiation:   +     +  
+            	  10 Mbps Half-duplex:   +     +  
+            	  10 Mbps Full-duplex:   +     +  
+            	 100 Mbps Half-duplex:   +     +  
+            	 100 Mbps Full-duplex:   +     +  
+            	1000 Mbps Half-duplex:   +     -  
+            	1000 Mbps Full-duplex:   +     +  
+            	PHY chip: Marvell 88E6352 Copper PHY ID: 0eb00141
+
+PHY1        Marvell 88E6352 Copper PHY
+            	Physical link info:
+            	Link is DOWN
+            	Capabilities:          Self  Peer
+            	     Auto-Negotiation:   +     -  
+            	  10 Mbps Half-duplex:   +     -  
+            	  10 Mbps Full-duplex:   +     -  
+            	 100 Mbps Half-duplex:   +     -  
+            	 100 Mbps Full-duplex:   +     -  
+            	1000 Mbps Half-duplex:   +     -  
+            	1000 Mbps Full-duplex:   +     -  
+            	PHY chip: Marvell 88E6352 Copper PHY ID: 0eb00141
+
+PHY2        Marvell 88E6352 Fiber PHY
+            	Physical link info:
+            	Link is DOWN
+            	Capabilities:          Self  Peer
+            	     Auto-Negotiation:   +     -  
+            	  10 Mbps Half-duplex:   -     -  
+            	  10 Mbps Full-duplex:   -     -  
+            	 100 Mbps Half-duplex:   -     -  
+            	 100 Mbps Full-duplex:   -     -  
+            	1000 Mbps Half-duplex:   +     -  
+            	1000 Mbps Full-duplex:   +     -  
+            	PHY chip: Marvell 88E6352 Fiber PHY ID: 0ea00141
+
+
+==[    ifc -a    ]===============================================================================================
+lo0: flags=8009<UP,LOOPBACK,MULTICAST> mtu 1500
+        inet 127.0.0.1 netmask 0xffffffff 
+
+mgmt: flags=8003<UP,BROADCAST,MULTICAST> mtu 1500
+        inet 10.10.10.1 netmask 0xffffff00 broadcast 10.10.10.255
+        ether 00:04:35:07:b3:00 
+
+	mgmt: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            805194      | Packets               823504      |
+	| Bytes              124908316   | Bytes                 57146875    |
+	| Load (kbps)        6           | Load (kbps)           2           |
+	| Load (pps)         4           | Load (pps)            4           |
+	+--------------------------------+-----------------------------------+
+
+ge0: flags=1<UP> mtu 1500
+        inet 0.0.0.0 netmask 0x0 
+
+	Physical link is UP, 1000 Mbps Full-duplex, Auto
+	PHY chip: Marvell 88E6352 Copper PHY ID: 0eb00141
+	+--------------------------------+------+-----+
+	|                 Supported modes| Self |Peer |
+	+--------------------------------+------+-----+
+	|                Auto-Negotiation| yes  | yes |
+	|             10 Mbps Half-duplex| yes  | yes |
+	|             10 Mbps Full-duplex| yes  | yes |
+	|            100 Mbps Half-duplex| yes  | yes |
+	|            100 Mbps Full-duplex| yes  | yes |
+	|           1000 Mbps Half-duplex| yes  |  -  |
+	|           1000 Mbps Full-duplex| yes  | yes |
+	+--------------------------------+------+-----+
+
+	ge0: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            164640753   | Packets               363834745   |
+	| Bytes              21922861574 | Bytes                 492721760883|
+	| Load (kbps)        7           | Load (kbps)           0           |
+	| Load (pps)         0           | Load (pps)            0           |
+	+--------------------------------+-----------------------------------+
+	| CRC errors         0           | CRC errors            0           |
+	| Pause packets      0           | Excessive deferrals   0           |
+	| Bad octets         0           | Excessive collisions  0           |
+	| Rx errors          0           | Late collisions       0           |
+	| Runts              0           | Multiple collisions   0           |
+	| Short packets      0           | Single collisions     0           |
+	| Long packets       0           |                                   |
+	+--------------------------------+-----------------------------------+
+
+ge1: flags=1<UP> mtu 1500
+        inet 0.0.0.0 netmask 0x0 
+
+	Physical link is DOWN
+	PHY chip: Marvell 88E6352 Copper PHY ID: 0eb00141
+	+--------------------------------+------+-----+
+	|                 Supported modes| Self |Peer |
+	+--------------------------------+------+-----+
+	|                Auto-Negotiation| yes  |  -  |
+	|             10 Mbps Half-duplex| yes  |  -  |
+	|             10 Mbps Full-duplex| yes  |  -  |
+	|            100 Mbps Half-duplex| yes  |  -  |
+	|            100 Mbps Full-duplex| yes  |  -  |
+	|           1000 Mbps Half-duplex| yes  |  -  |
+	|           1000 Mbps Full-duplex| yes  |  -  |
+	+--------------------------------+------+-----+
+
+	ge1: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            0           | Packets               0           |
+	| Bytes              0           | Bytes                 0           |
+	| Load (kbps)        0           | Load (kbps)           0           |
+	| Load (pps)         0           | Load (pps)            0           |
+	+--------------------------------+-----------------------------------+
+	| CRC errors         0           | CRC errors            0           |
+	| Pause packets      0           | Excessive deferrals   0           |
+	| Bad octets         0           | Excessive collisions  0           |
+	| Rx errors          0           | Late collisions       0           |
+	| Runts              0           | Multiple collisions   0           |
+	| Short packets      0           | Single collisions     0           |
+	| Long packets       0           |                                   |
+	+--------------------------------+-----------------------------------+
+
+sfp: flags=1<UP> mtu 1500
+        inet 0.0.0.0 netmask 0x0 
+
+	Physical link is DOWN
+	PHY chip: Marvell 88E6352 Fiber PHY ID: 0ea00141
+	+--------------------------------+------+-----+
+	|                 Supported modes| Self |Peer |
+	+--------------------------------+------+-----+
+	|                Auto-Negotiation| yes  |  -  |
+	|             10 Mbps Half-duplex|  -   |  -  |
+	|             10 Mbps Full-duplex|  -   |  -  |
+	|            100 Mbps Half-duplex|  -   |  -  |
+	|            100 Mbps Full-duplex|  -   |  -  |
+	|           1000 Mbps Half-duplex| yes  |  -  |
+	|           1000 Mbps Full-duplex| yes  |  -  |
+	+--------------------------------+------+-----+
+
+	sfp: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            0           | Packets               0           |
+	| Bytes              0           | Bytes                 0           |
+	| Load (kbps)        0           | Load (kbps)           0           |
+	| Load (pps)         0           | Load (pps)            0           |
+	+--------------------------------+-----------------------------------+
+	| CRC errors         0           | CRC errors            0           |
+	| Pause packets      0           | Excessive deferrals   0           |
+	| Bad octets         0           | Excessive collisions  0           |
+	| Rx errors          0           | Late collisions       0           |
+	| Runts              0           | Multiple collisions   0           |
+	| Short packets      0           | Single collisions     0           |
+	| Long packets       0           |                                   |
+	+--------------------------------+-----------------------------------+
+
+radio: flags=1<UP> mtu 1500
+        inet 0.0.0.0 netmask 0x0 
+
+	radio link is UP, 15 Mbps 
+
+	radio: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            363809074   | Packets               164640333   |
+	| Bytes              492717382664| Bytes                 21923716847 |
+	| Load (kbps)        0           | Load (kbps)           0           |
+	| Load (pps)         0           | Load (pps)            0           |
+	+--------------------------------+-----------------------------------+
+	| Runts              0           |                                   |
+	| Short packets      0           |                                   |
+	| Long packets       0           |                                   |
+	+--------------------------------+-----------------------------------+
+
+p2p: flags=8011<UP,POINTOPOINT,MULTICAST> mtu 1500
+        inet 172.16.10.10 --> 172.16.10.10 
+
+null0: flags=8802<BROADCAST,NULL,MULTICAST> mtu 1500
+
+
+==[   xg info    ]===============================================================================================
+
+Commit:		ec407ce4
+Date:		Sat Jun 17 20:42:11 2017 +0500
+
+
+==[    xg cap    ]===============================================================================================
+Radio capabilities
+
+General properties
+
+Number of carriers: 1
+Frame periods supported (ms):
+   {2, 4, 5, 10}
+Channel widths available (MHz):
+   {10, 20, 40}
+
+Configuration (Channel width 40 MHz, allocated DL/UL ratio 39:61 (127:195 air blocks), frame period 5 ms, ttg/rtg (5:3 air blocks), traffic prioritization: 1):
++-------+-------------------+-------------------+--------------+
+| MCS   | Modulation        | DL/UL capacity,   | Total rate,  |
+|       |                   | kbps              | kbps         |
++-------+-------------------+-------------------+--------------+
+| 0     | QPSK 1/4          | 10566/16224       | 26790        |
+| 1     | QPSK 1/2          | 23570/36192       | 59762        |
+| 2     | QPSK 3/4          | 36576/56160       | 92736        |
+| 3     | QAM16 1/2         | 49580/76128       | 125708       |
+| 4     | QAM16 3/4         | 75590/116064      | 191654       |
+| 5     | QAM64 4/6         | 101600/156000     | 257600       |
+| 6     | QAM64 5/6         | 127608/195936     | 323544       |
+| 7     | QAM256 6/8        | 153618/235872     | 389490       |
+| 8     | QAM256 7/8        | 179628/275808     | 455436       |
+| 9     | QAM256 30/32      | 192632/295776     | 488408       |
+| 10    | QAM1024 8/10      | 205638/315744     | 521382       |
++-------+-------------------+-------------------+--------------+
+
+Carrier 0
+
+Radio module name: RMU-56-10-3/00344315
+Antenna methods supported: MIMO
+Duplex types supported: TDD, H-FDD
+Frequency range: 4900..6000 MHz
+Tx power range: 0..27/1 dBm
+
+Lower..upper central frequencies: 5470..5875 MHz
+Frequency grid (user-defined): 5480-5725/20 MHz
+Frequency list (13 channels):
+5480, 5500, 5520, 5540, 5560, 5580, 5600, 5620, 5640, 5660, 5680, 5700, 5720 MHz
+
+TDD Profile 0:
+  DL/UL ratio: 18/82
+TDD Profile 1:
+  DL/UL ratio: 39/61
+TDD Profile 2:
+  DL/UL ratio: 59/41
+TDD Profile 3:
+  DL/UL ratio: 80/20
+
+==[ config show  ]===============================================================================================
+# XG WANFleX H12S10v1.7.0 * Jun 19 2017 12:17:18 * SN:504576
+
+#Environment
+ set TZ +4
+ set CONFIG_GENERATED "WEB INTERFACE"
+   
+#System parameters
+ #Factory password mode: single
+ sys name InfiLINK-1 ODP To Al Saffa
+ sys loca KOM04
+ sys cont ODP
+ sys user admin
+ setpass $1$aDjEt$7h97O4YaLM7CZHQnISmBC/
+   
+#XG configuration
+ #Grids:
+  # xg -grids-carrier-ix=0 \
+  #   (default) -grids-band=10 -grids=5465-5880/10 \
+  #   (default) -grids-band=20 -grids=5470-5875/20 \
+  #    -grids-band=40 -grids=5480-5725/20
+ 
+ #General settings:
+  # xg -type master
+  # xg -tdd-sync-src freerun
+  # xg -autosync-link-settings no
+ 
+ #Link shared settings (Radio Front End):
+  # xg -cell-id 0
+  # xg -channel-width 40
+  # xg -freq-dl 5720
+  # xg -freq-ul 5720
+  # xg -freq-auto 1
+ 
+ #Link shared settings (Frame Config):
+  # xg -max-distance 3
+  # xg -sframelen 5
+  # xg -tdd-profile 2
+  # xg -tdd-profile-auto-switching 1
+ 
+ #RF per-station settings:
+  # xg -txpwr 7
+  # xg -ctrl-block-boost 1
+  # xg -atpc-master-enable 1
+  # xg -atpc-target-rssi -55
+  # xg -atpc-rssi-threshold 1
+ 
+ #Modulation related:
+  # xg -amc-strategy normal
+  # xg -max-mcs 10
+ 
+ #DFS/RSSI scan/Radar detection:
+  # xg -idfs-enable 1
+  # xg -idfs-rssi-threshold 1
+  # xg -idfs-ffs-time 300
+  # xg -idfs-rdrdt-enable 0
+  # xg -idfs-fix-dl-ul 0
+ 
+ #Ethernet datapath related:
+  # xg -traffic-prioritization 1
+ 
+ #Supplementary:
+  # xg -passphrase=odp12345
+ 
+ xg -v3-start
+ xg -v3 383033822f275d7bfe7e76c8af712a24.fMRPc/56IrcXlyGfjgErDYjkLLG+nT0LS+Mja77
+ xg -v3 CevmYCYSXMdjMOTNnECp+2jx20XfjMMlorDGpVV/kfb8PnvDYPw8zBm0dXnb4QhJJvkdyYRp
+ xg -v3 bx3lWABV9VHXE9pJEjNmIkK1G2B1U2HtzGOveviHEU/ndFCgn5PJ3Gxa8giZJjVNUv/GQCZl
+ xg -v3 FCtcLZnG19kmrFnuAo4iIqpUyS+AgHL/tqkkD/A/2cuxjT/HTacJFBQmCkk0SIpGlePOjj9O
+ xg -v3 h6BNtyxSFZTBvkCFd+ssVv0d5gS6Dd5kv9eFFo40V2eUi5uXLFPvRYJ/E/OeVeFoacu4UUIV
+ xg -v3 ZxxS8vm4ZuJR1tl6g/5Lr+V8h2wFM8girUXmdS2ncCdheFTqRe2wYK8jYpwpv3pPq/CVNB4F
+ xg -v3 z2kKsdKi/0dRh8Jfu62ih00pwGLYgzhoEC9foWFKb7f3nCktI4JyURCvREsNI2sG10r2YBN2
+ xg -v3 Vm9+p9/ioOqgBGwilvEa0KQJxTttD7URK+Ej4vloI6YS4elAaPQjbqVSGHbp78BjGzAsBvqV
+ xg -v3 /Rdbx0jhYVaczFbNzrOHbmnLLUKK4s3n+NhSAR1cmopm00ZGdRCT8IdTftLisYKF4j9Evran
+ xg -v3 bRGCsNd5dkm/Jz+I1V9o/EQKlX4D7WobgRH8COKjoHXXR/iYCAt8ogBUmzH01W8ZYdoU=
+ xg -v3-end
+   
+#Interfaces parameters
+ ifc lo0    127.0.0.1/32
+ ifc ge0    media auto mtu 1500 up
+ ifc ge1    media auto mtu 1500 up
+ ifc p2p    mtu 1500 up
+ ifc p2p    172.16.10.10 172.16.10.10
+ ifc sfp    media auto mtu 1500 up
+ ifc radio  mtu 1500 up
+ ifc mgmt   mtu 1500 up
+ ifc mgmt   10.10.10.1/24
+ ifc mgmt   10.0.5.200/24
+   
+#QoS manager
+ qm option rtp dot1p notos icmp notcpack nostrict
+   
+#Routing parameters
+ route add default 10.0.5.1
+   
+#SNTP configuration
+ sntp -server='194.57.169.1' start
+   
+#WEB configurator
+ webcfg start
+   
+#LLDP parameters
+ lldp ge0 enable txrx
+ lldp ge1 enable txrx
+ lldp sfp enable txrx
+ lldp radio enable txrx
+   
+#WD configuration
+ wd -on-wd-panic 1
+ wd -on-assert-panic 1
+ wd -case-disable KA
+ wd -case-disable KARX
+ wd -case-disable LINKDOWN
+ wd -case-enable XG_TIMEOUT
+ wd -case-enable RLM_FG_TIMEOUT
+ wd -case-enable MCHL_ADM_TIMEOUT
+ wd -case-enable TXPWR
+ wd -case-enable HTA
+   
+
+==[  panic show  ]===============================================================================================
+
+Last panic logging is enabled
+Missalign exceptions statistic
+Total:   2
+Skipped: 0
+Half:    0
+Word:    2
+Multi:   0
+
+==[  xg spooler  ]===============================================================================================
+
+
+==[   license    ]===============================================================================================
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<license description="Factory License" granted="02/04/2019 15:05:52" id="{c5add35e-075d-4d04-ba62-17f042c45987}">
+    <device description="Device">
+        <options SN="504576" description="SN:504576" />
+        <options PN="Xm/5X.500.2x500.2x23-H12" description="PN:Xm/5X.500.2x500.2x23" />
+        <options ProductionDate="02/04/2019 15:05:52+0500" description="Production Date: 2 Apr 2019 15:05:52 YEKT" />
+        <options Model="Xm" />
+        <options Platform="DAN3400 600 MHz (H12YY-02 - NFDA5.209.305(5)) - H12.rev 02" />
+        <options IDU="IDU-BS-G(60W)" />
+        <options Radios="RMU-56-10-3/00344315" />
+        <options Antennas="MA-WA56-DP23IF" />
+        <specification decimal="NFDA2.158.034-04" name="Xm/56.XXX.2x500.2x23">
+            <part name="MA-WA56-DP23IF" type="Antenna">
+                <characteristic name="Gain" value="23" />
+            </part>
+        </specification>
+    </device>
+    <wanflex description="Operational parameters">
+        <feature description="rf5.0 interface parameters" name="rf5.0">
+            <option MaximumTransmitRate="500000" description="Maximum Transmit Rate: 500 Mbps" />
+            <option BandwidthMask="16387" description="Available Channel Widths: 10 Mhz 20 Mhz" />
+            <option DoubleBandwidthEnabled="1" description="40 MHz channel width is available" />
+            <option ChangePower="1" />
+            <option MaxLinks="1" description="Link: Point to Point" />
+            <option TransmitPowers="1,150,500" description="Power levels: 1,150,500 mW" />
+            <option TransmitPowersTenthdbm="0,70,140,220,270" description="Power levels: 0.0,7.0,14.0,22.0,27.0 dBm" />
+            <option RegDomain="ETSI" description="Regulatory domain: ETSI" />
+            <option RxChainMask="3" />
+            <option TxChainMask="3" />
+            <option rfmode="" />
+            <option FrequencyList="5470,5475,5480,5485,5490,5495,5500,5505,5510,5515,5520,5525,5530,5535,5540,5545,5550,5555,5560,5565,5570,5575,5580,5585,5590,5595,5600,5605,5610,5615,5620,5625,5630,5635,5640,5645,5650,5655,5660,5665,5670,5675,5680,5685,5690,5695,5700,5705,5710,5715,5720,5725,5730,5735,5740,5745,5750,5755,5760,5765,5770,5775,5780,5785,5790,5795,5800,5805,5810,5815,5820,5825,5830,5835,5840,5845,5850,5855,5860,5865,5870,5875" description="Supported Frequencies: 5470 - 5875 MHz" />
+        </feature>
+    </wanflex>
+</license>
+
+==[   xg trace   ]=================================================================================================
+0:00:00.054.694 [0:   5469443] [DFS] XGS msg: start
+0:00:01.587.786 [0: 158778653] [DFS] XGS msg: completed
+67:48:53.785.343 [5684: 784423934] [DFS] XGS msg: start
+67:48:55.307.568 [5684: 936646383] [DFS] XGS msg: completed
+67:55:02.185.254 [5692:3264676623] [DFS] XGS msg: start
+67:55:03.686.469 [5692:3414798138] [DFS] XGS msg: completed
+68:18:57.130.378 [5726: 730301000] [DFS] XGS msg: start
+68:18:58.631.597 [5726: 880422860] [DFS] XGS msg: completed
+68:38:55.355.338 [5754: 293712687] [DFS] XGS msg: start
+68:38:55.632.329 [5754: 321411756] [XGS] State: SCAN_STATE_WAIT_MSG
+68:38:55.739.172 [5754: 332096056] [XGS] Got rssi #2 -58->-79, -49->-70, offset: -63
+68:38:55.739.196 [5754: 332098417] [XGS] State: SCAN_STATE_SEND_MSG
+68:38:55.745.299 [5754: 332708796] [XGS] REQ, freq: 5540, dur: 100 ms, bg: 0
+68:38:55.745.336 [5754: 332712437] [XGS] State: SCAN_STATE_WAIT_MSG
+68:38:55.852.175 [5754: 343396316] [XGS] Got rssi #3 -63->-84, -53->-74, offset: -63
+68:38:55.852.206 [5754: 343399480] [XGS] State: SCAN_STATE_SEND_MSG
+68:38:55.858.305 [5754: 344009411] [XGS] REQ, freq: 5560, dur: 100 ms, bg: 0
+68:38:55.858.340 [5754: 344012902] [XGS] State: SCAN_STATE_WAIT_MSG
+68:38:55.965.194 [5754: 354698300] [XGS] Got rssi #4 -69->-91, -59->-81, offset: -64
+68:38:55.965.224 [5754: 354701271] [XGS] State: SCAN_STATE_SEND_MSG
+68:38:55.971.313 [5754: 355310147] [XGS] REQ, freq: 5580, dur: 100 ms, bg: 0
+68:38:55.971.349 [5754: 355313766] [XGS] State: SCAN_STATE_WAIT_MSG
+68:38:56.078.197 [5754: 365998577] [XGS] Got rssi #5 -67->-89, -58->-80, offset: -64
+68:38:56.078.227 [5754: 366001526] [XGS] State: SCAN_STATE_SEND_MSG
+68:38:56.084.304 [5754: 366609268] [XGS] REQ, freq: 5600, dur: 100 ms, bg: 0
+68:38:56.084.339 [5754: 366612728] [XGS] State: SCAN_STATE_WAIT_MSG
+68:38:56.191.188 [5754: 377297641] [XGS] Got rssi #6 -67->-89, -56->-78, offset: -64
+68:38:56.191.213 [5754: 377300168] [XGS] State: SCAN_STATE_SEND_MSG
+68:38:56.197.306 [5754: 377909443] [XGS] REQ, freq: 5620, dur: 100 ms, bg: 0
+68:38:56.197.339 [5754: 377912741] [XGS] State: SCAN_STATE_WAIT_MSG
+68:38:56.304.173 [5754: 388596118] [XGS] Got rssi #7 -63->-85, -56->-78, offset: -64
+68:38:56.304.197 [5754: 388598518] [XGS] State: SCAN_STATE_SEND_MSG
+68:38:56.310.309 [5754: 389209719] [XGS] REQ, freq: 5640, dur: 100 ms, bg: 0
+68:38:56.310.344 [5754: 389213247] [XGS] State: SCAN_STATE_WAIT_MSG
+68:38:56.417.177 [5754: 399896586] [XGS] Got rssi #8 -60->-82, -49->-71, offset: -64
+68:38:56.417.198 [5754: 399898655] [XGS] State: SCAN_STATE_SEND_MSG
+68:38:56.423.308 [5754: 400509689] [XGS] REQ, freq: 5660, dur: 100 ms, bg: 0
+68:38:56.423.339 [5754: 400512736] [XGS] State: SCAN_STATE_WAIT_MSG
+68:38:56.530.270 [5754: 411205911] [XGS] Got rssi #9 -62->-84, -45->-67, offset: -64
+68:38:56.530.290 [5754: 411207870] [XGS] State: SCAN_STATE_SEND_MSG
+68:38:56.536.315 [5754: 411810387] [XGS] REQ, freq: 5680, dur: 100 ms, bg: 0
+68:38:56.536.346 [5754: 411813418] [XGS] State: SCAN_STATE_WAIT_MSG
+68:38:56.643.281 [5754: 422506953] [XGS] Got rssi #10 -61->-83, -45->-67, offset: -64
+68:38:56.643.310 [5754: 422509903] [XGS] State: SCAN_STATE_SEND_MSG
+68:38:56.649.340 [5754: 423112864] [XGS] REQ, freq: 5700, dur: 100 ms, bg: 0
+68:38:56.649.372 [5754: 423116069] [XGS] State: SCAN_STATE_WAIT_MSG
+68:38:56.756.279 [5754: 433806811] [XGS] Got rssi #11 -65->-87, -50->-72, offset: -64
+68:38:56.756.310 [5754: 433809843] [XGS] State: SCAN_STATE_SEND_MSG
+68:38:56.762.311 [5754: 434409980] [XGS] REQ, freq: 5720, dur: 100 ms, bg: 0
+68:38:56.762.345 [5754: 434413318] [XGS] State: SCAN_STATE_WAIT_MSG
+68:38:56.869.271 [5754: 445105923] [XGS] Got rssi #12 -61->-83, -53->-75, offset: -64
+68:38:56.869.296 [5754: 445108509] [XGS] State: SCAN_STATE_UNLOCK
+68:38:56.872.540 [5754: 445432861] [XGS] State: SCAN_STATE_IDLE
+68:38:56.872.560 [5754: 445434897] [DFS] XGS msg: completed
+68:51:29.618.541 [5771:2705588905] [IOCTL] [#1/0] HTA case, local rx: 537, tx: 159, remote rx: 337, tx: 1700
+68:51:48.619.806 [5772: 310748153] [IOCTL] [#1/0] HTA case, local rx: 2715, tx: 315, remote rx: 414, tx: 4150
+68:59:17.189.627 [5782:2218057315] [DFS] XGS msg: start
+68:59:17.239.570 [5782:2223051619] [XGS] State: SCAN_STATE_LOCK
+68:59:17.239.596 [5782:2223054196] [XGS] Params: rx_gain = 42, noise_floor_dbm = -94, bg_mode = 0
+68:59:17.242.824 [5782:2223376997] [XGS] State: SCAN_STATE_SEND_MSG
+68:59:17.242.843 [5782:2223378888] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5480/5480
+68:59:17.248.581 [5782:2223952711] [XGS] REQ, freq: 5480, dur: 100 ms, bg: 0
+68:59:17.248.632 [5782:2223957826] [XGS] State: SCAN_STATE_WAIT_MSG
+68:59:17.355.997 [5782:2234694250] [XGS] Got rssi #0 -36->-57, -25->-46, offset: -63
+68:59:17.356.032 [5782:2234697822] [XGS] State: SCAN_STATE_SEND_MSG
+68:59:17.356.047 [5782:2234699311] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5500/5500
+68:59:17.361.589 [5782:2235253435] [XGS] REQ, freq: 5500, dur: 100 ms, bg: 0
+68:59:17.361.636 [5782:2235258174] [XGS] State: SCAN_STATE_WAIT_MSG
+68:59:17.468.955 [5782:2245990087] [XGS] Got rssi #1 -31->-52, -22->-43, offset: -63
+68:59:17.468.979 [5782:2245992447] [XGS] State: SCAN_STATE_SEND_MSG
+68:59:17.468.995 [5782:2245994093] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5520/5520
+68:59:17.474.582 [5782:2246552780] [XGS] REQ, freq: 5520, dur: 100 ms, bg: 0
+68:59:17.474.618 [5782:2246556353] [XGS] State: SCAN_STATE_WAIT_MSG
+68:59:17.581.965 [5782:2257291111] [XGS] Got rssi #2 -61->-82, -49->-70, offset: -63
+68:59:17.581.986 [5782:2257293188] [XGS] State: SCAN_STATE_SEND_MSG
+68:59:17.582.002 [5782:2257294802] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5540/5540
+68:59:17.587.583 [5782:2257852833] [XGS] REQ, freq: 5540, dur: 100 ms, bg: 0
+68:59:17.587.610 [5782:2257855603] [XGS] State: SCAN_STATE_WAIT_MSG
+68:59:17.694.974 [5782:2268591984] [XGS] Got rssi #3 -65->-86, -53->-74, offset: -63
+68:59:17.695.001 [5782:2268594691] [XGS] State: SCAN_STATE_SEND_MSG
+68:59:17.695.018 [5782:2268596398] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5560/5560
+68:59:17.700.591 [5782:2269153704] [XGS] REQ, freq: 5560, dur: 100 ms, bg: 0
+68:59:17.700.625 [5782:2269157055] [XGS] State: SCAN_STATE_WAIT_MSG
+68:59:17.807.971 [5782:2279891686] [XGS] Got rssi #4 -69->-91, -59->-81, offset: -64
+68:59:17.807.999 [5782:2279894462] [XGS] State: SCAN_STATE_SEND_MSG
+68:59:17.808.015 [5782:2279896057] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5580/5580
+68:59:17.813.591 [5782:2280453698] [XGS] REQ, freq: 5580, dur: 100 ms, bg: 0
+68:59:17.813.625 [5782:2280457099] [XGS] State: SCAN_STATE_WAIT_MSG
+68:59:17.920.970 [5782:2291191528] [XGS] Got rssi #5 -69->-91, -58->-80, offset: -64
+68:59:17.920.991 [5782:2291193685] [XGS] State: SCAN_STATE_SEND_MSG
+68:59:17.921.005 [5782:2291195083] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5600/5600
+68:59:17.926.586 [5782:2291753156] [XGS] REQ, freq: 5600, dur: 100 ms, bg: 0
+68:59:17.926.617 [5782:2291756296] [XGS] State: SCAN_STATE_WAIT_MSG
+68:59:18.034.064 [5782:2302500961] [XGS] Got rssi #6 -66->-88, -56->-78, offset: -64
+68:59:18.034.092 [5782:2302503760] [XGS] State: SCAN_STATE_SEND_MSG
+68:59:18.034.106 [5782:2302505160] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5620/5620
+68:59:18.039.587 [5782:2303053310] [XGS] REQ, freq: 5620, dur: 100 ms, bg: 0
+68:59:18.039.615 [5782:2303056060] [XGS] State: SCAN_STATE_WAIT_MSG
+68:59:18.147.074 [5782:2313801984] [XGS] Got rssi #7 -65->-87, -56->-78, offset: -64
+68:59:18.147.103 [5782:2313804897] [XGS] State: SCAN_STATE_SEND_MSG
+68:59:18.147.120 [5782:2313806529] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5640/5640
+68:59:18.152.590 [5782:2314353583] [XGS] REQ, freq: 5640, dur: 100 ms, bg: 0
+68:59:18.152.620 [5782:2314356601] [XGS] State: SCAN_STATE_WAIT_MSG
+68:59:18.260.087 [5782:2325103263] [XGS] Got rssi #8 -64->-86, -50->-72, offset: -64
+68:59:18.260.112 [5782:2325105737] [XGS] State: SCAN_STATE_SEND_MSG
+68:59:18.260.129 [5782:2325107442] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5660/5660
+68:59:18.265.592 [5782:2325653778] [XGS] REQ, freq: 5660, dur: 100 ms, bg: 0
+68:59:18.265.622 [5782:2325656763] [XGS] State: SCAN_STATE_WAIT_MSG
+68:59:18.373.070 [5782:2336401582] [XGS] Got rssi #9 -59->-81, -45->-67, offset: -64
+68:59:18.373.099 [5782:2336404490] [XGS] State: SCAN_STATE_SEND_MSG
+68:59:18.373.114 [5782:2336405939] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5680/5680
+68:59:18.378.594 [5782:2336953929] [XGS] REQ, freq: 5680, dur: 100 ms, bg: 0
+68:59:18.378.627 [5782:2336957285] [XGS] State: SCAN_STATE_WAIT_MSG
+68:59:18.486.067 [5782:2347701252] [XGS] Got rssi #10 -61->-83, -46->-68, offset: -64
+68:59:18.486.096 [5782:2347704130] [XGS] State: SCAN_STATE_SEND_MSG
+68:59:18.486.108 [5782:2347705329] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5700/5700
+68:59:18.491.602 [5782:2348254821] [XGS] REQ, freq: 5700, dur: 100 ms, bg: 0
+68:59:18.491.631 [5782:2348257630] [XGS] State: SCAN_STATE_WAIT_MSG
+68:59:18.599.069 [5782:2359001475] [XGS] Got rssi #11 -61->-83, -51->-73, offset: -64
+68:59:18.599.103 [5782:2359004831] [XGS] State: SCAN_STATE_SEND_MSG
+68:59:18.599.122 [5782:2359006770] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5720/5720
+68:59:18.604.600 [5782:2359554541] [XGS] REQ, freq: 5720, dur: 100 ms, bg: 0
+68:59:18.604.635 [5782:2359558038] [XGS] State: SCAN_STATE_WAIT_MSG
+68:59:18.712.078 [5782:2370302355] [XGS] Got rssi #12 -66->-88, -53->-75, offset: -64
+68:59:18.712.113 [5782:2370305904] [XGS] State: SCAN_STATE_UNLOCK
+68:59:18.714.843 [5782:2370578926] [XGS] State: SCAN_STATE_IDLE
+68:59:18.714.854 [5782:2370579991] [DFS] XGS msg: completed
+68:59:18.811.693 [5782:2380263911] [IOCTL] [#0] FillInFreqSet, dfs: 1, def: 0, dl/ul: 5560/5560
+68:59:33.626.987 [5782:3861793277] [IOCTL] [#0/1] HTA case, local rx: 6274, tx: 394, remote rx: 237, tx: 479
+68:59:48.267.076 [5783:1030834874] [BER_AMC] [#0.1] inc correction
+68:59:48.270.073 [5783:1031134576] [BER_AMC] [#0.0] inc correction
+68:59:48.273.074 [5783:1031434668] [BER_AMC] [#0.1] inc correction
+68:59:48.276.075 [5783:1031734785] [BER_AMC] [#0.0] inc correction
+68:59:48.280.074 [5783:1032134723] [BER_AMC] [#0.1] inc correction
+68:59:48.282.075 [5783:1032334773] [BER_AMC] [#0.0] inc correction
+68:59:48.286.072 [5783:1032734531] [BER_AMC] [#0.1] inc correction
+68:59:48.288.073 [5783:1032934574] [BER_AMC] [#0.0] inc correction
+68:59:48.292.073 [5783:1033334573] [BER_AMC] [#0.1] inc correction
+68:59:48.295.078 [5783:1033635071] [BER_AMC] [#0.0] inc correction
+68:59:48.302.159 [5783:1034343156] [BER_AMC] [#0.1] inc correction
+68:59:48.310.080 [5783:1035135279] [BER_AMC] [#0.1] inc correction
+69:01:07.961.131 [5785: 410305750] [BER_AMC] [#0.0] inc correction
+69:01:07.962.103 [5785: 410403026] [BER_AMC] [#0.1] inc correction
+69:01:07.967.122 [5785: 410904919] [BER_AMC] [#0.0] inc correction
+69:01:07.990.115 [5785: 413204196] [BER_AMC] [#0.0] inc correction
+69:01:07.990.174 [5785: 413210110] [BER_AMC] [#0.1] inc correction
+69:01:07.996.115 [5785: 413804143] [BER_AMC] [#0.0] inc correction
+69:01:07.996.174 [5785: 413810073] [BER_AMC] [#0.1] inc correction
+69:01:23.750.349 [5785:1989227589] [BER_AMC] [#0.0] inc correction
+69:01:23.750.415 [5785:1989234228] [BER_AMC] [#0.1] inc correction
+69:01:23.756.323 [5785:1989825025] [BER_AMC] [#0.0] inc correction
+69:01:23.756.380 [5785:1989830650] [BER_AMC] [#0.1] inc correction
+69:01:23.762.326 [5785:1990425313] [BER_AMC] [#0.0] inc correction
+69:01:23.762.388 [5785:1990431448] [BER_AMC] [#0.1] inc correction
+69:01:23.768.327 [5785:1991025366] [BER_AMC] [#0.0] inc correction
+69:01:23.768.387 [5785:1991031389] [BER_AMC] [#0.1] inc correction
+69:01:23.775.325 [5785:1991725213] [BER_AMC] [#0.0] inc correction
+69:01:23.775.386 [5785:1991731251] [BER_AMC] [#0.1] inc correction
+69:01:27.705.387 [5785:2384731417] [BER_AMC] [#0.1] inc correction
+69:01:27.706.387 [5785:2384831410] [BER_AMC] [#0.0] inc correction
+69:01:27.711.441 [5785:2385336798] [BER_AMC] [#0.1] inc correction
+69:01:27.735.387 [5785:2387731420] [BER_AMC] [#0.0] inc correction
+69:01:27.735.465 [5785:2387739164] [BER_AMC] [#0.1] inc correction
+69:01:27.741.399 [5785:2388332592] [BER_AMC] [#0.0] inc correction
+69:01:27.741.481 [5785:2388340753] [BER_AMC] [#0.1] inc correction
+69:02:27.630.312 [5786:4082256583] [IOCTL] [#1/0] HTA case, local rx: 2470, tx: 201, remote rx: 2338, tx: 4985
+69:02:46.631.561 [5787:1687414241] [IOCTL] [#0/1] HTA case, local rx: 1894, tx: 376, remote rx: 240, tx: 1719
+69:03:07.749.865 [5787:3799244554] [BER_AMC] [#0.0] dec correction
+69:03:07.750.124 [5787:3799270472] [BER_AMC] [#0.1] dec correction
+69:03:10.632.878 [5787:4087545884] [IOCTL] [#1/0] HTA case, local rx: 1051, tx: 192, remote rx: 304, tx: 1908
+69:03:18.633.989 [5788: 592689708] [IOCTL] [#0/1] HTA case, local rx: 366, tx: 210, remote rx: 113, tx: 243
+69:04:02.635.582 [5789: 697881717] [IOCTL] [#0/1] HTA case, local rx: 669, tx: 283, remote rx: 122, tx: 427
+69:04:47.757.200 [5790: 915076226] [BER_AMC] [#0.0] dec correction
+69:04:47.757.450 [5790: 915101218] [BER_AMC] [#0.1] dec correction
+69:05:42.637.910 [5791:2108179953] [IOCTL] [#1/0] HTA case, local rx: 18975, tx: 718, remote rx: 1020, tx: 28852
+69:06:06.639.232 [5792: 213344805] [IOCTL] [#0/1] HTA case, local rx: 3292, tx: 305, remote rx: 199, tx: 2920
+69:06:27.765.530 [5792:2325974611] [BER_AMC] [#0.0] dec correction
+69:06:27.765.785 [5792:2326000079] [BER_AMC] [#0.1] dec correction
+69:06:38.640.658 [5792:3413487409] [IOCTL] [#0/1] HTA case, local rx: 704, tx: 140, remote rx: 88, tx: 652
+69:07:16.642.163 [5793:2918670648] [IOCTL] [#0/1] HTA case, local rx: 594, tx: 240, remote rx: 144, tx: 473
+69:07:36.643.428 [5794: 623829799] [IOCTL] [#0/1] HTA case, local rx: 307, tx: 126, remote rx: 31, tx: 192
+69:08:07.773.856 [5794:3736872601] [BER_AMC] [#0.0] dec correction
+69:08:07.774.104 [5794:3736897392] [BER_AMC] [#0.1] dec correction
+69:08:22.645.046 [5795: 929024344] [IOCTL] [#0/1] HTA case, local rx: 905, tx: 296, remote rx: 181, tx: 748
+69:09:20.646.813 [5796:2434233752] [IOCTL] [#1/0] HTA case, local rx: 871, tx: 234, remote rx: 272, tx: 1363
+69:09:28.647.923 [5796:3234344706] [IOCTL] [#0/1] HTA case, local rx: 1036, tx: 258, remote rx: 92, tx: 832
+69:09:36.649.032 [5796:4034455614] [IOCTL] [#0/1] HTA case, local rx: 197, tx: 73, remote rx: 44, tx: 162
+69:09:47.781.198 [5797: 852704964] [BER_AMC] [#0.0] dec correction
+69:09:47.781.461 [5797: 852731250] [BER_AMC] [#0.1] dec correction
+69:10:00.650.347 [5797:2139619829] [IOCTL] [#1/0] HTA case, local rx: 18637, tx: 475, remote rx: 846, tx: 29095
+69:10:28.651.723 [5798: 644790137] [IOCTL] [#1/0] HTA case, local rx: 957, tx: 361, remote rx: 403, tx: 2033
+69:10:34.652.805 [5798:1244898368] [IOCTL] [#0/1] HTA case, local rx: 730, tx: 150, remote rx: 57, tx: 653
+69:11:27.789.539 [5799:2263604422] [BER_AMC] [#0.0] dec correction
+69:11:27.789.819 [5799:2263632468] [BER_AMC] [#0.1] dec correction
+69:12:08.655.078 [5800:2055191056] [IOCTL] [#1/0] HTA case, local rx: 1828, tx: 198, remote rx: 281, tx: 2973
+69:12:16.656.158 [5800:2855299008] [IOCTL] [#1/0] HTA case, local rx: 740, tx: 250, remote rx: 260, tx: 1142
+69:12:38.657.451 [5801: 760461090] [IOCTL] [#0/1] HTA case, local rx: 829, tx: 159, remote rx: 63, tx: 711
+69:12:46.658.560 [5801:1560571979] [IOCTL] [#1/0] HTA case, local rx: 286, tx: 74, remote rx: 172, tx: 477
+69:13:07.797.881 [5801:3674504045] [BER_AMC] [#0.0] dec correction
+69:13:07.798.160 [5801:3674531907] [BER_AMC] [#0.1] dec correction
+69:13:38.660.247 [5802:2465773395] [IOCTL] [#1/0] HTA case, local rx: 6908, tx: 393, remote rx: 802, tx: 17177
+69:13:44.661.335 [5802:3065882109] [IOCTL] [#0/1] HTA case, local rx: 1287, tx: 362, remote rx: 203, tx: 489
+69:14:47.805.193 [5804: 790333380] [BER_AMC] [#0.0] dec correction
+69:14:47.805.453 [5804: 790359316] [BER_AMC] [#0.1] dec correction
+69:15:44.663.933 [5805:2181240103] [IOCTL] [#1/0] HTA case, local rx: 12567, tx: 619, remote rx: 3176, tx: 22982
+69:16:27.813.525 [5806:2201231973] [BER_AMC] [#0.0] dec correction
+69:16:27.813.788 [5806:2201258265] [BER_AMC] [#0.1] dec correction
+69:16:41.665.697 [5806:3586449220] [IOCTL] [#1/0] HTA case, local rx: 1, tx: 0, remote rx: 0, tx: 7
+69:17:02.666.973 [5807:1391609521] [IOCTL] [#1/0] HTA case, local rx: 0, tx: 0, remote rx: 0, tx: 1
+69:18:04.668.800 [5808:3296824880] [IOCTL] [#0/1] HTA case, local rx: 130, tx: 56, remote rx: 29, tx: 0
+69:18:07.821.875 [5808:3612132414] [BER_AMC] [#0.0] dec correction
+69:18:07.822.144 [5808:3612159268] [BER_AMC] [#0.1] dec correction
+69:18:27.567.105 [5809:1291688046] [BER_AMC] [#0.0] inc correction
+69:18:27.572.981 [5809:1292275716] [BER_AMC] [#0.0] inc correction
+69:18:27.573.068 [5809:1292284354] [BER_AMC] [#0.1] inc correction
+69:18:27.579.979 [5809:1292975443] [BER_AMC] [#0.0] inc correction
+69:18:27.580.064 [5809:1292984004] [BER_AMC] [#0.1] inc correction
+69:18:27.585.980 [5809:1293575635] [BER_AMC] [#0.0] inc correction
+69:18:27.586.067 [5809:1293584239] [BER_AMC] [#0.1] inc correction
+69:18:27.591.978 [5809:1294175419] [BER_AMC] [#0.0] inc correction
+69:18:27.592.063 [5809:1294183866] [BER_AMC] [#0.1] inc correction
+69:18:27.597.980 [5809:1294775614] [BER_AMC] [#0.0] inc correction
+69:18:27.598.065 [5809:1294784046] [BER_AMC] [#0.1] inc correction
+69:18:27.605.021 [5809:1295479640] [BER_AMC] [#0.0] inc correction
+69:18:27.610.982 [5809:1296075818] [BER_AMC] [#0.0] inc correction
+69:18:27.703.161 [5809:1305293733] [BER_AMC] [#0.1] inc correction
+69:18:27.714.969 [5809:1306474476] [BER_AMC] [#0.1] inc correction
+69:18:27.820.145 [5809:1316992082] [BER_AMC] [#0.1] inc correction
+69:18:28.246.297 [5809:1359607287] [BER_AMC] [#0.1] paused
+69:18:29.260.934 [5809:1461071018] [BER_AMC] [#0.1] resume
+69:18:55.670.483 [5809:4102025886] [IOCTL] [#0/1] HTA case, local rx: 843, tx: 4, remote rx: 0, tx: 2
+69:19:26.307.633 [5810:2870773599] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 1, dl/ul: 5720/5720
+69:19:26.307.748 [5810:2870785091] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5720/5720
+69:19:26.307.830 [5810:2870793254] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5720/5720
+69:19:26.307.892 [5810:2870799460] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5720/5720
+69:19:26.307.943 [5810:2870804594] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 1, dl/ul: 5720/5720
+69:19:26.307.963 [5810:2870806578] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5720/5720
+69:19:38.751.551 [5810:4115165435] [IOCTL] [#0/1] HTA case, local rx: 63, tx: 34, remote rx: 14, tx: 2
+69:20:08.398.999 [5811:2784942927] [BER_AMC] [#0.0] dec correction
+69:20:08.503.946 [5811:2795437554] [BER_AMC] [#0.0] inc correction
+69:21:13.753.822 [5813: 730490589] [IOCTL] [#0/1] HTA case, local rx: 1, tx: 1, remote rx: 0, tx: 0
+69:21:50.046.321 [5814:  64773195] [BER_AMC] [#0.1] dec correction
+69:21:51.251.332 [5814: 185274326] [BER_AMC] [#0.1] inc correction
+69:22:11.755.606 [5814:2235701752] [IOCTL] [#1/0] HTA case, local rx: 0, tx: 0, remote rx: 178, tx: 46
+69:22:57.757.206 [5815:2540894441] [IOCTL] [#0/1] HTA case, local rx: 6, tx: 25, remote rx: 12, tx: 3
+69:23:31.660.284 [5816:1636234939] [BER_AMC] [#0.1] paused
+69:23:32.675.904 [5816:1737796938] [BER_AMC] [#0.1] resume
+69:23:33.758.688 [5816:1846075305] [IOCTL] [#0/1] HTA case, local rx: 5, tx: 26, remote rx: 13, tx: 2
+69:24:01.652.132 [5817: 340452391] [BER_AMC] [#0.0] dec correction
+69:25:27.761.208 [5819: 361425410] [IOCTL] [#0/1] HTA case, local rx: 6, tx: 25, remote rx: 12, tx: 3
+69:25:33.722.151 [5819: 957519757] [BER_AMC] [#0.0] inc correction
+69:25:33.731.142 [5819: 958418785] [BER_AMC] [#0.0] inc correction
+69:25:37.762.339 [5819:1361538501] [IOCTL] [#1/0] HTA case, local rx: 3, tx: 6, remote rx: 12, tx: 5
+69:25:39.406.396 [5819:1525944259] [BER_AMC] [#0.1] inc correction
+69:26:13.737.811 [5820: 664118408] [BER_AMC] [#0.0] dec correction
+69:26:29.413.032 [5820:2231640549] [BER_AMC] [#0.1] dec correction
+69:27:08.764.549 [5821:1871824950] [IOCTL] [#0/1] HTA case, local rx: 7, tx: 12, remote rx: 6, tx: 4
+69:27:14.219.639 [5821:2417333928] [BER_AMC] [#0.1] inc correction
+69:27:17.765.670 [5821:2771936984] [IOCTL] [#1/0] HTA case, local rx: 3, tx: 6, remote rx: 12, tx: 5
+69:28:14.230.437 [5822:4123446408] [BER_AMC] [#0.1] dec correction
+69:28:39.767.768 [5823:2382212230] [IOCTL] [#0/1] HTA case, local rx: 0, tx: 68, remote rx: 39, tx: 0
+69:29:08.769.146 [5824: 987382700] [IOCTL] [#1/0] HTA case, local rx: 1, tx: 0, remote rx: 3, tx: 2
+69:29:43.952.631 [5825: 210763911] [BER_AMC] [#0.0] dec correction
+69:29:55.691.650 [5825:1384665863] [BER_AMC] [#0.0] inc correction
+69:29:55.701.625 [5825:1385663391] [BER_AMC] [#0.0] inc correction
+69:29:55.806.844 [5825:1396185207] [BER_AMC] [#0.0] dec correction
+69:29:57.738.674 [5825:1589368280] [BER_AMC] [#0.1] inc correction
+69:30:57.745.612 [5826:3295094800] [BER_AMC] [#0.1] dec correction
+69:31:08.771.748 [5827: 102741009] [IOCTL] [#1/0] HTA case, local rx: 1, tx: 0, remote rx: 0, tx: 2
+69:33:08.774.345 [5829:3513066160] [IOCTL] [#1/0] HTA case, local rx: 1, tx: 0, remote rx: 0, tx: 2
+69:33:15.818.479 [5829:4217479552] [BER_AMC] [#0.0] dec correction
+69:33:17.823.500 [5830: 123014413] [BER_AMC] [#0.0] inc correction
+69:33:39.775.762 [5830:2318240555] [IOCTL] [#1/0] HTA case, local rx: 0, tx: 0, remote rx: 0, tx: 1
+69:33:51.776.916 [5830:3518355996] [IOCTL] [#0/1] HTA case, local rx: 0, tx: 1, remote rx: 0, tx: 0
+69:34:19.778.300 [5831:2023527033] [IOCTL] [#0/1] HTA case, local rx: 0, tx: 4, remote rx: 2, tx: 0
+69:34:31.779.453 [5831:3223642391] [IOCTL] [#0/1] HTA case, local rx: 0, tx: 1, remote rx: 0, tx: 0
+69:35:09.780.966 [5832:2728826415] [IOCTL] [#1/0] HTA case, local rx: 1, tx: 0, remote rx: 0, tx: 2
+69:35:51.782.520 [5833:2634014518] [IOCTL] [#0/1] HTA case, local rx: 0, tx: 1, remote rx: 0, tx: 0
+69:35:59.783.630 [5833:3434125503] [IOCTL] [#1/0] HTA case, local rx: 0, tx: 0, remote rx: 0, tx: 1
+69:37:09.785.563 [5835:1844384160] [IOCTL] [#1/0] HTA case, local rx: 1, tx: 0, remote rx: 0, tx: 2
+69:37:19.786.693 [5835:2844497205] [IOCTL] [#0/1] HTA case, local rx: 0, tx: 4, remote rx: 2, tx: 0
+69:37:51.788.118 [5836:1749672396] [IOCTL] [#0/1] HTA case, local rx: 0, tx: 1, remote rx: 0, tx: 0
+69:38:07.789.331 [5836:3349793717] [IOCTL] [#0/1] HTA case, local rx: 2, tx: 3, remote rx: 0, tx: 0
+69:38:29.790.631 [5837:1254956370] [IOCTL] [#0/1] HTA case, local rx: 64, tx: 36, remote rx: 0, tx: 0
+69:38:37.413.604 [5837:2017253659] [BER_AMC] [#0.1] inc correction
+69:38:37.791.723 [5837:2055065553] [IOCTL] [#0/1] HTA case, local rx: 26, tx: 22, remote rx: 5, tx: 25
+69:38:49.051.745 [5837:3181067834] [BER_AMC] [#0.0] inc correction
+69:38:49.156.914 [5837:3191584708] [BER_AMC] [#0.0] dec correction
+69:38:57.051.940 [5837:3981087324] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:38:57.051.944 [5837:3981087720] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:38:57.255.594 [5837:4001452721] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:38:57.255.601 [5837:4001453432] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:38:57.255.605 [5837:4001453813] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:38:57.421.125 [5837:4018005781] [BER_AMC] [#0.1] dec correction
+69:38:59.793.031 [5837:4255196428] [IOCTL] [#0/1] HTA case, local rx: 25, tx: 25, remote rx: 5, tx: 26
+69:39:07.356.511 [5838: 716577132] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:39:07.357.954 [5838: 716721393] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:39:07.357.962 [5838: 716722191] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:39:07.357.966 [5838: 716722579] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:39:07.559.401 [5838: 736866058] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:39:07.560.797 [5838: 737005675] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:39:07.560.804 [5838: 737006401] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:39:07.560.808 [5838: 737006786] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:39:07.794.131 [5838: 760339126] [IOCTL] [#1/0] HTA case, local rx: 14, tx: 2, remote rx: 8, tx: 26
+69:39:17.661.444 [5838:1747070400] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:39:17.662.887 [5838:1747214719] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:39:17.662.895 [5838:1747215522] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:39:17.662.899 [5838:1747215908] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:39:17.864.334 [5838:1767359430] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:39:17.865.730 [5838:1767499028] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:39:17.865.738 [5838:1767499753] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:39:17.865.741 [5838:1767500141] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:39:27.967.568 [5838:2777682787] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:39:27.969.002 [5838:2777826210] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:39:27.969.010 [5838:2777827042] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:39:27.969.014 [5838:2777827433] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:39:28.169.768 [5838:2797902812] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:39:28.171.150 [5838:2798040970] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:39:28.171.157 [5838:2798041689] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:39:28.171.161 [5838:2798042073] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:39:29.795.416 [5838:2960467584] [IOCTL] [#0/1] HTA case, local rx: 15, tx: 5, remote rx: 2, tx: 13
+69:39:38.272.146 [5838:3808140638] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:39:38.273.528 [5838:3808278793] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:39:38.273.536 [5838:3808279566] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:39:38.273.540 [5838:3808279958] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:39:38.574.557 [5838:3838381697] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:39:38.575.952 [5838:3838521209] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:39:38.575.959 [5838:3838521926] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:39:38.575.963 [5838:3838522315] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:39:39.796.561 [5838:3960582082] [IOCTL] [#0/1] HTA case, local rx: 26, tx: 6, remote rx: 2, tx: 13
+69:39:45.797.639 [5839: 265722632] [IOCTL] [#1/0] HTA case, local rx: 12, tx: 2, remote rx: 5, tx: 26
+69:39:48.677.630 [5839: 553721714] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:39:48.679.055 [5839: 553864166] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:39:48.679.063 [5839: 553864995] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:39:48.679.067 [5839: 553865389] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:39:48.880.297 [5839: 573988426] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:39:48.881.738 [5839: 574132503] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:39:48.881.745 [5839: 574133240] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:39:48.881.749 [5839: 574133618] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:39:58.983.442 [5839:1584302894] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:39:58.984.880 [5839:1584446715] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:39:58.984.888 [5839:1584447530] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:39:58.984.892 [5839:1584447923] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:39:59.185.748 [5839:1604533552] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:39:59.187.185 [5839:1604677158] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:39:59.187.192 [5839:1604677925] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:39:59.187.196 [5839:1604678311] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:40:09.588.291 [5839:2644787759] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:40:09.589.727 [5839:2644931371] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:40:09.591.113 [5839:2645070021] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:40:09.591.121 [5839:2645070785] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:40:09.591.125 [5839:2645071177] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:40:09.798.964 [5839:2665855109] [IOCTL] [#0/1] HTA case, local rx: 25, tx: 5, remote rx: 2, tx: 13
+69:40:17.800.066 [5839:3465965299] [IOCTL] [#1/0] HTA case, local rx: 13, tx: 2, remote rx: 5, tx: 25
+69:40:19.793.126 [5839:3665271287] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:40:19.794.551 [5839:3665413826] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:40:19.795.947 [5839:3665553364] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:40:19.795.954 [5839:3665554139] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:40:19.795.958 [5839:3665554541] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:40:29.997.059 [5840: 390697303] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:40:29.998.447 [5840: 390836084] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:40:29.998.455 [5840: 390836901] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:40:29.998.459 [5840: 390837298] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:40:30.199.356 [5840: 410926963] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:40:30.200.749 [5840: 411066299] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:40:30.200.756 [5840: 411067012] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:40:30.200.760 [5840: 411067401] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:40:40.301.913 [5840:1421182731] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:40:40.303.296 [5840:1421320994] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:40:40.303.303 [5840:1421321759] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:40:40.303.308 [5840:1421322181] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:40:40.504.501 [5840:1441441501] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:40:40.505.895 [5840:1441580927] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:40:40.505.903 [5840:1441581735] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:40:40.505.907 [5840:1441582123] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:40:41.801.414 [5840:1571132833] [IOCTL] [#0/1] HTA case, local rx: 25, tx: 5, remote rx: 2, tx: 13
+69:40:47.802.465 [5840:2171237886] [IOCTL] [#1/0] HTA case, local rx: 12, tx: 2, remote rx: 6, tx: 25
+69:40:50.606.526 [5840:2451644003] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:40:50.608.010 [5840:2451792378] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:40:50.608.018 [5840:2451793185] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:40:50.608.022 [5840:2451793580] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:40:50.809.255 [5840:2471916925] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:40:50.810.650 [5840:2472056363] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:40:50.810.657 [5840:2472057077] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:40:50.810.661 [5840:2472057462] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:40:57.803.601 [5840:3171351531] [IOCTL] [#0/1] HTA case, local rx: 26, tx: 5, remote rx: 2, tx: 12
+69:41:00.911.847 [5840:3482176073] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:41:00.913.234 [5840:3482314821] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:41:00.913.242 [5840:3482315592] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:41:00.913.246 [5840:3482315992] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:41:01.114.168 [5840:3502408206] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:41:01.115.551 [5840:3502546477] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:41:01.115.558 [5840:3502547189] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:41:01.115.562 [5840:3502547612] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:41:03.804.681 [5840:3771459469] [IOCTL] [#1/0] HTA case, local rx: 10, tx: 2, remote rx: 47, tx: 110
+69:41:09.805.766 [5841:  76600689] [IOCTL] [#1/0] HTA case, local rx: 1, tx: 0, remote rx: 0, tx: 2
+69:41:11.217.495 [5841: 217773574] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:41:11.218.926 [5841: 217916701] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:41:11.218.934 [5841: 217917520] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:41:11.218.938 [5841: 217917922] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:41:11.420.018 [5841: 238025918] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:41:11.421.405 [5841: 238164570] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:41:11.421.412 [5841: 238165284] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:41:11.421.416 [5841: 238165672] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:41:21.522.942 [5841:1248318354] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:41:21.524.368 [5841:1248460945] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:41:21.524.377 [5841:1248461765] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:41:21.524.380 [5841:1248462159] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:41:21.725.801 [5841:1268604170] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:41:21.727.235 [5841:1268747567] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:41:21.727.242 [5841:1268748313] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:41:21.727.246 [5841:1268748693] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:41:29.807.031 [5841:2076727219] [IOCTL] [#1/0] HTA case, local rx: 0, tx: 0, remote rx: 0, tx: 1
+69:41:31.827.924 [5841:2278816562] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:41:31.829.351 [5841:2278959190] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:41:31.829.359 [5841:2278960015] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:41:31.829.363 [5841:2278960409] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:41:32.030.671 [5841:2299091181] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:41:32.032.100 [5841:2299234118] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:41:32.032.107 [5841:2299234845] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:41:32.032.111 [5841:2299235230] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:41:42.133.283 [5841:3309352413] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:41:42.134.715 [5841:3309495566] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:41:42.134.723 [5841:3309496375] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:41:42.134.727 [5841:3309496770] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:41:42.335.574 [5841:3329581542] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:41:42.337.016 [5841:3329725760] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:41:42.337.024 [5841:3329726488] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:41:42.337.028 [5841:3329726868] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:41:49.808.299 [5841:4076853989] [IOCTL] [#0/1] HTA case, local rx: 1, tx: 1, remote rx: 0, tx: 0
+69:41:52.439.513 [5842:  45008081] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:41:52.440.909 [5842:  45147739] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:41:52.440.917 [5842:  45148511] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:41:52.440.921 [5842:  45148905] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:41:52.642.363 [5842:  65293140] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:41:52.643.798 [5842:  65436578] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:41:52.643.805 [5842:  65437348] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:41:52.643.809 [5842:  65437736] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:42:02.745.416 [5842:1075598441] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:42:02.746.857 [5842:1075742501] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:42:02.746.865 [5842:1075743277] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:42:02.746.869 [5842:1075743669] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:42:02.948.094 [5842:1095866239] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:42:02.949.518 [5842:1096008653] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:42:02.949.526 [5842:1096009430] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:42:02.949.530 [5842:1096009817] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:42:13.051.334 [5842:2106190222] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:42:13.052.772 [5842:2106333998] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:42:13.052.780 [5842:2106334792] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:42:13.052.784 [5842:2106335176] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:42:13.254.854 [5842:2126542229] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:42:13.256.236 [5842:2126680384] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:42:13.256.243 [5842:2126681097] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:42:13.256.247 [5842:2126681481] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:42:13.809.614 [5842:2182018175] [IOCTL] [#0/1] HTA case, local rx: 3, tx: 2, remote rx: 0, tx: 0
+69:42:23.356.924 [5842:3136749181] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:42:23.358.310 [5842:3136887841] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:42:23.358.318 [5842:3136888612] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:42:23.358.322 [5842:3136889006] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:42:23.659.488 [5842:3167005616] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:42:23.660.883 [5842:3167145123] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:42:23.660.890 [5842:3167145849] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:42:23.660.894 [5842:3167146234] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:42:25.056.189 [5842:3306675735] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:25.064.189 [5842:3307475698] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:25.066.606 [5842:3307717395] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:25.180.497 [5842:3319106472] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:26.186.189 [5842:3419675731] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:26.194.189 [5842:3420475696] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:26.196.605 [5842:3420717349] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:26.330.497 [5842:3434106506] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:27.336.189 [5842:3534675762] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:27.344.189 [5842:3535475695] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:27.346.606 [5842:3535717393] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:27.475.497 [5842:3548606538] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:28.481.189 [5842:3649175758] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:28.489.189 [5842:3649975694] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:28.491.605 [5842:3650217342] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:28.625.497 [5842:3663606512] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:29.631.189 [5842:3764175758] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:29.639.189 [5842:3764975693] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:29.641.605 [5842:3765217349] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:29.755.497 [5842:3776606482] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:30.761.189 [5842:3877175757] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:30.769.189 [5842:3877975755] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:30.771.605 [5842:3878217362] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:30.905.497 [5842:3891606476] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:31.911.189 [5842:3992175761] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:31.919.189 [5842:3992975692] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:31.921.606 [5842:3993217386] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:32.035.497 [5842:4004606474] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:33.041.189 [5842:4105175761] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:33.049.189 [5842:4105975691] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:33.051.606 [5842:4106217394] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:33.192.497 [5842:4120306472] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:33.562.060 [5842:4157262838] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:42:33.563.447 [5842:4157401543] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:42:33.563.455 [5842:4157402328] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:42:33.563.459 [5842:4157402722] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:42:33.864.885 [5842:4187545357] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:42:33.866.272 [5842:4187684056] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:42:33.866.280 [5842:4187684772] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:42:33.866.283 [5842:4187685158] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:42:34.196.189 [5842:4220675760] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:34.204.189 [5842:4221475690] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:34.206.605 [5842:4221717352] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:34.320.496 [5842:4233106465] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:35.326.189 [5843:  38708458] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:35.334.189 [5843:  39508393] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:35.336.605 [5843:  39750037] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:35.490.497 [5843:  55139190] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:36.496.189 [5843: 155708461] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:36.504.189 [5843: 156508393] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:36.506.606 [5843: 156750080] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:36.620.496 [5843: 168139156] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:37.626.189 [5843: 268708459] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:37.634.189 [5843: 269508392] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:37.636.605 [5843: 269750048] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:37.770.496 [5843: 283139144] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:38.776.189 [5843: 383708457] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:38.784.189 [5843: 384508391] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:38.786.605 [5843: 384750060] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:38.900.496 [5843: 396139171] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:39.906.189 [5843: 496708455] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:39.914.189 [5843: 497508420] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:39.916.605 [5843: 497750054] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:40.050.497 [5843: 511139175] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:41.056.190 [5843: 611708500] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:41.064.189 [5843: 612508390] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:41.066.605 [5843: 612750040] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:41.180.497 [5843: 624139173] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:42.186.189 [5843: 724708453] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:42.194.189 [5843: 725508389] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:42.196.605 [5843: 725750067] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:42.330.497 [5843: 739139180] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:43.336.189 [5843: 839708456] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:43.344.189 [5843: 840508388] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:43.346.605 [5843: 840750066] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:43.470.496 [5843: 853139171] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:43.767.114 [5843: 882800891] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:42:43.768.538 [5843: 882943297] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:42:43.768.545 [5843: 882944039] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:42:43.768.549 [5843: 882944431] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:42:44.069.738 [5843: 913063351] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:42:44.071.122 [5843: 913201697] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:42:44.071.129 [5843: 913202410] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:42:44.071.133 [5843: 913202801] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:42:44.476.189 [5843: 953708453] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:44.484.189 [5843: 954508388] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:44.486.605 [5843: 954750060] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:44.620.497 [5843: 968139189] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:45.626.189 [5843:1068708451] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:45.634.189 [5843:1069508387] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:45.636.606 [5843:1069750090] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:45.750.497 [5843:1081139176] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:46.756.189 [5843:1181708452] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:46.764.189 [5843:1182508386] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:46.766.606 [5843:1182750113] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:46.900.497 [5843:1196139203] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:47.906.189 [5843:1296708457] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:47.914.189 [5843:1297508386] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:47.916.609 [5843:1297750412] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:48.030.497 [5843:1309139192] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:49.036.189 [5843:1409708420] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:49.044.189 [5843:1410508385] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:49.046.605 [5843:1410750058] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:49.185.497 [5843:1424639175] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:50.191.189 [5843:1525208451] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:50.199.189 [5843:1526008385] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:50.201.606 [5843:1526250076] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:50.315.496 [5843:1537639169] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:51.321.189 [5843:1638208450] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:51.329.189 [5843:1639008383] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:51.331.605 [5843:1639250019] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:51.490.497 [5843:1655139230] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:52.496.191 [5843:1755708578] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:52.504.189 [5843:1756508384] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:52.506.605 [5843:1756750062] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:52.620.497 [5843:1768139188] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:53.626.189 [5843:1868708447] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:53.634.189 [5843:1869508382] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:53.636.605 [5843:1869750045] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:53.697.021 [5843:1875791599] [IDFS_APP] RSSI_H -> RDRDT_MAIN
+69:42:53.706.948 [5843:1876784371] [IDFS_APP] RDRDT_MAIN -> RDRDT_ANNOUNCE
+69:42:53.717.002 [5843:1877789720] [IDFS_APP] RDRDT_ANNOUNCE -> RSSI_V
+69:42:53.726.955 [5843:1878785023] [IDFS_APP] App req RSSI: 5600/5600, rx: 0, tx: 0
+69:42:53.770.497 [5843:1883139192] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:53.972.695 [5843:1903358997] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:42:53.974.120 [5843:1903501565] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:42:53.974.129 [5843:1903502388] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:42:53.974.133 [5843:1903502788] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:42:54.276.144 [5843:1933703908] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:42:54.277.573 [5843:1933846843] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:42:54.277.581 [5843:1933847574] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:42:54.277.584 [5843:1933847950] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:42:54.776.189 [5843:1983708417] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:54.776.193 [5843:1983708779] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:42:54.776.195 [5843:1983709022] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:42:54.784.189 [5843:1984508410] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:54.784.192 [5843:1984508680] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:42:54.784.194 [5843:1984508943] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:42:54.786.605 [5843:1984750050] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:54.847.009 [5843:1990790390] [IDFS_APP] App req return ok
+69:42:54.847.035 [5843:1990793048] [IDFS_APP] RSSI_V -> RSSI_H
+69:42:54.856.965 [5843:1991785999] [IDFS_APP] App req RSSI: 5600/5600, rx: 0, tx: 0
+69:42:54.900.497 [5843:1996139188] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:55.906.189 [5843:2096708445] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:55.906.193 [5843:2096708810] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:42:55.906.195 [5843:2096709053] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:42:55.914.189 [5843:2097508380] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:55.914.191 [5843:2097508652] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:42:55.914.194 [5843:2097508898] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:42:55.916.605 [5843:2097750027] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:55.977.039 [5843:2103793434] [IDFS_APP] App req return ok
+69:42:55.977.064 [5843:2103795965] [IDFS_APP] RSSI_H -> RDRDT_MAIN
+69:42:55.986.982 [5843:2104787695] [IDFS_APP] RDRDT_MAIN -> RDRDT_ANNOUNCE
+69:42:55.997.022 [5843:2105791689] [IDFS_APP] RDRDT_ANNOUNCE -> RSSI_V
+69:42:56.006.979 [5843:2106787434] [IDFS_APP] App req RSSI: 5620/5620, rx: 0, tx: 0
+69:42:56.050.497 [5843:2111139177] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:57.056.189 [5843:2211708415] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:57.056.193 [5843:2211708773] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:42:57.056.195 [5843:2211709014] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:42:57.064.189 [5843:2212508380] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:57.064.191 [5843:2212508649] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:42:57.064.194 [5843:2212508894] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:42:57.066.605 [5843:2212750035] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:57.127.065 [5843:2218796001] [IDFS_APP] App req return ok
+69:42:57.127.092 [5843:2218798704] [IDFS_APP] RSSI_V -> RSSI_H
+69:42:57.136.995 [5843:2219789025] [IDFS_APP] App req RSSI: 5620/5620, rx: 0, tx: 0
+69:42:57.180.619 [5843:2224151431] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:58.186.189 [5843:2324708453] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:58.186.193 [5843:2324708807] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:42:58.186.195 [5843:2324709049] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:42:58.194.189 [5843:2325508408] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:58.194.192 [5843:2325508676] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:42:58.194.194 [5843:2325508925] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:42:58.196.606 [5843:2325750117] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:58.542.054 [5843:2360294927] [IDFS_APP] App req return ok
+69:42:58.542.078 [5843:2360297365] [IDFS_APP] RSSI_H -> RDRDT_MAIN
+69:42:58.552.016 [5843:2361291109] [IDFS_APP] RDRDT_MAIN -> RDRDT_ANNOUNCE
+69:42:58.562.054 [5843:2362294965] [IDFS_APP] RDRDT_ANNOUNCE -> RSSI_V
+69:42:58.572.015 [5843:2363291068] [IDFS_APP] App req RSSI: 5640/5640, rx: 0, tx: 0
+69:42:58.615.709 [5843:2367660460] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:59.621.189 [5843:2468208448] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:59.621.193 [5843:2468208817] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:42:59.621.195 [5843:2468209060] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:42:59.629.189 [5843:2469008378] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:42:59.629.191 [5843:2469008644] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:42:59.629.194 [5843:2469008900] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:42:59.631.605 [5843:2469250038] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:42:59.692.069 [5843:2475296414] [IDFS_APP] App req return ok
+69:42:59.692.095 [5843:2475299025] [IDFS_APP] RSSI_V -> RSSI_H
+69:42:59.702.029 [5843:2476292459] [IDFS_APP] App req RSSI: 5640/5640, rx: 0, tx: 0
+69:42:59.745.497 [5843:2480639195] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:42:59.811.229 [5843:2487212428] [IOCTL] [#0/1] HTA case, local rx: 0, tx: 5, remote rx: 0, tx: 0
+69:42:59.811.298 [5843:2487219362] [PTP_MMC_RLM]  *** Carrier 0 TX is set enabled = 0 for Ethernet packets ***
+69:42:59.812.095 [5843:2487299044] [PTP_MMC_RLM]  *** Carrier 0 TX is set enabled = 1 for Ethernet packets ***
+69:43:00.751.189 [5843:2581208442] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:00.751.193 [5843:2581208795] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:00.751.195 [5843:2581209037] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:00.759.189 [5843:2582008377] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:00.759.191 [5843:2582008644] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:00.759.194 [5843:2582008884] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:00.761.605 [5843:2582250059] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:43:00.822.093 [5843:2588298838] [IDFS_APP] App req return ok
+69:43:00.822.120 [5843:2588301509] [IDFS_APP] RSSI_H -> RDRDT_MAIN
+69:43:00.832.045 [5843:2589293993] [IDFS_APP] RDRDT_MAIN -> RDRDT_ANNOUNCE
+69:43:00.842.106 [5843:2590300125] [IDFS_APP] RDRDT_ANNOUNCE -> RSSI_V
+69:43:00.852.051 [5843:2591294612] [IDFS_APP] App req RSSI: 5660/5660, rx: 0, tx: 0
+69:43:00.895.496 [5843:2595639166] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:43:01.901.189 [5843:2696208441] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:01.901.193 [5843:2696208794] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:01.901.195 [5843:2696209036] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:01.909.189 [5843:2697008378] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:01.909.191 [5843:2697008644] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:01.909.194 [5843:2697008888] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:01.911.606 [5843:2697250074] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:43:01.972.101 [5843:2703299613] [IDFS_APP] App req return ok
+69:43:01.972.127 [5843:2703302271] [IDFS_APP] RSSI_V -> RSSI_H
+69:43:01.982.068 [5843:2704296297] [IDFS_APP] App req RSSI: 5660/5660, rx: 0, tx: 0
+69:43:02.025.497 [5843:2708639174] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:43:03.031.146 [5843:2809204074] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=0 gain=42
+69:43:03.031.189 [5843:2809208412] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:03.031.192 [5843:2809208769] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:03.031.195 [5843:2809209024] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:03.038.663 [5843:2809955861] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5560000
+69:43:03.039.146 [5843:2810004143] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:03.039.186 [5843:2810008112] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=0 gain=51
+69:43:03.039.189 [5843:2810008377] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:03.039.191 [5843:2810008643] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:03.039.194 [5843:2810008891] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:03.041.605 [5843:2810250043] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:43:03.102.203 [5843:2816309821] [IDFS_APP] App req return ok
+69:43:03.102.227 [5843:2816312188] [IDFS_APP] RSSI_H -> RDRDT_MAIN
+69:43:03.112.079 [5843:2817297456] [IDFS_APP] RDRDT_MAIN -> RDRDT_ANNOUNCE
+69:43:03.122.122 [5843:2818301750] [IDFS_APP] RDRDT_ANNOUNCE -> RSSI_V
+69:43:03.132.077 [5843:2819297225] [IDFS_APP] App req RSSI: 5680/5680, rx: 0, tx: 0
+69:43:03.175.337 [5843:2823623199] [PTP_MCHL] (MCHL-->RLM):   (15) BG_MEAS_MODE_SET_REQ [-1]
+69:43:03.175.347 [5843:2823624212] [PTP_MCHL] (MCHL-->RLM):   (21) BG_RSSI_START_NEW_MEAS_REQ [0]
+69:43:03.175.497 [5843:2823639202] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:43:04.180.621 [5843:2924151602] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5680000
+69:43:04.181.113 [5843:2924200810] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:04.181.153 [5843:2924204838] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=1 gain=42
+69:43:04.181.189 [5843:2924208440] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:04.181.194 [5843:2924208912] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:04.181.196 [5843:2924209154] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:04.188.670 [5843:2924956481] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5560000
+69:43:04.189.153 [5843:2925004814] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:04.189.189 [5843:2925008375] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:04.189.191 [5843:2925008642] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:04.189.193 [5843:2925008780] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=1 gain=48
+69:43:04.189.194 [5843:2925008883] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:04.190.768 [5843:2925166337] [PTP_MCHL] (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+69:43:04.190.786 [5843:2925168131] [PTP_MCHL] [#0.1] Got raw rssi: -61/-48
+69:43:04.190.877 [5843:2925177207] [PTP_MCHL] (MCHL-->RLM):   (19) BG_RSSI_MEAS_STOP_REQ [0]
+69:43:04.191.605 [5843:2925250028] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:43:04.252.131 [5843:2931302639] [IDFS_APP] App req return ok
+69:43:04.252.155 [5843:2931305014] [IDFS_APP] RSSI_V -> RSSI_H
+69:43:04.262.092 [5843:2932298692] [IDFS_APP] App req RSSI: 5680/5680, rx: 0, tx: 0
+69:43:04.305.300 [5843:2936619521] [PTP_MCHL] (MCHL-->RLM):   (18) BG_RSSI_MEAS_REQ [0]
+69:43:04.305.330 [5843:2936622505] [PTP_MCHL] (MCHL-->RLM):   (15) BG_MEAS_MODE_SET_REQ [-1]
+69:43:04.305.343 [5843:2936623830] [PTP_MCHL] (MCHL-->RLM):   (21) BG_RSSI_START_NEW_MEAS_REQ [0]
+69:43:04.305.497 [5843:2936639186] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:43:04.779.281 [5843:2984017598] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:43:04.780.677 [5843:2984157249] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:43:04.780.685 [5843:2984158017] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:43:04.780.689 [5843:2984158411] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:43:05.081.827 [5843:3014272264] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:43:05.083.211 [5843:3014410576] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:43:05.083.218 [5843:3014411289] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:43:05.083.222 [5843:3014411703] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:43:05.310.619 [5843:3037151455] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5680000
+69:43:05.311.111 [5843:3037200634] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:05.311.151 [5843:3037204664] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=0 gain=42
+69:43:05.311.189 [5843:3037208443] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:05.311.193 [5843:3037208805] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:05.311.195 [5843:3037209046] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:05.318.671 [5843:3037956608] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5560000
+69:43:05.319.155 [5843:3038005021] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:05.319.189 [5843:3038008374] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:05.319.191 [5843:3038008640] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:05.319.194 [5843:3038008886] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:05.319.195 [5843:3038008974] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=0 gain=51
+69:43:05.320.755 [5843:3038164974] [PTP_MCHL] (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+69:43:05.320.773 [5843:3038166833] [PTP_MCHL] [#0.0] Got raw rssi: -59/-47
+69:43:05.320.873 [5843:3038176842] [PTP_MCHL] (MCHL-->RLM):   (19) BG_RSSI_MEAS_STOP_REQ [0]
+69:43:05.321.605 [5843:3038250037] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:43:05.610.149 [5843:3067104449] [IDFS_APP] App req return ok
+69:43:05.610.175 [5843:3067107009] [IDFS_APP] RSSI_H -> RDRDT_MAIN
+69:43:05.620.116 [5843:3068101128] [IDFS_APP] RDRDT_MAIN -> RDRDT_ANNOUNCE
+69:43:05.630.152 [5843:3069104766] [IDFS_APP] RDRDT_ANNOUNCE -> RSSI_V
+69:43:05.640.110 [5843:3070100538] [IDFS_APP] App req RSSI: 5700/5700, rx: 0, tx: 0
+69:43:05.682.517 [5843:3074341189] [PTP_MCHL] (MCHL-->RLM):   (18) BG_RSSI_MEAS_REQ [0]
+69:43:05.682.543 [5843:3074343830] [PTP_MCHL] (MCHL-->RLM):   (15) BG_MEAS_MODE_SET_REQ [-1]
+69:43:05.682.555 [5843:3074344980] [PTP_MCHL] (MCHL-->RLM):   (21) BG_RSSI_START_NEW_MEAS_REQ [0]
+69:43:05.682.698 [5843:3074359350] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:43:06.686.618 [5843:3174751334] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5700000
+69:43:06.687.110 [5843:3174800526] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:06.687.150 [5843:3174804542] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=1 gain=42
+69:43:06.687.189 [5843:3174808448] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:06.687.193 [5843:3174808804] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:06.687.195 [5843:3174809044] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:06.694.667 [5843:3175556218] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5560000
+69:43:06.695.152 [5843:3175604765] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:06.695.189 [5843:3175608376] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:06.695.191 [5843:3175608642] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:06.695.192 [5843:3175608758] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=1 gain=48
+69:43:06.695.194 [5843:3175608890] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:06.696.752 [5843:3175764683] [PTP_MCHL] (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+69:43:06.696.770 [5843:3175766489] [PTP_MCHL] [#0.1] Got raw rssi: -66/-53
+69:43:06.696.843 [5843:3175773862] [PTP_MCHL] (MCHL-->RLM):   (19) BG_RSSI_MEAS_STOP_REQ [0]
+69:43:06.697.605 [5843:3175850071] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:43:06.757.168 [5843:3181806318] [IDFS_APP] App req return ok
+69:43:06.757.194 [5843:3181808878] [IDFS_APP] RSSI_V -> RSSI_H
+69:43:06.767.130 [5843:3182802480] [IDFS_APP] App req RSSI: 5700/5700, rx: 0, tx: 0
+69:43:06.810.319 [5843:3187121471] [PTP_MCHL] (MCHL-->RLM):   (18) BG_RSSI_MEAS_REQ [0]
+69:43:06.810.346 [5843:3187124168] [PTP_MCHL] (MCHL-->RLM):   (15) BG_MEAS_MODE_SET_REQ [-1]
+69:43:06.810.366 [5843:3187126167] [PTP_MCHL] (MCHL-->RLM):   (21) BG_RSSI_START_NEW_MEAS_REQ [0]
+69:43:06.810.496 [5843:3187139169] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:43:07.815.613 [5843:3287650809] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5700000
+69:43:07.816.106 [5843:3287700089] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:07.816.146 [5843:3287704110] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=0 gain=42
+69:43:07.816.189 [5843:3287708408] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:07.816.193 [5843:3287708777] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:07.816.195 [5843:3287709017] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:07.823.663 [5843:3288455802] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5560000
+69:43:07.824.149 [5843:3288504437] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:07.824.189 [5843:3288508373] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:07.824.189 [5843:3288508430] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=0 gain=51
+69:43:07.824.191 [5843:3288508639] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:07.824.194 [5843:3288508890] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:07.825.753 [5843:3288664791] [PTP_MCHL] (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+69:43:07.825.771 [5843:3288666599] [PTP_MCHL] [#0.0] Got raw rssi: -63/-52
+69:43:07.825.860 [5843:3288675502] [PTP_MCHL] (MCHL-->RLM):   (19) BG_RSSI_MEAS_STOP_REQ [0]
+69:43:07.826.605 [5843:3288750070] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:43:07.887.183 [5843:3294807853] [IDFS_APP] App req return ok
+69:43:07.887.210 [5843:3294810530] [IDFS_APP] RSSI_H -> RDRDT_MAIN
+69:43:07.897.138 [5843:3295803314] [IDFS_APP] RDRDT_MAIN -> RDRDT_ANNOUNCE
+69:43:07.907.176 [5843:3296807096] [IDFS_APP] RDRDT_ANNOUNCE -> RSSI_V
+69:43:07.917.150 [5843:3297804549] [IDFS_APP] App req RSSI: 5720/5720, rx: 0, tx: 0
+69:43:07.960.320 [5843:3302121516] [PTP_MCHL] (MCHL-->RLM):   (18) BG_RSSI_MEAS_REQ [0]
+69:43:07.960.343 [5843:3302123794] [PTP_MCHL] (MCHL-->RLM):   (15) BG_MEAS_MODE_SET_REQ [-1]
+69:43:07.960.354 [5843:3302124885] [PTP_MCHL] (MCHL-->RLM):   (21) BG_RSSI_START_NEW_MEAS_REQ [0]
+69:43:07.960.496 [5843:3302139161] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:43:08.965.616 [5843:3402651081] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5720000
+69:43:08.966.108 [5843:3402700298] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:08.966.148 [5843:3402704340] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=1 gain=42
+69:43:08.966.189 [5843:3402708437] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:08.966.193 [5843:3402708791] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:08.966.195 [5843:3402709037] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:08.973.666 [5843:3403456090] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5560000
+69:43:08.974.150 [5843:3403504530] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:08.974.189 [5843:3403508372] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:08.974.190 [5843:3403508527] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=1 gain=48
+69:43:08.974.192 [5843:3403508758] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:08.974.195 [5843:3403509013] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:08.975.765 [5843:3403666034] [PTP_MCHL] (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+69:43:08.975.784 [5843:3403667908] [PTP_MCHL] [#0.1] Got raw rssi: -70/-58
+69:43:08.975.860 [5843:3403675511] [PTP_MCHL] (MCHL-->RLM):   (19) BG_RSSI_MEAS_STOP_REQ [0]
+69:43:08.976.605 [5843:3403750062] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:43:09.037.191 [5843:3409808632] [IDFS_APP] App req return ok
+69:43:09.037.220 [5843:3409811497] [IDFS_APP] RSSI_V -> RSSI_H
+69:43:09.047.156 [5843:3410805133] [IDFS_APP] App req RSSI: 5720/5720, rx: 0, tx: 0
+69:43:09.090.358 [5843:3415125369] [PTP_MCHL] (MCHL-->RLM):   (18) BG_RSSI_MEAS_REQ [0]
+69:43:09.090.386 [5843:3415128082] [PTP_MCHL] (MCHL-->RLM):   (15) BG_MEAS_MODE_SET_REQ [-1]
+69:43:09.090.407 [5843:3415130245] [PTP_MCHL] (MCHL-->RLM):   (21) BG_RSSI_START_NEW_MEAS_REQ [0]
+69:43:09.090.496 [5843:3415139170] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:43:10.095.617 [5843:3515651236] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5720000
+69:43:10.096.108 [5843:3515700330] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:10.096.149 [5843:3515704441] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=0 gain=42
+69:43:10.096.189 [5843:3515708445] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:10.096.193 [5843:3515708810] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:10.096.195 [5843:3515709051] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:10.103.668 [5843:3516456315] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5560000
+69:43:10.104.150 [5843:3516504568] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:10.104.188 [5843:3516508371] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:10.104.190 [5843:3516508547] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=0 gain=51
+69:43:10.104.191 [5843:3516508639] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:10.104.194 [5843:3516508887] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:10.105.738 [5843:3516663307] [PTP_MCHL] (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+69:43:10.105.753 [5843:3516664780] [PTP_MCHL] [#0.0] Got raw rssi: -66/-55
+69:43:10.105.835 [5843:3516673017] [PTP_MCHL] (MCHL-->RLM):   (19) BG_RSSI_MEAS_STOP_REQ [0]
+69:43:10.106.606 [5843:3516750073] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:43:10.172.212 [5843:3523310678] [IDFS_APP] App req return ok
+69:43:10.172.235 [5843:3523313066] [IDFS_APP] RSSI_H -> RDRDT_MAIN
+69:43:10.182.168 [5843:3524306298] [IDFS_APP] RDRDT_MAIN -> RDRDT_ANNOUNCE
+69:43:10.192.218 [5843:3525311297] [IDFS_APP] RDRDT_ANNOUNCE -> RSSI_V
+69:43:10.202.171 [5843:3526306598] [IDFS_APP] App req RSSI: 5480/5480, rx: 0, tx: 0
+69:43:10.245.304 [5843:3530619931] [PTP_MCHL] (MCHL-->RLM):   (18) BG_RSSI_MEAS_REQ [0]
+69:43:10.245.328 [5843:3530622300] [PTP_MCHL] (MCHL-->RLM):   (15) BG_MEAS_MODE_SET_REQ [-1]
+69:43:10.245.338 [5843:3530623358] [PTP_MCHL] (MCHL-->RLM):   (21) BG_RSSI_START_NEW_MEAS_REQ [0]
+69:43:10.245.496 [5843:3530639151] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:43:11.250.619 [5843:3631151438] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5480000
+69:43:11.251.112 [5843:3631200720] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:11.251.152 [5843:3631204764] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=1 gain=42
+69:43:11.251.189 [5843:3631208408] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:11.251.192 [5843:3631208769] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:11.251.195 [5843:3631209032] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:11.258.671 [5843:3631956652] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5560000
+69:43:11.259.155 [5843:3632005043] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:11.259.189 [5843:3632008402] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:11.259.192 [5843:3632008672] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:11.259.194 [5843:3632008922] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:11.259.195 [5843:3632009047] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=1 gain=48
+69:43:11.260.747 [5843:3632164256] [PTP_MCHL] (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+69:43:11.260.768 [5843:3632166308] [PTP_MCHL] [#0.1] Got raw rssi: -60/-53
+69:43:11.260.868 [5843:3632176281] [PTP_MCHL] (MCHL-->RLM):   (19) BG_RSSI_MEAS_STOP_REQ [0]
+69:43:11.261.605 [5843:3632250067] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:43:11.322.224 [5843:3638311895] [IDFS_APP] App req return ok
+69:43:11.322.248 [5843:3638314305] [IDFS_APP] RSSI_V -> RSSI_H
+69:43:11.332.186 [5843:3639308128] [IDFS_APP] App req RSSI: 5480/5480, rx: 0, tx: 0
+69:43:11.480.306 [5843:3654120100] [PTP_MCHL] (MCHL-->RLM):   (18) BG_RSSI_MEAS_REQ [0]
+69:43:11.480.331 [5843:3654122628] [PTP_MCHL] (MCHL-->RLM):   (15) BG_MEAS_MODE_SET_REQ [-1]
+69:43:11.480.345 [5843:3654123978] [PTP_MCHL] (MCHL-->RLM):   (21) BG_RSSI_START_NEW_MEAS_REQ [0]
+69:43:11.480.497 [5843:3654139194] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:43:11.812.382 [5843:3687327725] [IOCTL] [#1/0] HTA case, local rx: 0, tx: 0, remote rx: 0, tx: 1
+69:43:11.812.401 [5843:3687329622] [PTP_MCHL] (MCHL-->RLM):   (50) SET_XG_VALVE_STATUS_REQ [0]
+69:43:11.812.499 [5843:3687339403] [PTP_MMC_RLM]  *** Carrier 0 TX is set enabled = 0 for Ethernet packets ***
+69:43:11.813.192 [5843:3687408680] [PTP_MCHL] (MCHL-->RLM):   (50) SET_XG_VALVE_STATUS_REQ [1]
+69:43:11.813.295 [5843:3687419035] [PTP_MMC_RLM]  *** Carrier 0 TX is set enabled = 1 for Ethernet packets ***
+69:43:12.485.614 [5843:3754650957] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5480000
+69:43:12.486.108 [5843:3754700292] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:12.486.148 [5843:3754704320] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=0 gain=42
+69:43:12.486.189 [5843:3754708408] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:12.486.192 [5843:3754708765] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:12.486.195 [5843:3754709013] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:12.493.662 [5843:3755455765] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5560000
+69:43:12.494.147 [5843:3755504214] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:12.494.187 [5843:3755508185] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=0 gain=51
+69:43:12.494.188 [5843:3755508370] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:12.494.191 [5843:3755508642] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:12.494.194 [5843:3755508895] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:12.495.760 [5843:3755665491] [PTP_MCHL] (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+69:43:12.495.778 [5843:3755667339] [PTP_MCHL] [#0.0] Got raw rssi: -62/-55
+69:43:12.495.868 [5843:3755676329] [PTP_MCHL] (MCHL-->RLM):   (19) BG_RSSI_MEAS_STOP_REQ [0]
+69:43:12.496.606 [5843:3755750082] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:43:12.557.237 [5843:3761813254] [IDFS_APP] App req return ok
+69:43:12.557.264 [5843:3761815890] [IDFS_APP] RSSI_H -> RDRDT_MAIN
+69:43:12.567.207 [5843:3762810250] [IDFS_APP] RDRDT_MAIN -> RDRDT_ANNOUNCE
+69:43:12.577.244 [5843:3763813907] [IDFS_APP] RDRDT_ANNOUNCE -> RSSI_V
+69:43:12.587.251 [5843:3764814573] [IDFS_APP] App req RSSI: 5500/5500, rx: 0, tx: 0
+69:43:12.630.318 [5843:3769121326] [PTP_MCHL] (MCHL-->RLM):   (18) BG_RSSI_MEAS_REQ [0]
+69:43:12.630.343 [5843:3769123860] [PTP_MCHL] (MCHL-->RLM):   (15) BG_MEAS_MODE_SET_REQ [-1]
+69:43:12.630.354 [5843:3769124880] [PTP_MCHL] (MCHL-->RLM):   (21) BG_RSSI_START_NEW_MEAS_REQ [0]
+69:43:12.630.497 [5843:3769139186] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:43:13.635.624 [5843:3869651911] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5500000
+69:43:13.636.116 [5843:3869701112] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:13.636.156 [5843:3869705131] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=1 gain=42
+69:43:13.636.189 [5843:3869708436] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:13.636.193 [5843:3869708794] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:13.636.195 [5843:3869709034] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:13.643.671 [5843:3870456580] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5560000
+69:43:13.644.155 [5843:3870505006] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:13.644.188 [5843:3870508371] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:13.644.191 [5843:3870508636] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:13.644.194 [5843:3870508882] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:13.644.195 [5843:3870508980] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=1 gain=48
+69:43:13.645.737 [5843:3870663221] [PTP_MCHL] (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+69:43:13.645.752 [5843:3870664747] [PTP_MCHL] [#0.1] Got raw rssi: -56/-48
+69:43:13.645.833 [5843:3870672846] [PTP_MCHL] (MCHL-->RLM):   (19) BG_RSSI_MEAS_STOP_REQ [0]
+69:43:13.646.605 [5843:3870750046] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:43:13.707.254 [5843:3876814894] [IDFS_APP] App req return ok
+69:43:13.707.280 [5843:3876817565] [IDFS_APP] RSSI_V -> RSSI_H
+69:43:13.717.224 [5843:3877811903] [IDFS_APP] App req RSSI: 5500/5500, rx: 0, tx: 0
+69:43:13.760.306 [5843:3882120072] [PTP_MCHL] (MCHL-->RLM):   (18) BG_RSSI_MEAS_REQ [0]
+69:43:13.760.330 [5843:3882122477] [PTP_MCHL] (MCHL-->RLM):   (15) BG_MEAS_MODE_SET_REQ [-1]
+69:43:13.760.339 [5843:3882123436] [PTP_MCHL] (MCHL-->RLM):   (21) BG_RSSI_START_NEW_MEAS_REQ [0]
+69:43:13.760.496 [5843:3882139133] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:43:14.765.626 [5843:3982652148] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5500000
+69:43:14.766.121 [5843:3982701628] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:14.766.163 [5843:3982705784] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=0 gain=42
+69:43:14.766.189 [5843:3982708436] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:14.766.193 [5843:3982708792] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:14.766.195 [5843:3982709041] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:14.773.664 [5843:3983455906] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5560000
+69:43:14.774.148 [5843:3983504353] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:14.774.188 [5843:3983508357] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=0 gain=51
+69:43:14.774.188 [5843:3983508369] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:14.774.191 [5843:3983508635] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:14.774.194 [5843:3983508875] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:14.775.774 [5843:3983666897] [PTP_MCHL] (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+69:43:14.775.792 [5843:3983668705] [PTP_MCHL] [#0.0] Got raw rssi: -59/-51
+69:43:14.775.878 [5843:3983677276] [PTP_MCHL] (MCHL-->RLM):   (19) BG_RSSI_MEAS_STOP_REQ [0]
+69:43:14.776.605 [5843:3983750037] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:43:14.837.336 [5843:3989823147] [IDFS] Ret req[219124] RSSI: 5500/5500, rx: 0, tx: 0
+69:43:14.837.380 [5843:3989827488] [IDFS_APP] App req return ok
+69:43:14.837.401 [5843:3989829619] [IDFS_APP] RSSI_H -> RDRDT_MAIN
+69:43:14.847.229 [5843:3990812423] [IDFS_APP] RDRDT_MAIN -> RDRDT_ANNOUNCE
+69:43:14.857.274 [5843:3991816967] [IDFS_APP] RDRDT_ANNOUNCE -> RSSI_V
+69:43:14.867.239 [5843:3992813457] [IDFS_APP] App req RSSI: 5520/5520, rx: 0, tx: 0
+69:43:14.867.250 [5843:3992814516] [IDFS] Get req[219125] RSSI: 5520/5520, rx: 0, tx: 0
+69:43:14.867.278 [5843:3992817317] [IDFS] Processing req[219125] RSSI: 5520/5520, rx: 0, tx: 0
+69:43:14.867.287 [5843:3992818223] [IDFS] IDLE -> WAIT_SLAVE_START_GAPS
+69:43:14.867.301 [5843:3992819615] [IDFS] timer set 5000 ms
+69:43:14.910.174 [5843:3997106933] [IDFS] P2P recv: slave start gaps OK
+69:43:14.910.243 [5843:3997113847] [IDFS] WAIT_SLAVE_START_GAPS -> INIT_MASTER_GAPS
+69:43:14.910.255 [5843:3997115005] [IDFS] timer set 5000 ms
+69:43:14.910.275 [5843:3997117049] [IDFS] [#0.1] Start gaps freq=5520, mode=RSSI, ffrx=0, fftx=0
+69:43:14.910.292 [5843:3997118686] [PTP_MCHL] (MCHL-->RLM):   (18) BG_RSSI_MEAS_REQ [0]
+69:43:14.910.315 [5843:3997121020] [PTP_MCHL] (MCHL-->RLM):   (15) BG_MEAS_MODE_SET_REQ [-1]
+69:43:14.910.325 [5843:3997122043] [PTP_MCHL] (MCHL-->RLM):   (21) BG_RSSI_START_NEW_MEAS_REQ [0]
+69:43:14.910.337 [5843:3997123254] [IDFS] INIT_MASTER_GAPS -> WAIT_MSG_RSSI
+69:43:14.910.496 [5843:3997139117] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:43:15.185.584 [5843:4024647956] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:43:15.187.023 [5843:4024791789] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:43:15.187.030 [5843:4024792569] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:43:15.187.034 [5843:4024792953] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:43:15.388.015 [5843:4044890997] [PTP_HWM_MGMT] SHM cmd: CMD_GET_MAX_PWR, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:43:15.389.440 [5843:4045033528] [PTP_HWM_MGMT] SHM cmd: CMD_UPDATE_TX_AGC, carrier_ix=-1, reg=-1, write_value=27(0x0000001b)
+69:43:15.389.448 [5843:4045034298] [RF_AD9361_CAT_DATA] [#0:0] TX AGC SetDbm pwr1000=7000
+69:43:15.389.452 [5843:4045034683] [RF_AD9361_CAT_DATA] [#0:1] TX AGC SetDbm pwr1000=7000
+69:43:15.915.614 [5843:4097650945] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5520000
+69:43:15.916.107 [5843:4097700245] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:15.916.149 [5843:4097704413] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=1 gain=42
+69:43:15.916.189 [5843:4097708435] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:15.916.193 [5843:4097708788] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:15.916.195 [5843:4097709033] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:15.923.665 [5843:4098456047] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5560000
+69:43:15.924.149 [5843:4098504467] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:15.924.188 [5843:4098508368] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:15.924.189 [5843:4098508468] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=1 gain=48
+69:43:15.924.191 [5843:4098508636] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:15.924.194 [5843:4098508890] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:15.925.771 [5843:4098666586] [PTP_MCHL] (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+69:43:15.925.789 [5843:4098668404] [PTP_MCHL] [#0.1] Got raw rssi: -56/-48
+69:43:15.925.824 [5843:4098671955] [IDFS] Got rssi msg[219125]: -77 (-56)/ -69 (-48)
+69:43:15.925.868 [5843:4098676286] [IDFS] [#0.1] Stop gaps freq=5520, mode=RSSI
+69:43:15.925.878 [5843:4098677337] [PTP_MCHL] (MCHL-->RLM):   (19) BG_RSSI_MEAS_STOP_REQ [0]
+69:43:15.926.605 [5843:4098750027] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:43:15.937.284 [5843:4099817897] [IDFS] P2P recv: rssi data
+69:43:15.937.335 [5843:4099823035] [IDFS] WAIT_MSG_RSSI -> IDLE
+69:43:15.937.361 [5843:4099825592] [IDFS] Safety sleep 50 ms
+69:43:15.987.280 [5843:4104817483] [IDFS] Ret req[219125] RSSI: 5520/5520, rx: 0, tx: 0
+69:43:15.987.327 [5843:4104822211] [IDFS_APP] App req return ok
+69:43:15.987.354 [5843:4104824938] [IDFS_APP] RSSI_V -> RSSI_H
+69:43:15.997.247 [5843:4105814215] [IDFS_APP] App req RSSI: 5520/5520, rx: 0, tx: 0
+69:43:15.997.259 [5843:4105815399] [IDFS] Get req[219126] RSSI: 5520/5520, rx: 0, tx: 0
+69:43:15.997.289 [5843:4105818397] [IDFS] Processing req[219126] RSSI: 5520/5520, rx: 0, tx: 0
+69:43:15.997.298 [5843:4105819333] [IDFS] IDLE -> WAIT_SLAVE_START_GAPS
+69:43:15.997.311 [5843:4105820595] [IDFS] timer set 5000 ms
+69:43:16.040.600 [5843:4110149476] [IDFS] P2P recv: slave start gaps OK
+69:43:16.040.662 [5843:4110155751] [IDFS] WAIT_SLAVE_START_GAPS -> INIT_MASTER_GAPS
+69:43:16.040.674 [5843:4110156890] [IDFS] timer set 5000 ms
+69:43:16.040.697 [5843:4110159173] [IDFS] [#0.0] Start gaps freq=5520, mode=RSSI, ffrx=0, fftx=0
+69:43:16.040.714 [5843:4110160885] [PTP_MCHL] (MCHL-->RLM):   (18) BG_RSSI_MEAS_REQ [0]
+69:43:16.040.749 [5843:4110164451] [PTP_MCHL] (MCHL-->RLM):   (15) BG_MEAS_MODE_SET_REQ [-1]
+69:43:16.040.762 [5843:4110165697] [PTP_MCHL] (MCHL-->RLM):   (21) BG_RSSI_START_NEW_MEAS_REQ [0]
+69:43:16.040.775 [5843:4110167063] [IDFS] INIT_MASTER_GAPS -> WAIT_MSG_RSSI
+69:43:16.040.896 [5843:4110179147] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:43:17.045.616 [5843:4210651077] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5520000
+69:43:17.046.107 [5843:4210700210] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:17.046.147 [5843:4210704250] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=0 gain=42
+69:43:17.046.189 [5843:4210708402] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:17.046.192 [5843:4210708765] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:17.046.195 [5843:4210709004] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:17.046.200 [5843:4210709510] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_WAIT_GAIN -> BG_MEAS_PROC
+69:43:17.053.640 [5843:4211453547] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_MEAS_PROC -> BG_RESTORE_FREQ
+69:43:17.053.657 [5843:4211455201] [PTP_HWM_DATA] ---- Dfs_Area_Part_Of_Frame = 0
+69:43:17.053.659 [5843:4211455412] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_RESTORE_FREQ -> BG_WAIT_ResFREQ
+69:43:17.053.661 [5843:4211455619] [PTP_HWM_DATA] [#0] Restore_RF_DFS_Freq freq=5560000
+69:43:17.053.664 [5843:4211455876] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5560000
+69:43:17.054.147 [5843:4211504269] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:17.054.165 [5843:4211506000] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_WAIT_ResFREQ -> BG_RESTORE_GAIN
+69:43:17.054.182 [5843:4211507698] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_RESTORE_GAIN -> BG_WAIT_ResGAIN
+69:43:17.054.184 [5843:4211507960] [PTP_HWM_DATA] [#0.0] Restore_RF_DFS_Gain gain=51 start_ctu=0:0
+69:43:17.054.187 [5843:4211508268] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=0 gain=51
+69:43:17.054.188 [5843:4211508367] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:17.054.191 [5843:4211508632] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:17.054.193 [5843:4211508871] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:17.054.238 [5843:4211513276] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_WAIT_ResGAIN -> BG_IDLE
+69:43:17.054.254 [5843:4211514895] [PTP_HWM_DATA] [#0][DFS MN] State changed DFS_BG -> DFS_IDLE
+69:43:17.055.736 [5843:4211663098] [PTP_MCHL] (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+69:43:17.055.759 [5843:4211665374] [PTP_MCHL] [#0.0] Got raw rssi: -60/-51
+69:43:17.055.796 [5843:4211669084] [IDFS] Got rssi msg[219126]: -81 (-60)/ -72 (-51)
+69:43:17.055.830 [5843:4211672511] [IDFS] [#0.0] Stop gaps freq=5520, mode=RSSI
+69:43:17.055.839 [5843:4211673458] [PTP_MCHL] (MCHL-->RLM):   (19) BG_RSSI_MEAS_STOP_REQ [0]
+69:43:17.056.605 [5843:4211750039] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:43:17.057.599 [5843:4211849445] [PTP_HWM_DATA] ---- DC_Cancellation set = 1
+69:43:17.067.292 [5843:4212818755] [IDFS] P2P recv: rssi data
+69:43:17.067.355 [5843:4212825028] [IDFS] WAIT_MSG_RSSI -> IDLE
+69:43:17.067.378 [5843:4212827295] [IDFS] Safety sleep 50 ms
+69:43:17.117.269 [5843:4217816421] [IDFS] Ret req[219126] RSSI: 5520/5520, rx: 0, tx: 0
+69:43:17.117.316 [5843:4217821144] [IDFS_APP] App req return ok
+69:43:17.117.340 [5843:4217823532] [IDFS_APP] RSSI_H -> RDRDT_MAIN
+69:43:17.127.263 [5843:4218815848] [IDFS_APP] RDRDT_MAIN -> RDRDT_ANNOUNCE
+69:43:17.137.345 [5843:4219823984] [IDFS_APP] RDRDT_ANNOUNCE -> RSSI_V
+69:43:17.147.263 [5843:4220815812] [IDFS_APP] App req RSSI: 5540/5540, rx: 0, tx: 0
+69:43:17.147.276 [5843:4220817151] [IDFS] Get req[219127] RSSI: 5540/5540, rx: 0, tx: 0
+69:43:17.147.311 [5843:4220820601] [IDFS] Processing req[219127] RSSI: 5540/5540, rx: 0, tx: 0
+69:43:17.147.320 [5843:4220821507] [IDFS] IDLE -> WAIT_SLAVE_START_GAPS
+69:43:17.147.332 [5843:4220822764] [IDFS] timer set 5000 ms
+69:43:17.190.195 [5843:4225109022] [IDFS] P2P recv: slave start gaps OK
+69:43:17.190.267 [5843:4225116224] [IDFS] WAIT_SLAVE_START_GAPS -> INIT_MASTER_GAPS
+69:43:17.190.280 [5843:4225117514] [IDFS] timer set 5000 ms
+69:43:17.190.300 [5843:4225119487] [IDFS] [#0.1] Start gaps freq=5540, mode=RSSI, ffrx=0, fftx=0
+69:43:17.190.314 [5843:4225120884] [PTP_MCHL] (MCHL-->RLM):   (18) BG_RSSI_MEAS_REQ [0]
+69:43:17.190.336 [5843:4225123109] [PTP_MCHL] (MCHL-->RLM):   (15) BG_MEAS_MODE_SET_REQ [-1]
+69:43:17.190.347 [5843:4225124263] [PTP_MCHL] (MCHL-->RLM):   (21) BG_RSSI_START_NEW_MEAS_REQ [0]
+69:43:17.190.360 [5843:4225125497] [IDFS] INIT_MASTER_GAPS -> WAIT_MSG_RSSI
+69:43:17.190.496 [5843:4225139137] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:43:17.190.601 [5843:4225149650] [PTP_HWM_DATA] ---- DC_Cancellation set = 0
+69:43:18.167.594 [5844:  27881590] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:18.194.523 [5844:  30574512] [PTP_HWM_DATA] [#0][DFS MN] Next frame is silent
+69:43:18.194.527 [5844:  30574954] [PTP_HWM_DATA] [#0][DFS MN] Calculate timings: duration 10 busy 0 min_start 5844:30682341
+69:43:18.194.530 [5844:  30575237] [PTP_HWM_DATA] [#0][DFS MN] State changed DFS_IDLE -> DFS_BG
+69:43:18.194.533 [5844:  30575481] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_IDLE -> BG_SETTING_FREQ
+69:43:18.195.623 [5844:  30684574] [PTP_HWM_DATA] [#0] Set_RF_DFS_Freq freq=5540000
+69:43:18.195.626 [5844:  30684849] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5540000
+69:43:18.195.645 [5844:  30686720] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_SETTING_FREQ -> BG_WAIT_FREQ
+69:43:18.196.117 [5844:  30733942] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:18.196.135 [5844:  30735772] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_WAIT_FREQ -> BG_SETTING_GAIN
+69:43:18.196.152 [5844:  30737435] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_SETTING_GAIN -> BG_WAIT_GAIN
+69:43:18.196.155 [5844:  30737727] [PTP_HWM_DATA] [#0.1] Set_RF_DFS_Gain gfs=BG_WAIT_GAIN bind=0 gain=42 is_rssi_gain=1 start_ctu=0:0
+69:43:18.196.159 [5844:  30738112] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=1 gain=42
+69:43:18.196.189 [5844:  30741157] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:18.196.193 [5844:  30741512] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:18.196.195 [5844:  30741751] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:18.196.209 [5844:  30743116] [PTP_HWM_DATA] ---- Dfs_Area_Part_Of_Frame = 1
+69:43:18.196.211 [5844:  30743328] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_WAIT_GAIN -> BG_MEAS_PROC
+69:43:18.203.648 [5844:  31487045] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_MEAS_PROC -> BG_RESTORE_FREQ
+69:43:18.203.665 [5844:  31488693] [PTP_HWM_DATA] ---- Dfs_Area_Part_Of_Frame = 0
+69:43:18.203.667 [5844:  31488900] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_RESTORE_FREQ -> BG_WAIT_ResFREQ
+69:43:18.203.669 [5844:  31489108] [PTP_HWM_DATA] [#0] Restore_RF_DFS_Freq freq=5560000
+69:43:18.203.671 [5844:  31489360] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5560000
+69:43:18.204.154 [5844:  31537648] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:18.204.171 [5844:  31539357] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_WAIT_ResFREQ -> BG_RESTORE_GAIN
+69:43:18.204.188 [5844:  31541031] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_RESTORE_GAIN -> BG_WAIT_ResGAIN
+69:43:18.204.188 [5844:  31541070] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:18.204.191 [5844:  31541290] [PTP_HWM_DATA] [#0.1] Restore_RF_DFS_Gain gain=51 start_ctu=0:0
+69:43:18.204.191 [5844:  31541335] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:18.204.193 [5844:  31541574] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:18.204.194 [5844:  31541598] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=1 gain=48
+69:43:18.204.244 [5844:  31546611] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_WAIT_ResGAIN -> BG_IDLE
+69:43:18.204.260 [5844:  31548245] [PTP_HWM_DATA] [#0][DFS MN] State changed DFS_BG -> DFS_IDLE
+69:43:18.205.766 [5844:  31698781] [PTP_MCHL] (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+69:43:18.205.783 [5844:  31700509] [PTP_MCHL] [#0.1] Got raw rssi: -62/-53
+69:43:18.205.822 [5844:  31704385] [IDFS] Got rssi msg[219127]: -83 (-62)/ -74 (-53)
+69:43:18.205.858 [5844:  31708026] [IDFS] [#0.1] Stop gaps freq=5540, mode=RSSI
+69:43:18.205.869 [5844:  31709092] [PTP_MCHL] (MCHL-->RLM):   (19) BG_RSSI_MEAS_STOP_REQ [0]
+69:43:18.206.605 [5844:  31782748] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:43:18.207.604 [5844:  31882582] [PTP_HWM_DATA] ---- DC_Cancellation set = 1
+69:43:18.217.276 [5844:  32849858] [IDFS] P2P recv: rssi data
+69:43:18.217.326 [5844:  32854793] [IDFS] WAIT_MSG_RSSI -> IDLE
+69:43:18.217.346 [5844:  32856787] [IDFS] Safety sleep 50 ms
+69:43:18.267.279 [5844:  37850154] [IDFS] Ret req[219127] RSSI: 5540/5540, rx: 0, tx: 0
+69:43:18.267.323 [5844:  37854513] [IDFS_APP] App req return ok
+69:43:18.267.348 [5844:  37857007] [IDFS_APP] RSSI_V -> RSSI_H
+69:43:18.277.282 [5844:  38850390] [IDFS_APP] App req RSSI: 5540/5540, rx: 0, tx: 0
+69:43:18.277.291 [5844:  38851357] [IDFS] Get req[219128] RSSI: 5540/5540, rx: 0, tx: 0
+69:43:18.277.317 [5844:  38853933] [IDFS] Processing req[219128] RSSI: 5540/5540, rx: 0, tx: 0
+69:43:18.277.326 [5844:  38854803] [IDFS] IDLE -> WAIT_SLAVE_START_GAPS
+69:43:18.277.339 [5844:  38856105] [IDFS] timer set 5000 ms
+69:43:18.320.219 [5844:  43144172] [IDFS] P2P recv: slave start gaps OK
+69:43:18.320.277 [5844:  43149904] [IDFS] WAIT_SLAVE_START_GAPS -> INIT_MASTER_GAPS
+69:43:18.320.287 [5844:  43150965] [IDFS] timer set 5000 ms
+69:43:18.320.307 [5844:  43152963] [IDFS] [#0.0] Start gaps freq=5540, mode=RSSI, ffrx=0, fftx=0
+69:43:18.320.322 [5844:  43154407] [PTP_MCHL] (MCHL-->RLM):   (18) BG_RSSI_MEAS_REQ [0]
+69:43:18.320.347 [5844:  43156899] [PTP_MCHL] (MCHL-->RLM):   (15) BG_MEAS_MODE_SET_REQ [-1]
+69:43:18.320.357 [5844:  43157918] [PTP_MCHL] (MCHL-->RLM):   (21) BG_RSSI_START_NEW_MEAS_REQ [0]
+69:43:18.320.369 [5844:  43159103] [IDFS] INIT_MASTER_GAPS -> WAIT_MSG_RSSI
+69:43:18.320.496 [5844:  43171859] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:43:18.320.600 [5844:  43182195] [PTP_HWM_DATA] ---- DC_Cancellation set = 0
+69:43:18.416.594 [5844:  52781671] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:18.542.594 [5844:  65381641] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 6->5
+69:43:18.612.594 [5844:  72381641] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 5->6
+69:43:18.617.594 [5844:  72881600] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:18.658.594 [5844:  76981610] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:18.672.594 [5844:  78381596] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:18.692.594 [5844:  80381638] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:18.707.594 [5844:  81881590] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:18.747.594 [5844:  85881592] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:18.756.594 [5844:  86781613] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 6->5
+69:43:18.773.594 [5844:  88481643] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 5->6
+69:43:18.778.594 [5844:  88981603] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:18.868.594 [5844:  97981620] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:18.872.594 [5844:  98381604] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 6->5
+69:43:18.896.594 [5844: 100781594] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 5->6
+69:43:18.901.594 [5844: 101281578] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:18.943.594 [5844: 105481614] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:18.953.594 [5844: 106481591] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:19.033.594 [5844: 114481613] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:19.043.594 [5844: 115481601] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 6->5
+69:43:19.056.594 [5844: 116781593] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 5->6
+69:43:19.062.594 [5844: 117381585] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:19.153.594 [5844: 126481627] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:19.166.594 [5844: 127781635] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 6->5
+69:43:19.186.594 [5844: 129781600] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 5->6
+69:43:19.223.594 [5844: 133481584] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:19.242.594 [5844: 135381607] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:19.248.594 [5844: 135981608] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 6->5
+69:43:19.276.594 [5844: 138781594] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 5->6
+69:43:19.293.594 [5844: 140481585] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:19.302.594 [5844: 141381585] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:19.324.528 [5844: 143575053] [PTP_HWM_DATA] [#0][DFS MN] Next frame is silent
+69:43:19.324.534 [5844: 143575578] [PTP_HWM_DATA] [#0][DFS MN] Calculate timings: duration 10 busy 0 min_start 5844:143682341
+69:43:19.324.536 [5844: 143575853] [PTP_HWM_DATA] [#0][DFS MN] State changed DFS_IDLE -> DFS_BG
+69:43:19.324.539 [5844: 143576097] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_IDLE -> BG_SETTING_FREQ
+69:43:19.325.615 [5844: 143683743] [PTP_HWM_DATA] [#0] Set_RF_DFS_Freq freq=5540000
+69:43:19.325.618 [5844: 143684018] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5540000
+69:43:19.325.637 [5844: 143685917] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_SETTING_FREQ -> BG_WAIT_FREQ
+69:43:19.326.109 [5844: 143733152] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:19.326.126 [5844: 143734873] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_WAIT_FREQ -> BG_SETTING_GAIN
+69:43:19.326.143 [5844: 143736523] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_SETTING_GAIN -> BG_WAIT_GAIN
+69:43:19.326.146 [5844: 143736815] [PTP_HWM_DATA] [#0.0] Set_RF_DFS_Gain gfs=BG_WAIT_GAIN bind=0 gain=42 is_rssi_gain=1 start_ctu=0:0
+69:43:19.326.150 [5844: 143737185] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=0 gain=42
+69:43:19.326.189 [5844: 143741134] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:19.326.193 [5844: 143741486] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:19.326.195 [5844: 143741726] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:19.326.200 [5844: 143742220] [PTP_HWM_DATA] ---- Dfs_Area_Part_Of_Frame = 1
+69:43:19.326.202 [5844: 143742432] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_WAIT_GAIN -> BG_MEAS_PROC
+69:43:19.333.638 [5844: 144486059] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_MEAS_PROC -> BG_RESTORE_FREQ
+69:43:19.333.655 [5844: 144487711] [PTP_HWM_DATA] ---- Dfs_Area_Part_Of_Frame = 0
+69:43:19.333.657 [5844: 144487919] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_RESTORE_FREQ -> BG_WAIT_ResFREQ
+69:43:19.333.659 [5844: 144488133] [PTP_HWM_DATA] [#0] Restore_RF_DFS_Freq freq=5560000
+69:43:19.333.662 [5844: 144488389] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5560000
+69:43:19.334.144 [5844: 144536656] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:19.334.161 [5844: 144538368] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_WAIT_ResFREQ -> BG_RESTORE_GAIN
+69:43:19.334.178 [5844: 144540041] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_RESTORE_GAIN -> BG_WAIT_ResGAIN
+69:43:19.334.181 [5844: 144540307] [PTP_HWM_DATA] [#0.0] Restore_RF_DFS_Gain gain=51 start_ctu=0:0
+69:43:19.334.184 [5844: 144540614] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=0 gain=51
+69:43:19.334.188 [5844: 144541070] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:19.334.191 [5844: 144541337] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:19.334.194 [5844: 144541581] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:19.334.234 [5844: 144545577] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_WAIT_ResGAIN -> BG_IDLE
+69:43:19.334.250 [5844: 144547196] [PTP_HWM_DATA] [#0][DFS MN] State changed DFS_BG -> DFS_IDLE
+69:43:19.335.764 [5844: 144698581] [PTP_MCHL] (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+69:43:19.335.788 [5844: 144701063] [PTP_MCHL] [#0.0] Got raw rssi: -62/-54
+69:43:19.335.825 [5844: 144704756] [IDFS] Got rssi msg[219128]: -83 (-62)/ -75 (-54)
+69:43:19.335.859 [5844: 144708146] [IDFS] [#0.0] Stop gaps freq=5540, mode=RSSI
+69:43:19.335.870 [5844: 144709274] [PTP_MCHL] (MCHL-->RLM):   (19) BG_RSSI_MEAS_STOP_REQ [0]
+69:43:19.336.605 [5844: 144782731] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:43:19.337.598 [5844: 144882062] [PTP_HWM_DATA] ---- DC_Cancellation set = 1
+69:43:19.347.259 [5844: 145848103] [IDFS] P2P recv: rssi data
+69:43:19.347.330 [5844: 145855255] [IDFS] WAIT_MSG_RSSI -> IDLE
+69:43:19.347.355 [5844: 145857713] [IDFS] Safety sleep 50 ms
+69:43:19.348.594 [5844: 145981646] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 6->5
+69:43:19.372.594 [5844: 148381603] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 5->6
+69:43:19.397.289 [5844: 150851163] [IDFS] Ret req[219128] RSSI: 5540/5540, rx: 0, tx: 0
+69:43:19.397.332 [5844: 150855419] [IDFS_APP] App req return ok
+69:43:19.397.360 [5844: 150858178] [IDFS_APP] RSSI_H -> RDRDT_MAIN
+69:43:19.401.594 [5844: 151281578] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:19.407.290 [5844: 151851220] [IDFS_APP] RDRDT_MAIN -> RDRDT_ANNOUNCE
+69:43:19.416.594 [5844: 152781616] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:19.417.339 [5844: 152856165] [IDFS_APP] RDRDT_ANNOUNCE -> RSSI_V
+69:43:19.427.298 [5844: 153851980] [IDFS_APP] App req RSSI: 5560/5560, rx: 0, tx: 0
+69:43:19.427.309 [5844: 153853109] [IDFS] Get req[219129] RSSI: 5560/5560, rx: 0, tx: 0
+69:43:19.427.344 [5844: 153856623] [IDFS] Processing req[219129] RSSI: 5560/5560, rx: 0, tx: 0
+69:43:19.427.352 [5844: 153857449] [IDFS] IDLE -> WAIT_SLAVE_START_GAPS
+69:43:19.427.365 [5844: 153858721] [IDFS] timer set 5000 ms
+69:43:19.431.594 [5844: 154281593] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 6->5
+69:43:19.470.180 [5844: 158140251] [IDFS] P2P recv: slave start gaps OK
+69:43:19.470.237 [5844: 158145911] [IDFS] WAIT_SLAVE_START_GAPS -> INIT_MASTER_GAPS
+69:43:19.470.248 [5844: 158147040] [IDFS] timer set 5000 ms
+69:43:19.470.269 [5844: 158149169] [IDFS] [#0.1] Start gaps freq=5560, mode=RSSI, ffrx=0, fftx=0
+69:43:19.470.302 [5844: 158152408] [PTP_MCHL] (MCHL-->RLM):   (18) BG_RSSI_MEAS_REQ [0]
+69:43:19.470.328 [5844: 158155040] [PTP_MCHL] (MCHL-->RLM):   (15) BG_MEAS_MODE_SET_REQ [-1]
+69:43:19.470.339 [5844: 158156117] [PTP_MCHL] (MCHL-->RLM):   (21) BG_RSSI_START_NEW_MEAS_REQ [0]
+69:43:19.470.350 [5844: 158157263] [IDFS] INIT_MASTER_GAPS -> WAIT_MSG_RSSI
+69:43:19.470.496 [5844: 158171859] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:43:19.470.597 [5844: 158181927] [PTP_HWM_DATA] ---- DC_Cancellation set = 0
+69:43:19.487.594 [5844: 159881635] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 5->6
+69:43:19.517.594 [5844: 162881593] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:19.547.594 [5844: 165881590] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:19.623.594 [5844: 173481632] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:19.842.594 [5844: 195381606] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:19.856.594 [5844: 196781583] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:19.881.594 [5844: 199281583] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:19.887.594 [5844: 199881616] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 6->5
+69:43:19.922.594 [5844: 203381597] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 5->6
+69:43:19.962.594 [5844: 207381660] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 6->5
+69:43:19.972.594 [5844: 208381593] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 5->6
+69:43:20.017.593 [5844: 212881572] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:20.123.594 [5844: 223481619] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:20.146.594 [5844: 225781584] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:20.161.594 [5844: 227281583] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:20.222.594 [5844: 233381622] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 6->5
+69:43:20.231.594 [5844: 234281599] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 5->6
+69:43:20.258.594 [5844: 236981603] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:20.327.594 [5844: 243881600] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:20.337.594 [5844: 244881584] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:20.377.594 [5844: 248881600] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:20.388.594 [5844: 249981612] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 6->5
+69:43:20.407.594 [5844: 251881587] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 5->6
+69:43:20.421.594 [5844: 253281589] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:20.474.535 [5844: 258575745] [PTP_HWM_DATA] [#0][DFS MN] Next frame is silent
+69:43:20.474.540 [5844: 258576188] [PTP_HWM_DATA] [#0][DFS MN] Calculate timings: duration 10 busy 0 min_start 5844:258682341
+69:43:20.474.542 [5844: 258576465] [PTP_HWM_DATA] [#0][DFS MN] State changed DFS_IDLE -> DFS_BG
+69:43:20.474.545 [5844: 258576704] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_IDLE -> BG_SETTING_FREQ
+69:43:20.475.611 [5844: 258683336] [PTP_HWM_DATA] [#0] Set_RF_DFS_Freq freq=5560000
+69:43:20.475.614 [5844: 258683612] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5560000
+69:43:20.475.633 [5844: 258685555] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_SETTING_FREQ -> BG_WAIT_FREQ
+69:43:20.476.107 [5844: 258732880] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:20.476.124 [5844: 258734583] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_WAIT_FREQ -> BG_SETTING_GAIN
+69:43:20.476.140 [5844: 258736249] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_SETTING_GAIN -> BG_WAIT_GAIN
+69:43:20.476.143 [5844: 258736542] [PTP_HWM_DATA] [#0.1] Set_RF_DFS_Gain gfs=BG_WAIT_GAIN bind=0 gain=42 is_rssi_gain=1 start_ctu=0:0
+69:43:20.476.147 [5844: 258736913] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=1 gain=42
+69:43:20.476.189 [5844: 258741134] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:20.476.193 [5844: 258741490] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:20.476.195 [5844: 258741733] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:20.476.198 [5844: 258741991] [PTP_HWM_DATA] ---- Dfs_Area_Part_Of_Frame = 1
+69:43:20.476.200 [5844: 258742204] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_WAIT_GAIN -> BG_MEAS_PROC
+69:43:20.483.644 [5844: 259486670] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_MEAS_PROC -> BG_RESTORE_FREQ
+69:43:20.483.661 [5844: 259488319] [PTP_HWM_DATA] ---- Dfs_Area_Part_Of_Frame = 0
+69:43:20.483.663 [5844: 259488529] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_RESTORE_FREQ -> BG_WAIT_ResFREQ
+69:43:20.483.665 [5844: 259488745] [PTP_HWM_DATA] [#0] Restore_RF_DFS_Freq freq=5560000
+69:43:20.483.668 [5844: 259488996] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5560000
+69:43:20.484.153 [5844: 259537555] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:20.484.171 [5844: 259539280] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_WAIT_ResFREQ -> BG_RESTORE_GAIN
+69:43:20.484.187 [5844: 259540957] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_RESTORE_GAIN -> BG_WAIT_ResGAIN
+69:43:20.484.188 [5844: 259541069] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:20.484.190 [5844: 259541226] [PTP_HWM_DATA] [#0.1] Restore_RF_DFS_Gain gain=51 start_ctu=0:0
+69:43:20.484.191 [5844: 259541338] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:20.484.193 [5844: 259541540] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=1 gain=48
+69:43:20.484.194 [5844: 259541579] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:20.484.244 [5844: 259546601] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_WAIT_ResGAIN -> BG_IDLE
+69:43:20.484.260 [5844: 259548237] [PTP_HWM_DATA] [#0][DFS MN] State changed DFS_BG -> DFS_IDLE
+69:43:20.485.765 [5844: 259698772] [PTP_MCHL] (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+69:43:20.485.784 [5844: 259700581] [PTP_MCHL] [#0.1] Got raw rssi: -71/-62
+69:43:20.485.827 [5844: 259704958] [IDFS] Got rssi msg[219129]: -93 (-71)/ -84 (-62)
+69:43:20.485.864 [5844: 259708668] [IDFS] [#0.1] Stop gaps freq=5560, mode=RSSI
+69:43:20.485.876 [5844: 259709827] [PTP_MCHL] (MCHL-->RLM):   (19) BG_RSSI_MEAS_STOP_REQ [0]
+69:43:20.486.605 [5844: 259782733] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:43:20.487.599 [5844: 259882123] [PTP_HWM_DATA] ---- DC_Cancellation set = 1
+69:43:20.488.594 [5844: 259981614] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:20.497.271 [5844: 260849312] [IDFS] P2P recv: rssi data
+69:43:20.497.339 [5844: 260856153] [IDFS] WAIT_MSG_RSSI -> IDLE
+69:43:20.497.361 [5844: 260858370] [IDFS] Safety sleep 50 ms
+69:43:20.498.594 [5844: 260981590] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:20.518.594 [5844: 262981584] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:20.526.594 [5844: 263781622] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 6->5
+69:43:20.543.594 [5844: 265481612] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 5->6
+69:43:20.547.301 [5844: 265852366] [IDFS] Ret req[219129] RSSI: 5560/5560, rx: 0, tx: 0
+69:43:20.547.343 [5844: 265856540] [IDFS_APP] App req return ok
+69:43:20.547.368 [5844: 265859031] [IDFS_APP] RSSI_V -> RSSI_H
+69:43:20.557.309 [5844: 266853159] [IDFS_APP] App req RSSI: 5560/5560, rx: 0, tx: 0
+69:43:20.557.319 [5844: 266854146] [IDFS] Get req[219130] RSSI: 5560/5560, rx: 0, tx: 0
+69:43:20.557.345 [5844: 266856733] [IDFS] Processing req[219130] RSSI: 5560/5560, rx: 0, tx: 0
+69:43:20.557.353 [5844: 266857493] [IDFS] IDLE -> WAIT_SLAVE_START_GAPS
+69:43:20.557.365 [5844: 266858730] [IDFS] timer set 5000 ms
+69:43:20.567.594 [5844: 267881583] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:20.576.594 [5844: 268781583] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:20.586.893 [5844: 269811503] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:20.589.893 [5844: 270111482] [PTP_MMC_P2P_MNGR] RX type: 5, size: 19
+69:43:20.591.892 [5844: 270311475] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:20.594.893 [5844: 270611487] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:20.596.892 [5844: 270811474] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:20.599.892 [5844: 271111471] [PTP_MMC_P2P_MNGR] RX type: 5, size: 6
+69:43:20.600.351 [5844: 271157336] [IDFS] P2P recv: slave start gaps OK
+69:43:20.600.397 [5844: 271161939] [IDFS] WAIT_SLAVE_START_GAPS -> INIT_MASTER_GAPS
+69:43:20.600.408 [5844: 271163075] [IDFS] timer set 5000 ms
+69:43:20.600.429 [5844: 271165160] [IDFS] [#0.0] Start gaps freq=5560, mode=RSSI, ffrx=0, fftx=0
+69:43:20.600.445 [5844: 271166772] [PTP_MCHL] (MCHL-->RLM):   (18) BG_RSSI_MEAS_REQ [0]
+69:43:20.600.471 [5844: 271169288] [PTP_MCHL] (MCHL-->RLM):   (15) BG_MEAS_MODE_SET_REQ [-1]
+69:43:20.600.481 [5844: 271170331] [PTP_MCHL] (MCHL-->RLM):   (21) BG_RSSI_START_NEW_MEAS_REQ [0]
+69:43:20.600.493 [5844: 271171513] [IDFS] INIT_MASTER_GAPS -> WAIT_MSG_RSSI
+69:43:20.600.619 [5844: 271184125] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:43:20.601.612 [5844: 271283406] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:20.601.634 [5844: 271285627] [PTP_HWM_DATA] ---- DC_Cancellation set = 0
+69:43:20.606.611 [5844: 271783335] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:20.611.611 [5844: 272283343] [PTP_MMC_P2P_MNGR] TX type: 5, size: 19, st: 0
+69:43:20.627.594 [5844: 273881618] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:20.647.594 [5844: 275881593] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:20.671.594 [5844: 278281594] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:20.671.614 [5844: 278283665] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:20.676.611 [5844: 278783327] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:20.681.611 [5844: 279283345] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:20.686.611 [5844: 279783332] [PTP_MMC_P2P_MNGR] TX type: 5, size: 12, st: 0
+69:43:20.689.893 [5844: 280111521] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:20.691.892 [5844: 280311475] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:20.694.893 [5844: 280611488] [PTP_MMC_P2P_MNGR] RX type: 5, size: 19
+69:43:20.697.594 [5844: 280881633] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:20.717.594 [5844: 282881601] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:20.796.893 [5844: 290811486] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:20.799.893 [5844: 291111486] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:20.801.892 [5844: 291311475] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:20.804.893 [5844: 291611480] [PTP_MMC_P2P_MNGR] RX type: 5, size: 12
+69:43:20.806.612 [5844: 291783432] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:20.811.611 [5844: 292283343] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:20.816.611 [5844: 292783340] [PTP_MMC_P2P_MNGR] TX type: 5, size: 19, st: 0
+69:43:20.821.611 [5844: 293283363] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:20.826.611 [5844: 293783373] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:20.831.611 [5844: 294283353] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:20.836.611 [5844: 294783320] [PTP_MMC_P2P_MNGR] TX type: 5, size: 14, st: 0
+69:43:20.839.893 [5844: 295111521] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:20.841.594 [5844: 295281620] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:20.841.892 [5844: 295311474] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:20.844.893 [5844: 295611488] [PTP_MMC_P2P_MNGR] RX type: 5, size: 19
+69:43:20.871.611 [5844: 298283351] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:20.876.611 [5844: 298783334] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:20.881.611 [5844: 299283343] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:20.883.594 [5844: 299481607] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:20.886.611 [5844: 299783311] [PTP_MMC_P2P_MNGR] TX type: 5, size: 12, st: 0
+69:43:20.889.893 [5844: 300111492] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:20.891.892 [5844: 300311475] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:20.894.893 [5844: 300611488] [PTP_MMC_P2P_MNGR] RX type: 5, size: 19
+69:43:20.963.594 [5844: 307481619] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:20.999.893 [5844: 311111521] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.001.892 [5844: 311311475] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.004.893 [5844: 311611493] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.006.892 [5844: 311811463] [PTP_MMC_P2P_MNGR] RX type: 5, size: 12
+69:43:21.008.594 [5844: 311981633] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:21.011.612 [5844: 312283380] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:21.016.611 [5844: 312783340] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:21.021.611 [5844: 313283337] [PTP_MMC_P2P_MNGR] TX type: 5, size: 19, st: 0
+69:43:21.022.594 [5844: 313381607] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:21.094.893 [5844: 320611493] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.096.892 [5844: 320811474] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.099.893 [5844: 321111492] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.101.892 [5844: 321311466] [PTP_MMC_P2P_MNGR] RX type: 5, size: 14
+69:43:21.106.612 [5844: 321783383] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:21.111.611 [5844: 322283354] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:21.116.611 [5844: 322783331] [PTP_MMC_P2P_MNGR] TX type: 5, size: 19, st: 0
+69:43:21.126.594 [5844: 323781671] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:21.201.594 [5844: 331281635] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:21.223.594 [5844: 333481589] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:21.291.594 [5844: 340281646] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:21.316.612 [5844: 342783439] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:21.318.594 [5844: 342981596] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:21.321.611 [5844: 343283345] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:21.326.611 [5844: 343783356] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:21.329.893 [5844: 344111521] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.331.892 [5844: 344311474] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.334.893 [5844: 344611488] [PTP_MMC_P2P_MNGR] RX type: 5, size: 19
+69:43:21.336.892 [5844: 344811474] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.337.594 [5844: 344881615] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:21.339.893 [5844: 345111492] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.341.892 [5844: 345311474] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.344.893 [5844: 345611492] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.346.892 [5844: 345811474] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.349.893 [5844: 346111492] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.351.892 [5844: 346311474] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.377.594 [5844: 348881602] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:21.386.594 [5844: 349781606] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:21.422.594 [5844: 353381636] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:21.431.893 [5844: 354311486] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.434.893 [5844: 354611486] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.436.892 [5844: 354811474] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.439.893 [5844: 355111484] [PTP_MMC_P2P_MNGR] RX type: 5, size: 13
+69:43:21.441.612 [5844: 355283429] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:21.446.611 [5844: 355783353] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:21.451.611 [5844: 356283338] [PTP_MMC_P2P_MNGR] TX type: 5, size: 19, st: 0
+69:43:21.513.594 [5844: 362481622] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:21.557.594 [5844: 366881607] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:21.588.594 [5844: 369981628] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:21.604.531 [5844: 371575341] [PTP_HWM_DATA] [#0][DFS MN] Next frame is silent
+69:43:21.604.536 [5844: 371575806] [PTP_HWM_DATA] [#0][DFS MN] Calculate timings: duration 10 busy 0 min_start 5844:371682341
+69:43:21.604.539 [5844: 371576099] [PTP_HWM_DATA] [#0][DFS MN] State changed DFS_IDLE -> DFS_BG
+69:43:21.604.541 [5844: 371576343] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_IDLE -> BG_SETTING_FREQ
+69:43:21.605.621 [5844: 371684334] [PTP_HWM_DATA] [#0] Set_RF_DFS_Freq freq=5560000
+69:43:21.605.624 [5844: 371684614] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5560000
+69:43:21.605.643 [5844: 371686487] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_SETTING_FREQ -> BG_WAIT_FREQ
+69:43:21.606.117 [5844: 371733896] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:21.606.134 [5844: 371735606] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_WAIT_FREQ -> BG_SETTING_GAIN
+69:43:21.606.151 [5844: 371737276] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_SETTING_GAIN -> BG_WAIT_GAIN
+69:43:21.606.153 [5844: 371737564] [PTP_HWM_DATA] [#0.0] Set_RF_DFS_Gain gfs=BG_WAIT_GAIN bind=0 gain=42 is_rssi_gain=1 start_ctu=0:0
+69:43:21.606.158 [5844: 371737982] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=0 gain=42
+69:43:21.606.189 [5844: 371741144] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:21.606.193 [5844: 371741516] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:21.606.195 [5844: 371741759] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:21.606.208 [5844: 371743041] [PTP_HWM_DATA] ---- Dfs_Area_Part_Of_Frame = 1
+69:43:21.606.210 [5844: 371743253] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_WAIT_GAIN -> BG_MEAS_PROC
+69:43:21.610.769 [5844: 372199085] [PTP_HWM_MGMT] SHM cmd: CMD_GET_TEMP, carrier_ix=0, reg=-1, write_value=27(0x0000001b)
+69:43:21.613.647 [5844: 372486941] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_MEAS_PROC -> BG_RESTORE_FREQ
+69:43:21.613.664 [5844: 372488597] [PTP_HWM_DATA] ---- Dfs_Area_Part_Of_Frame = 0
+69:43:21.613.666 [5844: 372488811] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_RESTORE_FREQ -> BG_WAIT_ResFREQ
+69:43:21.613.668 [5844: 372489019] [PTP_HWM_DATA] [#0] Restore_RF_DFS_Freq freq=5560000
+69:43:21.613.670 [5844: 372489271] [RF_AD9361_CAT_MGMT] Set DFS Rx freq: carrier=0, freq=5560000
+69:43:21.614.155 [5844: 372537732] [RF_AD9361_CAT_MGMT] Set frequency ok
+69:43:21.614.172 [5844: 372539448] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_WAIT_ResFREQ -> BG_RESTORE_GAIN
+69:43:21.614.188 [5844: 372541068] [PTP_MMC_LLGI] Hwm msg type 2 arrived (24 bytes)
+69:43:21.614.189 [5844: 372541134] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_RESTORE_GAIN -> BG_WAIT_ResGAIN
+69:43:21.614.191 [5844: 372541342] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@220)
+69:43:21.614.192 [5844: 372541408] [PTP_HWM_DATA] [#0.0] Restore_RF_DFS_Gain gain=51 start_ctu=0:0
+69:43:21.614.195 [5844: 372541696] [PTP_MMC_RLM] Frequency changing state 0 (PTP_MMC_RLM_Set_Freq_Response_Hndl@229)
+69:43:21.614.196 [5844: 372541778] [RF_AD9361_CAT_MGMT] Set DFS gain: carrier=0 ant=0 gain=51
+69:43:21.614.246 [5844: 372546779] [PTP_HWM_DATA] [#0][DFS BG] State changed BG_WAIT_ResGAIN -> BG_IDLE
+69:43:21.614.262 [5844: 372548406] [PTP_HWM_DATA] [#0][DFS MN] State changed DFS_BG -> DFS_IDLE
+69:43:21.615.833 [5844: 372705484] [PTP_MCHL] (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+69:43:21.615.853 [5844: 372707559] [PTP_MCHL] [#0.0] Got raw rssi: -69/-61
+69:43:21.615.895 [5844: 372711709] [IDFS] Got rssi msg[219130]: -91 (-69)/ -83 (-61)
+69:43:21.615.954 [5844: 372717616] [IDFS] [#0.0] Stop gaps freq=5560, mode=RSSI
+69:43:21.615.966 [5844: 372718793] [PTP_MCHL] (MCHL-->RLM):   (19) BG_RSSI_MEAS_STOP_REQ [0]
+69:43:21.616.605 [5844: 372782767] [PTP_MMC_DFS_MNGR] [#0]Set state: IDLE_ST
+69:43:21.617.643 [5844: 372886561] [PTP_HWM_DATA] ---- DC_Cancellation set = 1
+69:43:21.619.893 [5844: 373111518] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.621.594 [5844: 373281588] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:21.621.892 [5844: 373311474] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.624.893 [5844: 373611486] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.626.892 [5844: 373811470] [PTP_MMC_P2P_MNGR] RX type: 5, size: 20
+69:43:21.627.527 [5844: 373874975] [IDFS] P2P recv: rssi data
+69:43:21.627.583 [5844: 373880554] [IDFS] WAIT_MSG_RSSI -> IDLE
+69:43:21.627.610 [5844: 373883273] [IDFS] Safety sleep 50 ms
+69:43:21.631.611 [5844: 374283286] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:21.636.610 [5844: 374783228] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:21.641.610 [5844: 375283253] [PTP_MMC_P2P_MNGR] TX type: 5, size: 19, st: 0
+69:43:21.677.323 [5844: 378854510] [IDFS] Ret req[219130] RSSI: 5560/5560, rx: 0, tx: 0
+69:43:21.677.375 [5844: 378859680] [IDFS_APP] App req return ok
+69:43:21.677.410 [5844: 378863191] [IDFS_APP] RSSI_H -> RDRDT_MAIN
+69:43:21.687.330 [5844: 379855196] [IDFS_APP] RDRDT_MAIN -> RDRDT_ANNOUNCE
+69:43:21.697.639 [5844: 380886129] [IDFS_APP] RDRDT_ANNOUNCE -> RSSI_V
+69:43:21.707.602 [5844: 381882447] [IDFS_APP] App req RSSI: 5580/5580, rx: 0, tx: 0
+69:43:21.707.623 [5844: 381884509] [IDFS] Get req[219131] RSSI: 5580/5580, rx: 0, tx: 0
+69:43:21.707.669 [5844: 381889116] [IDFS] Processing req[219131] RSSI: 5580/5580, rx: 0, tx: 0
+69:43:21.707.679 [5844: 381890172] [IDFS] IDLE -> WAIT_SLAVE_START_GAPS
+69:43:21.707.692 [5844: 381891463] [IDFS] timer set 5000 ms
+69:43:21.711.611 [5844: 382283306] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:21.716.611 [5844: 382783330] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:21.721.610 [5844: 383283259] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:21.726.610 [5844: 383783262] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:21.731.610 [5844: 384283274] [PTP_MMC_P2P_MNGR] TX type: 5, size: 7, st: 0
+69:43:21.734.893 [5844: 384611517] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.736.892 [5844: 384811474] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.739.893 [5844: 385111482] [PTP_MMC_P2P_MNGR] RX type: 5, size: 19
+69:43:21.740.347 [5844: 385156911] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 1, dl/ul: 5720/5720
+69:43:21.740.453 [5844: 385167529] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5720/5720
+69:43:21.740.532 [5844: 385175419] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5720/5720
+69:43:21.740.606 [5844: 385182847] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5720/5720
+69:43:21.740.647 [5844: 385186937] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 1, dl/ul: 5720/5720
+69:43:21.740.665 [5844: 385188774] [IOCTL] [#0] FillInFreqSet, dfs: 0, def: 0, dl/ul: 5720/5720
+69:43:21.741.892 [5844: 385311474] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.744.893 [5844: 385611486] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.746.892 [5844: 385811474] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.749.892 [5844: 386111470] [PTP_MMC_P2P_MNGR] RX type: 5, size: 6
+69:43:21.752.395 [5844: 386361695] [IDFS] P2P recv: slave start gaps OK
+69:43:21.752.455 [5844: 386367745] [IDFS] WAIT_SLAVE_START_GAPS -> INIT_MASTER_GAPS
+69:43:21.752.466 [5844: 386368868] [IDFS] timer set 5000 ms
+69:43:21.752.490 [5844: 386371202] [IDFS] [#0.1] Start gaps freq=5580, mode=RSSI, ffrx=0, fftx=0
+69:43:21.752.506 [5844: 386372795] [PTP_MCHL] (MCHL-->RLM):   (18) BG_RSSI_MEAS_REQ [0]
+69:43:21.752.530 [5844: 386375264] [PTP_MCHL] (MCHL-->RLM):   (15) BG_MEAS_MODE_SET_REQ [-1]
+69:43:21.752.540 [5844: 386376257] [PTP_MCHL] (MCHL-->RLM):   (21) BG_RSSI_START_NEW_MEAS_REQ [0]
+69:43:21.752.552 [5844: 386377417] [IDFS] INIT_MASTER_GAPS -> WAIT_MSG_RSSI
+69:43:21.752.698 [5844: 386392016] [PTP_MMC_DFS_MNGR] [#0]Set state: BG_RSSI_PERIODIC_ST
+69:43:21.753.625 [5844: 386484708] [PTP_HWM_DATA] ---- DC_Cancellation set = 0
+69:43:21.756.612 [5844: 386783427] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:21.761.611 [5844: 387283303] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:21.766.611 [5844: 387783319] [PTP_MMC_P2P_MNGR] TX type: 5, size: 19, st: 0
+69:43:21.771.594 [5844: 388281630] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:21.783.594 [5844: 389481618] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 6->5
+69:43:21.802.594 [5844: 391381594] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 5->6
+69:43:21.812.594 [5844: 392381612] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:21.816.611 [5844: 392783355] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:21.821.611 [5844: 393283331] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:21.826.611 [5844: 393783338] [PTP_MMC_P2P_MNGR] TX type: 5, size: 24, st: 0
+69:43:21.831.611 [5844: 394283293] [PTP_MMC_P2P_MNGR] TX type: 5, size: 14, st: 0
+69:43:21.834.893 [5844: 394611524] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.836.893 [5844: 394811478] [PTP_MMC_P2P_MNGR] RX type: 5, size: 24
+69:43:21.839.893 [5844: 395111488] [PTP_MMC_P2P_MNGR] RX type: 5, size: 19
+69:43:21.853.594 [5844: 396481605] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+69:43:21.891.594 [5844: 400281629] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 6->5
+69:43:21.970.695 [5844: 408191720] [PTP_MMC_RLM_DATA]  OK [#0]   frame=847 prof_ix=0 magic=1 crc=0x00fc47cb raw=0x5652b74ffc47cb80
+69:43:21.971.611 [5844: 408283286] [PTP_MMC_RLM_DATA]  TX [#0]   frame=849 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525f35100000090
+69:43:21.971.695 [5844: 408291769] [PTP_MMC_RLM_DATA]  OK [#0]   frame=848 prof_ix=0 magic=1 crc=0x00ae7a3f raw=0x5652f350ae7a3f80
+69:43:21.972.608 [5844: 408383048] [PTP_MMC_RLM_DATA]  TX [#0]   frame=850 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525b75200000090
+69:43:21.973.604 [5844: 408482642] [PTP_MMC_RLM_DATA]  TX [#0]   frame=851 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525f35300000090
+69:43:21.974.603 [5844: 408582561] [PTP_MMC_RLM_DATA]  TX [#0]   frame=852 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525f35400000090
+69:43:21.974.694 [5844: 408591653] [PTP_MMC_RLM_DATA]  OK [#0]   frame=851 prof_ix=0 magic=1 crc=0x00be370b raw=0x5652b753be370b80
+69:43:21.975.609 [5844: 408683162] [PTP_MMC_RLM_DATA]  TX [#0]   frame=853 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525f35500000090
+69:43:21.975.695 [5844: 408691720] [PTP_MMC_RLM_DATA]  OK [#0]   frame=852 prof_ix=0 magic=1 crc=0x008f6aff raw=0x5652f3548f6aff80
+69:43:21.976.610 [5844: 408783256] [PTP_MMC_RLM_DATA]  TX [#0]   frame=854 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525f35600000090
+69:43:21.976.695 [5844: 408791741] [PTP_MMC_RLM_DATA]  OK [#0]   frame=853 prof_ix=0 magic=1 crc=0x00be2f6b raw=0x5652b755be2f6b80
+69:43:21.977.608 [5844: 408883068] [PTP_MMC_RLM_DATA]  TX [#0]   frame=855 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525b75700000090
+69:43:21.978.604 [5844: 408982615] [PTP_MMC_RLM_DATA]  TX [#0]   frame=856 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525f35800000090
+69:43:21.979.603 [5844: 409082544] [PTP_MMC_RLM_DATA]  TX [#0]   frame=857 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525f35900000090
+69:43:21.979.694 [5844: 409091653] [PTP_MMC_RLM_DATA]  OK [#0]   frame=856 prof_ix=0 magic=1 crc=0x008f5a3f raw=0x5652f3588f5a3f80
+69:43:21.980.609 [5844: 409183135] [PTP_MMC_RLM_DATA]  TX [#0]   frame=858 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525f35a00000090
+69:43:21.980.695 [5844: 409191749] [PTP_MMC_RLM_DATA]  OK [#0]   frame=857 prof_ix=0 magic=1 crc=0x00be1fab raw=0x5652b759be1fab80
+69:43:21.981.610 [5844: 409283263] [PTP_MMC_RLM_DATA]  TX [#0]   frame=859 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525f35b00000090
+69:43:21.981.695 [5844: 409291741] [PTP_MMC_RLM_DATA]  OK [#0]   frame=858 prof_ix=0 magic=1 crc=0x00ae529f raw=0x5652f35aae529f80
+69:43:21.982.608 [5844: 409383040] [PTP_MMC_RLM_DATA]  TX [#0]   frame=860 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525b75c00000090
+69:43:21.983.604 [5844: 409482627] [PTP_MMC_RLM_DATA]  TX [#0]   frame=861 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525f35d00000090
+69:43:21.984.603 [5844: 409582531] [PTP_MMC_RLM_DATA]  TX [#0]   frame=862 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525f35e00000090
+69:43:21.984.694 [5844: 409591653] [PTP_MMC_RLM_DATA]  OK [#0]   frame=861 prof_ix=0 magic=1 crc=0x009f0f6b raw=0x5652b75d9f0f6b80
+69:43:21.985.610 [5844: 409683177] [PTP_MMC_RLM_DATA]  TX [#0]   frame=863 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525f35f00000090
+69:43:21.985.695 [5844: 409691749] [PTP_MMC_RLM_DATA]  OK [#0]   frame=862 prof_ix=0 magic=1 crc=0x008f425f raw=0x5652f35e8f425f80
+69:43:21.986.610 [5844: 409783248] [PTP_MMC_RLM_DATA]  TX [#0]   frame=864 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525f36000000090
+69:43:21.986.695 [5844: 409791739] [PTP_MMC_RLM_DATA]  OK [#0]   frame=863 prof_ix=0 magic=1 crc=0x00be07cb raw=0x5652b75fbe07cb80
+69:43:21.987.609 [5844: 409883126] [PTP_MMC_RLM_DATA]  TX [#0]   frame=865 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525b76100000090
+69:43:21.988.604 [5844: 409982648] [PTP_MMC_RLM_DATA]  TX [#0]   frame=866 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525f36200000090
+69:43:21.989.603 [5844: 410082546] [PTP_MMC_RLM_DATA]  TX [#0]   frame=867 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525f36300000090
+69:43:21.989.694 [5844: 410091653] [PTP_MMC_RLM_DATA]  OK [#0]   frame=866 prof_ix=0 magic=1 crc=0x0049b29f raw=0x5652f36249b29f80
+69:43:21.990.609 [5844: 410183149] [PTP_MMC_RLM_DATA]  TX [#0]   frame=868 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525f36400000090
+69:43:21.990.695 [5844: 410191720] [PTP_MMC_RLM_DATA]  OK [#0]   frame=867 prof_ix=0 magic=1 crc=0x0078f70b raw=0x5652b76378f70b80
+69:43:21.991.610 [5844: 410283265] [PTP_MMC_RLM_DATA]  TX [#0]   frame=869 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525f36500000090
+69:43:21.991.695 [5844: 410291739] [PTP_MMC_RLM_DATA]  OK [#0]   frame=868 prof_ix=0 magic=1 crc=0x0049aaff raw=0x5652f36449aaff80
+69:43:21.992.608 [5844: 410383037] [PTP_MMC_RLM_DATA]  TX [#0]   frame=870 prof_ix=1 magic=1 crc=0x00000000 raw=0x6525b76600000090
+69:43:21.993.594 [5844: 410481646] [PTP_MMC_AMC] [#0.1] Recommended RX MCS 5->6
+69:43:21.993.607 [5844: 410482972] [PTP_MMC_RLM_DATA]  TX [#0]   frame=871 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526f36700000090
+69:43:21.994.603 [5844: 410582523] [PTP_MMC_RLM_DATA]  TX [#0]   frame=872 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526f36800000090
+69:43:21.994.694 [5844: 410591653] [PTP_MMC_RLM_DATA]  OK [#0]   frame=871 prof_ix=0 magic=1 crc=0x0059e7cb raw=0x5652b76759e7cb80
+69:43:21.995.609 [5844: 410683173] [PTP_MMC_RLM_DATA]  TX [#0]   frame=873 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526f36900000090
+69:43:21.995.695 [5844: 410691727] [PTP_MMC_RLM_DATA]  OK [#0]   frame=872 prof_ix=0 magic=1 crc=0x00499a3f raw=0x5652f368499a3f80
+69:43:21.996.610 [5844: 410783250] [PTP_MMC_RLM_DATA]  TX [#0]   frame=874 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526f36a00000090
+69:43:21.996.695 [5844: 410791741] [PTP_MMC_RLM_DATA]  OK [#0]   frame=873 prof_ix=0 magic=1 crc=0x0078dfab raw=0x5652b76978dfab80
+69:43:21.997.608 [5844: 410883057] [PTP_MMC_RLM_DATA]  TX [#0]   frame=875 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526b76b00000090
+69:43:21.998.604 [5844: 410982618] [PTP_MMC_RLM_DATA]  TX [#0]   frame=876 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526f36c00000090
+69:43:21.999.603 [5844: 411082534] [PTP_MMC_RLM_DATA]  TX [#0]   frame=877 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526f36d00000090
+69:43:21.999.694 [5844: 411091653] [PTP_MMC_RLM_DATA]  OK [#0]   frame=876 prof_ix=0 magic=1 crc=0x00688aff raw=0x5652f36c688aff80
+69:43:22.000.609 [5844: 411183152] [PTP_MMC_RLM_DATA]  TX [#0]   frame=878 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526f36e00000090
+69:43:22.000.695 [5844: 411191720] [PTP_MMC_RLM_DATA]  OK [#0]   frame=877 prof_ix=0 magic=1 crc=0x0041cc0b raw=0x5662b76d41cc0b80
+69:43:22.001.610 [5844: 411283241] [PTP_MMC_RLM_DATA]  TX [#0]   frame=879 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526f36f00000090
+69:43:22.001.696 [5844: 411291778] [PTP_MMC_RLM_DATA]  OK [#0]   frame=878 prof_ix=0 magic=1 crc=0x0051813f raw=0x5662f36e51813f80
+69:43:22.002.608 [5844: 411383057] [PTP_MMC_RLM_DATA]  TX [#0]   frame=880 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526b77000000090
+69:43:22.003.604 [5844: 411482633] [PTP_MMC_RLM_DATA]  TX [#0]   frame=881 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526f37100000090
+69:43:22.004.603 [5844: 411582533] [PTP_MMC_RLM_DATA]  TX [#0]   frame=882 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526f37200000090
+69:43:22.004.694 [5844: 411591653] [PTP_MMC_RLM_DATA]  OK [#0]   frame=881 prof_ix=0 magic=1 crc=0x0003bccb raw=0x5662b77103bccb80
+69:43:22.005.610 [5844: 411683208] [PTP_MMC_RLM_DATA]  TX [#0]   frame=883 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526f37300000090
+69:43:22.005.695 [5844: 411691721] [PTP_MMC_RLM_DATA]  OK [#0]   frame=882 prof_ix=0 magic=1 crc=0x0013f1ff raw=0x5662f37213f1ff80
+69:43:22.006.610 [5844: 411783251] [PTP_MMC_RLM_DATA]  TX [#0]   frame=884 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526f37400000090
+69:43:22.006.695 [5844: 411791739] [PTP_MMC_RLM_DATA]  OK [#0]   frame=883 prof_ix=0 magic=1 crc=0x0022b46b raw=0x5662b77322b46b80
+69:43:22.007.609 [5844: 411883122] [PTP_MMC_RLM_DATA]  TX [#0]   frame=885 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526b77500000090
+69:43:22.008.604 [5844: 411982651] [PTP_MMC_RLM_DATA]  TX [#0]   frame=886 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526f37600000090
+69:43:22.009.603 [5844: 412082554] [PTP_MMC_RLM_DATA]  TX [#0]   frame=887 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526f37700000090
+69:43:22.009.694 [5844: 412091653] [PTP_MMC_RLM_DATA]  OK [#0]   frame=886 prof_ix=0 magic=1 crc=0x0032e13f raw=0x5662f37632e13f80
+69:43:22.010.609 [5844: 412183151] [PTP_MMC_RLM_DATA]  TX [#0]   frame=888 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526f37800000090
+69:43:22.010.695 [5844: 412191720] [PTP_MMC_RLM_DATA]  OK [#0]   frame=887 prof_ix=0 magic=1 crc=0x0003a4ab raw=0x5662b77703a4ab80
+69:43:22.011.610 [5844: 412283269] [PTP_MMC_RLM_DATA]  TX [#0]   frame=889 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526f37900000090
+69:43:22.011.695 [5844: 412291739] [PTP_MMC_RLM_DATA]  OK [#0]   frame=888 prof_ix=0 magic=1 crc=0x0013d95f raw=0x5662f37813d95f80
+69:43:22.012.608 [5844: 412383055] [PTP_MMC_RLM_DATA]  TX [#0]   frame=890 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526b77a00000090
+69:43:22.013.604 [5844: 412482652] [PTP_MMC_RLM_DATA]  TX [#0]   frame=891 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526f37b00000090
+69:43:22.014.603 [5844: 412582528] [PTP_MMC_RLM_DATA]  TX [#0]   frame=892 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526f37c00000090
+69:43:22.014.694 [5844: 412591653] [PTP_MMC_RLM_DATA]  OK [#0]   frame=891 prof_ix=0 magic=1 crc=0x0003946b raw=0x5662b77b03946b80
+69:43:22.015.609 [5844: 412683164] [PTP_MMC_RLM_DATA]  TX [#0]   frame=893 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526f37d00000090
+69:43:22.015.695 [5844: 412691726] [PTP_MMC_RLM_DATA]  OK [#0]   frame=892 prof_ix=0 magic=1 crc=0x0032c99f raw=0x5662f37c32c99f80
+69:43:22.016.610 [5844: 412783264] [PTP_MMC_RLM_DATA]  TX [#0]   frame=894 prof_ix=1 magic=1 crc=0x00000000 raw=0x6526f37e00000090
+69:43:22.016.695 [5844: 412791745] [PTP_MMC_RLM_DATA]  OK [#0]   frame=893 prof_ix=0 magic=1 crc=0x00038c0b raw=0x5662b77d038c0b80
+69:43:22.017.593 [5844: 412881575] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 5->6
+69:43:22.017.612 [5844: 412883382] [PTP_MMC_RLM_DATA]  TX [#0]   frame=895 prof_ix=1 magic=1 crc=0x00000000 raw=0x6626b77f00000090
+69:43:22.018.604 [5844: 412982638] [PTP_MMC_RLM_DATA]  TX [#0]   frame=896 prof_ix=1 magic=1 crc=0x00000000 raw=0x6626f38000000090
+69:43:22.019.603 [5844: 413082545] [PTP_MMC_RLM_DATA]  TX [#0]   frame=897 prof_ix=1 magic=1 crc=0x00000000 raw=0x6626f38100000090
+69:43:22.019.695 [5844: 413091682] [PTP_MMC_RLM_DATA]  OK [#0]   frame=896 prof_ix=0 magic=1 crc=0x00ec3a5c raw=0x5662f380ec3a5c80
+69:43:22.020.609 [5844: 413183136] [PTP_MMC_RLM_DATA]  TX [#0]   frame=898 prof_ix=1 magic=1 crc=0x00000000 raw=0x6626f38200000090
+69:43:22.020.695 [5844: 413191720] [PTP_MMC_RLM_DATA]  OK [#0]   frame=897 prof_ix=0 magic=1 crc=0x00dd7fc8 raw=0x5662b781dd7fc880
+69:43:22.021.611 [5844: 413283289] [PTP_MMC_RLM_DATA]  TX [#0]   frame=899 prof_ix=1 magic=1 crc=0x00000000 raw=0x6626f38300000090
+69:43:22.021.695 [5844: 413291739] [PTP_MMC_RLM_DATA]  OK [#0]   frame=898 prof_ix=0 magic=1 crc=0x00cd52f0 raw=0x6662f382cd52f080
+69:43:22.022.608 [5844: 413383057] [PTP_MMC_RLM_DATA]  TX [#0]   frame=900 prof_ix=1 magic=1 crc=0x00000000 raw=0x6626b78400000090
+69:43:22.023.604 [5844: 413482638] [PTP_MMC_RLM_DATA]  TX [#0]   frame=901 prof_ix=1 magic=1 crc=0x00000000 raw=0x6626f38500000090
+69:43:22.024.603 [5844: 413582521] [PTP_MMC_RLM_DATA]  TX [#0]   frame=902 prof_ix=1 magic=1 crc=0x00000000 raw=0x6626f38600000090
+69:43:22.024.694 [5844: 413591654] [PTP_MMC_RLM_DATA]  OK [#0]   frame=901 prof_ix=0 magic=1 crc=0x00fc0f04 raw=0x6662b785fc0f0480
+69:43:22.025.610 [5844: 413683199] [PTP_MMC_RLM_DATA]  TX [#0]   frame=903 prof_ix=1 magic=1 crc=0x00000000 raw=0x6626f38700000090
+69:43:22.025.695 [5844: 413691721] [PTP_MMC_RLM_DATA]  OK [#0]   frame=902 prof_ix=0 magic=1 crc=0x00ec4230 raw=0x6662f386ec423080
+69:43:22.026.610 [5844: 413783237] [PTP_MMC_RLM_DATA]  TX [#0]   frame=904 prof_ix=1 magic=1 crc=0x00000000 raw=0x6626f38800000090
+69:43:22.026.695 [5844: 413791740] [PTP_MMC_RLM_DATA]  OK [#0]   frame=903 prof_ix=0 magic=1 crc=0x00dd07a4 raw=0x6662b787dd07a480
+69:43:22.027.608 [5844: 413883065] [PTP_MMC_RLM_DATA]  TX [#0]   frame=905 prof_ix=1 magic=1 crc=0x00000000 raw=0x6626b78900000090
+69:43:22.028.604 [5844: 413982637] [PTP_MMC_RLM_DATA]  TX [#0]   frame=906 prof_ix=1 magic=1 crc=0x00000000 raw=0x6626f38a00000090
+69:43:22.029.603 [5844: 414082570] [PTP_MMC_RLM_DATA]  TX [#0]   frame=907 prof_ix=1 magic=1 crc=0x00000000 raw=0x6626f38b00000090
+69:43:22.029.694 [5844: 414091654] [PTP_MMC_RLM_DATA]  OK [#0]   frame=906 prof_ix=0 magic=1 crc=0x00ec72f0 raw=0x6662f38aec72f080
+69:43:22.030.609 [5844: 414183174] [PTP_MMC_RLM_DATA]  TX [#0]   frame=908 prof_ix=1 magic=1 crc=0x00000000 raw=0x6626f38c00000090
+69:43:22.030.695 [5844: 414191721] [PTP_MMC_RLM_DATA]  OK [#0]   frame=907 prof_ix=0 magic=1 crc=0x00dd3764 raw=0x6662b78bdd376480
+69:43:22.031.610 [5844: 414283238] [PTP_MMC_RLM_DATA]  TX [#0]   frame=909 prof_ix=1 magic=1 crc=0x00000000 raw=0x6626f38d00000090
+69:43:22.031.695 [5844: 414291740] [PTP_MMC_RLM_DATA]  OK [#0]   frame=908 prof_ix=0 magic=1 crc=0x00ec6a90 raw=0x6662f38cec6a9080
+69:43:22.032.609 [5844: 414383110] [PTP_MMC_RLM_DATA]  TX [#0]   frame=910 prof_ix=1 magic=1 crc=0x00000000 raw=0x6626b78e00000090
+69:43:22.043.594 [5844: 415481602] [PTP_MMC_AMC] [#0.0] Recommended RX MCS 6->5
+xgt: total 1612 messages

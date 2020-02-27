@@ -5,7 +5,7 @@ from re import search
 
 
 def test(device):
-    """Check ethernet interfaces"""
+    """Check Ethernet interfaces."""
 
     result = []
 

@@ -33,7 +33,7 @@ def parse_r5000(dc_string, dc_list):
             DFS
             Polling (MINT Master Only)
             Frame size (TDMA Master Only)
-            UL/DL ratio (TDMA Master Only)
+            DL/UL ratio (TDMA Master Only)
             Distance (TDMA Master Only)
             Target RSSI (TDMA Master Only)
             TSync (TDMA Master Only)
@@ -117,35 +117,26 @@ def parse_r5000(dc_string, dc_list):
     Example of request: ethernet_status['eth0']['Speed']
     """
 
-    # Model (Part Number)
+    # General info
+
     model = re.search(r'(R5000-[QMOSL][mxnbtcs]{2,5}/[\dX\*]{1,3}.300.2x\d{3})(.2x\d{2})?',
                       dc_string).group()
-
-    # Subfamily
     if ('L' in model or 'S' in model) and '2x19' in model:
         subfamily = 'R5000 Lite (low cost CPE)'
     elif 'L' in model or 'S' in model:
         subfamily = 'R5000 Lite'
     else:
         subfamily = 'R5000 Pro'
-
-    # Serial number
     serial_number = re.search(r'SN:(\d+)', dc_string).group(1)
-
-    # Firmware
     firmware = re.search(r'H\d{2}S\d{2}-(MINT|TDMA)[v\d.]+', dc_string).group()
-
-    # Uptime
     uptime = re.search(r'Uptime: ([\d\w :]*)', dc_string).group(1)
-
-    # Last Reboot Reason
     reboot_reason = re.search(r'Last reboot reason: ([\w ]*)', dc_string).group(1)
 
     # Settings
     radio_profile = {'Frequency':None, 'Bandwidth':None, 'Max bitrate':None, 'Auto bitrate':None, 'MIMO':None,
                      'SID'      :None, 'Status':None, 'Greenfield':None}
     radio_settings = {'Type'      :None, 'ATPC':None, 'Tx Power':None, 'Extnoise':None, 'DFS':None, 'Polling':None,
-                      'Frame size':None, 'UL/DL ratio':None, 'Distance':None, 'Target RSSI':None, 'TSync':None,
+                      'Frame size':None, 'DL/UL ratio':None, 'Distance':None, 'Target RSSI':None, 'TSync':None,
                       'Scrambling':None, 'Profile':radio_profile}
     switch_group_settings = {'Order'     :None, 'Flood':None, 'STP':None, 'Management':None, 'Mode':None,
                              'Interfaces':None, 'Vlan':None, 'Rules':None}
@@ -172,7 +163,7 @@ def parse_r5000(dc_string, dc_list):
         pattern = re.search(r'mint rf5\.0 tdma mode=Master win=(\d+) dist=(\d+) dlp=(\d+)', dc_string)
         radio_settings['Frame size'] = pattern.group(1)
         radio_settings['Distance'] = pattern.group(2)
-        radio_settings['UL/DL ratio'] = pattern.group(3)
+        radio_settings['DL/UL ratio'] = pattern.group(3)
 
         pattern = re.search(r'mint rf5\.0 tdma rssi=([-\d]+)', dc_string)
         radio_settings['Target RSSI'] = pattern.group(1)
@@ -429,7 +420,7 @@ def parse_xg(dc_string, dc_list):
         Short CP
         Max distance
         Frame size
-        UL/DL Ratio
+        DL/UL Ratio
         Tx Power
         Control Block Boost
         ATPC
@@ -480,7 +471,7 @@ def parse_xg(dc_string, dc_list):
     """
 
     def no_empty(pattern):
-        """Remove empty string"""
+        """Remove empty string."""
 
         for key_1, value_1 in enumerate(pattern):
             pattern[key_1] = list(value_1)
@@ -491,26 +482,22 @@ def parse_xg(dc_string, dc_list):
 
         return pattern
 
-    # Model (Part Number)
-    model = re.search(r'(([XU]m/\dX?.\d{3,4}.\dx\d{3})(.2x\d{2})?)',
-                      dc_string).group(1)
-
-    # Subfamily
-    if '500.2x500' in model:
+    # General info
+    try:
+        model = re.search(r'(([XU]m/\dX?.\d{3,4}.\dx\d{3})(.2x\d{2})?)',
+                          dc_string).group(1)
+        if '500.2x500' in model:
+            subfamily = 'XG 500'
+        else:
+            subfamily = 'XG 1000'
+    except:
+        model = 'XG Unknown model'
         subfamily = 'XG 500'
-    else:
-        subfamily = 'XG 1000'
 
-    # Serial number
     serial_number = re.search(r'SN:(\d+)', dc_string).group(1)
-
-    # Firmware
     firmware = re.search(r'(\bH\d{2}S\d{2}[v\d.-]+\b)',
                          dc_string).group(1)
-    # Uptime
     uptime = re.search(r'Uptime: ([\d\w :]*)', dc_string).group(1)
-
-    # Last Reboot Reason
     reboot_reason = re.search(r'Last reboot reason: ([\w ]*)', dc_string).group(1)
 
     # Settings
@@ -528,7 +515,7 @@ def parse_xg(dc_string, dc_list):
         'Short CP'              :None,
         'Max distance'          :None,
         'Frame size'            :None,
-        'UL/DL Ratio'           :None,
+        'DL/UL Ratio'           :None,
         'Tx Power'              :None,
         'Control Block Boost'   :None,
         'ATPC'                  :None,
@@ -553,30 +540,35 @@ def parse_xg(dc_string, dc_list):
     settings['UL Frequency']['Carrier 0'] = pattern[1][2]
     settings['UL Frequency']['Carrier 1'] = pattern[1][4]
 
-    pattern = re.search(r'# xg -short-cp (\d+)', dc_string).group(1)
-    settings['Short CP'] = 'Enabled' if pattern is '1' else 'Disabled'
+    pattern = re.search(r'# xg -short-cp (\d+)', dc_string)
+    if pattern is not None:
+        settings['Short CP'] = 'Enabled' if pattern.group(1) is '1' else 'Disabled'
 
     settings['Max distance'] = re.search(r'# xg -max-distance (\d+)', dc_string).group(1)
     settings['Frame size'] = re.search(r'# xg -sframelen (\d+)', dc_string).group(1)
-    settings['UL/DL Ratio'] = re.search(r'DL\/UL\sRatio\s+\|'
+    settings['DL/UL Ratio'] = re.search(r'DL\/UL\sRatio\s+\|'
                                         r'(\d+/\d+(\s\(auto\))?)',
                                         dc_string).group(1)
     settings['Tx Power'] = re.search(r'# xg -txpwr (\d+)', dc_string).group(1)
 
-    pattern = re.search(r'# xg -ctrl-block-boost (\d+)', dc_string).group(1)
-    settings['Control Block Boost'] = 'Enabled' if pattern is '1' else 'Disabled'
+    pattern = re.search(r'# xg -ctrl-block-boost (\d+)', dc_string)
+    if pattern is not None:
+        settings['Control Block Boost'] = 'Enabled' if pattern.group(1) is '1' else 'Disabled'
 
-    pattern = re.search(r'# xg -atpc-master-enable (\d+)', dc_string).group(1)
-    settings['ATPC'] = 'Enabled' if pattern is '1' else 'Disabled'
+    pattern = re.search(r'# xg -atpc-master-enable (\d+)', dc_string)
+    if pattern is not None:
+        settings['ATPC'] = 'Enabled' if pattern.group(1) is '1' else 'Disabled'
 
     settings['AMC Strategy'] = re.search(r'# xg -amc-strategy (\w+)', dc_string).group(1)
     settings['Max MCS'] = re.search(r'# xg -max-mcs (\d+)', dc_string).group(1)
 
-    pattern = re.search(r'# xg -idfs-enable (\d+)', dc_string).group(1)
-    settings['IDFS'] = 'Enabled' if pattern is '1' else 'Disabled'
+    pattern = re.search(r'# xg -idfs-enable (\d+)', dc_string)
+    if pattern is not None:
+        settings['IDFS'] = 'Enabled' if pattern.group(1) is '1' else 'Disabled'
 
-    pattern = re.search(r'# xg -traffic-prioritization (\d+)', dc_string).group(1)
-    settings['Traffic prioritization'] = 'Enabled' if pattern is '1' else 'Disabled'
+    pattern = re.search(r'# xg -traffic-prioritization (\d+)', dc_string)
+    if pattern is not None:
+        settings['Traffic prioritization'] = 'Enabled' if pattern.group(1) is '1' else 'Disabled'
 
     pattern = re.findall(r'ifc\s(ge0|ge1|sfp|radio)'
                          r'\s+(media\s([\w\d-]+)\s)?'
@@ -612,7 +604,7 @@ def parse_xg(dc_string, dc_list):
         'Slave'            :deepcopy(role)
         }
 
-    radio_status['Link status'] = re.search(r'Wireless Link\s+\|(\w+)', dc_string).group(1)
+    radio_status['Link status'] = re.search(r'Wireless Link( status)?\s+\|(\w+)', dc_string).group(2)
 
     pattern = re.search(r'Device Type\s+\|\s+(Master|Slave)\s+(\()?(\w+)?', dc_string)
     if not pattern.group(3) and pattern.group(1) == 'Master':
@@ -646,10 +638,11 @@ def parse_xg(dc_string, dc_list):
             radio_status['Slave']['Carrier 1']['Frequency'] = pattern[1][2]
 
         pattern = re.findall(r'DFS status\s+\|\s+(\w+)', dc_string)
-        radio_status['Master']['Carrier 0']['DFS'] = pattern[0]
-        radio_status['Slave']['Carrier 0']['DFS'] = pattern[0]
-        radio_status['Master']['Carrier 1']['DFS'] = pattern[0]
-        radio_status['Slave']['Carrier 1']['DFS'] = pattern[0]
+        if len(pattern) > 0:
+            radio_status['Master']['Carrier 0']['DFS'] = pattern[0]
+            radio_status['Slave']['Carrier 0']['DFS'] = pattern[0]
+            radio_status['Master']['Carrier 1']['DFS'] = pattern[0]
+            radio_status['Slave']['Carrier 1']['DFS'] = pattern[0]
 
         pattern = no_empty(re.findall(r'Rx\sAcc\sFER\s+\|\s+([\w\d.e-]+'
                                       r'\s\([\d.%]+\))(\s+\|'
@@ -953,7 +946,7 @@ def parse_quanta(dc_string, dc_list):
         UL Frequency
         Frame size
         Guard Interval
-        UL/DL Ratio
+        DL/UL Ratio
         Tx Power
         ATPC
         AMC Strategy
@@ -994,11 +987,8 @@ def parse_quanta(dc_string, dc_list):
     Example of request: ethernet_status['ge0']['Speed']
     """
 
-    # Model (Part Number)
+    # Genral info
     model = re.search(r'([QV](5|70)-[\dE]+)', dc_string).group(1)
-
-    # Subfamily
-    # global subfamily
     if 'Q5' in model:
         subfamily = 'Quanta 5'
     elif 'V5' in model:
@@ -1007,17 +997,9 @@ def parse_quanta(dc_string, dc_list):
         subfamily = 'Quanta 70'
     elif 'V70' in model:
         subfamily = 'Vector 70'
-
-    # Firmware
     firmware = re.search(r'(H\d{2}S\d{2}-OCTOPUS_PTPv[\d.]+)', dc_string).group(1)
-
-    # Serial number
     serial_number = re.search(r'SN:(\d+)', dc_string).group(1)
-
-    # Uptime
     uptime = re.search(r'Uptime: ([\d\w :]*)', dc_string).group(1)
-
-    # Last Reboot Reason
     reboot_reason = re.search(r'Last reboot reason: ([\w ]*)', dc_string).group(1)
 
     # Settings
@@ -1028,7 +1010,7 @@ def parse_quanta(dc_string, dc_list):
         'UL Frequency'    :None,
         'Frame size'      :None,
         'Guard Interval'  :None,
-        'UL/DL Ratio'     :None,
+        'DL/UL Ratio'     :None,
         'Tx Power'        :None,
         'ATPC'            :None,
         'AMC Strategy'    :None,
@@ -1049,9 +1031,9 @@ def parse_quanta(dc_string, dc_list):
     settings['Guard Interval'] = re.search(r'guard_interval (\d+\/\d+)', dc_string).group(1)
 
     if re.search(r'auto_dl_ul_ratio (\w+)', dc_string).group(1) == 'on':
-        settings['UL/DL Ratio'] = re.search(r'dl_ul_ratio (\d+)', dc_string).group(1) + ' (auto)'
+        settings['DL/UL Ratio'] = re.search(r'dl_ul_ratio (\d+)', dc_string).group(1) + ' (auto)'
     else:
-        settings['UL/DL Ratio'] = re.search(r'dl_ul_ratio (\d+)', dc_string).group(1)
+        settings['DL/UL Ratio'] = re.search(r'dl_ul_ratio (\d+)', dc_string).group(1)
 
     settings['Tx Power'] = re.search(r'tx_power (\d+)', dc_string).group(1)
     settings['ATPC'] = 'Enabled' if re.search(r'atpc (on|off)',
@@ -1092,27 +1074,29 @@ def parse_quanta(dc_string, dc_list):
         }
 
     radio_status['Link status'] = re.search(r'State\s+(\w+)', dc_string).group(1)
-    radio_status['Measured Distance'] = re.search(r'Distance\s+(\d+\sm)', dc_string).group(1)
-    pattern = re.search(r'Frequency\s+\|\s(\d+)\sMHz\s+\|\s(\d+)\sMHz', dc_string)
-    radio_status['Downlink']['Frequency'] = pattern.group(1)
-    radio_status['Uplink']['Frequency'] = pattern.group(2)
 
     if radio_status['Link status'] == 'connected':
+
+        radio_status['Measured Distance'] = re.search(r'Distance\s+(\d+\sm)', dc_string).group(1)
+        pattern = re.search(r'Frequency\s+\|\s(\d+)\sMHz\s+\|\s(\d+)\sMHz', dc_string)
+        radio_status['Downlink']['Frequency'] = pattern.group(1)
+        radio_status['Uplink']['Frequency'] = pattern.group(2)
+
         if settings['Role'] == 'master':
-            pattern = re.search(r'\| TX power\s+([\d\.]+)\s\/\s([\d\.]+)\sdBm',
+            pattern = re.search(r'\| TX power\s+([-\d\.]+)\s\/\s([-\d\.]+)\sdBm',
                                 dc_string)
             radio_status['Downlink']['Stream 0']['Tx Power'] = pattern.group(1)
             radio_status['Downlink']['Stream 1']['Tx Power'] = pattern.group(2)
-            pattern = re.search(r'Remote TX power\s+([\d\.]+)\s\/\s([\d\.]+)\sdBm',
+            pattern = re.search(r'Remote TX power\s+([-\d\.]+)\s\/\s([-\d\.]+)\sdBm',
                                 dc_string)
             radio_status['Uplink']['Stream 0']['Tx Power'] = pattern.group(1)
             radio_status['Uplink']['Stream 1']['Tx Power'] = pattern.group(2)
         else:
-            pattern = re.search(r'\| TX power\s+([\d\.]+)\s\/\s([\d\.]+)\sdBm',
+            pattern = re.search(r'\| TX power\s+([-\d\.]+)\s\/\s([-\d\.]+)\sdBm',
                                 dc_string)
             radio_status['Uplink']['Stream 0']['Tx Power'] = pattern.group(1)
             radio_status['Uplink']['Stream 1']['Tx Power'] = pattern.group(2)
-            pattern = re.search(r'Remote TX power\s+([\d\.]+)\s\/\s([\d\.]+)\sdBm',
+            pattern = re.search(r'Remote TX power\s+([-\d\.]+)\s\/\s([-\d\.]+)\sdBm',
                                 dc_string)
             radio_status['Downlink']['Stream 0']['Tx Power'] = pattern.group(1)
             radio_status['Downlink']['Stream 1']['Tx Power'] = pattern.group(2)

@@ -5,7 +5,7 @@ from re import search
 
 
 def test(device):
-    """Check log and other service messages."""
+    """Check log and other service messages"""
 
     result = []
 
@@ -27,7 +27,7 @@ def test(device):
                       .format(pattern.group(1)))
 
     pattern = search(r'BOARD: ([\+\-\d\.]+) degrees Celsius', device.dc_string).group(1)
-    if float(pattern) < -55 or float(pattern) > 60:
+    if float(pattern) < -40 or float(pattern) > 60:
         result.append('* Motherboard temperature is {} °. '
                       'Please pay attention.'
                       .format(pattern))

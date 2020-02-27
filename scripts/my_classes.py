@@ -5,7 +5,7 @@ from abc import ABC
 
 
 class RawDiagnosticCard(ABC):
-    """A diagnostic card"""
+    """A diagnostic card."""
 
     def __init__(self, model, subfamily, serial_number, firmware, uptime,
                  reboot_reason, dc_list, dc_string):
@@ -20,7 +20,7 @@ class RawDiagnosticCard(ABC):
 
 
 class R5000Card(RawDiagnosticCard):
-    """An R5000 diagnostic card"""
+    """An R5000 diagnostic card."""
 
     family = 'R5000'
 
@@ -36,7 +36,7 @@ class R5000Card(RawDiagnosticCard):
 
 
 class XGCard(RawDiagnosticCard):
-    """A XG diagnostic card"""
+    """A XG diagnostic card."""
 
     family = 'XG'
 
@@ -53,7 +53,7 @@ class XGCard(RawDiagnosticCard):
 
 
 class QCard(RawDiagnosticCard):
-    """A Quanta diagnostic card"""
+    """A Quanta diagnostic card."""
 
     family = 'Quanta'
 

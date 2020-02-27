@@ -3,6 +3,20 @@
   <component name="ChangeListManager">
     <list default="true" id="b076e524-eee4-4235-a93a-9cd72d728b4e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/dcard_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/dcard_parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/dcard_reporter.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/dcard_reporter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/dcards/archive/diag_master_700840_2019-05-07_01-13-46.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/dcards/archive/diag_master_700840_2019-05-07_01-13-46.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/dcards/diagcard.SN-506026 xg 1000 link up and all ok.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/my_classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/my_classes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/runit.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/runit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tests/quanta/ethernet_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/quanta/ethernet_check.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tests/quanta/evm.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tests/xg/__training_stand.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tests/xg/ethernet_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/xg/ethernet_check.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tests/xg/log_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/xg/log_check.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tests/xg/panic.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/xg/panic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tests/xg/radio_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/xg/radio_check.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tests/xg/recommendations.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/xg/recommendations.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +57,11 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/venv/Scripts/pylint.exe" />
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Python" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\Parser\scripts\tests\r5000" />
+    </key>
   </component>
   <component name="RunManager" selected="Python.runit">
     <configuration name="__training_stand" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -87,27 +106,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="jira_connector" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Parser" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="F:\Parser\jira_connector.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="radio_check" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Parser" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -121,6 +119,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/tests/xg/radio_check.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="recommendations" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Parser" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts/tests/quanta" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/tests/quanta/recommendations.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -153,10 +172,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.runit" />
+        <item itemvalue="Python.recommendations" />
         <item itemvalue="Python.__training_stand" />
         <item itemvalue="Python.radio_check" />
         <item itemvalue="Python.jira_connector (1)" />
-        <item itemvalue="Python.jira_connector" />
       </list>
     </recent_temporary>
   </component>
@@ -227,7 +246,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582730478599</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Version 0.83">
+      <created>1582743823734</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1582743823735</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -282,11 +308,11 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="707" y="379" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582008128136" />
-    <state x="614" y="118" key="CommitChangelistDialog2" timestamp="1582730477213">
+    <state x="614" y="118" key="CommitChangelistDialog2" timestamp="1582743822773">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="614" y="118" key="CommitChangelistDialog2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582730477213" />
-    <state x="614" y="118" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1582137615955" />
+    <state x="614" y="118" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1582743822773" />
     <state x="92" y="92" width="1736" height="866" key="DiffContextDialog" timestamp="1580484692076">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -304,25 +330,25 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="753" y="390" key="Github.CreatePullRequestDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582034831708" />
-    <state width="1898" height="265" key="GridCell.Tab.0.bottom" timestamp="1582730536590">
+    <state width="1898" height="265" key="GridCell.Tab.0.bottom" timestamp="1582815650578">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="265" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582730536590" />
+    <state width="1898" height="265" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582815650578" />
     <state width="1899" height="198" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
-    <state width="1898" height="265" key="GridCell.Tab.0.center" timestamp="1582730536590">
+    <state width="1898" height="265" key="GridCell.Tab.0.center" timestamp="1582815650578">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="265" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582730536590" />
+    <state width="1898" height="265" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582815650578" />
     <state width="1899" height="198" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
-    <state width="1898" height="265" key="GridCell.Tab.0.left" timestamp="1582730536590">
+    <state width="1898" height="265" key="GridCell.Tab.0.left" timestamp="1582815650578">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="265" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582730536590" />
+    <state width="1898" height="265" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582815650578" />
     <state width="1899" height="198" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
-    <state width="1898" height="265" key="GridCell.Tab.0.right" timestamp="1582730536590">
+    <state width="1898" height="265" key="GridCell.Tab.0.right" timestamp="1582815650578">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="265" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582730536590" />
+    <state width="1898" height="265" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582815650578" />
     <state width="1899" height="198" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
     <state width="1898" height="345" key="GridCell.Tab.1.bottom" timestamp="1582277274013">
       <screen x="0" y="0" width="1920" height="1050" />
@@ -353,11 +379,11 @@
     </state>
     <state x="461" y="155" key="SettingsEditor/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582721825731" />
     <state x="461" y="155" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1582131382275" />
-    <state x="552" y="256" key="Vcs.Push.Dialog.v2" timestamp="1582730482707">
+    <state x="552" y="256" key="Vcs.Push.Dialog.v2" timestamp="1582743843640">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="552" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582730482707" />
-    <state x="552" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1582137627609" />
+    <state x="552" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1582743843640" />
     <state x="92" y="92" width="1736" height="866" key="com.intellij.dvcs.ui.CompareBranchesDialog" timestamp="1582261221248">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -376,17 +402,17 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="701" y="167" key="refactoring.ChangeSignatureDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582262990946" />
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1582727329533">
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1582810215099">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582727329533" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582810215099" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/scripts/dcard_parser.py</url>
-          <line>404</line>
+          <line>395</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -396,8 +422,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/scripts/dcard_parser.py</url>
-          <line>931</line>
+          <line>924</line>
           <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/scripts/my_classes.py</url>
+          <line>54</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/scripts/my_classes.py</url>
+          <line>6</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/scripts/my_classes.py</url>
+          <line>21</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/scripts/my_classes.py</url>
+          <line>37</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

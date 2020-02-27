@@ -1,200 +1,200 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+from re import search
+
+
 def r5000_report(device):
     pass
 
 
 def xg_report(device):
-    """Show parsed information"""
+    """Show parsed information."""
+
+    def radio_message(carrier, carrier_name):
+        """Show information about carriers."""
+
+        message.append('  ' + carrier_name + ':\n'
+                                             '   Stream 0 RSSI: {}, '
+                                             'Stream 1 RSSI: {};\n'
+                                             '   Stream 0 CINR: {}, '
+                                             'Stream 1 CINR: {};\n'
+                                             '   Stream 0 MCS: {}, '
+                                             'Stream 1 MCS: {};\n'
+                                             '   Stream 0 Errors: {}, '
+                                             'Stream 1 Errors: {}. '
+                       .format(carrier['Stream 0']['RSSI'],
+                               carrier['Stream 1']['RSSI'],
+                               carrier['Stream 0']['CINR'],
+                               carrier['Stream 1']['CINR'],
+                               carrier['Stream 0']['MCS'],
+                               carrier['Stream 1']['MCS'],
+                               carrier['Stream 0']['Errors Ratio'],
+                               carrier['Stream 1']['Errors Ratio']))
 
     settings = device.settings
     radio_status = device.radio_status
     master = radio_status['Master']
     slave = radio_status['Slave']
     ethernet_status = device.ethernet_status
-
     message = []
 
     # Show settings
     message.append('Settings: ')
-    message.append('Role: {}'.format(str.capitalize(settings['Role'])))
+    message.append(' Role: {}'.format(str.capitalize(settings['Role'])))
     if device.subfamily == 'XG 500':
-        message.append('Frequencies: '
+        message.append(' Frequencies: '
                        'Carrier 0 DL - {} MHz, '
-                       'Carrier 0 UL - {} MHz'
+                       'Carrier 0 UL - {} MHz.'
                        .format(settings['DL Frequency']['Carrier 0'],
                                settings['UL Frequency']['Carrier 0']))
     else:
-        message.append('Frequencies: '
+        message.append(' Frequencies: '
                        'Carrier 0 DL - {} MHz, '
                        'Carrier 0 UL - {} MHz, '
                        'Carrier 1 DL - {} MHz, '
-                       'Carrier 1 UL - {} MHz'
+                       'Carrier 1 UL - {} MHz.'
                        .format(settings['DL Frequency']['Carrier 0'],
                                settings['UL Frequency']['Carrier 0'],
                                settings['DL Frequency']['Carrier 1'],
                                settings['UL Frequency']['Carrier 1']))
-    message.append('Bandwidth: {} MHz'.format(settings['Bandwidth']))
-    message.append('Frame size: {} ms'.format(settings['Frame size']))
-    message.append('UL/DL Ratio: {}'.format(settings['UL/DL Ratio']))
-    message.append('Control Block Boost: {}'.format(settings['Control Block Boost']))
-    message.append('Short CP: {}'.format(settings['Short CP']))
-    message.append('IDFS: {}'.format(settings['IDFS']))
-    message.append('Traffic prioritization: {}'.format(settings['Traffic prioritization']))
-    message.append('Tx Power: {} dBm'.format(settings['Tx Power']))
-    message.append('ATPC: {}'.format(settings['ATPC']))
+    message.append(' Bandwidth: {} MHz.'.format(settings['Bandwidth']))
+    message.append(' Frame size: {} ms.'.format(settings['Frame size']))
+    message.append(' DL/UL Ratio: {}.'.format(settings['DL/UL Ratio']))
+    message.append(' Control Block Boost: {}.'.format(settings['Control Block Boost']))
+    message.append(' Short CP: {}.'.format(settings['Short CP']))
+    message.append(' IDFS: {}.'.format(settings['IDFS']))
+    message.append(' Traffic prioritization: {}.'.format(settings['Traffic prioritization']))
+    message.append(' Tx Power: {} dBm.'.format(settings['Tx Power']))
+    message.append(' ATPC: {}.'.format(settings['ATPC']))
     if settings['ATPC'] == 'Enabled':
-        message.append('AMC Strategy: {}'.format(str.capitalize(settings['AMC Strategy'])))
-    message.append('Max MCS: {}'.format(settings['Max MCS']))
+        message.append(' AMC Strategy: {}.'.format(str.capitalize(settings['AMC Strategy'])))
+    message.append(' Max MCS: {}.'.format(settings['Max MCS']))
     message.append('\n')
 
-    # Show Radio Status (Nado peredelat)
+    # Show Radio Status
     message.append('Radio: ')
-    message.append('Link status: {}'.format(radio_status['Link status']))
-    message.append('Measured Distance: {}'.format(radio_status['Measured Distance']))
+    message.append(' Link status: {}.'.format(radio_status['Link status']))
+    message.append(' Measured Distance: {}.'.format(radio_status['Measured Distance']))
 
     if device.subfamily == 'XG 500':
+        message.append(' * Master: ')
+        message.append('  Role: {}.'.format(master['Role']))
+        radio_message(master['Carrier 0'], 'Carrier 0')
+        message.append(' * Slave: ')
+        message.append('  Role: {}.'.format(slave['Role']))
+        radio_message(slave['Carrier 0'], 'Carrier 0')
+    elif device.subfamily == 'XG 1000':
+        message.append(' * Master: ')
+        message.append('  Role: {}.'.format(master['Role']))
+        for carrier in ['Carrier 0', 'Carrier 1']:
+            radio_message(master[carrier], carrier)
+        message.append(' * Slave: ')
+        message.append('  Role: {}.'.format(slave['Role']))
+        for carrier in ['Carrier 0', 'Carrier 1']:
+            radio_message(slave[carrier], carrier)
 
-        master = master['Carrier 0']
-        slave = slave['Carrier 0']
-
-        message.append('* Master: ')
-        message.append('Role: {}'.format(master['Role']))
-        message.append('Carrier 0:'
-                       'Stream 0 RSSI: {} dBm, '
-                       'Stream 1 RSSI: {} dBm \n'
-                       'Stream 0 CINR: {} dB, '
-                       'Stream 1 CINR: {} dB \n'
-                       'Stream 0 MCS: {}, '
-                       'Stream 1 MCS: {} \n'
-                       'Stream 0 Errors: {}, '
-                       'Stream 1 Errors: {} \n'
-                       .format(master['Stream 0']['RSSI'],
-                               master['Stream 1']['RSSI'],
-                               master['Stream 0']['CINR'],
-                               master['Stream 1']['CINR'],
-                               master['Stream 0']['MCS'],
-                               master['Stream 0']['MCS'],
-                               master['Stream 0']['Errors Ratio'],
-                               master['Stream 0']['Errors Ratio']))
-
-        message.append('* Slave: ')
-        message.append('Role: {}'.format(slave['Role']))
-        message.append('Carrier 0:'
-                       'Stream 0 RSSI: {}, '
-                       'Stream 1 RSSI: {} \n'
-                       'Stream 0 CINR: {}, '
-                       'Stream 1 CINR: {} \n'
-                       'Stream 0 MCS: {}, '
-                       'Stream 1 MCS: {} \n'
-                       'Stream 0 Errors: {}, '
-                       'Stream 1 Errors: {} \n'
-                       .format(slave['Stream 0']['RSSI'],
-                               slave['Stream 1']['RSSI'],
-                               slave['Stream 0']['CINR'],
-                               slave['Stream 1']['CINR'],
-                               slave['Stream 0']['MCS'],
-                               slave['Stream 0']['MCS'],
-                               slave['Stream 0']['Errors Ratio'],
-                               slave['Stream 0']['Errors Ratio']))
-
-    else:
-        message.append('* Master: ')
-        message.append('Role: {}'.format(master['Role']))
-        message.append('Carrier 0:'
-                       'Stream 0 RSSI: {}, '
-                       'Stream 1 RSSI: {} \n'
-                       'Stream 0 CINR: {}, '
-                       'Stream 1 CINR: {} \n'
-                       'Stream 0 MCS: {}, '
-                       'Stream 1 MCS: {} \n'
-                       'Stream 0 Errors: {}, '
-                       'Stream 1 Errors: {} \n'
-                       .format(master['Carrier 0']['Stream 0']['RSSI'],
-                               master['Carrier 0']['Stream 1']['RSSI'],
-                               master['Carrier 0']['Stream 0']['CINR'],
-                               master['Carrier 0']['Stream 1']['CINR'],
-                               master['Carrier 0']['Stream 0']['MCS'],
-                               master['Carrier 0']['Stream 0']['MCS'],
-                               master['Carrier 0']['Stream 0']['Errors Ratio'],
-                               master['Carrier 0']['Stream 0']['Errors Ratio']))
-        message.append('Carrier 1:'
-                       'Stream 0 RSSI: {}, '
-                       'Stream 1 RSSI: {} \n'
-                       'Stream 0 CINR: {}, '
-                       'Stream 1 CINR: {} \n'
-                       'Stream 0 MCS: {}, '
-                       'Stream 1 MCS: {} \n'
-                       'Stream 0 Errors: {}, '
-                       'Stream 1 Errors: {} \n'
-                       .format(master['Carrier 1']['Stream 0']['RSSI'],
-                               master['Carrier 1']['Stream 1']['RSSI'],
-                               master['Carrier 1']['Stream 0']['CINR'],
-                               master['Carrier 1']['Stream 1']['CINR'],
-                               master['Carrier 1']['Stream 0']['MCS'],
-                               master['Carrier 1']['Stream 0']['MCS'],
-                               master['Carrier 1']['Stream 0']['Errors Ratio'],
-                               master['Carrier 1']['Stream 0']['Errors Ratio']))
-
-        message.append('* Slave: ')
-        message.append('Role: {}'.format(slave['Role']))
-        message.append('Carrier 0:'
-                       'Stream 0 RSSI: {}, '
-                       'Stream 1 RSSI: {} \n'
-                       'Stream 0 CINR: {}, '
-                       'Stream 1 CINR: {} \n'
-                       'Stream 0 MCS: {}, '
-                       'Stream 1 MCS: {} \n'
-                       'Stream 0 Errors: {}, '
-                       'Stream 1 Errors: {} \n'
-                       .format(slave['Carrier 0']['Stream 0']['RSSI'],
-                               slave['Carrier 0']['Stream 1']['RSSI'],
-                               slave['Carrier 0']['Stream 0']['CINR'],
-                               slave['Carrier 0']['Stream 1']['CINR'],
-                               slave['Carrier 0']['Stream 0']['MCS'],
-                               slave['Carrier 0']['Stream 0']['MCS'],
-                               slave['Carrier 0']['Stream 0']['Errors Ratio'],
-                               slave['Carrier 0']['Stream 0']['Errors Ratio']))
-        message.append('Carrier 1:'
-                       'Stream 0 RSSI: {}, '
-                       'Stream 1 RSSI: {} \n'
-                       'Stream 0 CINR: {}, '
-                       'Stream 1 CINR: {} \n'
-                       'Stream 0 MCS: {}, '
-                       'Stream 1 MCS: {} \n'
-                       'Stream 0 Errors: {}, '
-                       'Stream 1 Errors: {} \n'
-                       .format(slave['Carrier 1']['Stream 0']['RSSI'],
-                               slave['Carrier 1']['Stream 1']['RSSI'],
-                               slave['Carrier 1']['Stream 0']['CINR'],
-                               slave['Carrier 1']['Stream 1']['CINR'],
-                               slave['Carrier 1']['Stream 0']['MCS'],
-                               slave['Carrier 1']['Stream 0']['MCS'],
-                               slave['Carrier 1']['Stream 0']['Errors Ratio'],
-                               slave['Carrier 1']['Stream 0']['Errors Ratio']))
     message.append('\n')
 
     # Show Ethernet Status
     message.append('Interfaces: ')
     for interface in ethernet_status:
-        message.append('Interface {} is {}'.format(interface, ethernet_status[interface]['Status']))
+        message.append(' {} is {}.'.format(interface, ethernet_status[interface]['Status']))
     message.append('\n')
 
     return '\n'.join(message)
 
 
 def quanta_report(device):
-    pass
+    """Show parsed information."""
+
+    def radio_message(carrier):
+        """Show information about carriers."""
+
+        message.append('  Stream 0 RSSI: {}, '
+                       'Stream 1 RSSI: {};\n'
+                       '  Stream 0 EVM: {}, '
+                       'Stream 1 EVM: {};\n'
+                       '  Stream 0 Crosstalk: {}, '
+                       'Stream 1 Crosstalk: {};\n'
+                       '  Stream 0 MCS: {}, '
+                       'Stream 1 MCS: {};\n'
+                       '  Stream 0 ARQ ratio: {}, '
+                       'Stream 1 ARQ ratio: {}. '
+                       .format(carrier['Stream 0']['RSSI'],
+                               carrier['Stream 1']['RSSI'],
+                               carrier['Stream 0']['EVM'],
+                               carrier['Stream 1']['EVM'],
+                               carrier['Stream 0']['Crosstalk'],
+                               carrier['Stream 1']['Crosstalk'],
+                               carrier['Stream 0']['MCS'],
+                               carrier['Stream 1']['MCS'],
+                               carrier['Stream 0']['ARQ ratio'],
+                               carrier['Stream 1']['ARQ ratio']))
+
+    settings = device.settings
+    radio_status = device.radio_status
+    downlink = radio_status['Downlink']
+    uplink = radio_status['Uplink']
+    ethernet_status = device.ethernet_status['ge0']
+    message = []
+
+    # Show settings
+    message.append('Settings: ')
+    message.append(' Role: {}.'.format(str.capitalize(settings['Role'])))
+    message.append(' Frequencies: DL - {} MHz, UL - {} MHz.'
+                   .format(settings['DL Frequency'], settings['UL Frequency']))
+    message.append(' Bandwidth: {} MHz.'.format(settings['Bandwidth']))
+    message.append(' Frame size: {} ms.'.format(settings['Frame size']))
+    message.append(' Guard Interval: {}.'.format(settings['Guard Interval']))
+
+    pattern = search(r'(\d+)( \((\w+)\))?', settings['DL/UL Ratio'])
+    if pattern.group(3) is not None:
+        message.append(' DL/UL Ratio: {}/{} ({}).'
+                       .format(pattern.group(1), 100 - int(pattern.group(1)), pattern.group(3)))
+    else:
+        message.append(' DL/UL Ratio: {}/{}.'
+                       .format(pattern.group(1), 100 - int(pattern.group(1))))
+
+    message.append(' DFS: {}.'.format(settings['DFS']))
+    message.append(' ARQ: {}.'.format(settings['ARQ']))
+    message.append(' Tx Power: {} dBm.'.format(settings['Tx Power']))
+    message.append(' ATPC: {}.'.format(settings['ATPC']))
+    if settings['ATPC'] == 'Enabled':
+        message.append(' AMC Strategy: {}.'
+                       .format(str.capitalize(settings['AMC Strategy'])))
+    message.append(' Max MCS: DL - {}, UL - {}.'
+                   .format(settings['Max DL MCS'], settings['Max UL MCS']))
+    message.append('\n')
+
+    # Show Radio Status
+    message.append('Radio: ')
+    message.append(' Link status: {}.'.format(radio_status['Link status']))
+    message.append(' Measured Distance: {}.'.format(radio_status['Measured Distance']))
+    message.append(' * Downlink: ')
+    radio_message(downlink)
+    message.append(' * Uplink: ')
+    radio_message(uplink)
+
+    message.append('\n')
+
+    # Show Ethernet Status
+    message.append('Interfaces: ')
+    message.append(' Ge0 is {}.'.format(ethernet_status['Status']))
+    message.append('\n')
+
+    return '\n'.join(message)
 
 
 def create_report(device, tests_report, dc_path):
-    """Create report"""
+    """Create a report."""
 
-    message_1 = '\nParsing diagnostic card: {}'.format(dc_path)
+    message_1 = '\nParsing diagnostic card: {}'.format(dc_path.name)
     message_1_complete = '{}{}\n{}\n'.format('-' * len(message_1), message_1,
                                              '-' * len(message_1))
-    message_2 = 'Serial Number is {}\nModel is {}\n'.format(device.serial_number, device.model)
+    message_2 = 'Serial Number is {}\nModel is {}\n' \
+                'Firmware version: {}\n' \
+        .format(device.serial_number, device.model, device.firmware)
 
     if device.family == 'R5000':
         message_3 = r5000_report(device)
@@ -215,8 +215,21 @@ def create_report(device, tests_report, dc_path):
     return report_text
 
 
+def error_report(dc_path):
+    """Create an error report."""
+
+    message_1 = '\nParsing diagnostic card: {}'.format(dc_path.name)
+    message_1_complete = '{}{}\n{}\n'.format('-' * len(message_1), message_1,
+                                             '-' * len(message_1))
+    message_2 = 'This is not a valid diagnostic card. Please analyze it manually.'
+
+    report_text = [message_1_complete, message_2]
+
+    return report_text
+
+
 def write_report(report_text, serial_number):
-    """Save report"""
+    """Save report."""
 
     report_name = 'diagcard_{}_report.txt'.format(serial_number)
     report_path = Path.joinpath(Path.cwd() / 'reports', report_name)
@@ -239,7 +252,7 @@ def write_report(report_text, serial_number):
 
 
 def debug_report(report_text):
-    """Print report in console"""
+    """Print report in console."""
 
     for line in report_text:
         print(line)
