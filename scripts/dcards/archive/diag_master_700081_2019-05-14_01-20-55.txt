@@ -1,7 +1,7 @@
 #General
 sys ver
 
-OCTOPUS-PTP WANFleX H18S14-OCTOPUS_PTPv1.3.0 * Aug 29 2019 16:38:32 * SN:700081
+OCTOPUS-PTP WANFleX H18S14-OCTOPUS_PTPv1.2.0 * Aug 29 2019 16:38:32 * SN:700081
 Processor: Xilinx zynq rev.3 666 MHz Board: rev.1
 PN:Q5-23/???
 sys upt

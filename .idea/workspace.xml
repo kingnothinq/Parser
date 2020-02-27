@@ -3,20 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="b076e524-eee4-4235-a93a-9cd72d728b4e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/dcard_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/dcard_parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/dcard_reporter.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/dcard_reporter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/dcards/archive/diag_master_700840_2019-05-07_01-13-46.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/dcards/archive/diag_master_700840_2019-05-07_01-13-46.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/dcards/diagcard.SN-506026 xg 1000 link up and all ok.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/my_classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/my_classes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/dcards/archive/diag_master_700081_2019-05-14_01-20-55.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/runit.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/runit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tests/quanta/ethernet_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/quanta/ethernet_check.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tests/quanta/evm.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tests/xg/__training_stand.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tests/xg/ethernet_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/xg/ethernet_check.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tests/xg/log_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/xg/log_check.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tests/xg/panic.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/xg/panic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tests/xg/radio_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/xg/radio_check.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tests/xg/recommendations.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/xg/recommendations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tests/quanta/recommendations.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/quanta/recommendations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tests/r5000/__training_stand.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/r5000/__training_stand.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +54,27 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.runit">
+    <configuration name="__training_stand (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Parser" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts/tests/r5000" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/tests/r5000/__training_stand.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="__training_stand" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Parser" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -77,27 +88,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="F:\Parser\scripts\tests\xg\__training_stand.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="jira_connector (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Parser" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/jira_connector.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -173,9 +163,9 @@
       <list>
         <item itemvalue="Python.runit" />
         <item itemvalue="Python.recommendations" />
+        <item itemvalue="Python.__training_stand (1)" />
         <item itemvalue="Python.__training_stand" />
         <item itemvalue="Python.radio_check" />
-        <item itemvalue="Python.jira_connector (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -253,7 +243,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582743823735</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Version 0.84&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions">
+      <created>1582815823339</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1582815823339</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -265,7 +262,8 @@
     <MESSAGE value="Version 0.82" />
     <MESSAGE value="Version 0.821" />
     <MESSAGE value="Version 0.83" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version 0.83" />
+    <MESSAGE value="Version 0.84&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 0.84&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -308,10 +306,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="707" y="379" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582008128136" />
-    <state x="614" y="118" key="CommitChangelistDialog2" timestamp="1582743822773">
+    <state x="614" y="118" key="CommitChangelistDialog2" timestamp="1582815821942">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="614" y="118" key="CommitChangelistDialog2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582730477213" />
+    <state x="614" y="118" key="CommitChangelistDialog2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582815821942" />
     <state x="614" y="118" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1582743822773" />
     <state x="92" y="92" width="1736" height="866" key="DiffContextDialog" timestamp="1580484692076">
       <screen x="0" y="0" width="1920" height="1050" />
@@ -330,25 +328,25 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="753" y="390" key="Github.CreatePullRequestDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582034831708" />
-    <state width="1898" height="265" key="GridCell.Tab.0.bottom" timestamp="1582815650578">
+    <state width="1898" height="265" key="GridCell.Tab.0.bottom" timestamp="1582819163553">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="265" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582815650578" />
+    <state width="1898" height="265" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582819163553" />
     <state width="1899" height="198" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
-    <state width="1898" height="265" key="GridCell.Tab.0.center" timestamp="1582815650578">
+    <state width="1898" height="265" key="GridCell.Tab.0.center" timestamp="1582819163553">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="265" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582815650578" />
+    <state width="1898" height="265" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582819163553" />
     <state width="1899" height="198" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
-    <state width="1898" height="265" key="GridCell.Tab.0.left" timestamp="1582815650578">
+    <state width="1898" height="265" key="GridCell.Tab.0.left" timestamp="1582819163553">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="265" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582815650578" />
+    <state width="1898" height="265" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582819163553" />
     <state width="1899" height="198" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
-    <state width="1898" height="265" key="GridCell.Tab.0.right" timestamp="1582815650578">
+    <state width="1898" height="265" key="GridCell.Tab.0.right" timestamp="1582819163553">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="265" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582815650578" />
+    <state width="1898" height="265" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582819163553" />
     <state width="1899" height="198" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
     <state width="1898" height="345" key="GridCell.Tab.1.bottom" timestamp="1582277274013">
       <screen x="0" y="0" width="1920" height="1050" />
@@ -379,10 +377,10 @@
     </state>
     <state x="461" y="155" key="SettingsEditor/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582721825731" />
     <state x="461" y="155" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1582131382275" />
-    <state x="552" y="256" key="Vcs.Push.Dialog.v2" timestamp="1582743843640">
+    <state x="552" y="256" key="Vcs.Push.Dialog.v2" timestamp="1582815827457">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582730482707" />
+    <state x="552" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582815827457" />
     <state x="552" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1582743843640" />
     <state x="92" y="92" width="1736" height="866" key="com.intellij.dvcs.ui.CompareBranchesDialog" timestamp="1582261221248">
       <screen x="0" y="0" width="1920" height="1050" />
