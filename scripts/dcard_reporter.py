@@ -3,6 +3,8 @@
 
 from re import search
 
+from jira import JIRA
+
 
 def r5000_report(device):
     pass
@@ -249,6 +251,18 @@ def write_report(report_text, serial_number):
     with open(report_path, 'w') as report:
         for line in report_text:
             report.write(line)
+
+
+def jira_report(report):
+    """Send report in Jira."""
+
+    jira_options = {'server':'https://jira.infinet.ru/'}
+    login = input('Login: ')
+    password = input('Password: ')
+    jira = JIRA(options=jira_options, basic_auth=(login, password))
+    comment = jira.add_comment('DESK-53647', '\n'.join(report))
+
+    return comment
 
 
 def debug_report(report_text):

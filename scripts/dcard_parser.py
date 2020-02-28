@@ -119,14 +119,26 @@ def parse_r5000(dc_string, dc_list):
 
     # General info
 
-    model = re.search(r'(R5000-[QMOSL][mxnbtcs]{2,5}/[\dX\*]{1,3}.300.2x\d{3})(.2x\d{2})?',
-                      dc_string).group()
-    if ('L' in model or 'S' in model) and '2x19' in model:
-        subfamily = 'R5000 Lite (low cost CPE)'
-    elif 'L' in model or 'S' in model:
-        subfamily = 'R5000 Lite'
+    pattern = re.search(r'(R5000-[QMOSL][mxnbtcs]{2,5}/[\dX\*]'
+                        r'{1,3}.300.2x\d{3})(.2x\d{2})?'
+                        , dc_string)
+    if pattern is not None:
+        model = pattern
+        if ('L' in model or 'S' in model) and '2x19' in model:
+            subfamily = 'R5000 Lite (low cost CPE)'
+        elif 'L' in model or 'S' in model:
+            subfamily = 'R5000 Lite'
+        else:
+            subfamily = 'R5000 Pro'
     else:
-        subfamily = 'R5000 Pro'
+        model = 'R5000 Unknown model'
+        pattern = re.search(r'#\sR5000\sWANFleX\s'
+                            r'(H\d{2})S\d{2}-(MINT|TDMA)[v\d.]+'
+                            , dc_string).group(1)
+        if 'H11' in pattern:
+            subfamily = 'R5000 Lite'
+        else:
+            subfamily = 'R5000 Pro'
     serial_number = re.search(r'SN:(\d+)', dc_string).group(1)
     firmware = re.search(r'H\d{2}S\d{2}-(MINT|TDMA)[v\d.]+', dc_string).group()
     uptime = re.search(r'Uptime: ([\d\w :]*)', dc_string).group(1)
@@ -495,9 +507,9 @@ def parse_xg(dc_string, dc_list):
         subfamily = 'XG 500'
 
     serial_number = re.search(r'SN:(\d+)', dc_string).group(1)
-    firmware = re.search(r'(\bH\d{2}S\d{2}[v\d.-]+\b)',
+    firmware = re.search(r'#\sXG\sWANFleX\s(\bH\d{2}S\d{2}[v\d.-]+\b)',
                          dc_string).group(1)
-    uptime = re.search(r'Uptime: ([\d\w :]*)', dc_string).group(1)
+    uptime = re.findall(r'Uptime: ([\d\w :]*)', dc_string)[0]
     reboot_reason = re.search(r'Last reboot reason: ([\w ]*)', dc_string).group(1)
 
     # Settings
@@ -988,7 +1000,11 @@ def parse_quanta(dc_string, dc_list):
     """
 
     # Genral info
-    model = re.search(r'([QV](5|70)-[\dE]+)', dc_string).group(1)
+    pattern = re.search(r'([QV](5|70)-[\dE]+)', dc_string)
+    if pattern is not None:
+        model = pattern.group(1)
+    else:
+        model = 'Quanta unknown model'
     if 'Q5' in model:
         subfamily = 'Quanta 5'
     elif 'V5' in model:
@@ -997,7 +1013,11 @@ def parse_quanta(dc_string, dc_list):
         subfamily = 'Quanta 70'
     elif 'V70' in model:
         subfamily = 'Vector 70'
-    firmware = re.search(r'(H\d{2}S\d{2}-OCTOPUS_PTPv[\d.]+)', dc_string).group(1)
+    else:
+        subfamily = 'Quanta unknown model'
+    firmware = re.search(r'#\sOCTOPUS-PTP\sWANFleX\s'
+                         r'(H\d{2}S\d{2}-OCTOPUS_PTPv[\d.]+)'
+                         , dc_string).group(1)
     serial_number = re.search(r'SN:(\d+)', dc_string).group(1)
     uptime = re.search(r'Uptime: ([\d\w :]*)', dc_string).group(1)
     reboot_reason = re.search(r'Last reboot reason: ([\w ]*)', dc_string).group(1)
@@ -1048,7 +1068,7 @@ def parse_quanta(dc_string, dc_list):
                                              dc_string).group(1) == 'dfs_rd' else 'Disabled'
     settings['ARQ'] = 'Enabled' if re.search(r'harq (on|off)',
                                              dc_string).group(1) == 'on' else 'Disabled'
-    pattern = re.findall(r'ifc\sge0\s+media\s([\w\d]+)\smtu\s\d+\s(up|down)',
+    pattern = re.findall(r'ifc\sge0\s+media\s([\-\w\d]+)\smtu\s\d+\s(up|down)',
                          dc_string)
     settings['Interface Status']['Ge0'] = pattern[0][1]
 
@@ -1077,10 +1097,12 @@ def parse_quanta(dc_string, dc_list):
 
     if radio_status['Link status'] == 'connected':
 
-        radio_status['Measured Distance'] = re.search(r'Distance\s+(\d+\sm)', dc_string).group(1)
-        pattern = re.search(r'Frequency\s+\|\s(\d+)\sMHz\s+\|\s(\d+)\sMHz', dc_string)
-        radio_status['Downlink']['Frequency'] = pattern.group(1)
-        radio_status['Uplink']['Frequency'] = pattern.group(2)
+        radio_status['Measured Distance'] = re.search(r'Distance\s+([\.\d]+\sk?m)', dc_string).group(1)
+        pattern = re.search(r'Frequency\s+\|'
+                            r'\s(-)?((\d+)\sMHz)?\s+\|'
+                            r'\s(-)?((\d+)\sMHz)?', dc_string)
+        radio_status['Downlink']['Frequency'] = pattern.group(2)
+        radio_status['Uplink']['Frequency'] = pattern.group(5)
 
         if settings['Role'] == 'master':
             pattern = re.search(r'\| TX power\s+([-\d\.]+)\s\/\s([-\d\.]+)\sdBm',
@@ -1109,11 +1131,11 @@ def parse_quanta(dc_string, dc_list):
                 radio_status['Uplink']['Stream 0']['MCS'] = pattern[2][0]
                 radio_status['Uplink']['Stream 1']['MCS'] = pattern[3][0]
             elif line.startswith('| RSSI'):
-                pattern = re.findall(r'([-\d.]+\sdBm)', line)
-                radio_status['Downlink']['Stream 0']['RSSI'] = pattern[0]
-                radio_status['Downlink']['Stream 1']['RSSI'] = pattern[1]
-                radio_status['Uplink']['Stream 0']['RSSI'] = pattern[2]
-                radio_status['Uplink']['Stream 1']['RSSI'] = pattern[3]
+                pattern = re.findall(r'([\-\d\.]+)( \([\-\d\.]+\))? dBm', line)
+                radio_status['Downlink']['Stream 0']['RSSI'] = pattern[0][0]
+                radio_status['Downlink']['Stream 1']['RSSI'] = pattern[1][0]
+                radio_status['Uplink']['Stream 0']['RSSI'] = pattern[2][0]
+                radio_status['Uplink']['Stream 1']['RSSI'] = pattern[3][0]
             elif line.startswith('| EVM'):
                 pattern = re.findall(r'([-\d.]+\sdB)', line)
                 radio_status['Downlink']['Stream 0']['EVM'] = pattern[0]
@@ -1127,11 +1149,11 @@ def parse_quanta(dc_string, dc_list):
                 radio_status['Uplink']['Stream 0']['Crosstalk'] = pattern[2]
                 radio_status['Uplink']['Stream 1']['Crosstalk'] = pattern[3]
             elif line.startswith('| ARQ ratio'):
-                pattern = re.findall(r'(\d+\.\d+\s%)', line)
-                radio_status['Downlink']['Stream 0']['ARQ ratio'] = pattern[0]
-                radio_status['Downlink']['Stream 1']['ARQ ratio'] = pattern[1]
-                radio_status['Uplink']['Stream 0']['ARQ ratio'] = pattern[2]
-                radio_status['Uplink']['Stream 1']['ARQ ratio'] = pattern[3]
+                pattern = re.findall(r'(\d+(\.\d+)?\s%)', line)
+                radio_status['Downlink']['Stream 0']['ARQ ratio'] = pattern[0][0]
+                radio_status['Downlink']['Stream 1']['ARQ ratio'] = pattern[1][0]
+                radio_status['Uplink']['Stream 0']['ARQ ratio'] = pattern[2][0]
+                radio_status['Uplink']['Stream 1']['ARQ ratio'] = pattern[3][0]
 
     # Ethernet Status
     ethernet_status = {

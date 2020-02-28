@@ -12,16 +12,15 @@ def test(device):
 
     # Check CRC errors
     if int(ethernet['CRC']) > 0:
-        result.append('* CRC Errors detected on the {} interface. '
+        result.append('* CRC Errors detected on the ge0 interface. '
                       'Please check patch-cords, cables, crimps, '
-                      'IDU, grounding, Ethernet ports.'
-                      .format(interface))
+                      'IDU, grounding, Ethernet ports.')
 
     # Check Ethernet statuses
     if ethernet['Status'] == 'UP' and ethernet['Duplex'] != 'Full-duplex' and ethernet['Negotiation'] == 'Auto':
-        result.append('* The {} interface works in the {} mode. '
+        result.append('* The ge0 interface works in the {} mode. '
                       'Please check it.'
-                      .format(interface, ethernet['Duplex']))
+                      .format(ethernet['Duplex']))
 
     # Check flaps
     flap_counter = 0
@@ -39,8 +38,8 @@ def test(device):
             break
 
     # Runt bug
-    pattern = findall(r'Runt len errors\s+(\d+)', device.dc_string)
-    if ethernet['Duplex'] == 'Full-duplex' and int(pattern[1]) > 0:
+    pattern = findall(r'(Runt len errors|Frame length errors)\s+(\d+)', device.dc_string)
+    if ethernet['Duplex'] == 'Full-duplex' and int(pattern[1][1]) > 0:
         result.append('* Runt len errors detected on the ge0 interface. '
                       'A runt frame is an Ethernet frame that is less '
                       'than the IEEE 802.3\'s minimum length of 64 octets. '

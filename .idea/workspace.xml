@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b076e524-eee4-4235-a93a-9cd72d728b4e" name="Default Changelist" comment="">
+    <list default="true" id="b076e524-eee4-4235-a93a-9cd72d728b4e" name="Default Changelist" comment="Version 0.85&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/dcards/archive/diag_master_700081_2019-05-14_01-20-55.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/dcard_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/dcard_parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/dcard_reporter.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/dcard_reporter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/dcards/archive/diag_master_700840_2019-05-07_01-13-46.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/dcards/archive/diag_master_700840_2019-05-07_01-13-46.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/runit.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/runit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tests/quanta/ethernet_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/quanta/ethernet_check.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tests/quanta/radio_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/quanta/radio_check.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/tests/quanta/recommendations.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/quanta/recommendations.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tests/r5000/__training_stand.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/r5000/__training_stand.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tests/xg/recommendations.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/xg/recommendations.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,48 +79,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="__training_stand" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Parser" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts/tests/xg" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="F:\Parser\scripts\tests\xg\__training_stand.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="radio_check" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Parser" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts/tests/xg" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/tests/xg/radio_check.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="recommendations" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Parser" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -130,6 +92,48 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/tests/quanta/recommendations.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="renamer (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Parser" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Desktop" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/Desktop/renamer.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="renamer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Parser" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Desktop/attach" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/Desktop/attach/renamer.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -162,10 +166,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.runit" />
+        <item itemvalue="Python.renamer (1)" />
+        <item itemvalue="Python.renamer" />
         <item itemvalue="Python.recommendations" />
         <item itemvalue="Python.__training_stand (1)" />
-        <item itemvalue="Python.__training_stand" />
-        <item itemvalue="Python.radio_check" />
       </list>
     </recent_temporary>
   </component>
@@ -250,7 +254,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582815823339</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Version 0.85&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions">
+      <created>1582819200334</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1582819200335</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -263,7 +274,8 @@
     <MESSAGE value="Version 0.821" />
     <MESSAGE value="Version 0.83" />
     <MESSAGE value="Version 0.84&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version 0.84&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions" />
+    <MESSAGE value="Version 0.85&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 0.85&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -285,6 +297,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="739" y="291" key="#com.intellij.ide.macro.MacrosDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1581669467453" />
+    <state x="640" y="259" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1582891356433">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="640" y="259" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582891356433" />
     <state x="655" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1582262868246">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -306,10 +322,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="707" y="379" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582008128136" />
-    <state x="614" y="118" key="CommitChangelistDialog2" timestamp="1582815821942">
+    <state x="614" y="118" key="CommitChangelistDialog2" timestamp="1582898688000">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="614" y="118" key="CommitChangelistDialog2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582815821942" />
+    <state x="614" y="118" key="CommitChangelistDialog2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582898688000" />
     <state x="614" y="118" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1582743822773" />
     <state x="92" y="92" width="1736" height="866" key="DiffContextDialog" timestamp="1580484692076">
       <screen x="0" y="0" width="1920" height="1050" />
@@ -328,45 +344,45 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="753" y="390" key="Github.CreatePullRequestDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582034831708" />
-    <state width="1898" height="265" key="GridCell.Tab.0.bottom" timestamp="1582819163553">
+    <state width="1898" height="666" key="GridCell.Tab.0.bottom" timestamp="1582899896228">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="265" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582819163553" />
+    <state width="1898" height="666" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582899896228" />
     <state width="1899" height="198" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
-    <state width="1898" height="265" key="GridCell.Tab.0.center" timestamp="1582819163553">
+    <state width="1898" height="666" key="GridCell.Tab.0.center" timestamp="1582899896228">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="265" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582819163553" />
+    <state width="1898" height="666" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582899896228" />
     <state width="1899" height="198" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
-    <state width="1898" height="265" key="GridCell.Tab.0.left" timestamp="1582819163553">
+    <state width="1898" height="666" key="GridCell.Tab.0.left" timestamp="1582899896228">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="265" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582819163553" />
+    <state width="1898" height="666" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582899896228" />
     <state width="1899" height="198" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
-    <state width="1898" height="265" key="GridCell.Tab.0.right" timestamp="1582819163553">
+    <state width="1898" height="666" key="GridCell.Tab.0.right" timestamp="1582899896228">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="265" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582819163553" />
+    <state width="1898" height="666" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582899896228" />
     <state width="1899" height="198" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
-    <state width="1898" height="345" key="GridCell.Tab.1.bottom" timestamp="1582277274013">
+    <state width="1898" height="345" key="GridCell.Tab.1.bottom" timestamp="1582894812326">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="345" key="GridCell.Tab.1.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582277274013" />
+    <state width="1898" height="345" key="GridCell.Tab.1.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582894812326" />
     <state width="1899" height="352" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1582132464989" />
-    <state width="1898" height="345" key="GridCell.Tab.1.center" timestamp="1582277274013">
+    <state width="1898" height="345" key="GridCell.Tab.1.center" timestamp="1582894812326">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="345" key="GridCell.Tab.1.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582277274013" />
+    <state width="1898" height="345" key="GridCell.Tab.1.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582894812326" />
     <state width="1899" height="352" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1582132464989" />
-    <state width="1898" height="345" key="GridCell.Tab.1.left" timestamp="1582277274013">
+    <state width="1898" height="345" key="GridCell.Tab.1.left" timestamp="1582894812326">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="345" key="GridCell.Tab.1.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582277274013" />
+    <state width="1898" height="345" key="GridCell.Tab.1.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582894812326" />
     <state width="1899" height="352" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1582132464989" />
-    <state width="1898" height="345" key="GridCell.Tab.1.right" timestamp="1582277274013">
+    <state width="1898" height="345" key="GridCell.Tab.1.right" timestamp="1582894812326">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="345" key="GridCell.Tab.1.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582277274013" />
+    <state width="1898" height="345" key="GridCell.Tab.1.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582894812326" />
     <state width="1899" height="352" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1582132464989" />
     <state x="672" y="239" key="MultipleFileMergeDialog" timestamp="1582730526579">
       <screen x="0" y="0" width="1920" height="1050" />
@@ -377,10 +393,10 @@
     </state>
     <state x="461" y="155" key="SettingsEditor/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582721825731" />
     <state x="461" y="155" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1582131382275" />
-    <state x="552" y="256" key="Vcs.Push.Dialog.v2" timestamp="1582815827457">
+    <state x="552" y="256" key="Vcs.Push.Dialog.v2" timestamp="1582819204396">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582815827457" />
+    <state x="552" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582819204396" />
     <state x="552" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1582743843640" />
     <state x="92" y="92" width="1736" height="866" key="com.intellij.dvcs.ui.CompareBranchesDialog" timestamp="1582261221248">
       <screen x="0" y="0" width="1920" height="1050" />
@@ -410,7 +426,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/scripts/dcard_parser.py</url>
-          <line>395</line>
+          <line>407</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -420,7 +436,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/scripts/dcard_parser.py</url>
-          <line>924</line>
+          <line>936</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -442,6 +458,21 @@
           <url>file://$PROJECT_DIR$/scripts/my_classes.py</url>
           <line>37</line>
           <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/scripts/dcard_reporter.py</url>
+          <line>109</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/scripts/dcard_reporter.py</url>
+          <line>12</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/scripts/dcard_reporter.py</url>
+          <line>8</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

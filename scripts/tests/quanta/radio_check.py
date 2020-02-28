@@ -257,6 +257,12 @@ def test(device):
     elif device.radio_status['Link status'] == 'init':
         result.append('* ??????')
 
+    elif device.radio_status['Link status'] == 'connecting':
+        result.append('* ??????')
+
+    elif device.radio_status['Link status'] == 'standby':
+        result.append('* ??????')
+
     elif device.radio_status['Link status'] == 'sector_detection':
         result.append('* The link is not established. '
                       'The slave device is waiting for the signal from the master. '
