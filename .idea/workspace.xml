@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b076e524-eee4-4235-a93a-9cd72d728b4e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jira_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/jira_connector.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/dcard_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/dcard_parser.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/dcards/archive/diagcard.SN-506026 xg 1000 link up and all ok.txt" beforeDir="false" />
     </list>
@@ -262,7 +264,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582921600104</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Version 0.87&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions&#10;Fixed some bugs">
+      <created>1583144399124</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1583144399124</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -277,7 +286,8 @@
     <MESSAGE value="Version 0.84&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions" />
     <MESSAGE value="Version 0.85&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions" />
     <MESSAGE value="Version 0.86&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions&#10;Fixed some bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version 0.86&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions&#10;Fixed some bugs" />
+    <MESSAGE value="Version 0.87&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions&#10;Fixed some bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 0.87&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions&#10;Fixed some bugs" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -324,10 +334,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="707" y="379" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582008128136" />
-    <state x="614" y="118" key="CommitChangelistDialog2" timestamp="1582921594909">
+    <state x="614" y="118" key="CommitChangelistDialog2" timestamp="1583144398351">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="614" y="118" key="CommitChangelistDialog2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582898688000" />
+    <state x="614" y="118" key="CommitChangelistDialog2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1583144398351" />
     <state x="614" y="118" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1582921594909" />
     <state x="92" y="92" width="1736" height="866" key="DiffContextDialog" timestamp="1580484692076">
       <screen x="0" y="0" width="1920" height="1050" />
@@ -346,25 +356,25 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="753" y="390" key="Github.CreatePullRequestDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582034831708" />
-    <state width="1898" height="286" key="GridCell.Tab.0.bottom" timestamp="1583143949656">
+    <state width="949" height="286" key="GridCell.Tab.0.bottom" timestamp="1583144468919">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="286" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1583143949656" />
+    <state width="949" height="286" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1583144468919" />
     <state width="1899" height="198" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
-    <state width="1898" height="286" key="GridCell.Tab.0.center" timestamp="1583143949656">
+    <state width="949" height="286" key="GridCell.Tab.0.center" timestamp="1583144468919">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="286" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1583143949656" />
+    <state width="949" height="286" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1583144468919" />
     <state width="1899" height="198" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
-    <state width="1898" height="286" key="GridCell.Tab.0.left" timestamp="1583143949655">
+    <state width="949" height="286" key="GridCell.Tab.0.left" timestamp="1583144468919">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="286" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1583143949655" />
+    <state width="949" height="286" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1583144468919" />
     <state width="1899" height="198" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
-    <state width="1898" height="286" key="GridCell.Tab.0.right" timestamp="1583143949656">
+    <state width="949" height="286" key="GridCell.Tab.0.right" timestamp="1583144468919">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="286" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1583143949656" />
+    <state width="949" height="286" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1583144468919" />
     <state width="1899" height="198" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
     <state width="1898" height="345" key="GridCell.Tab.1.bottom" timestamp="1582894812326">
       <screen x="0" y="0" width="1920" height="1050" />
@@ -386,19 +396,19 @@
     </state>
     <state width="1898" height="345" key="GridCell.Tab.1.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582894812326" />
     <state width="1899" height="352" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1582132464989" />
-    <state x="672" y="239" key="MultipleFileMergeDialog" timestamp="1582730526579">
+    <state x="672" y="239" key="MultipleFileMergeDialog" timestamp="1583144429848">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="672" y="239" key="MultipleFileMergeDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582730526579" />
+    <state x="672" y="239" key="MultipleFileMergeDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1583144429848" />
     <state x="461" y="155" key="SettingsEditor" timestamp="1582721825731">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="461" y="155" key="SettingsEditor/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582721825731" />
     <state x="461" y="155" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1582131382275" />
-    <state x="552" y="256" key="Vcs.Push.Dialog.v2" timestamp="1582921606092">
+    <state x="552" y="256" key="Vcs.Push.Dialog.v2" timestamp="1583144400872">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582819204396" />
+    <state x="552" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1583144400872" />
     <state x="552" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1582921606092" />
     <state x="92" y="92" width="1736" height="866" key="com.intellij.dvcs.ui.CompareBranchesDialog" timestamp="1582261221248">
       <screen x="0" y="0" width="1920" height="1050" />
