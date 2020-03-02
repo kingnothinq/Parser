@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b076e524-eee4-4235-a93a-9cd72d728b4e" name="Default Changelist" comment="Version 0.85&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions">
+    <list default="true" id="b076e524-eee4-4235-a93a-9cd72d728b4e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/dcard_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/dcard_parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/dcard_reporter.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/dcard_reporter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/dcards/archive/diag_master_700840_2019-05-07_01-13-46.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/dcards/archive/diag_master_700840_2019-05-07_01-13-46.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/runit.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/runit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tests/quanta/ethernet_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/quanta/ethernet_check.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tests/quanta/radio_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/quanta/radio_check.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tests/quanta/recommendations.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/quanta/recommendations.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tests/xg/recommendations.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tests/xg/recommendations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/dcards/archive/diagcard.SN-506026 xg 1000 link up and all ok.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -261,7 +255,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582819200335</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Version 0.86&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions&#10;Fixed some bugs">
+      <created>1582921600103</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1582921600104</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -275,7 +276,8 @@
     <MESSAGE value="Version 0.83" />
     <MESSAGE value="Version 0.84&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions" />
     <MESSAGE value="Version 0.85&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version 0.85&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions" />
+    <MESSAGE value="Version 0.86&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions&#10;Fixed some bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 0.86&#10;R5000 - parsing (only H08 and H11)&#10;XG - parsing, tests, reports (tested from 1.5 to 1.8)&#10;Quanta - parsing, tests, reports (tested from 1.3.0)&#10;Unknown cards - exceptions&#10;Fixed some bugs" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -322,11 +324,11 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="707" y="379" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582008128136" />
-    <state x="614" y="118" key="CommitChangelistDialog2" timestamp="1582898688000">
+    <state x="614" y="118" key="CommitChangelistDialog2" timestamp="1582921594909">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="614" y="118" key="CommitChangelistDialog2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582898688000" />
-    <state x="614" y="118" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1582743822773" />
+    <state x="614" y="118" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1582921594909" />
     <state x="92" y="92" width="1736" height="866" key="DiffContextDialog" timestamp="1580484692076">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -344,25 +346,25 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="753" y="390" key="Github.CreatePullRequestDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582034831708" />
-    <state width="1898" height="666" key="GridCell.Tab.0.bottom" timestamp="1582899896228">
+    <state width="1898" height="286" key="GridCell.Tab.0.bottom" timestamp="1583143949656">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="666" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582899896228" />
+    <state width="1898" height="286" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1583143949656" />
     <state width="1899" height="198" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
-    <state width="1898" height="666" key="GridCell.Tab.0.center" timestamp="1582899896228">
+    <state width="1898" height="286" key="GridCell.Tab.0.center" timestamp="1583143949656">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="666" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582899896228" />
+    <state width="1898" height="286" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1583143949656" />
     <state width="1899" height="198" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
-    <state width="1898" height="666" key="GridCell.Tab.0.left" timestamp="1582899896228">
+    <state width="1898" height="286" key="GridCell.Tab.0.left" timestamp="1583143949655">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="666" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582899896228" />
+    <state width="1898" height="286" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1583143949655" />
     <state width="1899" height="198" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
-    <state width="1898" height="666" key="GridCell.Tab.0.right" timestamp="1582899896228">
+    <state width="1898" height="286" key="GridCell.Tab.0.right" timestamp="1583143949656">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1898" height="666" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582899896228" />
+    <state width="1898" height="286" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1583143949656" />
     <state width="1899" height="198" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1582142829726" />
     <state width="1898" height="345" key="GridCell.Tab.1.bottom" timestamp="1582894812326">
       <screen x="0" y="0" width="1920" height="1050" />
@@ -393,11 +395,11 @@
     </state>
     <state x="461" y="155" key="SettingsEditor/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582721825731" />
     <state x="461" y="155" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1582131382275" />
-    <state x="552" y="256" key="Vcs.Push.Dialog.v2" timestamp="1582819204396">
+    <state x="552" y="256" key="Vcs.Push.Dialog.v2" timestamp="1582921606092">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="552" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1582819204396" />
-    <state x="552" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1582743843640" />
+    <state x="552" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1582921606092" />
     <state x="92" y="92" width="1736" height="866" key="com.intellij.dvcs.ui.CompareBranchesDialog" timestamp="1582261221248">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -407,6 +409,10 @@
     </state>
     <state x="661" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1580708701083" />
     <state x="661" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1580545859700" />
+    <state x="844" y="297" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1582921573042">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="844" y="297" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1582921573042" />
     <state x="769" y="440" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1582261125880">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -436,7 +442,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/scripts/dcard_parser.py</url>
-          <line>936</line>
+          <line>944</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">

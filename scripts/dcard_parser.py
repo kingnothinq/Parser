@@ -640,14 +640,22 @@ def parse_xg(dc_string, dc_list):
         pattern = no_empty(re.findall(r'Frequency\s+\|\s+(\d+)\sMHz'
                                       r'(\s+\|\s+(\d+)\sMHz)?',
                                       dc_string))
+        print(pattern)
         if len(pattern) is 1:
             radio_status['Master']['Carrier 0']['Frequency'] = pattern[0][0]
             radio_status['Slave']['Carrier 0']['Frequency'] = pattern[0][2]
         else:
+            pass
+            """
             radio_status['Master']['Carrier 0']['Frequency'] = pattern[0][0]
             radio_status['Slave']['Carrier 0']['Frequency'] = pattern[0][2]
             radio_status['Master']['Carrier 1']['Frequency'] = pattern[1][0]
             radio_status['Slave']['Carrier 1']['Frequency'] = pattern[1][2]
+            """
+
+        pattern = no_empty(re.findall(r'Frequency\s+\|\s+(\d+)(\/(\d+)\s)?MHz\s+\|\s+(\d+)(\/(\d+)\s)?MHz',
+                                      dc_string))
+        print(pattern)
 
         pattern = re.findall(r'DFS status\s+\|\s+(\w+)', dc_string)
         if len(pattern) > 0:
