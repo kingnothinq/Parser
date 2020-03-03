@@ -488,7 +488,7 @@ def parse_xg(dc_string, dc_list):
         for key_1, value_1 in enumerate(pattern):
             pattern[key_1] = list(value_1)
             for key_2, value_2 in enumerate(pattern[key_1]):
-                if value_2 == '':
+                if value_2 == '' or value_2 == '---' or value_2 == '--- dB' or value_2 == '--- dBm':
                     pattern[key_1][key_2] = None
             pattern[key_1] = tuple(pattern[key_1])
 
@@ -543,25 +543,30 @@ def parse_xg(dc_string, dc_list):
             }
         }
 
-    settings['Role'] = re.search(r'# xg -type (\w+)', dc_string).group(1)
-    settings['Bandwidth'] = re.search(r'# xg -channel-width (\d+)', dc_string).group(1)
+    settings['Role'] = re.search(r'# xg -type( |=)(\w+)', dc_string).group(2)
+    settings['Bandwidth'] = re.search(r'# xg -channel-width( |=)(\d+)', dc_string).group(2)
 
-    pattern = re.findall(r'# xg -freq-(u|d)l (\[0\])?(\d+),?(\[1\])?(\d+)?', dc_string)
-    settings['DL Frequency']['Carrier 0'] = pattern[0][2]
-    settings['DL Frequency']['Carrier 1'] = pattern[0][4]
-    settings['UL Frequency']['Carrier 0'] = pattern[1][2]
-    settings['UL Frequency']['Carrier 1'] = pattern[1][4]
+    pattern = re.findall(r'# xg -freq-(u|d)l( |=)(\[0\])?(\d+),?(\[1\])?(\d+)?', dc_string)
+    settings['DL Frequency']['Carrier 0'] = pattern[0][3]
+    settings['DL Frequency']['Carrier 1'] = pattern[0][5]
+    settings['UL Frequency']['Carrier 0'] = pattern[1][3]
+    settings['UL Frequency']['Carrier 1'] = pattern[1][5]
 
     pattern = re.search(r'# xg -short-cp (\d+)', dc_string)
     if pattern is not None:
         settings['Short CP'] = 'Enabled' if pattern.group(1) is '1' else 'Disabled'
 
-    settings['Max distance'] = re.search(r'# xg -max-distance (\d+)', dc_string).group(1)
-    settings['Frame size'] = re.search(r'# xg -sframelen (\d+)', dc_string).group(1)
+    settings['Max distance'] = re.search(r'# (\* )?xg -max-distance( |=)(\d+)', dc_string).group(3)
+    settings['Frame size'] = re.search(r'# xg -sframelen( |=)(\d+)', dc_string).group(2)
     settings['DL/UL Ratio'] = re.search(r'DL\/UL\sRatio\s+\|'
                                         r'(\d+/\d+(\s\(auto\))?)',
                                         dc_string).group(1)
-    settings['Tx Power'] = re.search(r'# xg -txpwr (\d+)', dc_string).group(1)
+
+    pattern = re.search(r'# xg -txpwr( |=)(\[0\])?([\-\d]+)(,(\[1\])?([\-\d]+))?', dc_string)
+    if not pattern.group(6):
+        settings['Tx Power'] = pattern.group(3)
+    else:
+        settings['Tx Power'] = max(pattern.group(3), pattern.group(6))
 
     pattern = re.search(r'# xg -ctrl-block-boost (\d+)', dc_string)
     if pattern is not None:
@@ -571,8 +576,11 @@ def parse_xg(dc_string, dc_list):
     if pattern is not None:
         settings['ATPC'] = 'Enabled' if pattern.group(1) is '1' else 'Disabled'
 
-    settings['AMC Strategy'] = re.search(r'# xg -amc-strategy (\w+)', dc_string).group(1)
-    settings['Max MCS'] = re.search(r'# xg -max-mcs (\d+)', dc_string).group(1)
+    settings['AMC Strategy'] = re.search(r'# xg -amc-strategy( |=)(\w+)', dc_string).group(2)
+
+    pattern = re.search(r'# xg -max-mcs (\d+)', dc_string)
+    if pattern is not None:
+        settings['Max MCS'] = pattern.group(1)
 
     pattern = re.search(r'# xg -idfs-enable (\d+)', dc_string)
     if pattern is not None:
@@ -637,25 +645,18 @@ def parse_xg(dc_string, dc_list):
                                                       r'(\d+\smeters|-+)',
                                                       dc_string).group(1)
 
-        pattern = no_empty(re.findall(r'Frequency\s+\|\s+(\d+)\sMHz'
-                                      r'(\s+\|\s+(\d+)\sMHz)?',
+        pattern = no_empty(re.findall(r'Frequency\s+\|'
+                                      r'\s+([\-\d]+)(\/([\-\d]+))?\s+MHz\s+\|'
+                                      r'(\s+([\-\d]+)(\/([\-\d]+))?\s+MHz)?',
                                       dc_string))
-        print(pattern)
         if len(pattern) is 1:
             radio_status['Master']['Carrier 0']['Frequency'] = pattern[0][0]
-            radio_status['Slave']['Carrier 0']['Frequency'] = pattern[0][2]
+            radio_status['Slave']['Carrier 0']['Frequency'] = pattern[0][4]
         else:
-            pass
-            """
             radio_status['Master']['Carrier 0']['Frequency'] = pattern[0][0]
-            radio_status['Slave']['Carrier 0']['Frequency'] = pattern[0][2]
+            radio_status['Slave']['Carrier 0']['Frequency'] = pattern[0][4]
             radio_status['Master']['Carrier 1']['Frequency'] = pattern[1][0]
-            radio_status['Slave']['Carrier 1']['Frequency'] = pattern[1][2]
-            """
-
-        pattern = no_empty(re.findall(r'Frequency\s+\|\s+(\d+)(\/(\d+)\s)?MHz\s+\|\s+(\d+)(\/(\d+)\s)?MHz',
-                                      dc_string))
-        print(pattern)
+            radio_status['Slave']['Carrier 1']['Frequency'] = pattern[1][4]
 
         pattern = re.findall(r'DFS status\s+\|\s+(\w+)', dc_string)
         if len(pattern) > 0:
@@ -664,133 +665,140 @@ def parse_xg(dc_string, dc_list):
             radio_status['Master']['Carrier 1']['DFS'] = pattern[0]
             radio_status['Slave']['Carrier 1']['DFS'] = pattern[0]
 
-        pattern = no_empty(re.findall(r'Rx\sAcc\sFER\s+\|\s+([\w\d.e-]+'
-                                      r'\s\([\d.%]+\))(\s+\|'
-                                      r'\s+([\w\d.e-]+\s\([\d.%]+\)))?',
+        pattern = no_empty(re.findall(r'Rx\sAcc\sFER\s+\|'
+                                      r'\s+([\w\d.e-]+(\s\([\d.%]+\))?)(\s+\|'
+                                      r'\s+([\-\w\d.e-]+\s\([\d.%]+\)))?',
                                       dc_string))
         if len(pattern) is 1:
             radio_status['Master']['Carrier 0']['Rx Acc FER'] = pattern[0][0]
-            radio_status['Slave']['Carrier 0']['Rx Acc FER'] = pattern[0][2]
+            radio_status['Slave']['Carrier 0']['Rx Acc FER'] = pattern[0][3]
         else:
             radio_status['Master']['Carrier 0']['Rx Acc FER'] = pattern[0][0]
-            radio_status['Slave']['Carrier 0']['Rx Acc FER'] = pattern[0][2]
+            radio_status['Slave']['Carrier 0']['Rx Acc FER'] = pattern[0][3]
             radio_status['Master']['Carrier 1']['Rx Acc FER'] = pattern[1][0]
-            radio_status['Slave']['Carrier 1']['Rx Acc FER'] = pattern[1][2]
+            radio_status['Slave']['Carrier 1']['Rx Acc FER'] = pattern[1][3]
 
-        pattern = no_empty(re.findall(r'Power\s+\|([-\d.]+\sdBm)\s+\|'
-                                      r'([-\d.]+\sdBm)(\s+\|'
-                                      r'([-\d.]+\sdBm)\s+\|'
-                                      r'([-\d.]+\sdBm))?',
+        pattern = no_empty(re.findall(r'Power\s+\|'
+                                      r'([\-\d.]+(\sdBm)?)\s+\|'
+                                      r'([\-\d.]+(\sdBm)?)\s+\|'
+                                      r'(([\-\d.]+(\sdBm)?)\s+\|'
+                                      r'([\-\d.]+(\sdBm)?))?',
                                       dc_string))
         if len(pattern) is 1:
             radio_status['Master']['Carrier 0']['Stream 0'][
                 'Tx Power'] = pattern[0][0]
             radio_status['Master']['Carrier 0']['Stream 1'][
-                'Tx Power'] = pattern[0][1]
+                'Tx Power'] = pattern[0][2]
             radio_status['Slave']['Carrier 0']['Stream 0'][
-                'Tx Power'] = pattern[0][3]
+                'Tx Power'] = pattern[0][5]
             radio_status['Slave']['Carrier 0']['Stream 1'][
-                'Tx Power'] = pattern[0][4]
+                'Tx Power'] = pattern[0][7]
         else:
             radio_status['Master']['Carrier 0']['Stream 0'][
                 'Tx Power'] = pattern[0][0]
             radio_status['Master']['Carrier 0']['Stream 1'][
-                'Tx Power'] = pattern[0][1]
+                'Tx Power'] = pattern[0][2]
             radio_status['Slave']['Carrier 0']['Stream 0'][
-                'Tx Power'] = pattern[0][3]
+                'Tx Power'] = pattern[0][5]
             radio_status['Slave']['Carrier 0']['Stream 1'][
-                'Tx Power'] = pattern[0][4]
+                'Tx Power'] = pattern[0][7]
             radio_status['Master']['Carrier 1']['Stream 0'][
                 'Tx Power'] = pattern[1][0]
             radio_status['Master']['Carrier 1']['Stream 1'][
-                'Tx Power'] = pattern[1][1]
+                'Tx Power'] = pattern[1][2]
             radio_status['Slave']['Carrier 1']['Stream 0'][
-                'Tx Power'] = pattern[1][3]
+                'Tx Power'] = pattern[1][5]
             radio_status['Slave']['Carrier 1']['Stream 1'][
-                'Tx Power'] = pattern[1][4]
+                'Tx Power'] = pattern[1][7]
 
-        pattern = no_empty(re.findall(r'Gain\s+\|([-\d.]+\sdB)\s+\|'
-                                      r'([-\d.]+\sdB)(\s+\|([-\d.]+\sdB)\s+\|'
-                                      r'([-\d.]+\sdB))?',
+        pattern = no_empty(re.findall(r'Gain\s+\|'
+                                      r'([\-\d.]+(\sdB)?)\s+\|'
+                                      r'([\-\d.]+(\sdB)?)\s+\|'
+                                      r'(([\-\d.]+(\sdB)?)\s+\|'
+                                      r'([\-\d.]+(\sdB)?))?',
                                       dc_string))
-        if len(pattern) is 1:
+        if len(pattern) is 0:
+            pass
+        elif len(pattern) is 1:
             radio_status['Master']['Carrier 0']['Stream 0'][
                 'Tx Gain'] = pattern[0][0]
             radio_status['Master']['Carrier 0']['Stream 1'][
-                'Tx Gain'] = pattern[0][1]
+                'Tx Gain'] = pattern[0][2]
             radio_status['Slave']['Carrier 0']['Stream 0'][
-                'Tx Gain'] = pattern[0][3]
+                'Tx Gain'] = pattern[0][5]
             radio_status['Slave']['Carrier 0']['Stream 1'][
-                'Tx Gain'] = pattern[0][4]
+                'Tx Gain'] = pattern[0][7]
         else:
             radio_status['Master']['Carrier 0']['Stream 0'][
                 'Tx Gain'] = pattern[0][0]
             radio_status['Master']['Carrier 0']['Stream 1'][
-                'Tx Gain'] = pattern[0][1]
+                'Tx Gain'] = pattern[0][2]
             radio_status['Slave']['Carrier 0']['Stream 0'][
-                'Tx Gain'] = pattern[0][3]
+                'Tx Gain'] = pattern[0][5]
             radio_status['Slave']['Carrier 0']['Stream 1'][
-                'Tx Gain'] = pattern[0][4]
+                'Tx Gain'] = pattern[0][7]
             radio_status['Master']['Carrier 1']['Stream 0'][
                 'Tx Gain'] = pattern[1][0]
             radio_status['Master']['Carrier 1']['Stream 1'][
-                'Tx Gain'] = pattern[1][1]
+                'Tx Gain'] = pattern[1][2]
             radio_status['Slave']['Carrier 1']['Stream 0'][
-                'Tx Gain'] = pattern[1][3]
+                'Tx Gain'] = pattern[1][5]
             radio_status['Slave']['Carrier 1']['Stream 1'][
-                'Tx Gain'] = pattern[1][4]
+                'Tx Gain'] = pattern[1][7]
 
         pattern = no_empty(re.findall(r'RX\s+\|MCS\s+\|'
-                                      r'([\w\d]+\s\d+\/\d+\s\(\d+\))\s+\|'
-                                      r'([\w\d]+\s\d+\/\d+\s\(\d+\))(\s+\|'
-                                      r'([\w\d]+\s\d+\/\d+\s\(\d+\))\s+\|'
-                                      r'([\w\d]+\s\d+\/\d+\s\(\d+\)))?',
+                                      r'([\-\w\d]+(\s\d+\/\d+\s\(\d+\))?)\s+\|'
+                                      r'([\-\w\d]+(\s\d+\/\d+\s\(\d+\))?)\s+\|'
+                                      r'(([\-\w\d]+(\s\d+\/\d+\s\(\d+\))?)\s+\|'
+                                      r'([\-\w\d]+(\s\d+\/\d+\s\(\d+\))?))?',
                                       dc_string))
         if len(pattern) is 1:
             radio_status['Master']['Carrier 0']['Stream 0']['MCS'] = pattern[0][0]
-            radio_status['Master']['Carrier 0']['Stream 1']['MCS'] = pattern[0][1]
-            radio_status['Slave']['Carrier 0']['Stream 0']['MCS'] = pattern[0][3]
-            radio_status['Slave']['Carrier 0']['Stream 1']['MCS'] = pattern[0][4]
+            radio_status['Master']['Carrier 0']['Stream 1']['MCS'] = pattern[0][2]
+            radio_status['Slave']['Carrier 0']['Stream 0']['MCS'] = pattern[0][5]
+            radio_status['Slave']['Carrier 0']['Stream 1']['MCS'] = pattern[0][7]
         else:
             radio_status['Master']['Carrier 0']['Stream 0']['MCS'] = pattern[0][0]
-            radio_status['Master']['Carrier 0']['Stream 1']['MCS'] = pattern[0][1]
-            radio_status['Slave']['Carrier 0']['Stream 0']['MCS'] = pattern[0][3]
-            radio_status['Slave']['Carrier 0']['Stream 1']['MCS'] = pattern[0][4]
+            radio_status['Master']['Carrier 0']['Stream 1']['MCS'] = pattern[0][2]
+            radio_status['Slave']['Carrier 0']['Stream 0']['MCS'] = pattern[0][5]
+            radio_status['Slave']['Carrier 0']['Stream 1']['MCS'] = pattern[0][7]
             radio_status['Master']['Carrier 1']['Stream 0']['MCS'] = pattern[1][0]
-            radio_status['Master']['Carrier 1']['Stream 1']['MCS'] = pattern[1][1]
-            radio_status['Slave']['Carrier 1']['Stream 0']['MCS'] = pattern[1][3]
-            radio_status['Slave']['Carrier 1']['Stream 1']['MCS'] = pattern[1][4]
+            radio_status['Master']['Carrier 1']['Stream 1']['MCS'] = pattern[1][2]
+            radio_status['Slave']['Carrier 1']['Stream 0']['MCS'] = pattern[1][5]
+            radio_status['Slave']['Carrier 1']['Stream 1']['MCS'] = pattern[1][7]
 
-        pattern = no_empty(re.findall(r'CINR\s+\|([-\d.]+\sdB)\s+\|'
-                                      r'([-\d.]+\sdB)(\s+\|([-\d.]+\sdB)\s+\|'
-                                      r'([-\d.]+\sdB))?',
+        pattern = no_empty(re.findall(r'CINR\s+\|'
+                                      r'([-\d.]+(\sdB)?)\s+\|'
+                                      r'([-\d.]+(\sdB)?)(\s+\|'
+                                      r'([-\d.]+(\sdB)?)\s+\|'
+                                      r'([-\d.]+(\sdB)?))?',
                                       dc_string))
         if len(pattern) is 1:
             radio_status['Master']['Carrier 0']['Stream 0']['CINR'] = pattern[
                 0][0]
             radio_status['Master']['Carrier 0']['Stream 1']['CINR'] = pattern[
-                0][1]
+                0][2]
             radio_status['Slave']['Carrier 0']['Stream 0']['CINR'] = pattern[
-                0][3]
+                0][5]
             radio_status['Slave']['Carrier 0']['Stream 1']['CINR'] = pattern[
-                0][4]
+                0][7]
         else:
             radio_status['Master']['Carrier 0']['Stream 0']['CINR'] = pattern[
                 0][0]
             radio_status['Master']['Carrier 0']['Stream 1']['CINR'] = pattern[
-                0][1]
+                0][2]
             radio_status['Slave']['Carrier 0']['Stream 0']['CINR'] = pattern[
-                0][3]
+                0][5]
             radio_status['Slave']['Carrier 0']['Stream 1']['CINR'] = pattern[
-                0][4]
+                0][7]
             radio_status['Master']['Carrier 1']['Stream 0']['CINR'] = pattern[
                 1][0]
             radio_status['Master']['Carrier 1']['Stream 1']['CINR'] = pattern[
-                1][1]
+                1][2]
             radio_status['Slave']['Carrier 1']['Stream 0']['CINR'] = pattern[
-                1][3]
+                1][5]
             radio_status['Slave']['Carrier 1']['Stream 1']['CINR'] = pattern[
-                1][4]
+                1][7]
 
         pattern = no_empty(re.findall(r'RSSI\s+\|([-\d.]+\sdBm)(\s\([\d-]+\))?\s+\|'
                                       r'([-\d.]+\sdBm)(\s\([\d-]+\))?(\s+\|'
@@ -824,69 +832,73 @@ def parse_xg(dc_string, dc_list):
             radio_status['Slave']['Carrier 1']['Stream 1']['RSSI'] = pattern[
                 1][7]
 
-        pattern = no_empty(re.findall(r'Crosstalk\s+\|([-\d.]+\sdB)\s+\|'
-                                      r'([-\d.]+\sdB)(\s+\|([-\d.]+\sdB)\s+\|'
-                                      r'([-\d.]+\sdB))?',
+        pattern = no_empty(re.findall(r'Crosstalk\s+\|'
+                                      r'([-\d.]+(\sdB)?)\s+\|'
+                                      r'([-\d.]+(\sdB)?)(\s+\|'
+                                      r'([-\d.]+(\sdB)?)\s+\|'
+                                      r'([-\d.]+(\sdB)?))?',
                                       dc_string))
-        if len(pattern) is 1:
+        if len(pattern) is 0:
+            pass
+        elif len(pattern) is 1:
             radio_status['Master']['Carrier 0']['Stream 0'][
                 'Crosstalk'] = pattern[0][0]
             radio_status['Master']['Carrier 0']['Stream 1'][
-                'Crosstalk'] = pattern[0][1]
+                'Crosstalk'] = pattern[0][2]
             radio_status['Slave']['Carrier 0']['Stream 0'][
-                'Crosstalk'] = pattern[0][3]
+                'Crosstalk'] = pattern[0][5]
             radio_status['Slave']['Carrier 0']['Stream 1'][
-                'Crosstalk'] = pattern[0][4]
+                'Crosstalk'] = pattern[0][7]
         else:
             radio_status['Master']['Carrier 0']['Stream 0'][
                 'Crosstalk'] = pattern[0][0]
             radio_status['Master']['Carrier 0']['Stream 1'][
-                'Crosstalk'] = pattern[0][1]
+                'Crosstalk'] = pattern[0][2]
             radio_status['Slave']['Carrier 0']['Stream 0'][
-                'Crosstalk'] = pattern[0][3]
+                'Crosstalk'] = pattern[0][5]
             radio_status['Slave']['Carrier 0']['Stream 1'][
-                'Crosstalk'] = pattern[0][4]
+                'Crosstalk'] = pattern[0][7]
             radio_status['Master']['Carrier 1']['Stream 0'][
                 'Crosstalk'] = pattern[1][0]
             radio_status['Master']['Carrier 1']['Stream 1'][
-                'Crosstalk'] = pattern[1][1]
+                'Crosstalk'] = pattern[1][2]
             radio_status['Slave']['Carrier 1']['Stream 0'][
-                'Crosstalk'] = pattern[1][3]
+                'Crosstalk'] = pattern[1][5]
             radio_status['Slave']['Carrier 1']['Stream 1'][
-                'Crosstalk'] = pattern[1][4]
+                'Crosstalk'] = pattern[1][7]
 
-        pattern = no_empty(re.findall(r'(TBER|Errors\sRatio)\s+\|[\d\.e-]+'
-                                      r'\s\(([\d.]+%)\)\s+\|'
-                                      r'[\d\.e-]+\s\(([\d.]+%)\)(\s+\|'
-                                      r'[\d\.e-]+\s\(([\d.]+%)\)\s+\|'
-                                      r'[\d\.e-]+\s\(([\d.]+%)\))?',
+        pattern = no_empty(re.findall(r'(TBER|Errors\sRatio)\s+\|'
+                                      r'[\d\.e\-]+(\s\(([\d.]+%)\))?\s+\|'
+                                      r'[\d\.e\-]+(\s\(([\d.]+%)\))?\s+\|'
+                                      r'([\d\.e\-]+(\s\(([\d.]+%)\))?\s+\|'
+                                      r'[\d\.e\-]+(\s\(([\d.]+%)\))?)?',
                                       dc_string))
         if len(pattern) is 1:
             radio_status['Master']['Carrier 0']['Stream 0'][
-                'Errors Ratio'] = pattern[0][1]
-            radio_status['Master']['Carrier 0']['Stream 1'][
                 'Errors Ratio'] = pattern[0][2]
-            radio_status['Slave']['Carrier 0']['Stream 0'][
+            radio_status['Master']['Carrier 0']['Stream 1'][
                 'Errors Ratio'] = pattern[0][4]
+            radio_status['Slave']['Carrier 0']['Stream 0'][
+                'Errors Ratio'] = pattern[0][7]
             radio_status['Slave']['Carrier 0']['Stream 1'][
-                'Errors Ratio'] = pattern[0][5]
+                'Errors Ratio'] = pattern[0][9]
         else:
             radio_status['Master']['Carrier 0']['Stream 0'][
-                'Errors Ratio'] = pattern[0][1]
-            radio_status['Master']['Carrier 0']['Stream 1'][
                 'Errors Ratio'] = pattern[0][2]
-            radio_status['Slave']['Carrier 0']['Stream 0'][
+            radio_status['Master']['Carrier 0']['Stream 1'][
                 'Errors Ratio'] = pattern[0][4]
+            radio_status['Slave']['Carrier 0']['Stream 0'][
+                'Errors Ratio'] = pattern[0][7]
             radio_status['Slave']['Carrier 0']['Stream 1'][
-                'Errors Ratio'] = pattern[0][5]
+                'Errors Ratio'] = pattern[0][9]
             radio_status['Master']['Carrier 1']['Stream 0'][
-                'Errors Ratio'] = pattern[1][1]
-            radio_status['Master']['Carrier 1']['Stream 1'][
                 'Errors Ratio'] = pattern[1][2]
-            radio_status['Slave']['Carrier 1']['Stream 0'][
+            radio_status['Master']['Carrier 1']['Stream 1'][
                 'Errors Ratio'] = pattern[1][4]
+            radio_status['Slave']['Carrier 1']['Stream 0'][
+                'Errors Ratio'] = pattern[1][7]
             radio_status['Slave']['Carrier 1']['Stream 1'][
-                'Errors Ratio'] = pattern[1][5]
+                'Errors Ratio'] = pattern[1][9]
 
     # Ethernet Status
     ethernet_statuses = {

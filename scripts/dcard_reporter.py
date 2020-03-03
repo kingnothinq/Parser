@@ -17,6 +17,7 @@ def xg_report(device):
         """Show information about carriers."""
 
         message.append('  ' + carrier_name + ':\n'
+                                             '   Current Tx Frequency: {};\n'
                                              '   Stream 0 RSSI: {}, '
                                              'Stream 1 RSSI: {};\n'
                                              '   Stream 0 CINR: {}, '
@@ -25,7 +26,8 @@ def xg_report(device):
                                              'Stream 1 MCS: {};\n'
                                              '   Stream 0 Errors: {}, '
                                              'Stream 1 Errors: {}. '
-                       .format(carrier['Stream 0']['RSSI'],
+                       .format(carrier['Frequency'],
+                               carrier['Stream 0']['RSSI'],
                                carrier['Stream 1']['RSSI'],
                                carrier['Stream 0']['CINR'],
                                carrier['Stream 1']['CINR'],

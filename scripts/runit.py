@@ -12,14 +12,14 @@ import tests.run_tests as dtester
 def get_dc_string(dc_path):
     """Open a diagnostic card as a list of strings."""
 
-    with open(dc_path, encoding='utf-8') as dcard:
+    with open(dc_path, encoding='utf-8', errors='ignore') as dcard:
         return dcard.read()
 
 
 def get_dc_list(dc_path):
     """Open a diagnostic card as a list of strings."""
 
-    with open(dc_path, encoding='utf-8') as dcard:
+    with open(dc_path, encoding='utf-8', errors='ignore') as dcard:
         return dcard.readlines()
 
 if __name__ == "__main__":
@@ -33,8 +33,8 @@ if __name__ == "__main__":
 
         print(dc_path)
 
-        if True:
-            #try:
+        #if True:
+        try:
             # Open a diagnostic card and handle it following the model
             dc_string = get_dc_string(dc_path)
             dc_list = get_dc_list(dc_path)
@@ -62,12 +62,12 @@ if __name__ == "__main__":
                 dreporter.debug_report(report)
             else:
                 raise
-            #except:
-            #report = dreporter.error_report(dc_path)
-            #dreporter.debug_report(report)
+        except:
+            report = dreporter.error_report(dc_path)
+            dreporter.debug_report(report)
 
-            #finally:
+        finally:
             #dreporter.jira_report(report)
             pass
 
-    print('Counter ', counter)
+    print('\nCounter ', counter)

@@ -1,0 +1,3014 @@
+==[        date        ]===============================================================================================
+Fri Nov 01 01:05:52 GMT 2019  (not valid)
+
+==[     sys uptime     ]===============================================================================================
+Uptime: 00:04:52
+Last reboot reason: hardware reset
+
+==[       sys ver      ]===============================================================================================
+
+XG WANFleX H12S10v1.8.1 * Nov 25 2019 10:42:48 * SN:506026
+Processor: DAN ARM926EJ-S 600 MHz rev.D
+PN:Xm/5X.1000.4x300.2x23
+
+==[    config show     ]===============================================================================================
+# XG WANFleX H12S10v1.8.1 * Nov 25 2019 10:42:48 * SN:506026
+
+#System parameters
+ #Factory password mode: single
+ sys name Master - M6
+ sys user tech
+ setpass $1$VALUV$.2Zzk1ep8wDp2AAPijcUa1
+   
+#XG configuration
+ #Grids:
+  # xg -grids-carrier-ix=0 \
+  #   (default) -grids-band=10 -grids=5465-5730/10 \
+  #   (default) -grids-band=20 -grids=5470-5725/20 \
+  #   (default) -grids-band=40 -grids=5480-5715/20
+  # xg -grids-carrier-ix=1 \
+  #    -grids-band=10 -grids=5505-5725/10 \
+  #    -grids-band=20 -grids=5530-5710/20 \
+  #    -grids-band=40 -grids=5560-5700/20
+ 
+ #General settings:
+  # xg -type master
+  # xg -tdd-sync-src freerun
+  # xg -autosync-link-settings no
+ 
+ #Link shared settings (Radio Front End):
+  # xg -cell-id 1
+  # xg -channel-width 40
+  # xg -freq-dl [0]5480,[1]5560
+  # xg -freq-ul [0]5480,[1]5560
+  # xg -short-cp 0
+  # xg -freq-auto 1
+ 
+ #Link shared settings (Frame Config):
+  # xg -max-distance 1
+  # xg -sframelen 5
+  # xg -tdd-profile 1
+  # xg -tdd-profile-auto-switching 1
+ 
+ #RF per-station settings:
+  # xg -txpwr 7
+  # xg -ctrl-block-boost 0
+  # xg -atpc-master-enable 1
+  # xg -atpc-target-rssi -45
+  # xg -atpc-rssi-threshold 1
+  # xg -antenna-gain 0
+ 
+ #Modulation related:
+  # xg -amc-strategy aggressive
+  # xg -max-mcs 10
+ 
+ #DFS/RSSI scan/Radar detection:
+  # xg -idfs-enable 0
+  # xg -idfs-rssi-threshold 1
+  # xg -idfs-ffs-time 300
+  # xg -idfs-rdrdt-enable 1
+  # xg -idfs-fix-dl-ul 0
+ 
+ #Ethernet datapath related:
+  # xg -traffic-prioritization 0
+  # xg -1588-sync-tai 0
+ 
+ #Supplementary:
+  # xg -config-restore-index 8
+  # xg -passphrase=10101010
+ 
+ xg -v3-start
+ xg -v3 cca1f186548bd769fd7130b7c39d361e.kdcd66eH1nvZ0A1VMY2oUyAvc0oLNMeNRr2+R2C
+ xg -v3 4JZGFlkNlCopiSfATyIJx8dtXapXTL5Xe7Nb00NO47Qdx8KILj6VhaW0fTlOk3cfDYLXYlPJ
+ xg -v3 RgNx+4xySa19rkg9lLVeI5ej3Vr+kxJgEID0KmeNu3nZh2yuUM/ToIXrFd64nVu1okRz0rc0
+ xg -v3 wxNceWii0qEwvOXwZqoFS7CErjUyjhlpiEipFx6DlCwqG68n3HWe1Nwy/31E2SfyM+kOuhX2
+ xg -v3 m+JWLpyHasJ2GY2U0adZ3VvSwt+86R+xlFOe/MuhpLOZSXATD0JPcMkFUdoVBuuNVKyzhQo2
+ xg -v3 j/CvD6uhUcDF01pZjRsZBj6x9LPSHYMw5BYBIrBnbFHS5p5XBjnTl6Jw7bNhkRcj5yWoV2CB
+ xg -v3 LjGo3JtrA7OoxcNqlZJt/2vWW8CkRN0r8PHyOHpVNruwVTM73FOv6NWMDuetdO5y6ZCZ4hvj
+ xg -v3 k2UHOhQP1GTTHYNYqH4V4KNXic+i9Uc9VZ5VqeELMcJFwpgiKLU0H+1sD9wJE/6U69r7xI2C
+ xg -v3 6ZFS4Ilk1wSnOyHAvBCoSCmpSHmALrNZ9oICMCmefhP1H/aoU0VabGYDQqe0CMTxDb7C+E96
+ xg -v3 5b9yU79zcfikS3IrrBQGbPj0DmsbWYXX38PhQA5I/QdhVri4A+7Afn1EbaOMpWFG8S3fQbTm
+ xg -v3 G+z1UA8OMeXz1qDGNvIP8HQ7mUs/0xeaTYKoDs1XxuesbeJe5ESCBJ+pWfNnSWopy1O2fZs4
+ xg -v3 LnI5LNMgtDG5/M3gvsgoBm8q9ixi5yz9iEjTP07gKLU8EbQWK50WaRdrk81WJUO5RMyMXeyT
+ xg -v3 R+7l3qP6PdQ==
+ xg -v3-end
+   
+#Physical wired ports configuration
+ port 0 -notmember=all
+ 
+ port 1 -notmember=all
+ 
+ port s -notmember=all
+ 
+ port r -notmember=all
+ 
+ port m -notmember=all
+ 
+   
+#Interfaces parameters
+ ifc lo0    127.0.0.1/32
+ ifc ge0    media auto mtu 1500 up
+ ifc ge1    media auto mtu 1500 up
+ ifc sfp    media auto mtu 1500 up
+ ifc radio  mtu 1500 up
+ ifc mgmt   mtu 1500 up
+ ifc mgmt   10.10.10.2/24
+ ifc mgmt   172.16.99.81/24
+   
+#Routing parameters
+ route add default 172.16.99.254
+   
+#WEB configurator
+ webcfg start
+   
+#LLDP parameters
+ lldp ge0 enable txrx
+ lldp ge1 enable txrx
+ lldp sfp enable txrx
+ lldp radio enable txrx
+   
+#WD configuration
+ wd -on-wd-panic 1
+ wd -on-assert-panic 1
+ wd -downlink-timer 60
+ wd -case-enable LINKDOWN
+ wd -case-enable XG_TIMEOUT
+ wd -case-disable RLM_FG_TIMEOUT
+ wd -case-enable MCHL_ADM_TIMEOUT
+ wd -case-enable TXPWR
+ wd -case-enable HTA
+ wd -case-disable PP
+ wd -case-enable UD
+ wd -case-enable SIN
+   
+
+==[      xg stat       ]===============================================================================================
++-------------------+-----------------------------------------------------------------------------+
+|Wireless Link      |UP                                                                           |
+|status             |                                                                             |
+|Measured Distance  |228 meters                                                                   |
+|Channel Width      |40 MHz                                                                       |
+|DL/UL Ratio        |39/61 (auto)                                                                 |
+|Frame Period       |5 ms                                                                         |
++-------------------+-----------------------------------------------------------------------------+
++----+--------------+------------------+-------------------+-------------------+------------------+
+|    Device Type    |            Master (local)            |            Slave (remote)            |
++----+--------------+------------------+-------------------+-------------------+------------------+
+|RLM State          |             RANGING_ST               |             PC_ACTIVE_ST             |
+|Tx Capacity        |             167423 kbps              |             573888 kbps              |
+|Tx/Rx Packets      |               1373/925               |               922/1344               |
++----+--------------+------------------+-------------------+-------------------+------------------+
+|                   |                               Carrier 0 (Up)                                |
++----+--------------+------------------+-------------------+-------------------+------------------+
+|Tx/Rx Frequency    |               5700/5820 MHz          |               5820/5700 MHz          |
+|DFS status         |               ENABLED                |               ENABLED                |
+|Tx/Rx Frames       |            444000/123714             |             444000/97734             |
+|Rx Bad Frames      |                  0                   |                  0                   |
+|Rx Acc FER         |               0e0 (3%)               |               0e0 (0.01%)            |
+|AMC Mode           |                 Auto                 |                 Auto                 |
++----+--------------+------------------+-------------------+-------------------+------------------+
+|                   |     Stream 0     |     Stream 1      |     Stream 0      |     Stream 1     |
++----+--------------+------------------+-------------------+-------------------+------------------+
+|TX  |MCS           |QAM64 4/6 (5)     |QAM16 3/4 (4)      |QAM1024 8/10 (10)  |QAM256 30/32 (9)  |
+|    |Power         |1.5 dBm           |4.75 dBm           |1 dBm              |3.5 dBm           |
+|    |Gain          |-111 dB           |-28 dB             |-33.25 dB          |-29.25 dB         |
++----+--------------+------------------+-------------------+-------------------+------------------+
+|RX  |MCS           |QAM1024 8/10 (10) |QAM256 30/32 (9)   |QAM64 4/6 (5)      |QAM16 3/4 (4)     |
+|    |CINR          |33 dB             |30 dB              |32 dB              |30 dB             |
+|    |RSSI          |-90 dBm           |-39 dBm            |-99 dBm            |-37 dBm           |
+|    |GAIN          |19 db (6)         |16 db (6)          |19 db (4)          |15 db (4)         |
+|    |ADC RSSI      |-28 dBFS          |-28 dBFS           |-28 dBFS           |-29 dBFS          |
+|    |STOD          |1.2               |1.2                |-1.9               |0.0               |
+|    |Crosstalk     |-5 dB             |-29 dB             |-22 dB             |-5 dB             |
+|    |OK TBS        |3768301           |3768345            |2807619            |2807728           |
+|    |Bad TBS       |233               |189                |66742              |66633             |
+|    |Errors Ratio  |6.18e-5 (4.01%)   |5.02e-5 (0.01%)    |2.32e-2 (2.32%)    |2.32e-2 (55.32%)  |
++----+--------------+------------------+-------------------+-------------------+------------------+
+|                   |                               Carrier 1 (Up)                                |
++----+--------------+------------------+-------------------+-------------------+------------------+
+|Tx/Rx Frequency    |               5620/5555 MHz          |               5555/5620 MHz          |
+|DFS status         |               ENABLED                |               ENABLED                |
+|Tx/Rx Frames       |            444000/123714             |             444000/97604             |
+|Rx Bad Frames      |                  0                   |                 130                  |
+|Rx Acc FER         |               0e0 (0%)               |           1.33e-3 (0.13%)            |
+|AMC Mode           |                 Auto                 |                 Auto                 |
++----+--------------+------------------+-------------------+-------------------+------------------+
+|                   |     Stream 0     |     Stream 1      |     Stream 0      |     Stream 1     |
++----+--------------+------------------+-------------------+-------------------+------------------+
+|TX  |MCS           |QAM16 3/4 (4)     |QAM64 4/6 (5)      |QAM256 30/32 (9)   |QAM256 30/32 (9)  |
+|    |Power         |1.75 dBm          |7 dBm              |1 dBm              |1 dBm             |
+|    |Gain          |-32 dB            |-26.75 dB          |-32.25 dB          |-12.75 dB         |
++----+--------------+------------------+-------------------+-------------------+------------------+
+|RX  |MCS           |QAM256 30/32 (9)  |QAM256 30/32 (9)   |QAM16 3/4 (4)      |QAM64 4/6 (5)     |
+|    |CINR          |31 dB             |32 dB              |31 dB              |30 dB             |
+|    |RSSI          |-50 dBm           |-48 dBm            |-45 dBm            |-49 dBm           |
+|    |GAIN          |21 db (19)        |20 db (19)         |20 db (21)         |21 db (21)        |
+|    |ADC RSSI      |-29 dBFS          |-28 dBFS           |-25 dBFS           |-28 dBFS          |
+|    |STOD          |0.6               |0.6                |0.4                |0.4               |
+|    |Crosstalk     |-26 dB            |-27 dB             |-31 dB             |-23 dB            |
+|    |OK TBS        |3740081           |3739953            |2796800            |2796976           |
+|    |Bad TBS       |157               |285                |66176              |66000             |
+|    |Errors Ratio  |4.2e-5 (0%)       |7.62e-5 (0.01%)    |2.31e-2 (2.31%)    |2.31e-2 (2.31%)   |
++----+--------------+------------------+-------------------+-------------------+------------------+
+
+==[         ctl        ]===============================================================================================
+Internal temperature is +26.4 degrees Celsius.
+
+==[     xg rf temp     ]===============================================================================================
+carrier 0: 32 degrees Celsius
+carrier 1: 32 degrees Celsius
+
+==[     panic show     ]===============================================================================================
+Panic sector location: 0x00060000 panics count 4:
+>>Panic at Fri Nov 01 02:01:26 2019
+XG WANFleX H12S10v1.8.1 * Nov 25 2019 10:42:48 * SN:506026
+Panic info : [wd]: case "LINKDOWN" stuck, code: 0x0 
+
+Uptime: 01:00:26, CPU: 3% 2%
+Last syslog: [wd]: may reboot after: 11 sec 
+
+Process map:
+TCFP (0x31d36d0 = 08192/01208)   5  Act  
+EVTS (0x314d610 = 49152/00636) 100  SUSP 
+STAT (0x31d1040 = 04096/00184)  75  DELAY
+sysl (0x31bdff8 = 05120/00716) 160  Wmsg 
+ATPM (0x31bb728 = 08192/00572) 100  DELAY
+ATPS (0x31b9720 = 08192/00904) 100  DELAY
+WIZD (0x308d548 = 08192/01732)  15  DELAY
+EthI (0x30848d0 = 32768/00200)  50  Wevnt
+swir (0x306b0c8 = 16384/00588)   5  Wevnt
+phyd (0x306a030 = 04096/00508) 100  Wevnt
+swtt (0x3067bc8 = 08192/00280)  15  Wmsg 
+stat (0x30658f0 = 08192/00640)  50  Wevnt
+feci (0x3063618 = 08192/00316)  15  Wevnt
+fect (0x3062320 = 04096/00208)  15  Wevnt
+stph (0x305af40 = 08192/00248)  50  Wevnt
+BASH (0x3036a58 = 131072/01156)  50  Wsem 
+PSRT (0x309f720 = 04096/00224) 155  Wevnt
+webc (0x302d810 = 30720/01712) 100  SUSP 
+LLDP (0x3005888 = 04096/00812) 122  Wevnt
+TELD (0x3023308 = 08192/00412)  99  SUSP 
+chdd (0x3020300 = 12288/00476) 110  SUSP 
+MCHL (0x2d32920 = 32768/02484)  16  Wmsg 
+IPCD (0x2d2a918 = 32768/02152)  16  Wevnt
+HTTP (0x2e09638 = 08192/02712) 100  SUSP 
+EAMC (0x2e07630 = 08192/00256)  50  DELAY
+p2ps (0x2d10848 = 08192/00248)  90  Wmsg 
+p2pr (0x2fc61c0 = 08192/00200)  91  Wmsg 
+P2PX (0x2ff4038 = 08192/00200) 100  Wmsg 
+P2PP (0x2cb9ae0 = 65536/00440) 100  Wmsg 
+RSSD (0x2cb7ad8 = 08192/00584)  70  DELAY
+RFlS (0x2cb5ad0 = 08192/00880) 160  DELAY
+WEBS (0x2cb3ac8 = 08192/03240) 160  DELAY
+ISR: 4001 pps
+Mem: 39988208/56995808
+
+
+frame #0:	0x002cb440 0x002cb2f4 T wd_case_set_state
+frame #1:	0x0022c124 0x0022bfb8 t TcfTask
+frame #2:	0x003cf820 0x003cf758 T _Thread_Handler
+
+>>Panic at Fri Nov 01 02:02:26 2019
+XG WANFleX H12S10v1.8.1 * Nov 25 2019 10:42:48 * SN:506026
+Panic info : [wd]: case "LINKDOWN" stuck, code: 0x0 
+
+Uptime: 01:01:26, CPU: 3% 2%
+Last syslog: [wd]: may reboot after: 71 sec 
+
+Process map:
+TCFP (0x31d3648 = 08192/01208)   5  Act  
+EVTS (0x314d5b0 = 49152/03844) 100  SUSP 
+STAT (0x31d0f98 = 04096/00184)  75  DELAY
+sysl (0x31bdf98 = 05120/00716) 160  Wmsg 
+ATPM (0x31bb6b0 = 08192/00572) 100  DELAY
+ATPS (0x31b96a8 = 08192/00904) 100  DELAY
+WIZD (0x308d4e8 = 08192/01732)  15  DELAY
+EthI (0x3084870 = 32768/00804)  50  Wevnt
+swir (0x306b068 = 16384/00588)   5  Wevnt
+phyd (0x3069f50 = 04096/00636) 100  Wevnt
+swtt (0x3067b30 = 08192/00280)  15  Wmsg 
+stat (0x3065858 = 08192/00640)  50  Wevnt
+feci (0x3063580 = 08192/00588)  15  Wevnt
+fect (0x3062288 = 04096/00208)  15  Wevnt
+stph (0x305aea8 = 08192/00248)  50  Wevnt
+BASH (0x30369c0 = 131072/01156)  50  Wsem 
+PSRT (0x309f6c0 = 04096/00224) 155  Wevnt
+webc (0x302d778 = 30720/01712) 100  SUSP 
+LLDP (0x3005818 = 04096/00812) 122  Wevnt
+TELD (0x3003810 = 08192/00412)  99  SUSP 
+chdd (0x2ff6f50 = 12288/00476) 110  SUSP 
+MCHL (0x2d3ab80 = 32768/02484)  16  Wmsg 
+IPCD (0x2fa7e28 = 32768/02152)  16  Wevnt
+HTTP (0x2e198a0 = 08192/02712) 100  SUSP 
+EAMC (0x2e17898 = 08192/00256)  50  DELAY
+p2ps (0x2d1ccc0 = 08192/00248)  90  Wmsg 
+p2pr (0x2eae298 = 08192/00200)  91  Wmsg 
+P2PX (0x2cd0d20 = 08192/00200) 100  Wmsg 
+P2PP (0x2cbbeb0 = 65536/00440) 100  Wmsg 
+RSSD (0x2cb9ea8 = 08192/00600)  70  DELAY
+RFlS (0x2cb7ea0 = 08192/00880) 160  DELAY
+WEBS (0x2cb5e98 = 08192/03240) 160  DELAY
+ISR: 4001 pps
+Mem: 39960848/56995808
+
+
+frame #0:	0x002cb440 0x002cb2f4 T wd_case_set_state
+frame #1:	0x0022c124 0x0022bfb8 t TcfTask
+frame #2:	0x003cf820 0x003cf758 T _Thread_Handler
+
+>>Panic at Fri Nov 01 02:02:26 2019
+XG WANFleX H12S10v1.8.1 * Nov 25 2019 10:42:48 * SN:506026
+Panic info : [wd]: case "LINKDOWN" stuck, code: 0x0 
+
+Uptime: 01:01:26, CPU: 3% 2%
+Last syslog: [wd]: may reboot after: 71 sec 
+
+Process map:
+TCFP (0x31d3648 = 08192/01208)   5  Act  
+EVTS (0x314d5b0 = 49152/00636) 100  SUSP 
+STAT (0x31d0f98 = 04096/00184)  75  DELAY
+sysl (0x31bdf98 = 05120/00716) 160  Wmsg 
+ATPM (0x31bb6b0 = 08192/00572) 100  DELAY
+ATPS (0x31b96a8 = 08192/00904) 100  Act  
+WIZD (0x308d4e8 = 08192/01732)  15  DELAY
+EthI (0x3084870 = 32768/00200)  50  Wevnt
+swir (0x306b068 = 16384/00588)   5  Wevnt
+phyd (0x3069f50 = 04096/00508) 100  Wevnt
+swtt (0x3067b30 = 08192/00280)  15  Wmsg 
+stat (0x3065858 = 08192/00640)  50  Wevnt
+feci (0x3063580 = 08192/00316)  15  Wevnt
+fect (0x3062288 = 04096/00208)  15  Wevnt
+stph (0x305aea8 = 08192/00248)  50  Wevnt
+BASH (0x30369c0 = 131072/01156)  50  Wsem 
+PSRT (0x309f6c0 = 04096/00224) 155  Wevnt
+webc (0x302d778 = 30720/01712) 100  SUSP 
+LLDP (0x3005818 = 04096/00812) 122  Wevnt
+TELD (0x3003810 = 08192/00412)  99  SUSP 
+chdd (0x2ff6fc0 = 12288/00476) 110  SUSP 
+MCHL (0x2feefb8 = 32768/02484)  16  Wmsg 
+IPCD (0x2df74e8 = 32768/02152)  16  Wevnt
+HTTP (0x2d10768 = 08192/02712) 100  SUSP 
+EAMC (0x2d0e760 = 08192/00256)  50  DELAY
+p2ps (0x2fa8dd8 = 08192/00248)  90  Act  
+p2pr (0x2df54e0 = 08192/00200)  91  Wmsg 
+P2PX (0x2df34d8 = 08192/00200) 100  Wmsg 
+P2PP (0x2cb7f58 = 65536/00440) 100  Wmsg 
+RSSD (0x2df14d0 = 08192/00584)  70  DELAY
+RFlS (0x2cb5f50 = 08192/00880) 160  DELAY
+WEBS (0x2cb3f48 = 08192/03240) 160  DELAY
+ISR: 4001 pps
+Mem: 39987912/56995808
+
+
+frame #0:	0x002cb440 0x002cb2f4 T wd_case_set_state
+frame #1:	0x0022c124 0x0022bfb8 t TcfTask
+frame #2:	0x003cf820 0x003cf758 T _Thread_Handler
+
+>>Panic at Sat Nov 02 00:42:44 2019
+XG WANFleX H12S10v1.8.1 * Nov 25 2019 10:42:48 * SN:506026
+Panic info : [wd]: case "LINKDOWN" stuck, code: 0x0 
+
+Uptime: 23:41:44, CPU: 2% 2%
+Last syslog: [wd]: may reboot after: 11 sec 
+
+Process map:
+TCFP (0x31d35f0 = 08192/02056)   5  Act  
+EVTS (0x314d558 = 49152/09152) 100  SUSP 
+STAT (0x31d0f38 = 04096/00228)  75  DELAY
+sysl (0x31bdf40 = 05120/00716) 160  Wmsg 
+ATPM (0x31bb658 = 08192/00572) 100  DELAY
+ATPS (0x31b9650 = 08192/00904) 100  DELAY
+WIZD (0x308d490 = 08192/01732)  15  DELAY
+EthI (0x3084808 = 32768/02504)  50  Wevnt
+swir (0x306b000 = 16384/00588)   5  Wevnt
+phyd (0x3069ee8 = 04096/00636) 100  Wevnt
+swtt (0x3067ac8 = 08192/00360)  15  Wmsg 
+stat (0x30657f0 = 08192/00676)  50  Wevnt
+feci (0x3063518 = 08192/00924)  15  Wevnt
+fect (0x3062220 = 04096/00272)  15  Wevnt
+stph (0x305ae40 = 08192/00248)  50  Wevnt
+LLDP (0x3055898 = 04096/00812) 122  Wevnt
+BASH (0x3035520 = 131072/01156)  50  Wsem 
+PSRT (0x309f668 = 04096/01036) 155  Wevnt
+webc (0x302c260 = 30720/01712) 100  SUSP 
+TELD (0x2ff67f8 = 08192/00604)  99  SUSP 
+chdd (0x2feb7e8 = 12288/00468) 110  SUSP 
+MCHL (0x2ea2890 = 32768/02484)  16  Wmsg 
+IPCD (0x2dc5ed8 = 32768/02152)  16  Wevnt
+HTTP (0x2dfec50 = 08192/02712) 100  SUSP 
+EAMC (0x2dfcc48 = 08192/01432)  50  Act  
+p2ps (0x2fdfd70 = 08192/00328)  90  Wmsg 
+p2pr (0x2ff47f0 = 08192/00200)  91  Wmsg 
+P2PX (0x2ff27e8 = 08192/01208) 100  Wmsg 
+P2PP (0x2cb77c0 = 65536/01348) 100  Wmsg 
+RSSD (0x2eabac8 = 08192/01940)  70  DELAY
+RFlS (0x2cb57b8 = 08192/01000) 160  DELAY
+WEBS (0x2cb37b0 = 08192/03240) 160  DELAY
+ISR: 4001 pps
+Mem: 39899000/56995808
+
+
+frame #0:	0x002cb440 0x002cb2f4 T wd_case_set_state
+frame #1:	0x0022c124 0x0022bfb8 t TcfTask
+frame #2:	0x003cf820 0x003cf758 T _Thread_Handler
+
+
+Last panic logging is enabled
+Missalign exceptions statistic
+Total:   8
+Skipped: 0
+Half:    0
+Word:    8
+Multi:   0
+
+==[    sys log show    ]===============================================================================================
+-00:04:53.085 EVENTER: Process started
+-00:04:52.928 DFFS: User space 8930289 bytes
+-00:04:52.925 Last reboot reason: hardware reset
+-00:04:52.911 Loaded EEPROM[0] dump from DFFS
+-00:04:52.910 [XG]: detected rf_module#0: RMU_57_00
+-00:04:52.898 Loaded EEPROM[1] dump from DFFS
+-00:04:52.897 [XG]: detected rf_module#1: RMU_57_00
+-00:04:52.798 AppendFreqValidatorFromLicensePerChannelWidth: carrier[1]: default_freq_dl = 5450000, default_freq_ul = 5450000
+Last message was repeated 2 times
+-00:04:51.796 atpc master successfully started
+-00:04:51.795 atpc slave successfully started
+-00:04:51.779 SYSLOG: Len 16384, Qsize 4024
+-00:04:51.580 marvell switch ntu
+-00:04:51.568 SWITCH ID: 0x3521
+-00:04:51.555 ge0: phy found 0eb10141 model: Marvell 88E6352 Copper PHY
+-00:04:51.541 ge1: phy found 0eb10141 model: Marvell 88E6352 Copper PHY
+-00:04:51.527 sfp: phy found 0ea10141 model: Marvell 88E6352 Fiber PHY
+-00:04:46.483 ge0: media changed to 1000 Mbps Full duplex auto
+-00:04:42.756 ge0: link down
+-00:04:46.483 ge0: media changed to 1000 Mbps Full duplex auto
+-00:04:42.756 ge0: link down
+-00:04:46.483 ge0: media changed to 1000 Mbps Full duplex auto
+-00:04:42.756 ge0: link down
+-00:04:46.483 ge0: media changed to 1000 Mbps Full duplex auto
+-00:04:42.756 ge0: link down
+-00:04:46.483 ge0: media changed to 1000 Mbps Full duplex auto
+-00:04:42.756 ge0: link down
+-00:04:46.483 ge0: media changed to 1000 Mbps Full duplex auto
+-00:04:42.756 ge0: link down
+-00:04:46.483 ge0: media changed to 1000 Mbps Full duplex auto
+-00:04:42.756 ge0: link down
+-00:04:42.977 ctl: Heater is disabled.
+-00:04:42.773 xg: Carrier 1 grid can not be set manually
+Last message was repeated 2 times
+-00:04:42.756 ge0: link down
+-00:04:41.733 HwM: 3401
+-00:04:41.701 [XG]: changed state STOPPED->STARTING
+-00:04:38.650 ge0: media changed to 1000 Mbps Full duplex auto
+-00:04:38.230 webcfg: service started.
+-00:04:37.248 ****************************************************************
+-00:04:37.248 *
+-00:04:37.248 *         XG 3200 Point to Point
+-00:04:37.248 *
+-00:04:37.248 * Station Mode:    FBS
+-00:04:37.248 * Duplex Mode:     TDD
+-00:04:37.248 * Carrier Mode:    Dual Aggregation
+-00:04:37.248 * PHY Profile:     20 (NLOS, 40 MHz, OVS=1.5)
+-00:04:37.248 * Sync Source:     None
+-00:04:37.248 * DFS Profile:     Duration 0, Period 0
+-00:04:37.248 * DFS Domain:      ETSI
+-00:04:37.248 * DYN DFS Mode:    NONE
+-00:04:37.248 * Primary:           
+-00:04:37.248 *  RF Type:         RMU_57_00[0]
+-00:04:37.248 *  Antenna Method:  XPIC
+-00:04:37.248 *  RF AGC:          Enabled
+-00:04:37.248 *  Carrier:         Unlicensed 5480 MHz
+-00:04:37.248 *  BG Measurement:  None
+-00:04:37.248 * Secondary:           
+-00:04:37.248 *  RF Type:         RMU_57_00[1]
+-00:04:37.248 *  Antenna Method:  XPIC
+-00:04:37.248 *  RF AGC:          Enabled
+-00:04:37.248 *  Carrier:         Unlicensed 5560 MHz
+-00:04:37.248 *  BG Measurement:  None
+-00:04:37.248 * Ranging mode:    Auto
+-00:04:37.248 * SW Release:      1.93
+-00:04:37.248 * API Ver:         3.1
+-00:04:37.248 * Config File Ver: 1.52
+-00:04:37.248 * Build ID:        
+-00:04:37.248 * Build Date:      Nov 25 2019, 10:41:03
+-00:04:37.248 ****************************************************************
+-00:04:37.219 Antenna Gain not found in license!
+-00:04:37.218 [XG]: changed state STARTING->DOWN
+-00:04:37.218 peermib unregistered
+-00:04:33.736 Starting CAC on Primary carrier frequency 5700 MHz for 60 sec
+-00:04:30.585 webcfg: logon as <tech> from 172.16.99.50 by http
+-00:03:33.736 Radar was not found on Primary carrier
+-00:03:32.735 Starting Link On Primary Carrier Frequency 5700 [MHz]
+-00:03:28.376  ***  Primary Carrier Link is UP, Secondary is DOWN ***
+-00:03:28.376 Starting Link On Secondary Carrier Frequency 5620 [MHz]
+-00:01:51.679  ***  Primary Carrier Link is UP, Secondary is UP ***
+-00:01:51.679 [XG]: changed state DOWN->PHY
+-00:01:51.479  ***   Auth success   ***
+-00:01:51.479 [XG]: changed state PHY->UP
+-00:01:51.379 Switching mode of TDD Profile is set to auto
+-00:01:46.518 peermib registered
+-00:00:13.296 webcfg: logon as <tech> from 10.10.10.70 by http
+
+==[       license      ]===============================================================================================
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<license description="Factory License" granted="14/01/2020 10:47:03" id="{886b1e53-08e9-489e-b63f-b5048d860e82}">
+    <device description="Device">
+        <options SN="506026" description="SN:506026" />
+        <options PN="Xm/5X.500.2x300.2x23/5X.500.2x300-H12" description="PN:Xm/5X.1000.4x300.2x23" />
+        <options ProductionDate="14/01/2020 10:47:03+0500" description="Production Date: 14 Jan 2020 10:47:03 YEKT" />
+        <options Model="Xm" />
+        <options Platform="DAN3400 600 MHz (H1255-00 - NFDA5.209.335(1)) - H12.rev 00" />
+        <options Radios="RMU-57-00-NFDA5.209.335(1)/00377178.1, RMU-57-00-NFDA5.209.335(1)/00377178.2" />
+        <options Antennas="IWA-55D23DP-PM-S12-00/00820423" />
+        <specification decimal="NFDA2.158.034-15" name="Xm/5X.1000.4xXXX.2kh23" />
+    </device>
+    <wanflex description="Operational parameters">
+        <feature description="rf5.0 interface parameters" name="rf5.0">
+            <option MaximumTransmitRate="500000" description="Maximum Transmit Rate: 500 Mbps" />
+            <option BandwidthMask="16387" description="Available Channel Widths: 10 Mhz 20 Mhz" />
+            <option DoubleBandwidthEnabled="1" description="40 MHz channel width is available" />
+            <option ChangePower="1" />
+            <option MaxLinks="1" description="Link: Point to Point" />
+            <option TransmitPowers="1,150,300" description="Power levels: 1,150,300 mW" />
+            <option TransmitPowersTenthdbm="0,220,250" description="Power levels: 0.0,22.0,25.0 dBm" />
+            <option RegDomain="ETSI" description="Regulatory domain: ETSI" />
+            <option RxChainMask="3" />
+            <option TxChainMask="3" />
+            <option rfmode="" />
+            <option FrequencyList="5470,5475,5480,5485,5490,5495,5500,5505,5510,5515,5520,5525,5530,5535,5540,5545,5550,5555,5560,5565,5570,5575,5580,5585,5590,5595,5600,5605,5610,5615,5620,5625,5630,5635,5640,5645,5650,5655,5660,5665,5670,5675,5680,5685,5690,5695,5700,5705,5710,5715,5720,5725" description="Supported Frequencies: 5470 - 5725 MHz" />
+        </feature>
+        <feature description="rf5.1 interface parameters" name="rf5.1">
+            <option MaximumTransmitRate="500000" description="Maximum Transmit Rate: 500 Mbps" />
+            <option BandwidthMask="16387" description="Available Channel Widths: 10 Mhz 20 Mhz" />
+            <option DoubleBandwidthEnabled="1" description="40 MHz channel width is available" />
+            <option ChangePower="1" />
+            <option MaxLinks="1" description="Link: Point to Point" />
+            <option TransmitPowers="1,150,300" description="Power levels: 1,150,300 mW" />
+            <option TransmitPowersTenthdbm="0,220,250" description="Power levels: 0.0,22.0,25.0 dBm" />
+            <option RegDomain="ETSI" description="Regulatory domain: ETSI" />
+            <option RxChainMask="3" />
+            <option TxChainMask="3" />
+            <option rfmode="" />
+            <option FrequencyList="5470,5475,5480,5485,5490,5495,5500,5505,5510,5515,5520,5525,5530,5535,5540,5545,5550,5555,5560,5565,5570,5575,5580,5585,5590,5595,5600,5605,5610,5615,5620,5625,5630,5635,5640,5645,5650,5655,5660,5665,5670,5675,5680,5685,5690,5695,5700,5705,5710,5715,5720,5725" description="Supported Frequencies: 5470 - 5725 MHz" />
+        </feature>
+    </wanflex>
+</license>
+
+==[       xg cap       ]===============================================================================================
+Radio capabilities
+
+General properties
+
+Number of carriers: 2
+Frame periods supported (ms):
+   {2, 4, 5, 10}
+Channel widths available (MHz):
+   {10, 20, 40}
+
+Configuration (Channel width 40 MHz, allocated DL/UL ratio 39:61 (120:183 air blocks), frame period 5 ms, ttg/rtg (4:3 air blocks), traffic prioritization: 0):
++-------+-------------------+-------------------+--------------+
+| MCS   | Modulation        | DL/UL capacity,   | Total rate,  |
+|       |                   | kbps              | kbps         |
++-------+-------------------+-------------------+--------------+
+| 0     | QPSK 1/4          | 9983/15225        | 25208        |
+| 1     | QPSK 1/2          | 22271/33965       | 56236        |
+| 2     | QPSK 3/4          | 34560/52704       | 87264        |
+| 3     | QAM16 1/2         | 46847/71443       | 118290       |
+| 4     | QAM16 3/4         | 71423/108921      | 180344       |
+| 5     | QAM64 4/6         | 96000/146400      | 242400       |
+| 6     | QAM64 5/6         | 120575/183879     | 304454       |
+| 7     | QAM256 6/8        | 145151/221357     | 366508       |
+| 8     | QAM256 7/8        | 169727/258835     | 428562       |
+| 9     | QAM256 30/32      | 182015/277575     | 459590       |
+| 10    | QAM1024 8/10      | 194303/296313     | 490616       |
++-------+-------------------+-------------------+--------------+
+
+Carrier 0
+
+Radio module name: RMU-57-00-NFDA5.209.335(1)/00377178.1
+Antenna methods supported: MIMO
+Duplex types supported: TDD, H-FDD
+Frequency range: 4900..6000 MHz
+Tx power range: 0..25/1 dBm
+
+Lower..upper central frequencies: 5470..5725 MHz
+Frequency grid (default): 5480-5715/20 MHz
+Frequency list (12 channels):
+5480, 5500, 5520, 5540, 5560, 5580, 5600, 5620, 5640, 5660, 5680, 5700 MHz
+
+Carrier 1
+
+Radio module name: RMU-57-00-NFDA5.209.335(1)/00377178.2
+Antenna methods supported: MIMO
+Duplex types supported: TDD, H-FDD
+Frequency range: 4900..6000 MHz
+Tx power range: 0..25/1 dBm
+
+Lower..upper central frequencies: 5470..5725 MHz
+Frequency grid (user-defined): 5560-5700/20 MHz
+Frequency list (8 channels):
+5560, 5580, 5600, 5620, 5640, 5660, 5680, 5700 MHz
+
+TDD Profile 0:
+  DL/UL ratio: 19/81
+TDD Profile 1:
+  DL/UL ratio: 39/61
+TDD Profile 2:
+  DL/UL ratio: 60/40
+TDD Profile 3:
+  DL/UL ratio: 80/20
+
+==[     xgs  -last     ]===============================================================================================
+Nothing to show
+
+==[     xgdfs  -st     ]===============================================================================================
+Uptime[0]:
+ UL:     00:01:51
+ DL:     00:01:51
+FFS cnt UL: 1, DL: 1 
+
+Uptime[1]:
+ UL:     00:01:51
+ DL:     00:01:51
+FFS cnt UL: 1, DL: 1 
+
+Freq UL/DL stat
+ 5620  |   1 |     00:01:51 |   1 |     00:01:51
+ 5700  |   1 |     00:01:51 |   1 |     00:01:51
+
+==[   xgdfs -list -q   ]===============================================================================================
+5480 
+5500 
+5520 
+5540 
+5560 
+5580 
+5600 
+5620 
+5640 
+5660 
+5680 
+5700 
+
+==[     port  dump     ]===============================================================================================
+	Port R-limit QOS Mode Link   Speed
+	==== ======= ======== ==== =========
+	  0  ------- wrr        UP 1000 Mbps
+	  1  ------- wrr      down
+	  s  ------- wrr      down
+	  r  ------- wrr        UP    0 Mbps
+	  m  ------- wrr      ---- ---------
+
+==[      port vtt      ]===============================================================================================
+	VID  0 1 s r m STP Prio
+	==== = = = = = === ====
+	   1 n n n n n  -  ----
+total 1 entries
+
+==[      port stt      ]===============================================================================================
+STU table is empty
+
+==[      port fdb      ]===============================================================================================
+FDB total entries: 5
+	 VID  Destination    Port    Status  T-left
+	===== ============ ========= ======= ======
+
+==[       ifc -a       ]===============================================================================================
+lo0: flags=8009<UP,LOOPBACK,MULTICAST> mtu 1500
+        inet 127.0.0.1 netmask 0xffffffff 
+
+mgmt: flags=8003<UP,BROADCAST,MULTICAST> mtu 1500
+        inet 10.10.10.2 netmask 0xffffff00 broadcast 10.10.10.255
+        ether 00:04:35:07:b8:aa 
+
+	mgmt: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            3135        | Packets               3811        |
+	| Bytes              509173      | Bytes                 1461792     |
+	| Load (kbps)        15          | Load (kbps)           45          |
+	| Load (pps)         16          | Load (pps)            16          |
+	+--------------------------------+-----------------------------------+
+
+ge0: flags=101<UP,PROMISC> mtu 1500
+        inet 0.0.0.0 netmask 0x0 
+
+	Physical link is UP, 1000 Mbps Half-duplex, Auto
+	PHY chip: Marvell 88E6352 Copper PHY ID: 0eb10141
+	+--------------------------------+------+-----+
+	|                 Supported modes| Self |Peer |
+	+--------------------------------+------+-----+
+	|                Auto-Negotiation| yes  | yes |
+	|             10 Mbps Half-duplex| yes  | yes |
+	|             10 Mbps Full-duplex| yes  | yes |
+	|            100 Mbps Half-duplex| yes  | yes |
+	|            100 Mbps Full-duplex| yes  | yes |
+	|           1000 Mbps Half-duplex| yes  |  -  |
+	|           1000 Mbps Full-duplex| yes  | yes |
+	+--------------------------------+------+-----+
+
+	ge0: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            2402        | Packets               2095        |
+	| Bytes              1018111     | Bytes                 1159088     |
+	| Load (kbps)        1           | Load (kbps)           0           |
+	| Load (pps)         2           | Load (pps)            1           |
+	+--------------------------------+-----------------------------------+
+	| CRC errors         0           | CRC errors            55          |
+	| Pause packets      0           | Excessive deferrals   0           |
+	| Bad octets         0           | Excessive collisions  0           |
+	| Rx errors          0           | Late collisions       0           |
+	| Runts              0           | Multiple collisions   0           |
+	| Short packets      0           | Single collisions     0           |
+	| Long packets       0           |                                   |
+	+--------------------------------+-----------------------------------+
+
+ge1: flags=101<UP,PROMISC> mtu 1500
+        inet 0.0.0.0 netmask 0x0 
+
+	Physical link is DOWN
+	PHY chip: Marvell 88E6352 Copper PHY ID: 0eb10141
+	+--------------------------------+------+-----+
+	|                 Supported modes| Self |Peer |
+	+--------------------------------+------+-----+
+	|                Auto-Negotiation| yes  |  -  |
+	|             10 Mbps Half-duplex| yes  |  -  |
+	|             10 Mbps Full-duplex| yes  |  -  |
+	|            100 Mbps Half-duplex| yes  |  -  |
+	|            100 Mbps Full-duplex| yes  |  -  |
+	|           1000 Mbps Half-duplex| yes  |  -  |
+	|           1000 Mbps Full-duplex| yes  |  -  |
+	+--------------------------------+------+-----+
+
+	ge1: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            0           | Packets               0           |
+	| Bytes              0           | Bytes                 0           |
+	| Load (kbps)        0           | Load (kbps)           0           |
+	| Load (pps)         0           | Load (pps)            0           |
+	+--------------------------------+-----------------------------------+
+	| CRC errors         0           | CRC errors            0           |
+	| Pause packets      0           | Excessive deferrals   0           |
+	| Bad octets         0           | Excessive collisions  0           |
+	| Rx errors          0           | Late collisions       0           |
+	| Runts              0           | Multiple collisions   0           |
+	| Short packets      0           | Single collisions     0           |
+	| Long packets       0           |                                   |
+	+--------------------------------+-----------------------------------+
+
+sfp: flags=101<UP,PROMISC> mtu 1500
+        inet 0.0.0.0 netmask 0x0 
+
+	Physical link is DOWN
+	PHY chip: Marvell 88E6352 Fiber PHY ID: 0ea10141
+	+--------------------------------+------+-----+
+	|                 Supported modes| Self |Peer |
+	+--------------------------------+------+-----+
+	|                Auto-Negotiation| yes  |  -  |
+	|             10 Mbps Half-duplex|  -   |  -  |
+	|             10 Mbps Full-duplex|  -   |  -  |
+	|            100 Mbps Half-duplex|  -   |  -  |
+	|            100 Mbps Full-duplex|  -   |  -  |
+	|           1000 Mbps Half-duplex| yes  |  -  |
+	|           1000 Mbps Full-duplex| yes  |  -  |
+	+--------------------------------+------+-----+
+
+	sfp: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            0           | Packets               0           |
+	| Bytes              0           | Bytes                 0           |
+	| Load (kbps)        0           | Load (kbps)           0           |
+	| Load (pps)         0           | Load (pps)            0           |
+	+--------------------------------+-----------------------------------+
+	| CRC errors         0           | CRC errors            0           |
+	| Pause packets      0           | Excessive deferrals   0           |
+	| Bad octets         0           | Excessive collisions  0           |
+	| Rx errors          0           | Late collisions       0           |
+	| Runts              0           | Multiple collisions   0           |
+	| Short packets      0           | Single collisions     0           |
+	| Long packets       0           |                                   |
+	+--------------------------------+-----------------------------------+
+
+radio: flags=101<UP,PROMISC> mtu 1500
+        inet 0.0.0.0 netmask 0x0 
+
+	radio link is UP, 1000 Mbps 
+
+	radio: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            940         | Packets               2305        |
+	| Bytes              122737      | Bytes                 776621      |
+	| Load (kbps)        5           | Load (kbps)           3           |
+	| Load (pps)         5           | Load (pps)            6           |
+	+--------------------------------+-----------------------------------+
+	| Runts              0           |                                   |
+	| Short packets      0           |                                   |
+	| Long packets       0           |                                   |
+	+--------------------------------+-----------------------------------+
+
+null0: flags=8802<BROADCAST,NULL,MULTICAST> mtu 1500
+
+
+==[   sys info -full   ]===============================================================================================
+SYSTEM      XG WANFleX H12S10v1.8.1 * Nov 25 2019 10:42:48 * SN:506026 * Uptime:
+            00:04:53
+            Firmware ID: 012XG0010
+            PN:Xm/5X.1000.4x300.2x23
+
+MEMORY      54.4 MB total
+            Malloc stats
+              Total:56995808  Free:39562040  Allocated:17433768 (30.58%)
+              Max:17731248 (31.10%)
+            Calls
+              malloc:309790  free:339830  realloc:65124  calloc:7566  miss:0
+            
+            5966 mbufs, 4743 clusters free
+            284 mbufs in use:
+                 257 mbufs allocated to data
+                  27 mbufs allocated to packet headers
+            257/5000 mapped pages in use
+            9423 Kbytes allocated to network (5% in use)
+            
+            EthI   :   0(1000,0) 
+            ge0    :   0(32,0) 
+            ge1    :   0(32,0) 
+            sfp    :   0(32,0) 
+            radio  :   0(32,0) 
+            
+            ------- System objects stats ------
+              Object     Capac. Current   Max
+            ----------- ------- ------- -------
+            Tasks            64      35      35
+            Timers           70      12      13
+            Semaphores       95      47      47
+            MQueues          20      18      18
+            Extentions        4       2       2
+            Workspace Required: 58912
+                     Allocated: 102400
+
+CPU         Processor: DAN ARM926EJ-S 600 MHz rev.D
+            CPU Load  96%  25%(10s)  15%(30s)  18%(60s)   9%(300s)
+            Detailed: Isr: 1.69%  Tasks: 14.43%  Idle: 83.87%
+
+FLASH       Flash device 0: N25Q Boot sector #0, DFFS sector #7
+
+DFFS        Files=15, Used 3516416 bytes, Free 12433800 bytes
+            FlashSize=15936 KB, 249 Sectors of 64 KB, 15936 blocks of 1024 bytes
+
+TPM         max31722 Device temperatures:
+            BOARD: +26.4 degrees Celsius
+
+LICENSE     Factory License granted at 14/01/2020 10:47:03
+            id={886b1e53-08e9-489e-b63f-b5048d860e82}
+
+PHY0        Marvell 88E6352 Copper PHY
+            	Physical link info:
+            	Link is UP, auto Full-duplex, 1000 Mbps
+            	Capabilities:          Self  Peer
+            	     Auto-Negotiation:   +     +  
+            	  10 Mbps Half-duplex:   +     +  
+            	  10 Mbps Full-duplex:   +     +  
+            	 100 Mbps Half-duplex:   +     +  
+            	 100 Mbps Full-duplex:   +     +  
+            	1000 Mbps Half-duplex:   +     -  
+            	1000 Mbps Full-duplex:   +     +  
+            	PHY chip: Marvell 88E6352 Copper PHY ID: 0eb10141
+
+PHY1        Marvell 88E6352 Copper PHY
+            	Physical link info:
+            	Link is DOWN
+            	Capabilities:          Self  Peer
+            	     Auto-Negotiation:   +     -  
+            	  10 Mbps Half-duplex:   +     -  
+            	  10 Mbps Full-duplex:   +     -  
+            	 100 Mbps Half-duplex:   +     -  
+            	 100 Mbps Full-duplex:   +     -  
+            	1000 Mbps Half-duplex:   +     -  
+            	1000 Mbps Full-duplex:   +     -  
+            	PHY chip: Marvell 88E6352 Copper PHY ID: 0eb10141
+
+PHY2        Marvell 88E6352 Fiber PHY
+            	Physical link info:
+            	Link is DOWN
+            	Capabilities:          Self  Peer
+            	     Auto-Negotiation:   +     -  
+            	  10 Mbps Half-duplex:   -     -  
+            	  10 Mbps Full-duplex:   -     -  
+            	 100 Mbps Half-duplex:   -     -  
+            	 100 Mbps Full-duplex:   -     -  
+            	1000 Mbps Half-duplex:   +     -  
+            	1000 Mbps Full-duplex:   +     -  
+            	PHY chip: Marvell 88E6352 Fiber PHY ID: 0ea10141
+
+
+==[       xg info      ]===============================================================================================
+
+Commit:		ca04b789
+Date:		Wed Nov 13 11:32:15 2019 +0500
+Tag:		v1.8.1-0-gca04b789
+
+
+==[     xg ber-amc     ]===============================================================================================
++-----------------------+---------+---------+---------+---------+------+-------+------+
+| Primary               | Enabled                               | -15  |   5   |  -7  |
+| Max correction up     | 20                                    | -14  |  10   |  -7  |
+| Max correction down   | 15                                    | -13  |  10   |  -7  |
+| Max trust             | 10                                    | -12  |  10   |  -7  |
+| Min trust             | -10                                   | -11  |  10   |  -7  |
+| BER                   | 1E-5                                  | -10  |  10   |  -7  |
+| Initial correction    | -5/-5                                 |  -9  | [10]  |  -7  |
++-----------------------+---------+---------+---------+---------+------+-------+------+
+|          MCS          | Stream0 | Stream0 | Stream1 | Stream1 |  -8  |  10   |  -7  |
+|                       |   Up    |  Down   |   Up    |  Down   |      |       |      |
++-----------------------+---------+---------+---------+---------+------+-------+------+
+| 0                     | 2       | 1       | 2       | 1       |  -7  |  10   |  -7  |
+| 1                     | 1       | 1       | 4       | 3       |  -6  |  10   |  -7  |
+| 2                     | 1       | 1       | 5       | 4       |  -5  |  10   |  -7  |
+| 3                     | 1       | 1       | 7       | 6       |  -4  |  10   |  -6  |
+| 4                     | 1       | 1       | 11      | 10      |  -3  |  10   |  -5  |
+| 5                     | 2       | 1       | 15      | 14      |  -2  |  10   |  -4  |
+| 6                     | 6       | 5       | 19      | 18      |  -1  |  10   |  7   |
+| 7                     | 9       | 8       | 22      | 21      |  0   |  10   |  10  |
+| 8                     | 14      | 13      | 27      | 26      |  1   |  10   |  10  |
+| 9                     | 15      | 14      | 28      | 27      |  2   |  10   |  10  |
+| 10                    | 18      | 17      | 31      | 30      |  3   |  10   |  10  |
+| 11                    | 186     | 185     | 199     | 198     |  4   |  10   | [10] |
++-----------------------+---------+---------+---------+---------+------+-------+------+
+| Window bad TBs        | 0                 | 5                 |  5   |  10   |  10  |
+| Window ok TBs         | 42518             | 369897            |  6   |  10   |  10  |
+| Delta bad TBs         | 0                 | 0                 |  7   |  10   |  10  |
+| Delta ok TBs          | 366               | 366               |  8   |  10   |  10  |
+| Fill level/Penalty    | 109/0             | 1000/2789         |  9   |  10   |  10  |
+| Window error          | 0e0               | 1.35e-5           |  10  |  10   |  10  |
+| 1 minute error        | 8.54e-5           | 1.27e-5           |  11  |  10   |  10  |
+| 10 minutes error      | 7.71e-5           | 5.39e-5           |  12  |  10   |  10  |
+| 1 hour error          | 7.71e-5           | 5.39e-5           |  13  |  10   |  10  |
++-----------------------+---------+---------+---------+---------+------+-------+------+
+| Window length         | 1000                                  |  14  |  10   |  10  |
+| Acquisition period    | 10                                    |  15  |  10   |  10  |
+|                       |                                       |  16  |  10   |  10  |
+|                       |                                       |  17  |  10   |  10  |
+|                       |                                       |  18  |  10   |  10  |
+|                       |                                       |  19  |  10   |  10  |
+|                       |                                       |  20  |  10   |  10  |
++-----------------------+---------+---------+---------+---------+------+-------+------+
+
+==[  xg  availability  ]===============================================================================================
++----------------------------+-------------------------------------------------------------------+[K
+|                                  Link Availability Statistics                                  |[K
++----------------------------+-------------------------------------------------------------------+[K
+|Status                      |UP                                                                 |[K
+|Current uptime              |0 days 00:01:51                                                    |[K
+|Total uptime                |0 days 00:01:51                                                    |[K
+|Availability                |100.0%                                                             |[K
+|Disconnection count         |0                                                                  |[K
+|Last outage                 |0 days 00:00:00                                                    |[K
+|Total outage                |0 days 00:00:00                                                    |[K
++----------------------------+-------------------------------------------------------------------+[K
++------------------+---------+---------+--------+---------+---------+---------+--------+---------+[K
+|                                 MCS Availability Statistics, %                                 |[K
++------------------+---------+---------+--------+---------+---------+---------+--------+---------+[K
+|                  |              Carrier 0               |              Carrier 1               |[K
++------------------+---------+---------+--------+---------+---------+---------+--------+---------+[K
+|                  |        TX         |        RX        |        TX         |        RX        |[K
++------------------+---------+---------+--------+---------+---------+---------+--------+---------+[K
+|                  |Stream 0 |Stream 1 |Stream 0|Stream 1 |Stream 0 |Stream 1 |Stream 0|Stream 1 |[K
++------------------+---------+---------+--------+---------+---------+---------+--------+---------+[K
+|QAM1024 8/10(10)  |14.55    |0        |90.91   |0        |0        |20.91    |69.72   |9.17     |[K
+|QAM256 30/32(9)   |20.91    |21.1     |100     |99.09    |20.91    |20.91    |100     |94.5     |[K
+|QAM256 7/8(8)     |20.91    |21.1     |100     |100      |20.91    |20.91    |100     |97.25    |[K
+|QAM256 6/8(7)     |20.91    |21.1     |100     |100      |20.91    |20.91    |100     |100      |[K
+|QAM64 5/6(6)      |20.91    |21.1     |100     |100      |20.91    |20.91    |100     |100      |[K
+|QAM64 4/6(5)      |100      |22.02    |100     |100      |20.91    |100      |100     |100      |[K
+|QAM16 3/4(4)      |100      |100      |100     |100      |100      |100      |100     |100      |[K
+|QAM16 1/2(3)      |100      |100      |100     |100      |100      |100      |100     |100      |[K
+|QPSK 3/4(2)       |100      |100      |100     |100      |100      |100      |100     |100      |[K
+|QPSK 1/2(1)       |100      |100      |100     |100      |100      |100      |100     |100      |[K
+|QPSK 1/4(0)       |100      |100      |100     |100      |100      |100      |100     |100      |[K
++------------------+---------+---------+--------+---------+---------+---------+--------+---------+[K
+
+==[      xg synth      ]===============================================================================================
+
+synth[0]:
+11: 0xffffffff 
+10: 0xffffffff 
+ 9: 0xffffffff 
+ 8: 0xffffffff 
+ 7: 0xffffffff 
+ 6: 0xffffffff 
+ 5: 0xffffffff 
+ 4: 0xffffffff 
+ 3: 0xffffffff 
+ 2: 0xffffffff 
+ 1: 0xffffffff 
+ 0: 0xffffffff 
+
+synth[1]:
+11: 0xffffffff 
+10: 0xffffffff 
+ 9: 0xffffffff 
+ 8: 0xffffffff 
+ 7: 0xffffffff 
+ 6: 0xffffffff 
+ 5: 0xffffffff 
+ 4: 0xffffffff 
+ 3: 0xffffffff 
+ 2: 0xffffffff 
+ 1: 0xffffffff 
+ 0: 0xffffffff 
+
+==[         gps        ]===============================================================================================
+Satellites: 0
+GPS coordinates is not available
+GPS module stopped
+Total GPS      time: 00:06:53
+Total nonvalid time: 00:06:53(100%)
+Number of losses: 0
+Coordinates are invalid last 00:06:53
+SATmin= 0 SATmax= 0
+
+==[     lldp report    ]===============================================================================================
+                          LLDP Neighbors Table on ge0                          
++---------------+-------------------------------------------------------------+
+|           LLDP Mode: TxRx,  Forward: disabled,  Tagged: disabled            |
++---------------+-------------------------------------------------------------+
+
+                          LLDP Neighbors Table on ge1                          
++---------------+-------------------------------------------------------------+
+|           LLDP Mode: TxRx,  Forward: disabled,  Tagged: disabled            |
++---------------+-------------------------------------------------------------+
+
+                          LLDP Neighbors Table on sfp                          
++---------------+-------------------------------------------------------------+
+|           LLDP Mode: TxRx,  Forward: disabled,  Tagged: disabled            |
++---------------+-------------------------------------------------------------+
+
+                         LLDP Neighbors Table on radio                         
++---------------+-------------------------------------------------------------+
+|           LLDP Mode: TxRx,  Forward: disabled,  Tagged: disabled            |
++---------------+-------------------------------------------------------------+
+| ChassisID:    | 00:04:35:07:B8:AB (mac)                                     |
+| SysName:      | Slave - Quebec                                              |
+| SysDescr:     | XG WANFleX H12S10v1.8.1 SN:506027                           |
+| Caps:         | Repeater*, Bridge*                                          |
+| PortID:       | radio (local)                                               |
+| PortDescr:    | radio, Slave - Quebec                                       |
+| MFS:          | 1728 bytes                                                  |
+| MgmtIP:       | 10.10.10.1, 172.16.99.83                                    |
+| Last report:  | 4 seconds ago, TTL 183 seconds, Age 00:01:32                |
++---------------+-------------------------------------------------------------+
+
+
+==[      ptp stat      ]===============================================================================================
+PTPd is stopped
+
+==[       wd log       ]===============================================================================================
+ ----- Nov 01 02:01:15 2019 ----- 
+v1.8.1, uptime: 01:00:15, case "LINKDOWN" stuck, code: 0x0 
+LINKDOWN   Triggered, exp: 00:00:10
+XG_TIMEOUT   Active
+RLM_FG_TIMEOUT   Stopped
+MCHL_ADM_TIMEOUT   Active
+TXPWR   Active
+HTA   Starting
+PP   Stopped
+UD   Starting
+SIN   Active
+
+ ----- Nov 01 02:01:15 2019 ----- 
+v1.8.1, uptime: 01:00:15, case "LINKDOWN" stuck, code: 0x0 
+LINKDOWN   Triggered, exp: 00:01:10
+XG_TIMEOUT   Active
+RLM_FG_TIMEOUT   Stopped
+MCHL_ADM_TIMEOUT   Active
+TXPWR   Active
+HTA   Starting
+PP   Stopped
+UD   Starting
+SIN   Active
+
+ ----- Nov 01 02:01:15 2019 ----- 
+v1.8.1, uptime: 01:00:15, case "LINKDOWN" stuck, code: 0x0 
+LINKDOWN   Triggered, exp: 00:01:10
+XG_TIMEOUT   Active
+RLM_FG_TIMEOUT   Stopped
+MCHL_ADM_TIMEOUT   Active
+TXPWR   Active
+HTA   Starting
+PP   Stopped
+UD   Starting
+SIN   Active
+
+ ----- Nov 02 00:42:33 2019 ----- 
+v1.8.1, uptime: 23:41:33, case "LINKDOWN" stuck, code: 0x0 
+LINKDOWN   Triggered, exp: 00:00:10
+XG_TIMEOUT   Active
+RLM_FG_TIMEOUT   Stopped
+MCHL_ADM_TIMEOUT   Active
+TXPWR   Active
+HTA   Starting
+PP   Stopped
+UD   Starting
+SIN   Active
+
+==[   Health monitor   ]===============================================================================================
+NPU_CPU0 	 00000000 	 [ IDLE ] 	 MMDP_TX_ETH 
+NPU_CPU1 	 00000000 	 [ IDLE ] 	 MMDP_RX 
+NPU_CPU2 	 00000000 	 [ IDLE ] 	 disp lib BG 
+TX_CPU0 	 00000000 	 [ IDLE ] 	 SPI_TU 
+TX_CPU1 	 00000000 	 [ IDLE ] 	 HWM 
+TX_CPU2 	 00000000 	 [ IDLE ] 	 MMDP_TX 
+TX_CPU3 	 00000000 	 [ IDLE ] 	 SFBI or RSQ * 
+TX_DSP0 	 00000000 	 [ IDLE ] 	 PTP_TX_DSP * 
+TX_DSP1 	 00000000 	 [ IDLE ] 	 RX_DPLL * 
+RX_DSP0 	 00000000 	 [ IDLE ] 	 PTP_RX_TD * 
+RX_DSP1 	 00000000 	 [ IDLE ] 	 PTP_RX_TD * 
+RX_DSP2 	 00000000 	 [ IDLE ] 	 PTP_RX_TD * 
+RX_DSP3 	 00000000 	 [ IDLE ] 	 PTP_RX_TD * 
+RX_CPU0 	 00000000 	 [ IDLE ] 	 BER computation 
+RX_CPU1 	 00000000 	 [ IDLE ] 	 CTC_POP 
+
+==[    xg rlm stat     ]===============================================================================================
+== RLM ==
+Link Isync Stats (RBS only):
+------------------------
+num of dsp link reports: 0
+last dsp peak: 0
+last rlm max peak: 0
+last rlm max peak cfo: 0
+num of successful link establishments: 0
+num of successful link establishments after last link loss: 0
+num of link loss: 0
+
+
+Ranging Stats:
+------------------------
+Number of Re-rangings: 0
+Number of Re-rangings at current link down: 0
+Last tx shift samples: 0
+num of phy exceed available samples: 81
+num of phy below peak_val th: 0
+num of phy non identical results:27
+last bad phy ranging meas peak: 11860
+last bad phy samples: -1
+num sto fixes: 1
+last sto fix in samples: -4
+
+RLM State Machine Stats:
+------------------------
+Number of all state changes: 47
+-- State changes histogram --
+POWERUP_ST:	0
+INIT_ST:	1
+INIT_WF_PC_LINK_REQ:	1
+SYS_CLK_SYNC_ST:	0
+SYS_CLK_SYNCED_ST:	0
+CLK_SYNC_LOST_WF_LINK_STOP_ST:	0
+CLK_SYNC_LOST_LINK_DOWN_ST:	0
+PC_LINK_DOWN_ST:	12
+PC_LINK_ESTABLISH_ST:	0
+PC_LINK_VERIFY_ST:	0
+SUPER_FRAME_SYNC_ST:	0
+PC_STABILIZE_ST:	1
+RANGING_ST:	1
+RANGING_STO_ST:	1
+RANGING_WF_ACK_ST:	1
+LINK_GOING_DOWN_ST:	0
+PC_CHANGING_FREQ_ST:	3
+PC_FG_RDR_SEARCH_ST:	1
+PC_FG_RSSI_MEAS_ST:	12
+PC_FG_RSSI_MEAS_WF_ACK_ST:	12
+PC_ACTIVE_ST:	1
+
+==[     xg spooler     ]===============================================================================================
+SPI_TU_CLIENT_init sizeof(SPI_TU_IPC_Request_hdr_t) = 15
+SPI_TU_CLIENT_init sizeof(SPI_TU_IPC_Message_u) = 32
+PTP_MMC_AMC config for carrier 0 stream 0: mode=0 min=0 max_tx=0 max_rx=11 initial=0
+PTP_MMC_AMC config for carrier 0 stream 1: mode=0 min=0 max_tx=0 max_rx=11 initial=0
+PTP_MMC_AMC config for carrier 1 stream 0: mode=0 min=0 max_tx=0 max_rx=11 initial=0
+PTP_MMC_AMC config for carrier 1 stream 1: mode=0 min=0 max_tx=0 max_rx=11 initial=0
+Power Limits[0]: header chunk_size=4.
+Power Limits[0]: power array chunk_size=245.
+Power Limits[0]: freq=5100000, bandsCount=3, mcsCount=7.
+Power Limits[0]: freq=5100000, band=10, mcs=4, maxPower=25 
+Power Limits[0]: freq=5100000, band=10, mcs=5, maxPower=25 
+Power Limits[0]: freq=5100000, band=10, mcs=6, maxPower=25 
+Power Limits[0]: freq=5100000, band=10, mcs=7, maxPower=23 
+Power Limits[0]: freq=5100000, band=10, mcs=8, maxPower=22 
+Power Limits[0]: freq=5100000, band=10, mcs=9, maxPower=20 
+Power Limits[0]: freq=5100000, band=10, mcs=10, maxPower=1 
+Power Limits[0]: freq=5100000, band=20, mcs=4, maxPower=25 
+Power Limits[0]: freq=5100000, band=20, mcs=5, maxPower=25 
+Power Limits[0]: freq=5100000, band=20, mcs=6, maxPower=25 
+Power Limits[0]: freq=5100000, band=20, mcs=7, maxPower=23 
+Power Limits[0]: freq=5100000, band=20, mcs=8, maxPower=22 
+Power Limits[0]: freq=5100000, band=20, mcs=9, maxPower=20 
+Power Limits[0]: freq=5100000, band=20, mcs=10, maxPower=1 
+Power Limits[0]: freq=5100000, band=40, mcs=4, maxPower=25 
+Power Limits[0]: freq=5100000, band=40, mcs=5, maxPower=25 
+Power Limits[0]: freq=5100000, band=40, mcs=6, maxPower=25 
+Power Limits[0]: freq=5100000, band=40, mcs=7, maxPower=23 
+Power Limits[0]: freq=5100000, band=40, mcs=8, maxPower=22 
+Power Limits[0]: freq=5100000, band=40, mcs=9, maxPower=20 
+Power Limits[0]: freq=5100000, band=40, mcs=10, maxPower=1 
+Power Limits[0]: freq=5400000, bandsCount=3, mcsCount=7.
+Power Limits[0]: freq=5400000, band=10, mcs=4, maxPower=25 
+Power Limits[0]: freq=5400000, band=10, mcs=5, maxPower=25 
+Power Limits[0]: freq=5400000, band=10, mcs=6, maxPower=25 
+Power Limits[0]: freq=5400000, band=10, mcs=7, maxPower=24 
+Power Limits[0]: freq=5400000, band=10, mcs=8, maxPower=22 
+Power Limits[0]: freq=5400000, band=10, mcs=9, maxPower=20 
+Power Limits[0]: freq=5400000, band=10, mcs=10, maxPower=1 
+Power Limits[0]: freq=5400000, band=20, mcs=4, maxPower=25 
+Power Limits[0]: freq=5400000, band=20, mcs=5, maxPower=25 
+Power Limits[0]: freq=5400000, band=20, mcs=6, maxPower=25 
+Power Limits[0]: freq=5400000, band=20, mcs=7, maxPower=24 
+Power Limits[0]: freq=5400000, band=20, mcs=8, maxPower=22 
+Power Limits[0]: freq=5400000, band=20, mcs=9, maxPower=20 
+Power Limits[0]: freq=5400000, band=20, mcs=10, maxPower=1 
+Power Limits[0]: freq=5400000, band=40, mcs=4, maxPower=25 
+Power Limits[0]: freq=5400000, band=40, mcs=5, maxPower=25 
+Power Limits[0]: freq=5400000, band=40, mcs=6, maxPower=25 
+Power Limits[0]: freq=5400000, band=40, mcs=7, maxPower=24 
+Power Limits[0]: freq=5400000, band=40, mcs=8, maxPower=22 
+Power Limits[0]: freq=5400000, band=40, mcs=9, maxPower=20 
+Power Limits[0]: freq=5400000, band=40, mcs=10, maxPower=1 
+Power Limits[0]: freq=5600000, bandsCount=3, mcsCount=7.
+Power Limits[0]: freq=5600000, band=10, mcs=4, maxPower=25 
+Power Limits[0]: freq=5600000, band=10, mcs=5, maxPower=25 
+Power Limits[0]: freq=5600000, band=10, mcs=6, maxPower=25 
+Power Limits[0]: freq=5600000, band=10, mcs=7, maxPower=24 
+Power Limits[0]: freq=5600000, band=10, mcs=8, maxPower=22 
+Power Limits[0]: freq=5600000, band=10, mcs=9, maxPower=19 
+Power Limits[0]: freq=5600000, band=10, mcs=10, maxPower=1 
+Power Limits[0]: freq=5600000, band=20, mcs=4, maxPower=25 
+Power Limits[0]: freq=5600000, band=20, mcs=5, maxPower=25 
+Power Limits[0]: freq=5600000, band=20, mcs=6, maxPower=25 
+Power Limits[0]: freq=5600000, band=20, mcs=7, maxPower=24 
+Power Limits[0]: freq=5600000, band=20, mcs=8, maxPower=22 
+Power Limits[0]: freq=5600000, band=20, mcs=9, maxPower=19 
+Power Limits[0]: freq=5600000, band=20, mcs=10, maxPower=1 
+Power Limits[0]: freq=5600000, band=40, mcs=4, maxPower=25 
+Power Limits[0]: freq=5600000, band=40, mcs=5, maxPower=25 
+Power Limits[0]: freq=5600000, band=40, mcs=6, maxPower=25 
+Power Limits[0]: freq=5600000, band=40, mcs=7, maxPower=24 
+Power Limits[0]: freq=5600000, band=40, mcs=8, maxPower=22 
+Power Limits[0]: freq=5600000, band=40, mcs=9, maxPower=19 
+Power Limits[0]: freq=5600000, band=40, mcs=10, maxPower=1 
+Power Limits[0]: freq=5700000, bandsCount=3, mcsCount=7.
+Power Limits[0]: freq=5700000, band=10, mcs=4, maxPower=25 
+Power Limits[0]: freq=5700000, band=10, mcs=5, maxPower=25 
+Power Limits[0]: freq=5700000, band=10, mcs=6, maxPower=25 
+Power Limits[0]: freq=5700000, band=10, mcs=7, maxPower=24 
+Power Limits[0]: freq=5700000, band=10, mcs=8, maxPower=22 
+Power Limits[0]: freq=5700000, band=10, mcs=9, maxPower=19 
+Power Limits[0]: freq=5700000, band=10, mcs=10, maxPower=1 
+Power Limits[0]: freq=5700000, band=20, mcs=4, maxPower=25 
+Power Limits[0]: freq=5700000, band=20, mcs=5, maxPower=25 
+Power Limits[0]: freq=5700000, band=20, mcs=6, maxPower=25 
+Power Limits[0]: freq=5700000, band=20, mcs=7, maxPower=24 
+Power Limits[0]: freq=5700000, band=20, mcs=8, maxPower=22 
+Power Limits[0]: freq=5700000, band=20, mcs=9, maxPower=19 
+Power Limits[0]: freq=5700000, band=20, mcs=10, maxPower=1 
+Power Limits[0]: freq=5700000, band=40, mcs=4, maxPower=25 
+Power Limits[0]: freq=5700000, band=40, mcs=5, maxPower=25 
+Power Limits[0]: freq=5700000, band=40, mcs=6, maxPower=25 
+Power Limits[0]: freq=5700000, band=40, mcs=7, maxPower=24 
+Power Limits[0]: freq=5700000, band=40, mcs=8, maxPower=22 
+Power Limits[0]: freq=5700000, band=40, mcs=9, maxPower=19 
+Power Limits[0]: freq=5700000, band=40, mcs=10, maxPower=1 
+Power Limits[0]: freq=5800000, bandsCount=3, mcsCount=7.
+Power Limits[0]: freq=5800000, band=10, mcs=4, maxPower=25 
+Power Limits[0]: freq=5800000, band=10, mcs=5, maxPower=25 
+Power Limits[0]: freq=5800000, band=10, mcs=6, maxPower=25 
+Power Limits[0]: freq=5800000, band=10, mcs=7, maxPower=24 
+Power Limits[0]: freq=5800000, band=10, mcs=8, maxPower=21 
+Power Limits[0]: freq=5800000, band=10, mcs=9, maxPower=19 
+Power Limits[0]: freq=5800000, band=10, mcs=10, maxPower=1 
+Power Limits[0]: freq=5800000, band=20, mcs=4, maxPower=25 
+Power Limits[0]: freq=5800000, band=20, mcs=5, maxPower=25 
+Power Limits[0]: freq=5800000, band=20, mcs=6, maxPower=25 
+Power Limits[0]: freq=5800000, band=20, mcs=7, maxPower=24 
+Power Limits[0]: freq=5800000, band=20, mcs=8, maxPower=21 
+Power Limits[0]: freq=5800000, band=20, mcs=9, maxPower=19 
+Power Limits[0]: freq=5800000, band=20, mcs=10, maxPower=1 
+Power Limits[0]: freq=5800000, band=40, mcs=4, maxPower=25 
+Power Limits[0]: freq=5800000, band=40, mcs=5, maxPower=25 
+Power Limits[0]: freq=5800000, band=40, mcs=6, maxPower=25 
+Power Limits[0]: freq=5800000, band=40, mcs=7, maxPower=24 
+Power Limits[0]: freq=5800000, band=40, mcs=8, maxPower=21 
+Power Limits[0]: freq=5800000, band=40, mcs=9, maxPower=19 
+Power Limits[0]: freq=5800000, band=40, mcs=10, maxPower=1 
+Power Limits[0]: freq=5900000, bandsCount=3, mcsCount=7.
+Power Limits[0]: freq=5900000, band=10, mcs=4, maxPower=25 
+Power Limits[0]: freq=5900000, band=10, mcs=5, maxPower=25 
+Power Limits[0]: freq=5900000, band=10, mcs=6, maxPower=24 
+Power Limits[0]: freq=5900000, band=10, mcs=7, maxPower=23 
+Power Limits[0]: freq=5900000, band=10, mcs=8, maxPower=21 
+Power Limits[0]: freq=5900000, band=10, mcs=9, maxPower=19 
+Power Limits[0]: freq=5900000, band=10, mcs=10, maxPower=1 
+Power Limits[0]: freq=5900000, band=20, mcs=4, maxPower=25 
+Power Limits[0]: freq=5900000, band=20, mcs=5, maxPower=25 
+Power Limits[0]: freq=5900000, band=20, mcs=6, maxPower=24 
+Power Limits[0]: freq=5900000, band=20, mcs=7, maxPower=23 
+Power Limits[0]: freq=5900000, band=20, mcs=8, maxPower=21 
+Power Limits[0]: freq=5900000, band=20, mcs=9, maxPower=19 
+Power Limits[0]: freq=5900000, band=20, mcs=10, maxPower=1 
+Power Limits[0]: freq=5900000, band=40, mcs=4, maxPower=25 
+Power Limits[0]: freq=5900000, band=40, mcs=5, maxPower=25 
+Power Limits[0]: freq=5900000, band=40, mcs=6, maxPower=24 
+Power Limits[0]: freq=5900000, band=40, mcs=7, maxPower=23 
+Power Limits[0]: freq=5900000, band=40, mcs=8, maxPower=21 
+Power Limits[0]: freq=5900000, band=40, mcs=9, maxPower=19 
+Power Limits[0]: freq=5900000, band=40, mcs=10, maxPower=1 
+Power Limits[0]: freq=6000000, bandsCount=3, mcsCount=7.
+Power Limits[0]: freq=6000000, band=10, mcs=4, maxPower=25 
+Power Limits[0]: freq=6000000, band=10, mcs=5, maxPower=25 
+Power Limits[0]: freq=6000000, band=10, mcs=6, maxPower=24 
+Power Limits[0]: freq=6000000, band=10, mcs=7, maxPower=22 
+Power Limits[0]: freq=6000000, band=10, mcs=8, maxPower=21 
+Power Limits[0]: freq=6000000, band=10, mcs=9, maxPower=19 
+Power Limits[0]: freq=6000000, band=10, mcs=10, maxPower=1 
+Power Limits[0]: freq=6000000, band=20, mcs=4, maxPower=25 
+Power Limits[0]: freq=6000000, band=20, mcs=5, maxPower=25 
+Power Limits[0]: freq=6000000, band=20, mcs=6, maxPower=24 
+Power Limits[0]: freq=6000000, band=20, mcs=7, maxPower=22 
+Power Limits[0]: freq=6000000, band=20, mcs=8, maxPower=21 
+Power Limits[0]: freq=6000000, band=20, mcs=9, maxPower=19 
+Power Limits[0]: freq=6000000, band=20, mcs=10, maxPower=1 
+Power Limits[0]: freq=6000000, band=40, mcs=4, maxPower=25 
+Power Limits[0]: freq=6000000, band=40, mcs=5, maxPower=25 
+Power Limits[0]: freq=6000000, band=40, mcs=6, maxPower=24 
+Power Limits[0]: freq=6000000, band=40, mcs=7, maxPower=22 
+Power Limits[0]: freq=6000000, band=40, mcs=8, maxPower=21 
+Power Limits[0]: freq=6000000, band=40, mcs=9, maxPower=19 
+Power Limits[0]: freq=6000000, band=40, mcs=10, maxPower=1 
+rf_dev0: Calibration Temperature = 37.982
+rf_dev0: temperature calibration loaded for 109 frequencies.
+RMU_57_00[0]: nco calibration data found
+		[noovs]	[noovs]	[noovs]	[noovs]	[noovs]	[noovs]	[ovs]	[ovs]	[ovs]	[ovs]	[ovs]	[ovs]
+		[10]	[10]	[20]	[20]	[40]	[40]	[10]	[10]	[20]	[20]	[40]	[40]
+[ix]	[MHz]	[*a0]	[*a3]	[*a0]	[*a3]	[*a0]	[*a3]	[*a0]	[*a3]	[*a0]	[*a3]	[*a0]	[*a3]
+0:	4900	63	c0	7d	c0	67	c0	7e	c0	61	c0	18	00
+1:	6080	63	c0	7d	c0	67	c0	7e	c0	61	c0	18	00
+Selecting *a0=0x18, *a3=0x00 @ix=0 [4900 <= 5480 <= 6080]
+Power Limits[1]: header chunk_size=4.
+Power Limits[1]: power array chunk_size=245.
+Power Limits[1]: freq=5100000, bandsCount=3, mcsCount=7.
+Power Limits[1]: freq=5100000, band=10, mcs=4, maxPower=25 
+Power Limits[1]: freq=5100000, band=10, mcs=5, maxPower=25 
+Power Limits[1]: freq=5100000, band=10, mcs=6, maxPower=25 
+Power Limits[1]: freq=5100000, band=10, mcs=7, maxPower=23 
+Power Limits[1]: freq=5100000, band=10, mcs=8, maxPower=22 
+Power Limits[1]: freq=5100000, band=10, mcs=9, maxPower=20 
+Power Limits[1]: freq=5100000, band=10, mcs=10, maxPower=1 
+Power Limits[1]: freq=5100000, band=20, mcs=4, maxPower=25 
+Power Limits[1]: freq=5100000, band=20, mcs=5, maxPower=25 
+Power Limits[1]: freq=5100000, band=20, mcs=6, maxPower=25 
+Power Limits[1]: freq=5100000, band=20, mcs=7, maxPower=23 
+Power Limits[1]: freq=5100000, band=20, mcs=8, maxPower=22 
+Power Limits[1]: freq=5100000, band=20, mcs=9, maxPower=20 
+Power Limits[1]: freq=5100000, band=20, mcs=10, maxPower=1 
+Power Limits[1]: freq=5100000, band=40, mcs=4, maxPower=25 
+Power Limits[1]: freq=5100000, band=40, mcs=5, maxPower=25 
+Power Limits[1]: freq=5100000, band=40, mcs=6, maxPower=25 
+Power Limits[1]: freq=5100000, band=40, mcs=7, maxPower=23 
+Power Limits[1]: freq=5100000, band=40, mcs=8, maxPower=22 
+Power Limits[1]: freq=5100000, band=40, mcs=9, maxPower=20 
+Power Limits[1]: freq=5100000, band=40, mcs=10, maxPower=1 
+Power Limits[1]: freq=5400000, bandsCount=3, mcsCount=7.
+Power Limits[1]: freq=5400000, band=10, mcs=4, maxPower=25 
+Power Limits[1]: freq=5400000, band=10, mcs=5, maxPower=25 
+Power Limits[1]: freq=5400000, band=10, mcs=6, maxPower=25 
+Power Limits[1]: freq=5400000, band=10, mcs=7, maxPower=24 
+Power Limits[1]: freq=5400000, band=10, mcs=8, maxPower=22 
+Power Limits[1]: freq=5400000, band=10, mcs=9, maxPower=20 
+Power Limits[1]: freq=5400000, band=10, mcs=10, maxPower=1 
+Power Limits[1]: freq=5400000, band=20, mcs=4, maxPower=25 
+Power Limits[1]: freq=5400000, band=20, mcs=5, maxPower=25 
+Power Limits[1]: freq=5400000, band=20, mcs=6, maxPower=25 
+Power Limits[1]: freq=5400000, band=20, mcs=7, maxPower=24 
+Power Limits[1]: freq=5400000, band=20, mcs=8, maxPower=22 
+Power Limits[1]: freq=5400000, band=20, mcs=9, maxPower=20 
+Power Limits[1]: freq=5400000, band=20, mcs=10, maxPower=1 
+Power Limits[1]: freq=5400000, band=40, mcs=4, maxPower=25 
+Power Limits[1]: freq=5400000, band=40, mcs=5, maxPower=25 
+Power Limits[1]: freq=5400000, band=40, mcs=6, maxPower=25 
+Power Limits[1]: freq=5400000, band=40, mcs=7, maxPower=24 
+Power Limits[1]: freq=5400000, band=40, mcs=8, maxPower=22 
+Power Limits[1]: freq=5400000, band=40, mcs=9, maxPower=20 
+Power Limits[1]: freq=5400000, band=40, mcs=10, maxPower=1 
+Power Limits[1]: freq=5600000, bandsCount=3, mcsCount=7.
+Power Limits[1]: freq=5600000, band=10, mcs=4, maxPower=25 
+Power Limits[1]: freq=5600000, band=10, mcs=5, maxPower=25 
+Power Limits[1]: freq=5600000, band=10, mcs=6, maxPower=25 
+Power Limits[1]: freq=5600000, band=10, mcs=7, maxPower=24 
+Power Limits[1]: freq=5600000, band=10, mcs=8, maxPower=22 
+Power Limits[1]: freq=5600000, band=10, mcs=9, maxPower=19 
+Power Limits[1]: freq=5600000, band=10, mcs=10, maxPower=1 
+Power Limits[1]: freq=5600000, band=20, mcs=4, maxPower=25 
+Power Limits[1]: freq=5600000, band=20, mcs=5, maxPower=25 
+Power Limits[1]: freq=5600000, band=20, mcs=6, maxPower=25 
+Power Limits[1]: freq=5600000, band=20, mcs=7, maxPower=24 
+Power Limits[1]: freq=5600000, band=20, mcs=8, maxPower=22 
+Power Limits[1]: freq=5600000, band=20, mcs=9, maxPower=19 
+Power Limits[1]: freq=5600000, band=20, mcs=10, maxPower=1 
+Power Limits[1]: freq=5600000, band=40, mcs=4, maxPower=25 
+Power Limits[1]: freq=5600000, band=40, mcs=5, maxPower=25 
+Power Limits[1]: freq=5600000, band=40, mcs=6, maxPower=25 
+Power Limits[1]: freq=5600000, band=40, mcs=7, maxPower=24 
+Power Limits[1]: freq=5600000, band=40, mcs=8, maxPower=22 
+Power Limits[1]: freq=5600000, band=40, mcs=9, maxPower=19 
+Power Limits[1]: freq=5600000, band=40, mcs=10, maxPower=1 
+Power Limits[1]: freq=5700000, bandsCount=3, mcsCount=7.
+Power Limits[1]: freq=5700000, band=10, mcs=4, maxPower=25 
+Power Limits[1]: freq=5700000, band=10, mcs=5, maxPower=25 
+Power Limits[1]: freq=5700000, band=10, mcs=6, maxPower=25 
+Power Limits[1]: freq=5700000, band=10, mcs=7, maxPower=24 
+Power Limits[1]: freq=5700000, band=10, mcs=8, maxPower=22 
+Power Limits[1]: freq=5700000, band=10, mcs=9, maxPower=19 
+Power Limits[1]: freq=5700000, band=10, mcs=10, maxPower=1 
+Power Limits[1]: freq=5700000, band=20, mcs=4, maxPower=25 
+Power Limits[1]: freq=5700000, band=20, mcs=5, maxPower=25 
+Power Limits[1]: freq=5700000, band=20, mcs=6, maxPower=25 
+Power Limits[1]: freq=5700000, band=20, mcs=7, maxPower=24 
+Power Limits[1]: freq=5700000, band=20, mcs=8, maxPower=22 
+Power Limits[1]: freq=5700000, band=20, mcs=9, maxPower=19 
+Power Limits[1]: freq=5700000, band=20, mcs=10, maxPower=1 
+Power Limits[1]: freq=5700000, band=40, mcs=4, maxPower=25 
+Power Limits[1]: freq=5700000, band=40, mcs=5, maxPower=25 
+Power Limits[1]: freq=5700000, band=40, mcs=6, maxPower=25 
+Power Limits[1]: freq=5700000, band=40, mcs=7, maxPower=24 
+Power Limits[1]: freq=5700000, band=40, mcs=8, maxPower=22 
+Power Limits[1]: freq=5700000, band=40, mcs=9, maxPower=19 
+Power Limits[1]: freq=5700000, band=40, mcs=10, maxPower=1 
+Power Limits[1]: freq=5800000, bandsCount=3, mcsCount=7.
+Power Limits[1]: freq=5800000, band=10, mcs=4, maxPower=25 
+Power Limits[1]: freq=5800000, band=10, mcs=5, maxPower=25 
+Power Limits[1]: freq=5800000, band=10, mcs=6, maxPower=25 
+Power Limits[1]: freq=5800000, band=10, mcs=7, maxPower=24 
+Power Limits[1]: freq=5800000, band=10, mcs=8, maxPower=21 
+Power Limits[1]: freq=5800000, band=10, mcs=9, maxPower=19 
+Power Limits[1]: freq=5800000, band=10, mcs=10, maxPower=1 
+Power Limits[1]: freq=5800000, band=20, mcs=4, maxPower=25 
+Power Limits[1]: freq=5800000, band=20, mcs=5, maxPower=25 
+Power Limits[1]: freq=5800000, band=20, mcs=6, maxPower=25 
+Power Limits[1]: freq=5800000, band=20, mcs=7, maxPower=24 
+Power Limits[1]: freq=5800000, band=20, mcs=8, maxPower=21 
+Power Limits[1]: freq=5800000, band=20, mcs=9, maxPower=19 
+Power Limits[1]: freq=5800000, band=20, mcs=10, maxPower=1 
+Power Limits[1]: freq=5800000, band=40, mcs=4, maxPower=25 
+Power Limits[1]: freq=5800000, band=40, mcs=5, maxPower=25 
+Power Limits[1]: freq=5800000, band=40, mcs=6, maxPower=25 
+Power Limits[1]: freq=5800000, band=40, mcs=7, maxPower=24 
+Power Limits[1]: freq=5800000, band=40, mcs=8, maxPower=21 
+Power Limits[1]: freq=5800000, band=40, mcs=9, maxPower=19 
+Power Limits[1]: freq=5800000, band=40, mcs=10, maxPower=1 
+Power Limits[1]: freq=5900000, bandsCount=3, mcsCount=7.
+Power Limits[1]: freq=5900000, band=10, mcs=4, maxPower=25 
+Power Limits[1]: freq=5900000, band=10, mcs=5, maxPower=25 
+Power Limits[1]: freq=5900000, band=10, mcs=6, maxPower=24 
+Power Limits[1]: freq=5900000, band=10, mcs=7, maxPower=23 
+Power Limits[1]: freq=5900000, band=10, mcs=8, maxPower=21 
+Power Limits[1]: freq=5900000, band=10, mcs=9, maxPower=19 
+Power Limits[1]: freq=5900000, band=10, mcs=10, maxPower=1 
+Power Limits[1]: freq=5900000, band=20, mcs=4, maxPower=25 
+Power Limits[1]: freq=5900000, band=20, mcs=5, maxPower=25 
+Power Limits[1]: freq=5900000, band=20, mcs=6, maxPower=24 
+Power Limits[1]: freq=5900000, band=20, mcs=7, maxPower=23 
+Power Limits[1]: freq=5900000, band=20, mcs=8, maxPower=21 
+Power Limits[1]: freq=5900000, band=20, mcs=9, maxPower=19 
+Power Limits[1]: freq=5900000, band=20, mcs=10, maxPower=1 
+Power Limits[1]: freq=5900000, band=40, mcs=4, maxPower=25 
+Power Limits[1]: freq=5900000, band=40, mcs=5, maxPower=25 
+Power Limits[1]: freq=5900000, band=40, mcs=6, maxPower=24 
+Power Limits[1]: freq=5900000, band=40, mcs=7, maxPower=23 
+Power Limits[1]: freq=5900000, band=40, mcs=8, maxPower=21 
+Power Limits[1]: freq=5900000, band=40, mcs=9, maxPower=19 
+Power Limits[1]: freq=5900000, band=40, mcs=10, maxPower=1 
+Power Limits[1]: freq=6000000, bandsCount=3, mcsCount=7.
+Power Limits[1]: freq=6000000, band=10, mcs=4, maxPower=25 
+Power Limits[1]: freq=6000000, band=10, mcs=5, maxPower=25 
+Power Limits[1]: freq=6000000, band=10, mcs=6, maxPower=24 
+Power Limits[1]: freq=6000000, band=10, mcs=7, maxPower=22 
+Power Limits[1]: freq=6000000, band=10, mcs=8, maxPower=21 
+Power Limits[1]: freq=6000000, band=10, mcs=9, maxPower=19 
+Power Limits[1]: freq=6000000, band=10, mcs=10, maxPower=1 
+Power Limits[1]: freq=6000000, band=20, mcs=4, maxPower=25 
+Power Limits[1]: freq=6000000, band=20, mcs=5, maxPower=25 
+Power Limits[1]: freq=6000000, band=20, mcs=6, maxPower=24 
+Power Limits[1]: freq=6000000, band=20, mcs=7, maxPower=22 
+Power Limits[1]: freq=6000000, band=20, mcs=8, maxPower=21 
+Power Limits[1]: freq=6000000, band=20, mcs=9, maxPower=19 
+Power Limits[1]: freq=6000000, band=20, mcs=10, maxPower=1 
+Power Limits[1]: freq=6000000, band=40, mcs=4, maxPower=25 
+Power Limits[1]: freq=6000000, band=40, mcs=5, maxPower=25 
+Power Limits[1]: freq=6000000, band=40, mcs=6, maxPower=24 
+Power Limits[1]: freq=6000000, band=40, mcs=7, maxPower=22 
+Power Limits[1]: freq=6000000, band=40, mcs=8, maxPower=21 
+Power Limits[1]: freq=6000000, band=40, mcs=9, maxPower=19 
+Power Limits[1]: freq=6000000, band=40, mcs=10, maxPower=1 
+rf_dev1: Calibration Temperature = 37.972
+rf_dev1: temperature calibration loaded for 109 frequencies.
+RMU_57_00[1]: nco calibration data found
+		[noovs]	[noovs]	[noovs]	[noovs]	[noovs]	[noovs]	[ovs]	[ovs]	[ovs]	[ovs]	[ovs]	[ovs]
+		[10]	[10]	[20]	[20]	[40]	[40]	[10]	[10]	[20]	[20]	[40]	[40]
+[ix]	[MHz]	[*a0]	[*a3]	[*a0]	[*a3]	[*a0]	[*a3]	[*a0]	[*a3]	[*a0]	[*a3]	[*a0]	[*a3]
+0:	4900	63	c0	7d	c0	67	c0	7e	c0	61	c0	18	00
+1:	6080	63	c0	7d	c0	67	c0	7e	c0	61	c0	18	00
+Selecting *a0=0x18, *a3=0x00 @ix=0 [4900 <= 5560 <= 6080]
+-----------------------------
+Dispatcher MMC Dispatcher is initialized and enabled.
+num_poll_entities=7, max_num_iterations_per_round=1 total_memory_allocated = 4040 bytes
+Polling Entities:
+0. PHY_INT_MSGS:
+  * num_poll_errors:0 num_dispatch_errors:0   * Memory: p_start_of_memory=0x5ffe8790, total_memory_size=512, buf_size=8 
+1. MMDP_RX:
+  * num_poll_errors:0 num_dispatch_errors:0   * Memory: p_start_of_memory=0x5ffe8570, total_memory_size=384, buf_size=32 
+2. MMDP_TX:
+  * num_poll_errors:0 num_dispatch_errors:0   * Memory: p_start_of_memory=0x5ffe8700, total_memory_size=128, buf_size=8 
+3. MCHL_IF:
+  * num_poll_errors:0 num_dispatch_errors:0   * Memory: p_start_of_memory=0x6042b140, total_memory_size=2048, buf_size=128 
+4. RLM_HWM_IF:
+  * num_poll_errors:0 num_dispatch_errors:0   * Memory: p_start_of_memory=0x5ffe89a0, total_memory_size=240, buf_size=24 
+5. PULSE_EV_PR_MSGS:
+  * num_poll_errors:0 num_dispatch_errors:0   * Memory: p_start_of_memory=0x5ffe8aa0, total_memory_size=256, buf_size=16 
+6. PULSE_EV_SC_MSGS:
+  * num_poll_errors:0 num_dispatch_errors:0   * Memory: p_start_of_memory=0x5ffe8ba0, total_memory_size=256, buf_size=16 
+--------------------------------
+
+	---------------------------------------------------
+	TDD Ranging Debug Info:
+	-----------------------
+	Super frame smallest ttg=4 air blks, 2304 samples.
+	Number of rbs required samples for ttg=1605
+	Available for ranging: 699 samples, 19330 nanosec.
+	Max distance between nodes: 0 meters
+	---------------------------------------------------
+PTP_MMC_P2P_MNGR_post_start P2P_MNGR_MSG_SENDIND_PERIOD=1
+
+
+==[ xgu nco-view-table ]===============================================================================================
+		[noovs]	[noovs]	[noovs]	[noovs]	[noovs]	[noovs]	[ovs]	[ovs]	[ovs]	[ovs]	[ovs]	[ovs]
+		[10]	[10]	[20]	[20]	[40]	[40]	[10]	[10]	[20]	[20]	[40]	[40]
+[ix]	[MHz]	[a0]	[a3]	[a0]	[a3]	[a0]	[a3]	[a0]	[a3]	[a0]	[a3]	[a0]	[a3]
+0:	4900	63	c0	7d	c0	67	c0	7e	c0	61	c0	18	00
+1:	6080	63	c0	7d	c0	67	c0	7e	c0	61	c0	18	00
+
+==[   RF EEPROM data   ]===============================================================================================
+EEPROM[0] FS data in SHM: 
+rf_type: RMU57 (9), rev: 0, ver: 0.0 
+
+ * * * * * * * * * 
+Found chunk: 0x0007 RMU55 tuning data, size: 24 bytes
+ [i]  [f]  [10] [10] [20] [20] [40] [40] [10] [10] [20] [20]
+  0:  4900  63   c0   7d   c0   67   c0   7e   c0   61   c0 
+  1:  6080  63   c0   7d   c0   67   c0   7e   c0   61   c0 
+ 
+ * * * * * * * * * 
+Found chunk: 0x0008 RMU55 tuning data extend, size: 4 bytes
+ [i]  [40] [40] 
+ 
+ * * * * * * * * * 
+Found chunk: 0x000b Temperature calibration data (power per freq for different temperatures), size: 4796 bytes
+4910000: 10743 -69 0 0 0 8870 -48 0 0 0 
+4920000: 10912 -70 0 0 0 9324 -49 0 0 0 
+4930000: 11006 -70 0 0 0 9750 -49 0 0 0 
+4940000: 11044 -67 0 0 0 10154 -50 0 0 0 
+4950000: 11035 -64 0 0 0 10464 -51 0 0 0 
+4960000: 11102 -63 0 0 0 10823 -52 0 0 0 
+4970000: 11125 -62 0 0 0 11247 -53 0 0 0 
+4980000: 11092 -60 0 0 0 11572 -54 0 0 0 
+4990000: 11092 -59 0 0 0 11783 -55 0 0 0 
+5000000: 11234 -60 0 0 0 12079 -56 0 0 0 
+5010000: 11465 -63 0 0 0 12449 -57 0 0 0 
+5020000: 11672 -65 0 0 0 12837 -59 0 0 0 
+5030000: 11828 -68 0 0 0 13178 -60 0 0 0 
+5040000: 11990 -70 0 0 0 13470 -62 0 0 0 
+5050000: 12144 -72 0 0 0 13793 -65 0 0 0 
+5060000: 12279 -75 0 0 0 14051 -68 0 0 0 
+5070000: 12555 -79 0 0 0 14206 -70 0 0 0 
+5080000: 12799 -82 0 0 0 14381 -72 0 0 0 
+5090000: 13067 -86 0 0 0 14628 -75 0 0 0 
+5100000: 13448 -93 0 0 0 14996 -78 0 0 0 
+5110000: 13770 -101 0 0 0 15372 -83 0 0 0 
+5120000: 14104 -108 0 0 0 15768 -89 0 0 0 
+5130000: 14316 -116 0 0 0 16036 -96 0 0 0 
+5140000: 14366 -122 0 0 0 16285 -104 0 0 0 
+5150000: 14215 -124 0 0 0 16405 -112 0 0 0 
+5160000: 13947 -119 0 0 0 16345 -118 0 0 0 
+5170000: 13606 -115 0 0 0 16188 -121 0 0 0 
+5180000: 13361 -108 0 0 0 15976 -123 0 0 0 
+5190000: 13079 -103 0 0 0 15724 -124 0 0 0 
+5200000: 12869 -100 0 0 0 15357 -123 0 0 0 
+5210000: 12519 -95 0 0 0 14911 -122 0 0 0 
+5220000: 12109 -89 0 0 0 14395 -119 0 0 0 
+5230000: 11771 -84 0 0 0 13812 -115 0 0 0 
+5240000: 11451 -80 0 0 0 13221 -110 0 0 0 
+5250000: 11226 -77 0 0 0 12594 -105 0 0 0 
+5260000: 11055 -75 0 0 0 11978 -101 0 0 0 
+5270000: 10857 -72 0 0 0 11414 -96 0 0 0 
+5280000: 10656 -70 0 0 0 10882 -92 0 0 0 
+5290000: 10536 -68 0 0 0 10355 -88 0 0 0 
+5300000: 10488 -68 0 0 0 9900 -84 0 0 0 
+5310000: 10464 -68 0 0 0 9496 -81 0 0 0 
+5320000: 10460 -68 0 0 0 9142 -78 0 0 0 
+5330000: 10465 -68 0 0 0 8854 -76 0 0 0 
+5340000: 10441 -68 0 0 0 8653 -74 0 0 0 
+5350000: 10423 -69 0 0 0 8500 -73 0 0 0 
+5360000: 10371 -69 0 0 0 8391 -71 0 0 0 
+5370000: 10385 -70 0 0 0 8281 -70 0 0 0 
+5380000: 10397 -71 0 0 0 8209 -69 0 0 0 
+5390000: 10357 -70 0 0 0 8144 -68 0 0 0 
+5400000: 10304 -70 0 0 0 8123 -67 0 0 0 
+5410000: 10364 -71 0 0 0 8079 -65 0 0 0 
+5420000: 10369 -71 0 0 0 8083 -64 0 0 0 
+5430000: 10331 -71 0 0 0 8110 -63 0 0 0 
+5440000: 10314 -71 0 0 0 8131 -62 0 0 0 
+5450000: 10369 -72 0 0 0 8186 -61 0 0 0 
+5460000: 10414 -72 0 0 0 8270 -61 0 0 0 
+5470000: 10305 -71 0 0 0 8295 -59 0 0 0 
+5480000: 10081 -69 0 0 0 8354 -59 0 0 0 
+5490000: 9899 -68 0 0 0 8450 -59 0 0 0 
+5500000: 9833 -68 0 0 0 8573 -58 0 0 0 
+5510000: 9752 -66 0 0 0 8664 -59 0 0 0 
+5520000: 9618 -65 0 0 0 8735 -60 0 0 0 
+5530000: 9468 -64 0 0 0 8810 -60 0 0 0 
+5540000: 9312 -61 0 0 0 8849 -61 0 0 0 
+5550000: 9111 -59 0 0 0 8811 -62 0 0 0 
+5560000: 8942 -57 0 0 0 8748 -62 0 0 0 
+5570000: 8886 -56 0 0 0 8705 -63 0 0 0 
+5580000: 8799 -55 0 0 0 8567 -64 0 0 0 
+5590000: 8652 -53 0 0 0 8394 -64 0 0 0 
+5600000: 8512 -52 0 0 0 8228 -64 0 0 0 
+5610000: 8441 -52 0 0 0 8019 -63 0 0 0 
+5620000: 8325 -51 0 0 0 7841 -63 0 0 0 
+5630000: 8183 -50 0 0 0 7656 -63 0 0 0 
+5640000: 8133 -50 0 0 0 7404 -62 0 0 0 
+5650000: 8144 -50 0 0 0 7121 -61 0 0 0 
+5660000: 8171 -51 0 0 0 6868 -59 0 0 0 
+5670000: 8230 -53 0 0 0 6637 -58 0 0 0 
+5680000: 8287 -54 0 0 0 6429 -57 0 0 0 
+5690000: 8258 -55 0 0 0 6225 -56 0 0 0 
+5700000: 8241 -57 0 0 0 6034 -54 0 0 0 
+5710000: 8191 -58 0 0 0 5880 -53 0 0 0 
+5720000: 8141 -60 0 0 0 5775 -52 0 0 0 
+5730000: 8133 -61 0 0 0 5751 -51 0 0 0 
+5740000: 8135 -63 0 0 0 5721 -50 0 0 0 
+5750000: 8099 -64 0 0 0 5711 -49 0 0 0 
+5760000: 8000 -66 0 0 0 5715 -48 0 0 0 
+5770000: 7894 -67 0 0 0 5728 -48 0 0 0 
+5780000: 7774 -67 0 0 0 5760 -47 0 0 0 
+5790000: 7620 -66 0 0 0 5809 -47 0 0 0 
+5800000: 7427 -64 0 0 0 5877 -45 0 0 0 
+5810000: 7296 -64 0 0 0 5969 -46 0 0 0 
+5820000: 7133 -64 0 0 0 6043 -45 0 0 0 
+5830000: 7074 -63 0 0 0 6109 -44 0 0 0 
+5840000: 6922 -61 0 0 0 6159 -44 0 0 0 
+5850000: 6736 -60 0 0 0 6244 -44 0 0 0 
+5860000: 6564 -59 0 0 0 6382 -44 0 0 0 
+5870000: 6396 -57 0 0 0 6499 -44 0 0 0 
+5880000: 6261 -56 0 0 0 6611 -44 0 0 0 
+5890000: 6153 -55 0 0 0 6692 -45 0 0 0 
+5900000: 6063 -54 0 0 0 6738 -46 0 0 0 
+5910000: 6006 -54 0 0 0 6784 -47 0 0 0 
+5920000: 5967 -53 0 0 0 6833 -47 0 0 0 
+5930000: 5940 -53 0 0 0 6880 -48 0 0 0 
+5940000: 5933 -53 0 0 0 6922 -49 0 0 0 
+5950000: 5979 -54 0 0 0 6948 -50 0 0 0 
+5960000: 6031 -55 0 0 0 6959 -51 0 0 0 
+5970000: 6068 -57 0 0 0 6930 -51 0 0 0 
+5980000: 6110 -60 0 0 0 6905 -51 0 0 0 
+5990000: 6153 -62 0 0 0 6912 -52 0 0 0 
+ 
+ * * * * * * * * * 
+Found chunk: 0x000c Calibration data V5 (power per freq on fixed gain), size: 1417 bytes
+4910000, pwr: 6146, 6545, t: 34 
+4920000, pwr: 6441, 6838, t: 36 
+4930000, pwr: 6750, 7122, t: 36 
+4940000, pwr: 6978, 7362, t: 37 
+4950000, pwr: 7218, 7587, t: 37 
+4960000, pwr: 7511, 7874, t: 37 
+4970000, pwr: 7761, 8135, t: 37 
+4980000, pwr: 8031, 8419, t: 37 
+4990000, pwr: 8185, 8598, t: 38 
+5000000, pwr: 8393, 8828, t: 38 
+5010000, pwr: 8652, 9121, t: 38 
+5020000, pwr: 8845, 9366, t: 37 
+5030000, pwr: 9006, 9578, t: 37 
+5040000, pwr: 9235, 9882, t: 38 
+5050000, pwr: 9351, 10070, t: 38 
+5060000, pwr: 9512, 10314, t: 38 
+5070000, pwr: 9610, 10513, t: 38 
+5080000, pwr: 9692, 10693, t: 38 
+5090000, pwr: 9787, 10901, t: 38 
+5100000, pwr: 9836, 11049, t: 38 
+5110000, pwr: 9899, 11223, t: 38 
+5120000, pwr: 9970, 11390, t: 38 
+5130000, pwr: 9998, 11501, t: 38 
+5140000, pwr: 10049, 11609, t: 38 
+5150000, pwr: 10122, 11731, t: 38 
+5160000, pwr: 10115, 11734, t: 38 
+5170000, pwr: 10163, 11775, t: 38 
+5180000, pwr: 10230, 11824, t: 38 
+5190000, pwr: 10287, 11854, t: 38 
+5200000, pwr: 10328, 11847, t: 37 
+5210000, pwr: 10333, 11780, t: 37 
+5220000, pwr: 10323, 11695, t: 39 
+5230000, pwr: 10321, 11626, t: 39 
+5240000, pwr: 10287, 11503, t: 39 
+5250000, pwr: 10266, 11404, t: 38 
+5260000, pwr: 10180, 11223, t: 38 
+5270000, pwr: 10135, 11078, t: 38 
+5280000, pwr: 10055, 10889, t: 38 
+5290000, pwr: 9973, 10709, t: 38 
+5300000, pwr: 9936, 10558, t: 38 
+5310000, pwr: 9754, 10266, t: 38 
+5320000, pwr: 9750, 10133, t: 38 
+5330000, pwr: 9685, 9973, t: 38 
+5340000, pwr: 9544, 9715, t: 38 
+5350000, pwr: 9544, 9615, t: 38 
+5360000, pwr: 9396, 9357, t: 38 
+5370000, pwr: 9340, 9210, t: 38 
+5380000, pwr: 9264, 9024, t: 38 
+5390000, pwr: 9134, 8793, t: 38 
+5400000, pwr: 9116, 8703, t: 39 
+5410000, pwr: 8963, 8450, t: 39 
+5420000, pwr: 8987, 8376, t: 39 
+5430000, pwr: 8939, 8245, t: 38 
+5440000, pwr: 8925, 8170, t: 38 
+5450000, pwr: 8830, 8014, t: 39 
+5460000, pwr: 8833, 7927, t: 39 
+5470000, pwr: 8822, 7858, t: 39 
+5480000, pwr: 8790, 7780, t: 38 
+5490000, pwr: 8730, 7647, t: 38 
+5500000, pwr: 8744, 7619, t: 38 
+5510000, pwr: 8728, 7556, t: 38 
+5520000, pwr: 8766, 7555, t: 38 
+5530000, pwr: 8763, 7524, t: 38 
+5540000, pwr: 8739, 7496, t: 38 
+5550000, pwr: 8706, 7442, t: 39 
+5560000, pwr: 8724, 7438, t: 39 
+5570000, pwr: 8682, 7417, t: 39 
+5580000, pwr: 8680, 7427, t: 39 
+5590000, pwr: 8647, 7363, t: 39 
+5600000, pwr: 8588, 7361, t: 38 
+5610000, pwr: 8607, 7370, t: 38 
+5620000, pwr: 8567, 7366, t: 38 
+5630000, pwr: 8565, 7401, t: 39 
+5640000, pwr: 8456, 7301, t: 39 
+5650000, pwr: 8486, 7369, t: 39 
+5660000, pwr: 8458, 7372, t: 38 
+5670000, pwr: 8419, 7387, t: 38 
+5680000, pwr: 8403, 7428, t: 38 
+5690000, pwr: 8378, 7459, t: 38 
+5700000, pwr: 8321, 7456, t: 38 
+5710000, pwr: 8290, 7473, t: 40 
+5720000, pwr: 8267, 7520, t: 40 
+5730000, pwr: 8183, 7498, t: 39 
+5740000, pwr: 8210, 7589, t: 39 
+5750000, pwr: 8193, 7645, t: 39 
+5760000, pwr: 8112, 7647, t: 38 
+5770000, pwr: 8122, 7720, t: 38 
+5780000, pwr: 8083, 7789, t: 39 
+5790000, pwr: 8063, 7849, t: 39 
+5800000, pwr: 7983, 7837, t: 39 
+5810000, pwr: 7903, 7842, t: 39 
+5820000, pwr: 7851, 7874, t: 39 
+5830000, pwr: 7773, 7893, t: 38 
+5840000, pwr: 7663, 7861, t: 38 
+5850000, pwr: 7572, 7883, t: 38 
+5860000, pwr: 7445, 7834, t: 39 
+5870000, pwr: 7376, 7838, t: 39 
+5880000, pwr: 7292, 7848, t: 39 
+5890000, pwr: 7128, 7779, t: 39 
+5900000, pwr: 7023, 7746, t: 39 
+5910000, pwr: 6913, 7725, t: 40 
+5920000, pwr: 6711, 7606, t: 40 
+5930000, pwr: 6640, 7588, t: 40 
+5940000, pwr: 6485, 7491, t: 39 
+5950000, pwr: 6349, 7415, t: 39 
+5960000, pwr: 6222, 7341, t: 40 
+5970000, pwr: 6044, 7206, t: 40 
+5980000, pwr: 5936, 7131, t: 40 
+5990000, pwr: 5825, 7029, t: 39 
+ 
+ * * * * * * * * * 
+Found chunk: 0x0006 Power restrict header, size: 4 bytes
+version: 0, revision: 1, bandsCount: 3, mcsCount: 7 
+ 
+ * * * * * * * * * 
+Found chunk: 0xc001 Power restriction chunk, size: 245 bytes
+ [freq] [bands] [mcs] [pwr]
+5100000 | 10 20 40 |  4  5  6  7  8  9 10 | 25 25 25 23 22 20  1 25 25 25 23 22 20  1 25 25 25 23 22 20  1 
+5400000 | 10 20 40 |  4  5  6  7  8  9 10 | 25 25 25 24 22 20  1 25 25 25 24 22 20  1 25 25 25 24 22 20  1 
+5600000 | 10 20 40 |  4  5  6  7  8  9 10 | 25 25 25 24 22 19  1 25 25 25 24 22 19  1 25 25 25 24 22 19  1 
+5700000 | 10 20 40 |  4  5  6  7  8  9 10 | 25 25 25 24 22 19  1 25 25 25 24 22 19  1 25 25 25 24 22 19  1 
+5800000 | 10 20 40 |  4  5  6  7  8  9 10 | 25 25 25 24 21 19  1 25 25 25 24 21 19  1 25 25 25 24 21 19  1 
+5900000 | 10 20 40 |  4  5  6  7  8  9 10 | 25 25 24 23 21 19  1 25 25 24 23 21 19  1 25 25 24 23 21 19  1 
+6000000 | 10 20 40 |  4  5  6  7  8  9 10 | 25 25 24 22 21 19  1 25 25 24 22 21 19  1 25 25 24 22 21 19  1 
+ 
+ * * * * * * * * * 
+Found chunk: 0x0009 Calibration time temperature, size: 4 bytes
+t: 37981 
+ 
+ * * * * * * * * * 
+Found chunk: 0x000d Barcode string, size: 16 bytes
+Barcode: 00377178.1 
+ 
+EEPROM[1] FS data in SHM: 
+rf_type: RMU57 (9), rev: 0, ver: 0.0 
+
+ * * * * * * * * * 
+Found chunk: 0x0007 RMU55 tuning data, size: 24 bytes
+ [i]  [f]  [10] [10] [20] [20] [40] [40] [10] [10] [20] [20]
+  0:  4900  63   c0   7d   c0   67   c0   7e   c0   61   c0 
+  1:  6080  63   c0   7d   c0   67   c0   7e   c0   61   c0 
+ 
+ * * * * * * * * * 
+Found chunk: 0x0008 RMU55 tuning data extend, size: 4 bytes
+ [i]  [40] [40] 
+ 
+ * * * * * * * * * 
+Found chunk: 0x000b Temperature calibration data (power per freq for different temperatures), size: 4796 bytes
+4910000: 10743 -69 0 0 0 8870 -48 0 0 0 
+4920000: 10912 -70 0 0 0 9324 -49 0 0 0 
+4930000: 11006 -70 0 0 0 9750 -49 0 0 0 
+4940000: 11044 -67 0 0 0 10154 -50 0 0 0 
+4950000: 11035 -64 0 0 0 10464 -51 0 0 0 
+4960000: 11102 -63 0 0 0 10823 -52 0 0 0 
+4970000: 11125 -62 0 0 0 11247 -53 0 0 0 
+4980000: 11092 -60 0 0 0 11572 -54 0 0 0 
+4990000: 11092 -59 0 0 0 11783 -55 0 0 0 
+5000000: 11234 -60 0 0 0 12079 -56 0 0 0 
+5010000: 11465 -63 0 0 0 12449 -57 0 0 0 
+5020000: 11672 -65 0 0 0 12837 -59 0 0 0 
+5030000: 11828 -68 0 0 0 13178 -60 0 0 0 
+5040000: 11990 -70 0 0 0 13470 -62 0 0 0 
+5050000: 12144 -72 0 0 0 13793 -65 0 0 0 
+5060000: 12279 -75 0 0 0 14051 -68 0 0 0 
+5070000: 12555 -79 0 0 0 14206 -70 0 0 0 
+5080000: 12799 -82 0 0 0 14381 -72 0 0 0 
+5090000: 13067 -86 0 0 0 14628 -75 0 0 0 
+5100000: 13448 -93 0 0 0 14996 -78 0 0 0 
+5110000: 13770 -101 0 0 0 15372 -83 0 0 0 
+5120000: 14104 -108 0 0 0 15768 -89 0 0 0 
+5130000: 14316 -116 0 0 0 16036 -96 0 0 0 
+5140000: 14366 -122 0 0 0 16285 -104 0 0 0 
+5150000: 14215 -124 0 0 0 16405 -112 0 0 0 
+5160000: 13947 -119 0 0 0 16345 -118 0 0 0 
+5170000: 13606 -115 0 0 0 16188 -121 0 0 0 
+5180000: 13361 -108 0 0 0 15976 -123 0 0 0 
+5190000: 13079 -103 0 0 0 15724 -124 0 0 0 
+5200000: 12869 -100 0 0 0 15357 -123 0 0 0 
+5210000: 12519 -95 0 0 0 14911 -122 0 0 0 
+5220000: 12109 -89 0 0 0 14395 -119 0 0 0 
+5230000: 11771 -84 0 0 0 13812 -115 0 0 0 
+5240000: 11451 -80 0 0 0 13221 -110 0 0 0 
+5250000: 11226 -77 0 0 0 12594 -105 0 0 0 
+5260000: 11055 -75 0 0 0 11978 -101 0 0 0 
+5270000: 10857 -72 0 0 0 11414 -96 0 0 0 
+5280000: 10656 -70 0 0 0 10882 -92 0 0 0 
+5290000: 10536 -68 0 0 0 10355 -88 0 0 0 
+5300000: 10488 -68 0 0 0 9900 -84 0 0 0 
+5310000: 10464 -68 0 0 0 9496 -81 0 0 0 
+5320000: 10460 -68 0 0 0 9142 -78 0 0 0 
+5330000: 10465 -68 0 0 0 8854 -76 0 0 0 
+5340000: 10441 -68 0 0 0 8653 -74 0 0 0 
+5350000: 10423 -69 0 0 0 8500 -73 0 0 0 
+5360000: 10371 -69 0 0 0 8391 -71 0 0 0 
+5370000: 10385 -70 0 0 0 8281 -70 0 0 0 
+5380000: 10397 -71 0 0 0 8209 -69 0 0 0 
+5390000: 10357 -70 0 0 0 8144 -68 0 0 0 
+5400000: 10304 -70 0 0 0 8123 -67 0 0 0 
+5410000: 10364 -71 0 0 0 8079 -65 0 0 0 
+5420000: 10369 -71 0 0 0 8083 -64 0 0 0 
+5430000: 10331 -71 0 0 0 8110 -63 0 0 0 
+5440000: 10314 -71 0 0 0 8131 -62 0 0 0 
+5450000: 10369 -72 0 0 0 8186 -61 0 0 0 
+5460000: 10414 -72 0 0 0 8270 -61 0 0 0 
+5470000: 10305 -71 0 0 0 8295 -59 0 0 0 
+5480000: 10081 -69 0 0 0 8354 -59 0 0 0 
+5490000: 9899 -68 0 0 0 8450 -59 0 0 0 
+5500000: 9833 -68 0 0 0 8573 -58 0 0 0 
+5510000: 9752 -66 0 0 0 8664 -59 0 0 0 
+5520000: 9618 -65 0 0 0 8735 -60 0 0 0 
+5530000: 9468 -64 0 0 0 8810 -60 0 0 0 
+5540000: 9312 -61 0 0 0 8849 -61 0 0 0 
+5550000: 9111 -59 0 0 0 8811 -62 0 0 0 
+5560000: 8942 -57 0 0 0 8748 -62 0 0 0 
+5570000: 8886 -56 0 0 0 8705 -63 0 0 0 
+5580000: 8799 -55 0 0 0 8567 -64 0 0 0 
+5590000: 8652 -53 0 0 0 8394 -64 0 0 0 
+5600000: 8512 -52 0 0 0 8228 -64 0 0 0 
+5610000: 8441 -52 0 0 0 8019 -63 0 0 0 
+5620000: 8325 -51 0 0 0 7841 -63 0 0 0 
+5630000: 8183 -50 0 0 0 7656 -63 0 0 0 
+5640000: 8133 -50 0 0 0 7404 -62 0 0 0 
+5650000: 8144 -50 0 0 0 7121 -61 0 0 0 
+5660000: 8171 -51 0 0 0 6868 -59 0 0 0 
+5670000: 8230 -53 0 0 0 6637 -58 0 0 0 
+5680000: 8287 -54 0 0 0 6429 -57 0 0 0 
+5690000: 8258 -55 0 0 0 6225 -56 0 0 0 
+5700000: 8241 -57 0 0 0 6034 -54 0 0 0 
+5710000: 8191 -58 0 0 0 5880 -53 0 0 0 
+5720000: 8141 -60 0 0 0 5775 -52 0 0 0 
+5730000: 8133 -61 0 0 0 5751 -51 0 0 0 
+5740000: 8135 -63 0 0 0 5721 -50 0 0 0 
+5750000: 8099 -64 0 0 0 5711 -49 0 0 0 
+5760000: 8000 -66 0 0 0 5715 -48 0 0 0 
+5770000: 7894 -67 0 0 0 5728 -48 0 0 0 
+5780000: 7774 -67 0 0 0 5760 -47 0 0 0 
+5790000: 7620 -66 0 0 0 5809 -47 0 0 0 
+5800000: 7427 -64 0 0 0 5877 -45 0 0 0 
+5810000: 7296 -64 0 0 0 5969 -46 0 0 0 
+5820000: 7133 -64 0 0 0 6043 -45 0 0 0 
+5830000: 7074 -63 0 0 0 6109 -44 0 0 0 
+5840000: 6922 -61 0 0 0 6159 -44 0 0 0 
+5850000: 6736 -60 0 0 0 6244 -44 0 0 0 
+5860000: 6564 -59 0 0 0 6382 -44 0 0 0 
+5870000: 6396 -57 0 0 0 6499 -44 0 0 0 
+5880000: 6261 -56 0 0 0 6611 -44 0 0 0 
+5890000: 6153 -55 0 0 0 6692 -45 0 0 0 
+5900000: 6063 -54 0 0 0 6738 -46 0 0 0 
+5910000: 6006 -54 0 0 0 6784 -47 0 0 0 
+5920000: 5967 -53 0 0 0 6833 -47 0 0 0 
+5930000: 5940 -53 0 0 0 6880 -48 0 0 0 
+5940000: 5933 -53 0 0 0 6922 -49 0 0 0 
+5950000: 5979 -54 0 0 0 6948 -50 0 0 0 
+5960000: 6031 -55 0 0 0 6959 -51 0 0 0 
+5970000: 6068 -57 0 0 0 6930 -51 0 0 0 
+5980000: 6110 -60 0 0 0 6905 -51 0 0 0 
+5990000: 6153 -62 0 0 0 6912 -52 0 0 0 
+ 
+ * * * * * * * * * 
+Found chunk: 0x000c Calibration data V5 (power per freq on fixed gain), size: 1417 bytes
+4910000, pwr: 5567, 5657, t: 36 
+4920000, pwr: 5764, 5994, t: 36 
+4930000, pwr: 5901, 6289, t: 36 
+4940000, pwr: 6081, 6615, t: 38 
+4950000, pwr: 6293, 6975, t: 38 
+4960000, pwr: 6435, 7275, t: 38 
+4970000, pwr: 6620, 7610, t: 38 
+4980000, pwr: 6824, 7987, t: 38 
+4990000, pwr: 6965, 8303, t: 38 
+5000000, pwr: 7088, 8598, t: 38 
+5010000, pwr: 7220, 8916, t: 38 
+5020000, pwr: 7377, 9225, t: 38 
+5030000, pwr: 7553, 9577, t: 38 
+5040000, pwr: 7693, 9872, t: 38 
+5050000, pwr: 7860, 10203, t: 38 
+5060000, pwr: 7989, 10469, t: 38 
+5070000, pwr: 8155, 10758, t: 38 
+5080000, pwr: 8259, 10984, t: 38 
+5090000, pwr: 8378, 11192, t: 40 
+5100000, pwr: 8510, 11382, t: 40 
+5110000, pwr: 8659, 11568, t: 40 
+5120000, pwr: 8774, 11699, t: 38 
+5130000, pwr: 8942, 11832, t: 38 
+5140000, pwr: 9050, 11874, t: 38 
+5150000, pwr: 9164, 11898, t: 38 
+5160000, pwr: 9341, 11967, t: 38 
+5170000, pwr: 9472, 11955, t: 39 
+5180000, pwr: 9628, 11950, t: 39 
+5190000, pwr: 9728, 11901, t: 38 
+5200000, pwr: 9916, 11899, t: 38 
+5210000, pwr: 10011, 11794, t: 38 
+5220000, pwr: 10100, 11712, t: 38 
+5230000, pwr: 10179, 11600, t: 38 
+5240000, pwr: 10258, 11472, t: 38 
+5250000, pwr: 10310, 11336, t: 38 
+5260000, pwr: 10321, 11155, t: 38 
+5270000, pwr: 10344, 10995, t: 38 
+5280000, pwr: 10378, 10830, t: 38 
+5290000, pwr: 10334, 10619, t: 38 
+5300000, pwr: 10355, 10479, t: 38 
+5310000, pwr: 10277, 10255, t: 38 
+5320000, pwr: 10251, 10085, t: 39 
+5330000, pwr: 10171, 9897, t: 39 
+5340000, pwr: 10143, 9759, t: 39 
+5350000, pwr: 10021, 9549, t: 38 
+5360000, pwr: 9930, 9382, t: 38 
+5370000, pwr: 9849, 9261, t: 38 
+5380000, pwr: 9738, 9118, t: 38 
+5390000, pwr: 9676, 9023, t: 38 
+5400000, pwr: 9550, 8885, t: 38 
+5410000, pwr: 9508, 8819, t: 38 
+5420000, pwr: 9370, 8697, t: 39 
+5430000, pwr: 9320, 8655, t: 39 
+5440000, pwr: 9196, 8526, t: 39 
+5450000, pwr: 9150, 8497, t: 38 
+5460000, pwr: 9057, 8424, t: 38 
+5470000, pwr: 9057, 8412, t: 38 
+5480000, pwr: 8939, 8326, t: 38 
+5490000, pwr: 8925, 8312, t: 38 
+5500000, pwr: 8859, 8274, t: 38 
+5510000, pwr: 8799, 8251, t: 38 
+5520000, pwr: 8722, 8211, t: 38 
+5530000, pwr: 8724, 8245, t: 38 
+5540000, pwr: 8645, 8198, t: 38 
+5550000, pwr: 8608, 8212, t: 38 
+5560000, pwr: 8610, 8265, t: 38 
+5570000, pwr: 8599, 8273, t: 39 
+5580000, pwr: 8493, 8231, t: 39 
+5590000, pwr: 8462, 8256, t: 39 
+5600000, pwr: 8447, 8291, t: 34 
+5610000, pwr: 8409, 8283, t: 34 
+5620000, pwr: 8373, 8287, t: 38 
+5630000, pwr: 8360, 8307, t: 38 
+5640000, pwr: 8350, 8303, t: 38 
+5650000, pwr: 8358, 8351, t: 39 
+5660000, pwr: 8351, 8348, t: 39 
+5670000, pwr: 8379, 8384, t: 39 
+5680000, pwr: 8388, 8416, t: 39 
+5690000, pwr: 8356, 8364, t: 39 
+5700000, pwr: 8387, 8408, t: 40 
+5710000, pwr: 8441, 8457, t: 40 
+5720000, pwr: 8480, 8517, t: 40 
+5730000, pwr: 8479, 8517, t: 40 
+5740000, pwr: 8504, 8530, t: 40 
+5750000, pwr: 8542, 8564, t: 39 
+5760000, pwr: 8589, 8611, t: 39 
+5770000, pwr: 8579, 8602, t: 38 
+5780000, pwr: 8592, 8609, t: 38 
+5790000, pwr: 8543, 8549, t: 38 
+5800000, pwr: 8612, 8596, t: 38 
+5810000, pwr: 8560, 8546, t: 38 
+5820000, pwr: 8591, 8575, t: 39 
+5830000, pwr: 8528, 8491, t: 39 
+5840000, pwr: 8507, 8430, t: 39 
+5850000, pwr: 8470, 8371, t: 39 
+5860000, pwr: 8361, 8226, t: 39 
+5870000, pwr: 8427, 8259, t: 39 
+5880000, pwr: 8310, 8115, t: 39 
+5890000, pwr: 8204, 7967, t: 39 
+5900000, pwr: 8167, 7856, t: 39 
+5910000, pwr: 8135, 7778, t: 39 
+5920000, pwr: 8123, 7681, t: 39 
+5930000, pwr: 7982, 7459, t: 38 
+5940000, pwr: 7957, 7348, t: 38 
+5950000, pwr: 7892, 7202, t: 38 
+5960000, pwr: 7811, 7030, t: 38 
+5970000, pwr: 7783, 6905, t: 38 
+5980000, pwr: 7689, 6719, t: 39 
+5990000, pwr: 7679, 6624, t: 39 
+ 
+ * * * * * * * * * 
+Found chunk: 0x0006 Power restrict header, size: 4 bytes
+version: 0, revision: 1, bandsCount: 3, mcsCount: 7 
+ 
+ * * * * * * * * * 
+Found chunk: 0xc001 Power restriction chunk, size: 245 bytes
+ [freq] [bands] [mcs] [pwr]
+5100000 | 10 20 40 |  4  5  6  7  8  9 10 | 25 25 25 23 22 20  1 25 25 25 23 22 20  1 25 25 25 23 22 20  1 
+5400000 | 10 20 40 |  4  5  6  7  8  9 10 | 25 25 25 24 22 20  1 25 25 25 24 22 20  1 25 25 25 24 22 20  1 
+5600000 | 10 20 40 |  4  5  6  7  8  9 10 | 25 25 25 24 22 19  1 25 25 25 24 22 19  1 25 25 25 24 22 19  1 
+5700000 | 10 20 40 |  4  5  6  7  8  9 10 | 25 25 25 24 22 19  1 25 25 25 24 22 19  1 25 25 25 24 22 19  1 
+5800000 | 10 20 40 |  4  5  6  7  8  9 10 | 25 25 25 24 21 19  1 25 25 25 24 21 19  1 25 25 25 24 21 19  1 
+5900000 | 10 20 40 |  4  5  6  7  8  9 10 | 25 25 24 23 21 19  1 25 25 24 23 21 19  1 25 25 24 23 21 19  1 
+6000000 | 10 20 40 |  4  5  6  7  8  9 10 | 25 25 24 22 21 19  1 25 25 24 22 21 19  1 25 25 24 22 21 19  1 
+ 
+ * * * * * * * * * 
+Found chunk: 0x0009 Calibration time temperature, size: 4 bytes
+t: 37972 
+ 
+ * * * * * * * * * 
+Found chunk: 0x000d Barcode string, size: 16 bytes
+Barcode: 00377178.2 
+ 
+
+==[   xg trace   ]=================================================================================================
+0:00:00.000.000 [0:         0] [RF_AD9361_CAT_MGMT]   [0]    set 3-way rx input channel = 3
+0:00:00.000.000 [0:         0] [RF_AD9361_CAT_MGMT]   [0]    Rf Freq Start Changing: freq_tx=5480000, freq_tx_converter=0, freq_tx_fe=5480000
+0:00:00.000.000 [0:         0] [RF_AD9361_CAT_MGMT]   [0]    Rf Freq Start Changing: freq_rx=5480000, freq_rx_converter=3942000, freq_rx_fe=1538000
+0:00:00.000.000 [0:         0] [RF_AD9361_CAT_MGMT]          txcm = 0->15
+0:00:00.000.000 [0:         0] [RF_AD9361_CAT_MGMT]          rxcm = 0->15
+0:00:00.000.000 [0:         0] [RF_AD9361_CAT_MGMT]          unleash txpwr = 0->0
+0:00:00.000.000 [0:         0] [RF_AD9361_CAT_MGMT]          txcm = 0->0
+0:00:00.000.000 [0:         0] [RF_AD9361_CAT_MGMT]          txcm = 0->0
+0:00:00.000.000 [0:         0] [RF_AD9361_CAT_MGMT]   [1]    set 3-way rx input channel = 3
+0:00:00.000.000 [0:         0] [RF_AD9361_CAT_MGMT]   [1]    Rf Freq Start Changing: freq_tx=5560000, freq_tx_converter=0, freq_tx_fe=5560000
+0:00:00.000.000 [0:         0] [RF_AD9361_CAT_MGMT]   [1]    Rf Freq Start Changing: freq_rx=5560000, freq_rx_converter=4022000, freq_rx_fe=1538000
+0:00:00.000.000 [0:         0] [RF_AD9361_CAT_MGMT]          txcm = 15->15
+0:00:00.000.000 [0:         0] [RF_AD9361_CAT_MGMT]          rxcm = 15->15
+0:00:00.000.000 [0:         0] [RF_AD9361_CAT_MGMT]          unleash txpwr = 0->0
+0:00:00.000.000 [0:         0] [RF_AD9361_CAT_MGMT]          txcm = 0->0
+0:00:00.000.000 [0:         0] [RF_AD9361_CAT_MGMT]          txcm = 0->0
+0:00:00.017.509 [0:   1750927] [RF_AD9361_CAT_MGMT]   [0]    IQ muted = 1
+0:00:00.017.515 [0:   1751523] [RF_AD9361_CAT_MGMT]   [1]    IQ muted = 1
+0:00:00.027.454 [0:   2745480] [PTP_MCHL]                    (MCHL-->RLM):   (3) GET_STATE_REQ
+0:00:00.038.424 [0:   3842444] [PTP_MCHL]                    (RLM-->MCHL):   (4) XG_E_API_INIT_EVT
+0:00:00.038.458 [0:   3845806] [PTP_MCHL]                    State: WF_MANUAL_SYSTEM_START,IDLE (2,0)
+0:00:00.038.462 [0:   3846297] [PTP_MCHL]             [0]    call Start_Channel_Procedure
+0:00:00.038.497 [0:   3849776] [FREQLIST]                    XGS msg: start
+0:00:00.038.506 [0:   3850606] [PTP_MCHL]                    State: PC_FG_RSSI_MEAS,FG_RSSI_MEASURING (5,6)
+0:00:00.038.555 [0:   3855556] [PTP_MCHL]                    (MCHL-->RLM):   (52) SET_XG_VALVE_STATUS_REQ
+0:00:00.038.606 [0:   3860646] [PTP_MCHL]             [0.0]  filter=1 amc_mode=0 mcs_index=0
+0:00:00.038.621 [0:   3862147] [PTP_MCHL]             [0.1]  filter=1 amc_mode=0 mcs_index=0
+0:00:00.038.631 [0:   3863174] [PTP_MCHL]             [1.0]  filter=1 amc_mode=0 mcs_index=0
+0:00:00.038.641 [0:   3864147] [PTP_MCHL]             [1.1]  filter=1 amc_mode=0 mcs_index=0
+0:00:00.038.677 [0:   3867797] [PTP_MCHL]                    (MCHL-->RLM):   (33) PROFILE_INDEX_CHANGE_REQ
+0:00:00.038.700 [0:   3870084] [PTP_MCHL]                    Profile is 0 established
+0:00:00.038.799 [0:   3879968] [FREQLIST]                    Autoselect 5480/5560
+0:00:00.079.444 [0:   7944446] [XGS]                         State: LOCK
+0:00:00.079.458 [0:   7945866] [XGS]                         Dfs Fg Mode: 0
+0:00:00.079.489 [0:   7948983] [XGS]                         Params: rx_gain = 42, noise_floor = -94, mode: FG, both = 0
+0:00:00.079.842 [0:   7984270] [RF_AD9361_CAT_MGMT]          txcm = 15->12
+0:00:01.081.458 [0: 108145838] [XGS]                         Dfs Fg Mode: 1
+0:00:01.081.481 [0: 108148139] [XGS]                         State: SEND_MSG
+0:00:01.082.519 [0: 108251970] [RF_AD9361_CAT_MGMT]   [0]    Set synth = 3942 Mhz
+0:00:01.084.066 [0: 108406656] [XGS]                  [0.0]  REQ, freq: 1538, dur: 100 ms, mode: FG
+0:00:01.087.460 [0: 108746023] [PTP_MCHL]             [0]    (MCHL-->RLM):   (9) FG_RSSI_MEAS_REQ
+0:00:01.087.503 [0: 108750300] [XGS]                         State: WAIT_MSG
+0:00:01.087.544 [0: 108754427] [PTP_HWM_DATA]         [1]    [DFS MN] State changed DFS_IDLE -> DFS_FG_INACTIVE
+0:00:01.087.624 [0: 108762459] [PTP_HWM_DATA]         [0]    [DFS MN] State changed DFS_IDLE -> DFS_FG
+0:00:01.097.609 [0: 109760957] [RF_AD9361_CAT_MGMT]   [0]    set 3-way rx input channel = 3
+0:00:01.097.614 [0: 109761459] [RF_AD9361_CAT_MGMT]   [0]    Rf Freq Start Changing: freq_tx=1538000, freq_tx_converter=0, freq_tx_fe=1538000
+0:00:01.097.617 [0: 109761785] [RF_AD9361_CAT_MGMT]   [0]    Rf Freq Start Changing: freq_rx=5480000, freq_rx_converter=3942000, freq_rx_fe=1538000
+0:00:01.099.618 [0: 109961837] [RF_AD9361_CAT_MGMT]          Set frequency ok
+0:00:01.100.670 [0: 110067091] [PTP_MMC_DFS_MNGR]     [0]    Set state: FG_MEAS_ST
+0:00:01.101.439 [0: 110143904] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 1
+0:00:01.101.441 [0: 110144175] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_RSSI_SCAN
+0:00:01.203.539 [0: 120353942] [PTP_MMC_DFS_MNGR]     [0]    Set state: IDLE_ST
+0:00:01.204.114 [0: 120411442] [PTP_MCHL]                    (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+0:00:01.204.126 [0: 120412690] [PTP_MCHL]             [0.0]  Got raw rssi: -72/-61
+0:00:01.204.134 [0: 120413482] [XGS]                  [0.0]  Got rssi #0 -72/-61 -> -76/-87, offset: -57
+0:00:01.204.175 [0: 120417500] [XGS]                         State: SEND_MSG
+0:00:01.204.226 [0: 120422624] [IOCTL]                [0]    Synth enable: 3962000 kHz
+0:00:01.204.736 [0: 120473653] [RF_AD9361_CAT_MGMT]   [0]    Set synth = 3962 Mhz
+0:00:01.205.435 [0: 120543591] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_EXIT
+0:00:01.205.438 [0: 120543812] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 0
+0:00:01.206.087 [0: 120608762] [IOCTL]                       Cal, f: 1538, val: -57, rssi: 6, xgs(1): -51, rcu(1): 0
+0:00:01.206.096 [0: 120609612] [XGS]                  [0.0]  REQ, freq: 1538, dur: 100 ms, mode: FG
+0:00:01.209.463 [0: 120946395] [PTP_MCHL]             [0]    (MCHL-->RLM):   (9) FG_RSSI_MEAS_REQ
+0:00:01.209.500 [0: 120950099] [XGS]                         State: WAIT_MSG
+0:00:01.209.561 [0: 120956192] [PTP_MMC_DFS_MNGR]     [0]    Set state: FG_MEAS_ST
+0:00:01.210.533 [0: 121053348] [PTP_HWM_DATA]                ---- DC_Cancellation set = 1
+0:00:01.211.425 [0: 121142571] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 1
+0:00:01.211.428 [0: 121142826] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_RSSI_SCAN
+0:00:01.313.538 [0: 131353867] [PTP_MMC_DFS_MNGR]     [0]    Set state: IDLE_ST
+0:00:01.313.798 [0: 131379819] [PTP_MCHL]                    (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+0:00:01.313.811 [0: 131381187] [PTP_MCHL]             [0.0]  Got raw rssi: -72/-60
+0:00:01.313.819 [0: 131381964] [XGS]                  [0.0]  Got rssi #1 -72/-60 -> -75/-87, offset: -57
+0:00:01.313.854 [0: 131385429] [XGS]                         State: SEND_MSG
+0:00:01.313.875 [0: 131387560] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5520/5520
+0:00:01.313.898 [0: 131389809] [IOCTL]                [0]    Synth enable: 3982000 kHz
+0:00:01.315.091 [0: 131509102] [RF_AD9361_CAT_MGMT]   [0]    Set synth = 3982 Mhz
+0:00:01.315.437 [0: 131543737] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_EXIT
+0:00:01.315.439 [0: 131543958] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 0
+0:00:01.316.057 [0: 131605779] [IOCTL]                       Cal, f: 1538, val: -57, rssi: 6, xgs(1): -51, rcu(1): 0
+0:00:01.316.064 [0: 131606429] [XGS]                  [0.0]  REQ, freq: 1538, dur: 100 ms, mode: FG
+0:00:01.319.461 [0: 131946177] [PTP_MCHL]             [0]    (MCHL-->RLM):   (9) FG_RSSI_MEAS_REQ
+0:00:01.319.494 [0: 131949449] [XGS]                         State: WAIT_MSG
+0:00:01.319.558 [0: 131955856] [PTP_MMC_DFS_MNGR]     [0]    Set state: FG_MEAS_ST
+0:00:01.320.536 [0: 132053619] [PTP_HWM_DATA]                ---- DC_Cancellation set = 1
+0:00:01.321.428 [0: 132142845] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 1
+0:00:01.321.430 [0: 132143097] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_RSSI_SCAN
+0:00:01.423.538 [0: 142353858] [PTP_MMC_DFS_MNGR]     [0]    Set state: IDLE_ST
+0:00:01.424.540 [0: 142454055] [PTP_HWM_DATA]                ---- DC_Cancellation set = 1
+0:00:01.424.584 [0: 142458440] [PTP_MCHL]                    (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+0:00:01.424.594 [0: 142459454] [PTP_MCHL]             [0.0]  Got raw rssi: -72/-61
+0:00:01.424.600 [0: 142460063] [XGS]                  [0.0]  Got rssi #2 -72/-61 -> -76/-87, offset: -57
+0:00:01.424.628 [0: 142462878] [XGS]                         State: SEND_MSG
+0:00:01.424.646 [0: 142464686] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5540/5540
+0:00:01.424.662 [0: 142466290] [IOCTL]                [0]    Synth enable: 4002000 kHz
+0:00:01.425.426 [0: 142542655] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_EXIT
+0:00:01.425.428 [0: 142542889] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 0
+0:00:01.425.716 [0: 142571629] [RF_AD9361_CAT_MGMT]   [0]    Set synth = 4002 Mhz
+0:00:01.427.046 [0: 142704640] [IOCTL]                       Cal, f: 1538, val: -57, rssi: 6, xgs(1): -51, rcu(1): 0
+0:00:01.427.054 [0: 142705430] [XGS]                  [0.0]  REQ, freq: 1538, dur: 100 ms, mode: FG
+0:00:01.430.457 [0: 143045712] [PTP_MCHL]             [0]    (MCHL-->RLM):   (9) FG_RSSI_MEAS_REQ
+0:00:01.430.481 [0: 143048142] [XGS]                         State: WAIT_MSG
+0:00:01.430.558 [0: 143055821] [PTP_MMC_DFS_MNGR]     [0]    Set state: FG_MEAS_ST
+0:00:01.432.431 [0: 143243120] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 1
+0:00:01.432.433 [0: 143243386] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_RSSI_SCAN
+0:00:01.534.543 [0: 153454313] [PTP_MMC_DFS_MNGR]     [0]    Set state: IDLE_ST
+0:00:01.535.373 [0: 153537310] [PTP_MCHL]                    (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+0:00:01.535.381 [0: 153538147] [PTP_MCHL]             [0.0]  Got raw rssi: -72/-50
+0:00:01.535.387 [0: 153538741] [XGS]                  [0.0]  Got rssi #3 -72/-50 -> -65/-87, offset: -57
+0:00:01.535.413 [0: 153541311] [XGS]                         State: SEND_MSG
+0:00:01.535.426 [0: 153542612] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5560/5560
+0:00:01.535.440 [0: 153544028] [IOCTL]                [0]    Synth enable: 4022000 kHz
+0:00:01.536.430 [0: 153643083] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_EXIT
+0:00:01.536.433 [0: 153643358] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 0
+0:00:01.536.460 [0: 153646045] [RF_AD9361_CAT_MGMT]   [0]    Set synth = 4022 Mhz
+0:00:01.538.045 [0: 153804525] [IOCTL]                       Cal, f: 1538, val: -57, rssi: 6, xgs(1): -51, rcu(1): 0
+0:00:01.538.050 [0: 153805010] [XGS]                  [0.0]  REQ, freq: 1538, dur: 100 ms, mode: FG
+0:00:01.541.458 [0: 154145808] [PTP_MCHL]             [0]    (MCHL-->RLM):   (9) FG_RSSI_MEAS_REQ
+0:00:01.541.480 [0: 154148058] [XGS]                         State: WAIT_MSG
+0:00:01.541.560 [0: 154156052] [PTP_MMC_DFS_MNGR]     [0]    Set state: FG_MEAS_ST
+0:00:01.542.560 [0: 154256006] [PTP_HWM_DATA]                ---- DC_Cancellation set = 1
+0:00:01.543.439 [0: 154343969] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 1
+0:00:01.543.442 [0: 154344229] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_RSSI_SCAN
+0:00:01.645.542 [0: 164554291] [PTP_MMC_DFS_MNGR]     [0]    Set state: IDLE_ST
+0:00:01.645.545 [0: 164554551] [PTP_MMC_RLM]          [0]    Stopping FG RSSI
+0:00:01.646.131 [0: 164613133] [PTP_MMC_RLM]                 State: PC_LINK_DOWN_ST (7)
+0:00:01.646.133 [0: 164613398] [PTP_MMC_RLM]                 ** RF transmission state is {0, 0} **
+0:00:01.646.190 [0: 164619074] [PTP_MCHL]                    (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+0:00:01.646.198 [0: 164619856] [PTP_MCHL]             [0.0]  Got raw rssi: -69/-44
+0:00:01.646.211 [0: 164621144] [XGS]                  [0.0]  Got rssi #4 -69/-44 -> -59/-84, offset: -57
+0:00:01.646.244 [0: 164624487] [XGS]                         State: SEND_MSG
+0:00:01.646.263 [0: 164626394] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5580/5580
+0:00:01.646.280 [0: 164628097] [IOCTL]                [0]    Synth enable: 4042000 kHz
+0:00:01.647.090 [0: 164709087] [RF_AD9361_CAT_MGMT]   [0]    Set synth = 4042 Mhz
+0:00:01.647.438 [0: 164743856] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_EXIT
+0:00:01.647.440 [0: 164744078] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 0
+0:00:01.648.061 [0: 164806166] [IOCTL]                       Cal, f: 1538, val: -57, rssi: 6, xgs(1): -51, rcu(1): 0
+0:00:01.648.068 [0: 164806830] [XGS]                  [0.0]  REQ, freq: 1538, dur: 100 ms, mode: FG
+0:00:01.651.461 [0: 165146143] [PTP_MCHL]             [0]    (MCHL-->RLM):   (9) FG_RSSI_MEAS_REQ
+0:00:01.651.489 [0: 165148990] [XGS]                         State: WAIT_MSG
+0:00:01.651.554 [0: 165155447] [PTP_MMC_RLM]                 RLM rcv msg XG_E_API_DFS_FG_RSSI_MEAS_REQ (9), state PC_LINK_DOWN_ST (7)
+0:00:01.651.558 [0: 165155820] [PTP_MMC_RLM]                 State: PC_FG_RSSI_MEAS_ST (18)
+0:00:01.651.560 [0: 165156079] [PTP_MMC_DFS_MNGR]     [0]    Set state: FG_MEAS_ST
+0:00:01.652.578 [0: 165257829] [PTP_HWM_DATA]                ---- DC_Cancellation set = 1
+0:00:01.653.438 [0: 165343857] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 1
+0:00:01.653.441 [0: 165344118] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_RSSI_SCAN
+0:00:01.755.539 [0: 175553952] [PTP_MMC_RLM]                 State: PC_FG_RSSI_MEAS_WF_ACK_ST (19)
+0:00:01.755.542 [0: 175554299] [PTP_MMC_DFS_MNGR]     [0]    Set state: IDLE_ST
+0:00:01.755.545 [0: 175554560] [PTP_MMC_RLM]          [0]    Stopping FG RSSI
+0:00:01.755.929 [0: 175592923] [PTP_MMC_RLM]                 State: PC_LINK_DOWN_ST (7)
+0:00:01.755.931 [0: 175593187] [PTP_MMC_RLM]                 ** RF transmission state is {0, 0} **
+0:00:01.755.996 [0: 175599649] [PTP_MCHL]                    (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+0:00:01.756.010 [0: 175601082] [PTP_MCHL]             [0.0]  Got raw rssi: -72/-44
+0:00:01.756.018 [0: 175601828] [XGS]                  [0.0]  Got rssi #5 -72/-44 -> -59/-87, offset: -57
+0:00:01.756.053 [0: 175605319] [XGS]                         State: SEND_MSG
+0:00:01.756.074 [0: 175607438] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5600/5600
+0:00:01.756.094 [0: 175609450] [IOCTL]                [0]    Synth enable: 4062000 kHz
+0:00:01.757.437 [0: 175743770] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_EXIT
+0:00:01.757.440 [0: 175744044] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 0
+0:00:01.757.728 [0: 175772868] [RF_AD9361_CAT_MGMT]   [0]    Set synth = 4062 Mhz
+0:00:01.759.060 [0: 175906061] [IOCTL]                       Cal, f: 1538, val: -57, rssi: 6, xgs(1): -51, rcu(1): 0
+0:00:01.759.066 [0: 175906644] [XGS]                  [0.0]  REQ, freq: 1538, dur: 100 ms, mode: FG
+0:00:01.762.463 [0: 176246316] [PTP_MCHL]             [0]    (MCHL-->RLM):   (9) FG_RSSI_MEAS_REQ
+0:00:01.762.495 [0: 176249593] [XGS]                         State: WAIT_MSG
+0:00:01.762.554 [0: 176255462] [PTP_MMC_RLM]                 RLM rcv msg XG_E_API_DFS_FG_RSSI_MEAS_REQ (9), state PC_LINK_DOWN_ST (7)
+0:00:01.762.558 [0: 176255862] [PTP_MMC_RLM]                 State: PC_FG_RSSI_MEAS_ST (18)
+0:00:01.762.561 [0: 176256141] [PTP_MMC_DFS_MNGR]     [0]    Set state: FG_MEAS_ST
+0:00:01.763.537 [0: 176353727] [PTP_HWM_DATA]                ---- DC_Cancellation set = 1
+0:00:01.764.431 [0: 176443189] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 1
+0:00:01.764.434 [0: 176443443] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_RSSI_SCAN
+0:00:01.866.539 [0: 186653971] [PTP_MMC_RLM]                 State: PC_FG_RSSI_MEAS_WF_ACK_ST (19)
+0:00:01.866.543 [0: 186654332] [PTP_MMC_DFS_MNGR]     [0]    Set state: IDLE_ST
+0:00:01.866.545 [0: 186654596] [PTP_MMC_RLM]          [0]    Stopping FG RSSI
+0:00:01.866.729 [0: 186672940] [PTP_MMC_RLM]                 State: PC_LINK_DOWN_ST (7)
+0:00:01.866.732 [0: 186673209] [PTP_MMC_RLM]                 ** RF transmission state is {0, 0} **
+0:00:01.866.778 [0: 186677842] [PTP_MCHL]                    (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+0:00:01.866.785 [0: 186678590] [PTP_MCHL]             [0.0]  Got raw rssi: -72/-49
+0:00:01.866.793 [0: 186679309] [XGS]                  [0.0]  Got rssi #6 -72/-49 -> -64/-87, offset: -57
+0:00:01.866.820 [0: 186682026] [XGS]                         State: SEND_MSG
+0:00:01.866.835 [0: 186683588] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5620/5620
+0:00:01.866.850 [0: 186685037] [IOCTL]                [0]    Synth enable: 4082000 kHz
+0:00:01.868.310 [0: 186831085] [RF_AD9361_CAT_MGMT]   [0]    Set synth = 4082 Mhz
+0:00:01.868.435 [0: 186843562] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_EXIT
+0:00:01.868.437 [0: 186843784] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 0
+0:00:01.869.050 [0: 186905037] [IOCTL]                       Cal, f: 1538, val: -57, rssi: 6, xgs(1): -51, rcu(1): 0
+0:00:01.869.055 [0: 186905574] [XGS]                  [0.0]  REQ, freq: 1538, dur: 100 ms, mode: FG
+0:00:01.872.461 [0: 187246166] [PTP_MCHL]             [0]    (MCHL-->RLM):   (9) FG_RSSI_MEAS_REQ
+0:00:01.872.487 [0: 187248771] [XGS]                         State: WAIT_MSG
+0:00:01.872.552 [0: 187255258] [PTP_MMC_RLM]                 RLM rcv msg XG_E_API_DFS_FG_RSSI_MEAS_REQ (9), state PC_LINK_DOWN_ST (7)
+0:00:01.872.556 [0: 187255634] [PTP_MMC_RLM]                 State: PC_FG_RSSI_MEAS_ST (18)
+0:00:01.872.558 [0: 187255894] [PTP_MMC_DFS_MNGR]     [0]    Set state: FG_MEAS_ST
+0:00:01.873.551 [0: 187355152] [PTP_HWM_DATA]                ---- DC_Cancellation set = 1
+0:00:01.874.425 [0: 187442599] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 1
+0:00:01.874.428 [0: 187442852] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_RSSI_SCAN
+0:00:01.976.539 [0: 197653936] [PTP_MMC_RLM]                 State: PC_FG_RSSI_MEAS_WF_ACK_ST (19)
+0:00:01.976.542 [0: 197654267] [PTP_MMC_DFS_MNGR]     [0]    Set state: IDLE_ST
+0:00:01.976.545 [0: 197654532] [PTP_MMC_RLM]          [0]    Stopping FG RSSI
+0:00:01.977.530 [0: 197753055] [PTP_MMC_RLM]                 State: PC_LINK_DOWN_ST (7)
+0:00:01.977.533 [0: 197753328] [PTP_MMC_RLM]                 ** RF transmission state is {0, 0} **
+0:00:01.977.539 [0: 197753916] [PTP_HWM_DATA]                ---- DC_Cancellation set = 1
+0:00:01.977.580 [0: 197758085] [PTP_MCHL]                    (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+0:00:01.977.592 [0: 197759264] [PTP_MCHL]             [0.0]  Got raw rssi: -72/-63
+0:00:01.977.599 [0: 197759965] [XGS]                  [0.0]  Got rssi #7 -72/-63 -> -78/-87, offset: -57
+0:00:01.977.629 [0: 197762916] [XGS]                         State: SEND_MSG
+0:00:01.977.645 [0: 197764528] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5640/5640
+0:00:01.977.663 [0: 197766362] [IOCTL]                [0]    Synth enable: 4102000 kHz
+0:00:01.978.423 [0: 197842357] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_EXIT
+0:00:01.978.426 [0: 197842603] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 0
+0:00:01.978.957 [0: 197895707] [RF_AD9361_CAT_MGMT]   [0]    Set synth = 4102 Mhz
+0:00:01.980.058 [0: 198005872] [IOCTL]                       Cal, f: 1538, val: -57, rssi: 6, xgs(1): -51, rcu(1): 0
+0:00:01.980.065 [0: 198006563] [XGS]                  [0.0]  REQ, freq: 1538, dur: 100 ms, mode: FG
+0:00:01.983.465 [0: 198346527] [PTP_MCHL]             [0]    (MCHL-->RLM):   (9) FG_RSSI_MEAS_REQ
+0:00:01.983.497 [0: 198349711] [XGS]                         State: WAIT_MSG
+0:00:01.983.545 [0: 198354560] [PTP_MMC_RLM]                 RLM rcv msg XG_E_API_DFS_FG_RSSI_MEAS_REQ (9), state PC_LINK_DOWN_ST (7)
+0:00:01.983.549 [0: 198354935] [PTP_MMC_RLM]                 State: PC_FG_RSSI_MEAS_ST (18)
+0:00:01.983.551 [0: 198355193] [PTP_MMC_DFS_MNGR]     [0]    Set state: FG_MEAS_ST
+0:00:01.985.434 [0: 198543416] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 1
+0:00:01.985.436 [0: 198543677] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_RSSI_SCAN
+0:00:02.087.539 [0: 208753999] [PTP_MMC_RLM]                 State: PC_FG_RSSI_MEAS_WF_ACK_ST (19)
+0:00:02.087.543 [0: 208754326] [PTP_MMC_DFS_MNGR]     [0]    Set state: IDLE_ST
+0:00:02.087.546 [0: 208754601] [PTP_MMC_RLM]          [0]    Stopping FG RSSI
+0:00:02.088.429 [0: 208842909] [PTP_MMC_RLM]                 State: PC_LINK_DOWN_ST (7)
+0:00:02.088.431 [0: 208843169] [PTP_MMC_RLM]                 ** RF transmission state is {0, 0} **
+0:00:02.088.488 [0: 208848826] [PTP_MCHL]                    (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+0:00:02.088.497 [0: 208849704] [PTP_MCHL]             [0.0]  Got raw rssi: -72/-60
+0:00:02.088.503 [0: 208850356] [XGS]                  [0.0]  Got rssi #8 -72/-60 -> -75/-87, offset: -57
+0:00:02.088.531 [0: 208853126] [XGS]                         State: SEND_MSG
+0:00:02.088.549 [0: 208854974] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5660/5660
+0:00:02.088.566 [0: 208856623] [IOCTL]                [0]    Synth enable: 4122000 kHz
+0:00:02.089.305 [0: 208930567] [RF_AD9361_CAT_MGMT]   [0]    Set synth = 4122 Mhz
+0:00:02.089.429 [0: 208942971] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_EXIT
+0:00:02.089.431 [0: 208943192] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 0
+0:00:02.090.067 [0: 209006717] [IOCTL]                       Cal, f: 1538, val: -57, rssi: 6, xgs(1): -51, rcu(1): 0
+0:00:02.090.072 [0: 209007262] [XGS]                  [0.0]  REQ, freq: 1538, dur: 100 ms, mode: FG
+0:00:02.093.467 [0: 209346756] [PTP_MCHL]             [0]    (MCHL-->RLM):   (9) FG_RSSI_MEAS_REQ
+0:00:02.093.496 [0: 209349636] [XGS]                         State: WAIT_MSG
+0:00:02.093.545 [0: 209354570] [PTP_MMC_RLM]                 RLM rcv msg XG_E_API_DFS_FG_RSSI_MEAS_REQ (9), state PC_LINK_DOWN_ST (7)
+0:00:02.093.549 [0: 209354947] [PTP_MMC_RLM]                 State: PC_FG_RSSI_MEAS_ST (18)
+0:00:02.093.552 [0: 209355207] [PTP_MMC_DFS_MNGR]     [0]    Set state: FG_MEAS_ST
+0:00:02.094.548 [0: 209454824] [PTP_HWM_DATA]                ---- DC_Cancellation set = 1
+0:00:02.095.439 [0: 209543977] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 1
+0:00:02.095.442 [0: 209544231] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_RSSI_SCAN
+0:00:02.197.539 [0: 219753993] [PTP_MMC_RLM]                 State: PC_FG_RSSI_MEAS_WF_ACK_ST (19)
+0:00:02.197.543 [0: 219754337] [PTP_MMC_DFS_MNGR]     [0]    Set state: IDLE_ST
+0:00:02.197.546 [0: 219754604] [PTP_MMC_RLM]          [0]    Stopping FG RSSI
+0:00:02.198.131 [0: 219813139] [PTP_MMC_RLM]                 State: PC_LINK_DOWN_ST (7)
+0:00:02.198.133 [0: 219813398] [PTP_MMC_RLM]                 ** RF transmission state is {0, 0} **
+0:00:02.198.173 [0: 219817379] [PTP_MCHL]                    (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+0:00:02.198.181 [0: 219818179] [PTP_MCHL]             [0.0]  Got raw rssi: -72/-56
+0:00:02.198.188 [0: 219818809] [XGS]                  [0.0]  Got rssi #9 -72/-56 -> -71/-87, offset: -57
+0:00:02.198.222 [0: 219822206] [XGS]                         State: SEND_MSG
+0:00:02.198.237 [0: 219823774] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5680/5680
+0:00:02.198.252 [0: 219825292] [IOCTL]                [0]    Synth enable: 4142000 kHz
+0:00:02.199.426 [0: 219942674] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_EXIT
+0:00:02.199.429 [0: 219942948] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 0
+0:00:02.199.623 [0: 219962394] [RF_AD9361_CAT_MGMT]   [0]    Set synth = 4142 Mhz
+0:00:02.201.056 [0: 220105650] [IOCTL]                       Cal, f: 1538, val: -57, rssi: 6, xgs(1): -51, rcu(1): 0
+0:00:02.201.061 [0: 220106104] [XGS]                  [0.0]  REQ, freq: 1538, dur: 100 ms, mode: FG
+0:00:02.204.468 [0: 220446832] [PTP_MCHL]             [0]    (MCHL-->RLM):   (9) FG_RSSI_MEAS_REQ
+0:00:02.204.489 [0: 220448957] [XGS]                         State: WAIT_MSG
+0:00:02.204.551 [0: 220455141] [PTP_MMC_RLM]                 RLM rcv msg XG_E_API_DFS_FG_RSSI_MEAS_REQ (9), state PC_LINK_DOWN_ST (7)
+0:00:02.204.555 [0: 220455509] [PTP_MMC_RLM]                 State: PC_FG_RSSI_MEAS_ST (18)
+0:00:02.204.557 [0: 220455768] [PTP_MMC_DFS_MNGR]     [0]    Set state: FG_MEAS_ST
+0:00:02.205.545 [0: 220554541] [PTP_HWM_DATA]                ---- DC_Cancellation set = 1
+0:00:02.206.436 [0: 220643679] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 1
+0:00:02.206.440 [0: 220644020] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_RSSI_SCAN
+0:00:02.308.535 [0: 230853521] [PTP_MMC_RLM]                 State: PC_FG_RSSI_MEAS_WF_ACK_ST (19)
+0:00:02.308.538 [0: 230853847] [PTP_MMC_DFS_MNGR]     [0]    Set state: IDLE_ST
+0:00:02.308.541 [0: 230854107] [PTP_MMC_RLM]          [0]    Stopping FG RSSI
+0:00:02.308.929 [0: 230892901] [PTP_MMC_RLM]                 State: PC_LINK_DOWN_ST (7)
+0:00:02.308.931 [0: 230893160] [PTP_MMC_RLM]                 ** RF transmission state is {0, 0} **
+0:00:02.308.984 [0: 230898438] [PTP_MCHL]                    (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+0:00:02.308.997 [0: 230899713] [PTP_MCHL]             [0.0]  Got raw rssi: -71/-58
+0:00:02.309.005 [0: 230900506] [XGS]                  [0.0]  Got rssi #10 -71/-58 -> -73/-86, offset: -57
+0:00:02.309.034 [0: 230903459] [XGS]                         State: SEND_MSG
+0:00:02.309.050 [0: 230905079] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5700/5700
+0:00:02.309.067 [0: 230906798] [IOCTL]                [0]    Synth enable: 4162000 kHz
+0:00:02.309.929 [0: 230992978] [RF_AD9361_CAT_MGMT]   [0]    Set synth = 4162 Mhz
+0:00:02.310.425 [0: 231042509] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_EXIT
+0:00:02.310.427 [0: 231042731] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 0
+0:00:02.311.063 [0: 231106351] [IOCTL]                       Cal, f: 1538, val: -57, rssi: 6, xgs(1): -51, rcu(1): 0
+0:00:02.311.070 [0: 231107099] [XGS]                  [0.0]  REQ, freq: 1538, dur: 100 ms, mode: FG
+0:00:02.314.469 [0: 231446960] [PTP_MCHL]             [0]    (MCHL-->RLM):   (9) FG_RSSI_MEAS_REQ
+0:00:02.314.497 [0: 231449771] [XGS]                         State: WAIT_MSG
+0:00:02.314.553 [0: 231455338] [PTP_MMC_RLM]                 RLM rcv msg XG_E_API_DFS_FG_RSSI_MEAS_REQ (9), state PC_LINK_DOWN_ST (7)
+0:00:02.314.557 [0: 231455706] [PTP_MMC_RLM]                 State: PC_FG_RSSI_MEAS_ST (18)
+0:00:02.314.559 [0: 231455971] [PTP_MMC_DFS_MNGR]     [0]    Set state: FG_MEAS_ST
+0:00:02.315.541 [0: 231554197] [PTP_HWM_DATA]                ---- DC_Cancellation set = 1
+0:00:02.316.433 [0: 231643320] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 1
+0:00:02.316.436 [0: 231643692] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_RSSI_SCAN
+0:00:02.418.535 [0: 241853517] [PTP_MMC_RLM]                 State: PC_FG_RSSI_MEAS_WF_ACK_ST (19)
+0:00:02.418.538 [0: 241853864] [PTP_MMC_DFS_MNGR]     [0]    Set state: IDLE_ST
+0:00:02.418.541 [0: 241854127] [PTP_MMC_RLM]          [0]    Stopping FG RSSI
+0:00:02.418.729 [0: 241872910] [PTP_MMC_RLM]                 State: PC_LINK_DOWN_ST (7)
+0:00:02.418.731 [0: 241873174] [PTP_MMC_RLM]                 ** RF transmission state is {0, 0} **
+0:00:02.418.768 [0: 241876841] [PTP_MCHL]                    (RLM-->MCHL):   (10) XG_E_API_DFS_RSSI_MEAS_EVT
+0:00:02.418.775 [0: 241877549] [PTP_MCHL]             [0.0]  Got raw rssi: -72/-63
+0:00:02.418.781 [0: 241878132] [XGS]                  [0.0]  Got rssi #11 -72/-63 -> -78/-87, offset: -57
+0:00:02.418.801 [0: 241880157] [XGS]                         State: UNLOCK
+0:00:02.420.425 [0: 242042548] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_EXIT
+0:00:02.420.428 [0: 242042823] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 0
+0:00:02.420.474 [0: 242047431] [RF_AD9361_CAT_MGMT]          txcm = 12->15
+0:00:02.420.502 [0: 242050273] [IOCTL]                       RX AGC: update auto mode for Link
+0:00:02.423.112 [0: 242311260] [XGS]                         State: IDLE
+0:00:02.423.121 [0: 242312190] [FREQLIST]                    XGS msg: completed
+0:00:02.423.161 [0: 242316169] [XGS]                         Dfs Fg Mode: 0
+0:00:02.423.178 [0: 242317830] [PTP_HWM_DATA]         [1]    [DFS MN] State changed DFS_FG_INACTIVE -> DFS_IDLE
+0:00:02.518.479 [0: 251847999] [PTP_MCHL]             [0]    call TDD_FBS_StartLinkOnRssiReady
+0:00:02.518.490 [0: 251849018] [PTP_MCHL]                    State: WF_MANUAL_SYSTEM_START,IDLE (2,0)
+0:00:02.518.537 [0: 251853723] [FREQLIST]                    Autoselect 5700/5620
+0:00:02.518.544 [0: 251854483] [PTP_MCHL]             [0]    call Start_Channel_Procedure
+0:00:02.518.556 [0: 251855624] [PTP_MCHL]             [0]    call TDD_FBS_Setup_Cac_Or_Link_Est
+0:00:02.518.570 [0: 251857004] [PTP_MCHL]             [0]    call Start_FG_Radar_Search
+0:00:02.518.579 [0: 251857978] [IOCTL]                       RX AGC: update manual mode for CAC
+0:00:03.519.493 [0: 351949309] [PTP_MCHL]                    State: PC_FG_RADAR_SEARCH,FG_RDR_SEARCHING (4,1)
+0:00:03.519.522 [0: 351952261] [IOCTL]                [0]    FillInFreqSet, dfs: 1, def: 0, dl/ul: 5700/5700
+0:00:03.519.568 [0: 351956818] [IOCTL]                       Cal, f: 5700, val: -9, rssi: 9, xgs(0): 0, rcu(1): 0
+0:00:03.519.576 [0: 351957626] [IOCTL]                [0]    Synth disabled
+0:00:03.519.645 [0: 351964539] [RF_AD9361_CAT_MGMT]   [0]    Set synth = 0 Mhz
+0:00:03.521.076 [0: 352107662] [PTP_MCHL]                    Dfs Fg Mode: 1
+0:00:03.521.088 [0: 352108802] [PTP_MCHL]             [0]    (MCHL-->RLM):   (11) FG_RADAR_SEARCH_REQ
+0:00:03.521.160 [0: 352116091] [PTP_MCHL]             [0]    [START TMR] gs_fg_radar_search_timer 60000 ms
+0:00:03.521.230 [0: 352123051] [PTP_MMC_RLM]                 RLM rcv msg XG_E_API_DFS_FG_RADAR_SEARCH_REQ (11), state PC_LINK_DOWN_ST (7)
+0:00:03.521.234 [0: 352123455] [PTP_MMC_RLM]                 ** RF transmission state is {0, 0} **
+0:00:03.521.237 [0: 352123742] [PTP_MMC_RLM]                 State: PC_CHANGING_FREQ_ST (16)
+0:00:03.521.240 [0: 352124034] [PTP_MMC_RLM]          [0]    Freq changing state 1 (PTP_MMC_RLM_UNLICENSED_Frequency_Change_Req@697)
+0:00:03.521.243 [0: 352124333] [PTP_MMC_RLM]          [0]    Starting Frequency Change DL=5700000[KHz] UL=5700000[KHz]
+0:00:03.521.438 [0: 352143851] [PTP_HWM_DATA]         [1]    [DFS MN] State changed DFS_IDLE -> DFS_FG_INACTIVE
+0:00:03.521.531 [0: 352153150] [PTP_MMC_RLM]          [0]    Freq changing state 2 (Handle_Frequency_Change_FSM@102)
+0:00:03.521.572 [0: 352157274] [PTP_HWM_DATA]                ---- DC_Cancellation set = 1
+0:00:03.521.609 [0: 352160944] [RF_AD9361_CAT_MGMT]   [0]    set 3-way rx input channel = 3
+0:00:03.521.613 [0: 352161354] [RF_AD9361_CAT_MGMT]   [0]    Rf Freq Start Changing: freq_tx=5700000, freq_tx_converter=0, freq_tx_fe=5700000
+0:00:03.521.616 [0: 352161664] [RF_AD9361_CAT_MGMT]   [0]    Rf Freq Start Changing: freq_rx=9862000, freq_rx_converter=4162000, freq_rx_fe=5700000
+0:00:03.524.010 [0: 352401045] [RF_AD9361_CAT_MGMT]          Set frequency ok
+0:00:03.524.026 [0: 352402603] [PTP_MMC_RLM]          [0]    Set Frequency is Done
+0:00:03.524.531 [0: 352453130] [PTP_MMC_RLM]                 State: PC_FG_RDR_SEARCH_ST (17)
+0:00:03.524.636 [0: 352463630] [PTP_MMC_DFS_MNGR]     [0]    Set state: FG_MEAS_ST
+0:00:03.524.682 [0: 352468242] [PTP_MMC_RLM]          [0]    Set CAC = 1
+0:00:03.524.685 [0: 352468522] [PTP_MMC_RLM]          [0]    Freq changing state 0 (Handle_Frequency_Change_FSM@138)
+0:00:03.525.424 [0: 352542427] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 1
+0:00:03.525.427 [0: 352542720] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_CAC
+0:01:03.521.288 [1:2057161557] [PTP_MCHL]             [0]    [EXPIRE TMR] gs_fg_radar_search_timer
+0:01:03.521.303 [1:2057163062] [PTP_MCHL]                    State: PC_FG_RADAR_SEARCH,FG_RDR_STOP_ON_TIMEDOUT (4,4)
+0:01:03.521.313 [1:2057164037] [PTP_MCHL]             [0]    (MCHL-->RLM):   (13) FG_RADAR_SEARCH_STOP_REQ
+0:01:03.521.432 [1:2057175916] [PTP_MMC_RLM]                 RLM rcv msg XG_E_API_DFS_FG_RADAR_SEARCH_STOP_REQ (13), state PC_FG_RDR_SEARCH_ST (17)
+0:01:03.521.436 [1:2057176372] [PTP_MMC_DFS_MNGR]     [0]    Set state: IDLE_ST
+0:01:03.521.533 [1:2057186020] [PTP_MCHL]                    (RLM-->MCHL):   (14) XG_E_API_DFS_RADAR_SEARCH_STOPPED_EVT
+0:01:03.521.543 [1:2057187074] [PTP_HWM_DATA]                ---- DC_Cancellation set = 1
+0:01:03.521.546 [1:2057187304] [PTP_MCHL]                    Dfs Fg Mode: 0
+0:01:03.521.552 [1:2057187966] [PTP_MCHL]                    State: WF_MANUAL_SYSTEM_START,FG_RDR_STOP_ON_TIMEDOUT (2,4)
+0:01:03.521.564 [1:2057189151] [IOCTL]                       RX AGC: update auto mode for Link
+0:01:03.521.603 [1:2057193039] [PTP_HWM_DATA]         [1]    [DFS MN] State changed DFS_FG_INACTIVE -> DFS_IDLE
+0:01:03.522.435 [1:2057276299] [PTP_HWM_DATA]         [0]    [DFS FG] Active state  FG_EXIT
+0:01:03.522.438 [1:2057276522] [PTP_HWM_DATA]                ---- Dfs_Area_Part_Of_Frame = 0
+0:01:03.522.440 [1:2057276724] [PTP_HWM_DATA]         [0]    [DFS MN] State changed DFS_FG -> DFS_FG_INACTIVE
+0:01:03.522.460 [1:2057278798] [PTP_HWM_DATA]         [0]    [DFS MN] State changed DFS_FG_INACTIVE -> DFS_IDLE
+0:01:04.522.305 [1:2157263213] [PTP_MCHL]             [0]    call TDD_FBS_Start_Initial_Link_Establish
+0:01:04.522.335 [1:2157266230] [PTP_MCHL]                    State: WF_MANUAL_SYSTEM_START,LINK_ESTABLISH_INITIAL (2,12)
+0:01:04.522.342 [1:2157266921] [PTP_MCHL]             [0]    call Start_Link_Establish
+0:01:04.522.350 [1:2157267712] [PTP_MCHL]                    State: PC_LINK_ESTABLISH,LINK_ESTABLISH_INITIAL (6,12)
+0:01:04.522.388 [1:2157271592] [PTP_MCHL]             [0]    [START TMR] gs_link_up_timer 87300 ms
+0:01:04.522.394 [1:2157272155] [PTP_MCHL]             [0]    call PTP_MCHL_UltimateStart_link
+0:01:04.522.413 [1:2157274082] [IOCTL]                [0]    FillInFreqSet, dfs: 1, def: 0, dl/ul: 5700/5700
+0:01:04.522.456 [1:2157278399] [IOCTL]                       Cal, f: 5700, val: -9, rssi: 9, xgs(0): 0, rcu(1): 0
+0:01:04.523.611 [1:2157393833] [RF_AD9361_CAT_MGMT]          txcm = 15->12
+0:01:04.524.302 [1:2157462947] [IOCTL]                [0]    Synth disabled
+0:01:04.525.441 [1:2157576832] [RF_AD9361_CAT_MGMT]   [0]    Set synth = 0 Mhz
+0:01:04.526.898 [1:2157722576] [PTP_MCHL]             [0]    (MCHL-->RLM):   (22) SYS_LINK_REQ
+0:01:04.526.942 [1:2157726950] [IOCTL]                [0]    Synth enable: 4162000 kHz
+0:01:04.527.031 [1:2157735830] [PTP_MMC_RLM]          [0]    RLM rcv msg XG_E_API_LINK_REQ, state PC_FG_RDR_SEARCH_ST: dl=5700000 ul=1538000
+0:01:04.527.035 [1:2157736267] [PTP_MMC_RLM]                 State: INIT_WF_PC_LINK_REQ (2)
+0:01:04.527.394 [1:2157772202] [RF_AD9361_CAT_MGMT]   [0]    Set synth = 4162 Mhz
+0:01:04.527.545 [1:2157787205] [PTP_MMC_RLM]                 State: PC_CHANGING_FREQ_ST (16)
+0:01:04.527.548 [1:2157787547] [PTP_MMC_RLM]          [0]    Freq changing state 1 (PTP_MMC_RLM_UNLICENSED_Frequency_Change_Req@697)
+0:01:04.527.551 [1:2157787849] [PTP_MMC_RLM]          [0]    Starting Frequency Change DL=5700000[KHz] UL=1538000[KHz]
+0:01:04.528.531 [1:2157885811] [PTP_MMC_RLM]          [0]    Freq changing state 2 (Handle_Frequency_Change_FSM@102)
+0:01:04.528.552 [1:2157887979] [RF_AD9361_CAT_MGMT]   [0]    set 3-way rx input channel = 3
+0:01:04.528.557 [1:2157888425] [RF_AD9361_CAT_MGMT]   [0]    Rf Freq Start Changing: freq_tx=5700000, freq_tx_converter=0, freq_tx_fe=5700000
+0:01:04.528.560 [1:2157888741] [RF_AD9361_CAT_MGMT]   [0]    Rf Freq Start Changing: freq_rx=5700000, freq_rx_converter=4162000, freq_rx_fe=1538000
+0:01:04.529.333 [1:2157966093] [RF_AD9361_CAT_MGMT]          txcm = 12->15
+0:01:04.530.311 [1:2158063837] [IOCTL]                [1]    FillInFreqSet, dfs: 1, def: 0, dl/ul: 5620/5620
+0:01:04.530.343 [1:2158067019] [IOCTL]                       Cal, f: 5620, val: -8, rssi: 8, xgs(0): 0, rcu(1): 0
+0:01:04.530.628 [1:2158095567] [RF_AD9361_CAT_MGMT]          Set frequency ok
+0:01:04.530.725 [1:2158105299] [PTP_MMC_RLM]          [0]    Set Frequency is Done
+0:01:04.531.141 [1:2158146852] [RF_AD9361_CAT_MGMT]          txcm = 15->3
+0:01:04.531.302 [1:2158162926] [IOCTL]                [1]    Synth disabled
+0:01:04.531.531 [1:2158185824] [PTP_MMC_RLM]                 State: RANGING_ST (12)
+0:01:04.531.631 [1:2158195839] [PTP_MMC_RLM]                 ** RF transmission state is {1, 0} **
+0:01:04.531.634 [1:2158196157] [PTP_MMC_RLM]          [0]    Freq changing state 0 (Handle_Frequency_Change_FSM@138)
+0:01:04.531.646 [1:2158197371] [RF_AD9361_CAT_MGMT]   [0]    IQ muted = 0
+0:01:04.533.131 [1:2158345856] [RF_AD9361_CAT_MGMT]   [1]    Set synth = 0 Mhz
+0:01:04.533.876 [1:2158420336] [PTP_MCHL]             [1]    (MCHL-->RLM):   (22) SYS_LINK_REQ
+0:01:04.533.898 [1:2158422583] [IOCTL]                [1]    Synth enable: 4082000 kHz
+0:01:04.533.931 [1:2158425859] [PTP_MMC_RLM]          [1]    RLM rcv msg XG_E_API_LINK_REQ, state RANGING_ST: dl=5620000 ul=1538000
+0:01:04.533.935 [1:2158426274] [PTP_MMC_RLM]                 Sub State: SC_CHANGING_FREQ_ST (6)
+0:01:04.533.938 [1:2158426536] [PTP_MMC_RLM]          [1]    Freq changing state 1 (PTP_MMC_RLM_UNLICENSED_Frequency_Change_Req@697)
+0:01:04.533.941 [1:2158426835] [PTP_MMC_RLM]          [1]    Starting Frequency Change DL=5620000[KHz] UL=1538000[KHz]
+0:01:04.534.531 [1:2158485824] [PTP_MMC_RLM]          [1]    Freq changing state 2 (Handle_Frequency_Change_FSM@102)
+0:01:04.534.557 [1:2158488473] [RF_AD9361_CAT_MGMT]   [1]    set 3-way rx input channel = 3
+0:01:04.534.562 [1:2158488912] [RF_AD9361_CAT_MGMT]   [1]    Rf Freq Start Changing: freq_tx=5620000, freq_tx_converter=0, freq_tx_fe=5620000
+0:01:04.534.565 [1:2158489234] [RF_AD9361_CAT_MGMT]   [1]    Rf Freq Start Changing: freq_rx=5620000, freq_rx_converter=4082000, freq_rx_fe=1538000
+0:01:04.535.093 [1:2158542047] [RF_AD9361_CAT_MGMT]   [1]    Set synth = 4082 Mhz
+0:01:04.536.687 [1:2158701436] [RF_AD9361_CAT_MGMT]          Set frequency ok
+0:01:04.536.725 [1:2158705302] [PTP_MMC_RLM]          [1]    Set Frequency is Done
+0:01:04.537.531 [1:2158785833] [PTP_MMC_RLM]                 Sub State: SC_STABILIZE_ST (1)
+0:01:04.537.664 [1:2158799130] [PTP_MMC_RLM]          [1]    Freq changing state 0 (Handle_Frequency_Change_FSM@138)
+0:01:07.407.532 [1:2445785923] [PTP_MMC_RLM]                 > Sending to frame shift 59 samples. RTD in meters 244, in nano sec 1631 
+0:01:07.407.535 [1:2445786252] [PTP_MMC_RLM]                 Sending RANGING P2P (line 579), value 59
+0:01:07.452.531 [1:2450285837] [PTP_MMC_RLM]                 State: RANGING_STO_ST (13)
+0:01:07.452.534 [1:2450286141] [PTP_MMC_RLM]                 Sub State: SC_DOWN_ST (0)
+0:01:07.452.537 [1:2450286437] [PTP_MMC_RLM]                 ** RF transmission state is {1, 0} **
+0:01:07.459.632 [1:2450995988] [PTP_MMC_RLM]                 RANGING STO: phy_sto hd:15110 abs_sto_err_hd:1274 sto_fix_samples:-4
+0:01:07.460.531 [1:2451085886] [PTP_MMC_RLM]                 > Sending to frame shift -4 samples. RTD in meters -16, in nano sec 110 
+0:01:07.460.534 [1:2451086189] [PTP_MMC_RLM]                 Sending RANGING P2P (line 617), value -4
+0:01:07.681.632 [1:2473195979] [PTP_MMC_RLM]                 RANGING STO: phy_sto hd:17214 abs_sto_err_hd:830 sto_fix_samples:0
+0:01:07.682.531 [1:2473285825] [PTP_MMC_RLM]                 State: RANGING_WF_ACK_ST (14)
+0:01:07.682.534 [1:2473286138] [PTP_MMC_RLM]                 Sending RANGING P2P (line 617), value 0
+0:01:07.683.531 [1:2473385823] [PTP_MMC_RLM]                 Sending RANGING P2P (line 633), value 0
+0:01:07.684.531 [1:2473485817] [PTP_MMC_RLM]                 State: PC_STABILIZE_ST (11)
+0:01:07.684.534 [1:2473486122] [PTP_MMC_RLM]                 *** Ranging Done. ***
+0:01:07.685.529 [1:2473585642] [PTP_MMC_RLM]                 *** TX link_ind 1 ***
+0:01:08.881.633 [1:2593196018] [PTP_MMC_RLM]                 State: PC_ACTIVE_ST (20)
+0:01:08.881.720 [1:2593204802] [PTP_MCHL]                    (RLM-->MCHL):   (23) XG_E_API_LINK_UP_EVT
+0:01:08.881.733 [1:2593206096] [PTP_MCHL]             [0]    call Handle_PC_Link_Up_Evt
+0:01:08.881.826 [1:2593215385] [PTP_MCHL]             [0]    [STOP TMR] gs_link_up_timer
+0:01:08.881.833 [1:2593216022] [PTP_MCHL]             [1]    call Start_Channel_Procedure
+0:01:08.881.837 [1:2593216493] [PTP_MCHL]             [1]    call TDD_FBS_Start_Initial_Link_Establish
+0:01:08.881.866 [1:2593219354] [PTP_MCHL]             [1]    call Start_Link_Establish
+0:01:08.881.875 [1:2593220265] [PTP_MCHL]                    State: SC_LINK_ESTABLISH,LINK_ESTABLISH_INITIAL (10,12)
+0:01:08.881.914 [1:2593224142] [PTP_MCHL]             [1]    [START TMR] gs_link_up_timer 627300 ms
+0:01:08.881.918 [1:2593224582] [PTP_MCHL]             [1]    call PTP_MCHL_UltimateStart_link
+0:01:08.881.936 [1:2593226382] [IOCTL]                [1]    FillInFreqSet, dfs: 1, def: 0, dl/ul: 5620/5620
+0:01:08.881.983 [1:2593231029] [IOCTL]                       Cal, f: 5620, val: -8, rssi: 8, xgs(0): 0, rcu(1): 0
+0:01:08.882.223 [1:2593255007] [RF_AD9361_CAT_MGMT]          txcm = 3->3
+0:01:08.882.377 [1:2593270460] [IOCTL]                [1]    Synth disabled
+0:01:08.884.180 [1:2593450731] [RF_AD9361_CAT_MGMT]   [1]    Set synth = 0 Mhz
+0:01:08.884.957 [1:2593528439] [PTP_MCHL]             [1]    (MCHL-->RLM):   (22) SYS_LINK_REQ
+0:01:08.884.995 [1:2593532295] [IOCTL]                [1]    Synth enable: 4082000 kHz
+0:01:08.885.031 [1:2593535868] [PTP_MMC_RLM]          [1]    RLM rcv msg XG_E_API_LINK_REQ, state PC_ACTIVE_ST: dl=5620000 ul=1538000
+0:01:08.885.035 [1:2593536215] [PTP_MMC_RLM]                 ** RF transmission state is {1, 1} **
+0:01:08.885.037 [1:2593536494] [PTP_MMC_RLM]                 Sub State: SC_STABILIZE_ST (1)
+0:01:08.885.048 [1:2593537518] [RF_AD9361_CAT_MGMT]   [1]    IQ muted = 0
+0:01:08.886.087 [1:2593641447] [RF_AD9361_CAT_MGMT]   [1]    Set synth = 4082 Mhz
+0:01:08.888.122 [1:2593844917] [RF_AD9361_CAT_MGMT]          txcm = 3->15
+0:02:32.141.974 [3:2329295551] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 1, dl/ul: 5480/5480
+0:02:32.142.022 [3:2329300343] [IOCTL]                       Cal, f: 5480, val: -7, rssi: 7, xgs(0): 0, rcu(1): 0
+0:02:32.142.030 [3:2329301149] [IOCTL]                [1]    FillInFreqSet, dfs: 0, def: 1, dl/ul: 5560/5560
+0:02:32.142.042 [3:2329302351] [IOCTL]                       Cal, f: 5560, val: -8, rssi: 8, xgs(0): 0, rcu(1): 0
+0:02:32.142.117 [3:2329309821] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5480/5480
+0:02:32.142.129 [3:2329311035] [IOCTL]                       Cal, f: 5480, val: -7, rssi: 7, xgs(0): 0, rcu(1): 0
+0:02:32.142.137 [3:2329311890] [IOCTL]                [1]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5560/5560
+0:02:32.142.147 [3:2329312817] [IOCTL]                       Cal, f: 5560, val: -8, rssi: 8, xgs(0): 0, rcu(1): 0
+0:02:32.142.266 [3:2329324790] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5480/5480
+0:02:32.142.280 [3:2329326206] [IOCTL]                       Cal, f: 5480, val: -7, rssi: 7, xgs(0): 0, rcu(1): 0
+0:02:32.142.290 [3:2329327117] [IOCTL]                [1]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5560/5560
+0:02:32.142.299 [3:2329328022] [IOCTL]                       Cal, f: 5560, val: -8, rssi: 8, xgs(0): 0, rcu(1): 0
+0:02:32.142.978 [3:2329395921] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 1, dl/ul: 5480/5480
+0:02:32.143.003 [3:2329398491] [IOCTL]                       Cal, f: 5480, val: -7, rssi: 7, xgs(0): 0, rcu(1): 0
+0:02:32.143.012 [3:2329399333] [IOCTL]                [1]    FillInFreqSet, dfs: 0, def: 1, dl/ul: 5560/5560
+0:02:32.143.022 [3:2329400336] [IOCTL]                       Cal, f: 5560, val: -8, rssi: 8, xgs(0): 0, rcu(1): 0
+0:02:32.143.066 [3:2329404733] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5480/5480
+0:02:32.143.076 [3:2329405790] [IOCTL]                       Cal, f: 5480, val: -7, rssi: 7, xgs(0): 0, rcu(1): 0
+0:02:32.143.085 [3:2329406672] [IOCTL]                [1]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5560/5560
+0:02:32.143.094 [3:2329407577] [IOCTL]                       Cal, f: 5560, val: -8, rssi: 8, xgs(0): 0, rcu(1): 0
+0:02:32.143.168 [3:2329414988] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5480/5480
+0:02:32.143.179 [3:2329416095] [IOCTL]                       Cal, f: 5480, val: -7, rssi: 7, xgs(0): 0, rcu(1): 0
+0:02:32.143.187 [3:2329416907] [IOCTL]                [1]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5560/5560
+0:02:32.143.196 [3:2329417713] [IOCTL]                       Cal, f: 5560, val: -8, rssi: 8, xgs(0): 0, rcu(1): 0
+0:02:32.145.512 [3:2329649327] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 1, dl/ul: 5480/5480
+0:02:32.145.542 [3:2329652345] [IOCTL]                       Cal, f: 5480, val: -7, rssi: 7, xgs(0): 0, rcu(1): 0
+0:02:32.145.548 [3:2329653000] [IOCTL]                [1]    FillInFreqSet, dfs: 0, def: 1, dl/ul: 5560/5560
+0:02:32.145.558 [3:2329653986] [IOCTL]                       Cal, f: 5560, val: -8, rssi: 8, xgs(0): 0, rcu(1): 0
+0:02:32.145.611 [3:2329659234] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5480/5480
+0:02:32.145.626 [3:2329660740] [IOCTL]                       Cal, f: 5480, val: -7, rssi: 7, xgs(0): 0, rcu(1): 0
+0:02:32.145.635 [3:2329661681] [IOCTL]                [1]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5560/5560
+0:02:32.145.644 [3:2329662540] [IOCTL]                       Cal, f: 5560, val: -8, rssi: 8, xgs(0): 0, rcu(1): 0
+0:02:32.145.741 [3:2329672259] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5480/5480
+0:02:32.145.754 [3:2329673554] [IOCTL]                       Cal, f: 5480, val: -7, rssi: 7, xgs(0): 0, rcu(1): 0
+0:02:32.145.763 [3:2329674504] [IOCTL]                [1]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5560/5560
+0:02:32.145.772 [3:2329675359] [IOCTL]                       Cal, f: 5560, val: -8, rssi: 8, xgs(0): 0, rcu(1): 0
+0:02:32.146.131 [3:2329711306] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 1, dl/ul: 5480/5480
+0:02:32.146.153 [3:2329713501] [IOCTL]                       Cal, f: 5480, val: -7, rssi: 7, xgs(0): 0, rcu(1): 0
+0:02:32.146.158 [3:2329713990] [IOCTL]                [1]    FillInFreqSet, dfs: 0, def: 1, dl/ul: 5560/5560
+0:02:32.146.167 [3:2329714908] [IOCTL]                       Cal, f: 5560, val: -8, rssi: 8, xgs(0): 0, rcu(1): 0
+0:02:32.146.200 [3:2329718127] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5480/5480
+0:02:32.146.222 [3:2329720330] [IOCTL]                       Cal, f: 5480, val: -7, rssi: 7, xgs(0): 0, rcu(1): 0
+0:02:32.146.231 [3:2329721240] [IOCTL]                [1]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5560/5560
+0:02:32.146.240 [3:2329722185] [IOCTL]                       Cal, f: 5560, val: -8, rssi: 8, xgs(0): 0, rcu(1): 0
+0:02:32.146.309 [3:2329729013] [IOCTL]                [0]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5480/5480
+0:02:32.146.323 [3:2329730416] [IOCTL]                       Cal, f: 5480, val: -7, rssi: 7, xgs(0): 0, rcu(1): 0
+0:02:32.146.330 [3:2329731164] [IOCTL]                [1]    FillInFreqSet, dfs: 0, def: 0, dl/ul: 5560/5560
+0:02:32.146.339 [3:2329732076] [IOCTL]                       Cal, f: 5560, val: -8, rssi: 8, xgs(0): 0, rcu(1): 0
+0:02:44.604.928 [3:3575590934] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.605.729 [3:3575671088] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.605.928 [3:3575690933] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.606.729 [3:3575771081] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.606.928 [3:3575790934] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.608.729 [3:3575971069] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.608.928 [3:3575990934] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.609.729 [3:3576071090] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.609.928 [3:3576090932] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.610.729 [3:3576171082] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.610.928 [3:3576190932] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.611.729 [3:3576271088] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.611.928 [3:3576290932] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.613.729 [3:3576471076] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.613.928 [3:3576490932] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.614.729 [3:3576571094] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.614.928 [3:3576590933] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.615.729 [3:3576671088] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.615.928 [3:3576690931] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.616.729 [3:3576771086] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.616.928 [3:3576790931] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.618.729 [3:3576971069] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.618.928 [3:3576990931] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.619.729 [3:3577071089] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.619.928 [3:3577090931] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.620.729 [3:3577171082] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.620.928 [3:3577190931] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.621.729 [3:3577271087] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.621.928 [3:3577290933] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.623.729 [3:3577471076] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.623.928 [3:3577490932] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.624.729 [3:3577571088] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.624.928 [3:3577590937] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.625.729 [3:3577671089] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.625.928 [3:3577690935] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.626.729 [3:3577771082] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.626.928 [3:3577790935] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.628.729 [3:3577971071] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.628.928 [3:3577990935] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.629.729 [3:3578071089] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.629.928 [3:3578090933] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.630.729 [3:3578171086] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.630.928 [3:3578190932] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.631.729 [3:3578271090] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.631.928 [3:3578290931] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.633.729 [3:3578471075] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.633.928 [3:3578490935] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.634.729 [3:3578571089] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.634.928 [3:3578590934] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.635.729 [3:3578671087] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.635.928 [3:3578690933] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.636.729 [3:3578771081] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.636.928 [3:3578790932] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.638.729 [3:3578971079] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.638.928 [3:3578990933] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.639.729 [3:3579071090] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.639.928 [3:3579090932] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.640.729 [3:3579171084] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.640.928 [3:3579190931] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.641.729 [3:3579271089] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.641.928 [3:3579290934] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.643.729 [3:3579471075] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.643.928 [3:3579490931] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.644.729 [3:3579571088] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.644.928 [3:3579590933] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.645.729 [3:3579671089] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.645.928 [3:3579690931] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.646.729 [3:3579771086] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.646.928 [3:3579790931] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.648.729 [3:3579971073] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.648.928 [3:3579990936] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.649.729 [3:3580071089] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.649.928 [3:3580090934] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.650.729 [3:3580171082] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.650.928 [3:3580190935] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.651.729 [3:3580271088] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.651.928 [3:3580290932] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.653.729 [3:3580471074] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.653.928 [3:3580490935] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.654.729 [3:3580571092] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.654.928 [3:3580590933] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.655.729 [3:3580671088] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.655.928 [3:3580690932] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.656.729 [3:3580771083] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.656.928 [3:3580790935] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.658.729 [3:3580971070] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.658.928 [3:3580990932] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.659.729 [3:3581071087] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.659.928 [3:3581090932] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.660.729 [3:3581171083] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.660.928 [3:3581190931] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.661.729 [3:3581271088] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.661.928 [3:3581290933] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.663.729 [3:3581471075] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.663.928 [3:3581490931] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.664.729 [3:3581571090] [PTP_MMC_RLM_DATA]            [1.0] ERR CRC
+0:02:44.664.928 [3:3581590931] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.666.928 [3:3581790937] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.668.928 [3:3581990938] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:44.878.928 [3:3602990937] [PTP_MMC_RLM_DATA]            [1.1] ERR CRC
+0:02:45.579.731 [3:3673071249] [PTP_MMC_RLM]                 Sub State: SC_ACTIVE_ST (8)
+0:02:45.579.816 [3:3673079790] [PTP_MCHL]                    (RLM-->MCHL):   (23) XG_E_API_LINK_UP_EVT
+0:02:45.579.830 [3:3673081113] [PTP_MCHL]             [1]    call Handle_SC_Link_Up_Evt
+0:02:45.579.937 [3:3673091858] [PTP_MCHL]                    State: PHY_LINK_UP,IDLE (11,0)
+0:02:45.579.950 [3:3673093155] [PTP_MCHL]             [1]    [STOP TMR] gs_link_up_timer
+0:02:45.579.967 [3:3673094857] [IOCTL]                       Hyper_State: DOWN
+0:02:45.580.045 [3:3673102683] [PTP_MCHL]                    Authentication: pre
+0:02:45.580.731 [3:3673171259] [PTP_MMC_RLM]                 *** Requesting other node to set secondary carrier enabled = 1 for traffic due to CINR = 31 ***
+0:02:45.779.872 [3:3693085380] [PTP_MCHL]                    Authentication: post
+0:02:45.779.953 [3:3693093414] [PTP_MCHL]                    Authentication: success
+0:02:45.779.964 [3:3693094521] [PTP_MCHL]                    State: XG_LINK_UP,IDLE (12,0)
+0:02:45.779.970 [3:3693095190] [IOCTL]                       Hyper_State: PHY
+0:02:45.779.998 [3:3693097958] [PTP_MCHL]                    (MCHL-->RLM):   (52) SET_XG_VALVE_STATUS_REQ
+0:02:45.780.039 [3:3693102076] [PTP_MCHL]             [0.0]  filter=0 amc_mode=0 mcs_index=10
+0:02:45.780.053 [3:3693103470] [PTP_MCHL]             [0.1]  filter=0 amc_mode=0 mcs_index=10
+0:02:45.780.065 [3:3693104620] [PTP_MCHL]             [1.0]  filter=0 amc_mode=0 mcs_index=10
+0:02:45.780.074 [3:3693105583] [PTP_MCHL]             [1.1]  filter=0 amc_mode=0 mcs_index=10
+0:02:45.780.111 [3:3693109292] [PTP_MCHL]                    (MCHL-->RLM):   (33) PROFILE_INDEX_CHANGE_REQ
+0:02:45.780.123 [3:3693110421] [PTP_MCHL]                    Profile is 1 established
+0:02:45.780.133 [3:3693111417] [PTP_MMC_RLM]          [0]    *** TX is set enabled = 1 for Ethernet packets ***
+0:02:45.780.136 [3:3693111748] [PTP_MMC_RLM]          [1]    *** TX is set enabled = 1 for Ethernet packets ***
+0:02:45.780.216 [3:3693119797] [IDFS]                        IDFS START
+0:02:45.780.235 [3:3693121660] [IDFS_APP]             [0.0]  block ffs timer set 300 sec
+0:02:45.780.257 [3:3693123902] [IDFS_APP]             [0.1]  block ffs timer set 300 sec
+0:02:45.780.268 [3:3693124924] [IDFS_APP]             [1.0]  block ffs timer set 300 sec
+0:02:45.780.275 [3:3693125685] [IDFS_APP]             [1.1]  block ffs timer set 300 sec
+0:02:45.780.639 [3:3693162018] [PTP_MMC_RLM]                 RLM rcv msg XG_E_API_PROFILE_INDEX_CHANGE_REQ (33), state PC_ACTIVE_ST (20)
+0:02:46.079.848 [3:3723082960] [PTP_MCHL]                    (MCHL-->RLM):   (33) PROFILE_INDEX_CHANGE_REQ
+0:02:46.079.871 [3:3723085246] [PTP_MCHL]                    Profile is 2 established
+0:02:46.079.931 [3:3723091276] [PTP_MMC_RLM]                 RLM rcv msg XG_E_API_PROFILE_INDEX_CHANGE_REQ (33), state PC_ACTIVE_ST (20)
+0:03:10.580.142 [4:1878145114] [PTP_MCHL]                    (MCHL-->RLM):   (33) PROFILE_INDEX_CHANGE_REQ
+0:03:10.580.168 [4:1878147625] [PTP_MCHL]                    Profile is 1 established
+0:03:10.580.229 [4:1878153773] [PTP_MMC_RLM]                 RLM rcv msg XG_E_API_PROFILE_INDEX_CHANGE_REQ (33), state PC_ACTIVE_ST (20)
+0:03:17.163.428 [4:2536473701] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=32(0x20)
+0:03:17.165.338 [4:2536664674] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:17.367.169 [4:2556847796] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=25(0x19)
+0:03:17.369.083 [4:2557039180] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:17.871.934 [4:2607324289] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=25(0x19)
+0:03:17.873.849 [4:2607515747] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:20.207.480 [4:2840878878] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=25(0x19)
+0:03:20.209.387 [4:2841069608] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=32(0x20)
+0:03:22.475.252 [4:3067656065] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=32(0x20)
+0:03:22.477.169 [4:3067847763] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:22.779.647 [4:3098095567] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=25(0x19)
+0:03:22.781.479 [4:3098278766] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:22.983.847 [4:3118515542] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=25(0x19)
+0:03:22.985.692 [4:3118700110] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:25.211.784 [4:3341309282] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=25(0x19)
+0:03:25.213.693 [4:3341500198] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=32(0x20)
+0:03:27.587.285 [4:3578859353] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=32(0x20)
+0:03:27.589.201 [4:3579050966] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:27.889.756 [4:3609106448] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=25(0x19)
+0:03:27.891.674 [4:3609298278] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:28.093.688 [4:3629499657] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=25(0x19)
+0:03:28.095.515 [4:3629682410] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:28.095.525 [4:3629683316] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:03:28.095.528 [4:3629683707] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:03:28.095.533 [4:3629684190] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=2500
+0:03:28.095.537 [4:3629684610] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:03:30.215.937 [4:3841724569] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=25(0x19)
+0:03:30.217.848 [4:3841915693] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=32(0x20)
+0:03:32.699.301 [4:4090060944] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=32(0x20)
+0:03:32.701.147 [4:4090245546] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:32.701.156 [4:4090246453] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:03:32.701.160 [4:4090246869] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:03:32.701.165 [4:4090247373] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=2500
+0:03:32.701.168 [4:4090247640] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:03:33.001.768 [4:4120307660] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=25(0x19)
+0:03:33.003.675 [4:4120498350] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:33.003.684 [4:4120499247] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:03:33.003.688 [4:4120499648] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:03:33.003.693 [4:4120500143] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=2500
+0:03:33.003.695 [4:4120500409] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:03:33.205.322 [4:4140663032] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=25(0x19)
+0:03:33.207.234 [4:4140854313] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:33.207.244 [4:4140855224] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:03:33.207.248 [4:4140855640] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:03:33.207.253 [4:4140856136] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=3000
+0:03:33.207.255 [4:4140856402] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:03:35.219.333 [5:  47096874] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=25(0x19)
+0:03:35.221.173 [5:  47280822] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=32(0x20)
+0:03:35.676.432 [5:  92806740] [BER_AMC]              [0.0]  inc correction
+0:03:35.691.582 [5:  94321768] [BER_AMC]              [0.0]  inc correction
+0:03:36.237.596 [5: 148923159] [BER_AMC]              [1.1]  inc correction
+0:03:36.252.582 [5: 150421728] [BER_AMC]              [1.1]  dec correction
+0:03:36.267.712 [5: 151934815] [BER_AMC]              [1.1]  inc correction
+0:03:36.433.770 [5: 168540579] [BER_AMC]              [1.0]  dec correction
+0:03:36.697.599 [5: 194923426] [BER_AMC]              [0.0]  dec correction
+0:03:36.832.600 [5: 208423524] [BER_AMC]              [0.0]  inc correction
+0:03:37.273.601 [5: 252523656] [BER_AMC]              [1.1]  dec correction
+0:03:37.289.591 [5: 254122629] [BER_AMC]              [1.0]  inc correction
+0:03:37.808.504 [5: 306013961] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=32(0x20)
+0:03:37.810.426 [5: 306206143] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:37.810.435 [5: 306207071] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:03:37.810.439 [5: 306207478] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:03:37.810.444 [5: 306207981] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=3000
+0:03:37.810.447 [5: 306208248] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:03:38.161.458 [5: 341309386] [BER_AMC]              [0.1]  inc correction
+0:03:38.176.627 [5: 342826230] [BER_AMC]              [0.1]  dec correction
+0:03:38.312.272 [5: 356390792] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=25(0x19)
+0:03:38.314.181 [5: 356581717] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:38.314.190 [5: 356582618] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:03:38.314.195 [5: 356583027] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:03:38.314.200 [5: 356583523] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=3500
+0:03:38.314.202 [5: 356583790] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:03:39.402.627 [5: 465426294] [BER_AMC]              [0.1]  inc correction
+0:03:40.223.490 [5: 547512554] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=25(0x19)
+0:03:40.225.399 [5: 547703471] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=32(0x20)
+0:03:40.408.653 [5: 566028919] [BER_AMC]              [0.1]  dec correction
+0:03:42.283.847 [5: 753548305] [BER_AMC]              [1.1]  dec correction
+0:03:42.299.632 [5: 755126812] [BER_AMC]              [1.0]  dec correction
+0:03:42.845.686 [5: 809732184] [BER_AMC]              [1.0]  inc correction
+0:03:42.914.738 [5: 816637321] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=32(0x20)
+0:03:42.916.656 [5: 816829140] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:42.916.665 [5: 816830070] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:03:42.916.669 [5: 816830483] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:03:42.916.674 [5: 816830968] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=3500
+0:03:42.916.677 [5: 816831237] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:03:43.079.673 [5: 833130822] [BER_AMC]              [1.1]  inc correction
+0:03:43.418.465 [5: 867010097] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=25(0x19)
+0:03:43.420.382 [5: 867201783] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:43.420.391 [5: 867202684] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:03:43.420.395 [5: 867203102] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:03:43.420.400 [5: 867203612] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=4250
+0:03:43.420.403 [5: 867203886] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:03:43.665.839 [5: 891747454] [BER_AMC]              [1.1]  inc correction
+0:03:43.728.511 [5: 898014627] [BER_AMC]              [0.1]  inc correction
+0:03:44.671.713 [5: 992334822] [BER_AMC]              [1.1]  dec correction
+0:03:44.734.687 [5: 998632237] [BER_AMC]              [0.1]  dec correction
+0:03:44.906.863 [5:1015849857] [BER_AMC]              [1.1]  inc correction
+0:03:44.969.673 [5:1022130831] [BER_AMC]              [0.1]  inc correction
+0:03:45.227.622 [5:1047925806] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=25(0x19)
+0:03:45.229.517 [5:1048115252] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=32(0x20)
+0:03:46.793.571 [5:1204520704] [BER_AMC]              [0.1]  inc correction
+0:03:46.808.888 [5:1206052373] [BER_AMC]              [0.1]  dec correction
+0:03:46.913.889 [5:1216552453] [BER_AMC]              [1.1]  dec correction
+0:03:47.378.896 [5:1263053127] [BER_AMC]              [1.1]  inc correction
+0:03:48.120.731 [5:1337236704] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=32(0x20)
+0:03:48.122.645 [5:1337428022] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:48.122.654 [5:1337428945] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:03:48.122.658 [5:1337429348] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:03:48.122.663 [5:1337429849] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=4250
+0:03:48.122.665 [5:1337430116] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:03:48.524.725 [5:1377636047] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=25(0x19)
+0:03:48.526.642 [5:1377827760] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:48.526.651 [5:1377828681] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:03:48.526.655 [5:1377829074] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:03:48.526.660 [5:1377829577] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=5000
+0:03:48.526.663 [5:1377829844] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:03:48.815.758 [5:1406739358] [BER_AMC]              [0.1]  dec correction
+0:03:48.856.777 [5:1410841274] [BER_AMC]              [1.0]  dec correction
+0:03:49.632.765 [5:1488440071] [BER_AMC]              [1.0]  inc correction
+0:03:49.717.771 [5:1496940716] [BER_AMC]              [1.0]  inc correction
+0:03:50.231.890 [5:1548352616] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=25(0x19)
+0:03:50.233.800 [5:1548543534] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=32(0x20)
+0:03:50.386.781 [5:1563841698] [BER_AMC]              [1.1]  dec correction
+0:03:50.466.596 [5:1571823215] [BER_AMC]              [1.1]  inc correction
+0:03:50.533.605 [5:1578524079] [BER_AMC]              [0.1]  inc correction
+0:03:50.722.787 [5:1597442295] [BER_AMC]              [1.0]  dec correction
+0:03:51.128.783 [5:1638041892] [BER_AMC]              [0.1]  inc correction
+0:03:51.431.794 [5:1668342995] [BER_AMC]              [0.0]  dec correction
+0:03:53.226.820 [5:1847845584] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=32(0x20)
+0:03:53.228.730 [5:1848036558] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:53.228.739 [5:1848037481] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:03:53.228.743 [5:1848037912] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:03:53.228.748 [5:1848038407] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=5000
+0:03:53.228.751 [5:1848038674] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:03:53.473.819 [5:1872545466] [BER_AMC]              [1.1]  dec correction
+0:03:53.588.983 [5:1884061874] [BER_AMC]              [1.1]  inc correction
+0:03:53.631.022 [5:1888265769] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=25(0x19)
+0:03:53.632.942 [5:1888457782] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:53.632.951 [5:1888458687] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:03:53.632.955 [5:1888459097] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:03:53.632.960 [5:1888459594] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=6000
+0:03:53.632.963 [5:1888459862] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:03:54.177.731 [5:1942936719] [BER_AMC]              [1.1]  inc correction
+0:03:54.192.821 [5:1944445717] [BER_AMC]              [1.1]  dec correction
+0:03:55.236.010 [5:2048764548] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=25(0x19)
+0:03:55.237.919 [5:2048955478] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=32(0x20)
+0:03:56.441.896 [5:2169353149] [BER_AMC]              [0.0]  dec correction
+0:03:57.287.865 [5:2253950102] [BER_AMC]              [0.0]  inc correction
+0:03:57.302.854 [5:2255448925] [BER_AMC]              [0.0]  inc correction
+0:03:58.308.882 [5:2356051749] [BER_AMC]              [0.0]  dec correction
+0:03:58.335.308 [5:2358694358] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=32(0x20)
+0:03:58.337.225 [5:2358886039] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:58.337.234 [5:2358886960] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:03:58.337.238 [5:2358887394] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:03:58.337.243 [5:2358887885] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=6000
+0:03:58.337.246 [5:2358888154] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:03:58.734.886 [5:2398652143] [BER_AMC]              [1.0]  dec correction
+0:03:58.737.961 [5:2398959640] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=25(0x19)
+0:03:58.739.875 [5:2399151109] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:03:58.739.884 [5:2399152004] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:03:58.739.888 [5:2399152415] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:03:58.739.894 [5:2399152921] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=6750
+0:03:58.739.896 [5:2399153189] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:03:59.610.890 [5:2486252564] [BER_AMC]              [1.0]  inc correction
+0:03:59.635.863 [5:2488749919] [BER_AMC]              [1.0]  inc correction
+0:03:59.662.888 [5:2491452399] [BER_AMC]              [1.1]  dec correction
+0:04:00.240.838 [5:2549247361] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=25(0x19)
+0:04:00.242.832 [5:2549446798] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=32(0x20)
+0:04:00.641.899 [5:2589353459] [BER_AMC]              [1.0]  dec correction
+0:04:02.905.775 [5:2815741118] [BER_AMC]              [0.1]  inc correction
+0:04:02.920.932 [5:2817256802] [BER_AMC]              [0.1]  dec correction
+0:04:03.441.512 [5:2869314771] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=32(0x20)
+0:04:03.443.513 [5:2869514830] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:04:03.443.522 [5:2869515740] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:04:03.443.526 [5:2869516127] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:04:03.443.531 [5:2869516652] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=6750
+0:04:03.443.533 [5:2869516919] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:04:03.844.232 [5:2909586744] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=25(0x19)
+0:04:03.846.078 [5:2909771380] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:04:03.846.087 [5:2909772260] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:04:03.846.091 [5:2909772656] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:04:03.846.096 [5:2909773152] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=7000
+0:04:03.846.099 [5:2909773420] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:04:03.926.981 [5:2917861664] [BER_AMC]              [0.1]  dec correction
+0:04:05.245.119 [5:3049675510] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=25(0x19)
+0:04:05.247.031 [5:3049866634] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=32(0x20)
+0:04:05.320.976 [5:3057261197] [BER_AMC]              [0.0]  dec correction
+0:04:05.500.791 [5:3075242658] [BER_AMC]              [0.0]  inc correction
+0:04:06.617.833 [5:3186946824] [BER_AMC]              [0.1]  inc correction
+0:04:07.624.000 [5:3287563568] [BER_AMC]              [0.1]  dec correction
+0:04:08.547.921 [5:3379955651] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=32(0x20)
+0:04:08.549.837 [5:3380147254] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:04:08.549.846 [5:3380148167] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:04:08.549.850 [5:3380148586] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:04:08.549.855 [5:3380149082] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=7000
+0:04:08.549.858 [5:3380149350] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:04:09.642.873 [5:3489450904] [BER_AMC]              [1.1]  inc correction
+0:04:09.678.036 [5:3492967178] [BER_AMC]              [1.1]  inc correction
+0:04:09.681.866 [5:3493350177] [BER_AMC]              [0.1]  inc correction
+0:04:10.066.035 [5:3531767069] [BER_AMC]              [1.0]  inc correction
+0:04:10.073.026 [5:3532466172] [BER_AMC]              [1.1]  inc correction
+0:04:10.081.115 [5:3533275044] [BER_AMC]              [1.0]  inc correction
+0:04:10.088.044 [5:3533967976] [BER_AMC]              [1.1]  inc correction
+0:04:10.096.031 [5:3534766695] [BER_AMC]              [1.0]  inc correction
+0:04:10.103.032 [5:3535466725] [BER_AMC]              [1.1]  inc correction
+0:04:10.111.033 [5:3536266834] [BER_AMC]              [1.0]  inc correction
+0:04:10.118.030 [5:3536966569] [BER_AMC]              [1.1]  inc correction
+0:04:10.126.000 [5:3537763603] [BER_AMC]              [1.0]  inc correction
+0:04:10.133.026 [5:3538466135] [BER_AMC]              [1.1]  inc correction
+0:04:10.148.027 [5:3539966316] [BER_AMC]              [1.1]  inc correction
+0:04:10.163.025 [5:3541466078] [BER_AMC]              [1.1]  inc correction
+0:04:10.178.034 [5:3542966930] [BER_AMC]              [1.1]  inc correction
+0:04:10.185.857 [5:3543749265] [BER_AMC]              [1.1]  inc correction
+0:04:10.201.165 [5:3545280107] [BER_AMC]              [1.1]  inc correction
+0:04:10.216.032 [5:3546766729] [BER_AMC]              [1.1]  inc correction
+0:04:10.249.303 [5:3550093917] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=25(0x19)
+0:04:10.253.045 [5:3550468097] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=32(0x20)
+0:04:10.291.213 [5:3554284905] [BER_AMC]              [1.1]  inc correction
+0:04:10.688.052 [5:3593968722] [BER_AMC]              [0.1]  dec correction
+0:04:10.947.888 [5:3619952357] [BER_AMC]              [0.1]  inc correction
+0:04:11.132.053 [5:3638368850] [BER_AMC]              [1.0]  dec correction
+0:04:11.297.196 [5:3654883206] [BER_AMC]              [1.1]  dec correction
+0:04:11.833.072 [5:3708470743] [BER_AMC]              [1.1]  inc correction
+0:04:11.954.060 [5:3720569593] [BER_AMC]              [0.1]  dec correction
+0:04:12.159.060 [5:3741069614] [BER_AMC]              [0.1]  inc correction
+0:04:12.513.072 [5:3776470736] [BER_AMC]              [0.0]  dec correction
+0:04:13.139.074 [5:3839070962] [BER_AMC]              [1.0]  dec correction
+0:04:13.650.322 [5:3890195807] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=32(0x20)
+0:04:13.652.239 [5:3890387495] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:04:13.652.249 [5:3890388438] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:04:13.652.253 [5:3890388843] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:04:13.652.258 [5:3890389339] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=7000
+0:04:13.652.260 [5:3890389607] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:04:13.840.095 [5:3909173047] [BER_AMC]              [1.1]  dec correction
+0:04:14.054.719 [5:3930635462] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=25(0x19)
+0:04:14.056.631 [5:3930826692] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:04:14.056.640 [5:3930827601] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:04:14.056.644 [5:3930827984] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:04:14.056.649 [5:3930828480] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=7000
+0:04:14.056.656 [5:3930829129] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:04:14.167.103 [5:3941873900] [BER_AMC]              [0.1]  dec correction
+0:04:14.620.937 [5:3987257273] [BER_AMC]              [1.1]  inc correction
+0:04:15.257.366 [5:4050900133] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=25(0x19)
+0:04:15.259.275 [5:4051091073] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=32(0x20)
+0:04:16.148.091 [5:4139972641] [BER_AMC]              [1.0]  dec correction
+0:04:16.628.121 [5:4187975670] [BER_AMC]              [1.1]  dec correction
+0:04:18.176.164 [6:  47812715] [BER_AMC]              [0.1]  dec correction
+0:04:18.381.162 [6:  68312427] [BER_AMC]              [0.1]  inc correction
+0:04:18.757.117 [6: 105907926] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=32(0x20)
+0:04:18.759.030 [6: 106099306] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:04:18.759.039 [6: 106100213] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:04:18.759.044 [6: 106100650] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:04:18.759.049 [6: 106101140] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=7000
+0:04:18.759.051 [6: 106101407] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:04:20.157.207 [6: 245916995] [BER_AMC]              [1.0]  dec correction
+0:04:20.261.449 [6: 256341190] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=25(0x19)
+0:04:20.263.358 [6: 256532057] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=32(0x20)
+0:04:23.860.290 [6: 616225228] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=32(0x20)
+0:04:23.862.207 [6: 616416991] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:04:23.862.216 [6: 616417913] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:04:23.862.220 [6: 616418311] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:04:23.862.225 [6: 616418814] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=7000
+0:04:23.862.228 [6: 616419081] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:04:24.264.029 [6: 656599157] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=25(0x19)
+0:04:24.265.868 [6: 656783114] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:04:24.265.877 [6: 656784007] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:04:24.265.881 [6: 656784412] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:04:24.265.886 [6: 656784913] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=7000
+0:04:24.265.889 [6: 656785180] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:04:25.264.670 [6: 756663238] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=25(0x19)
+0:04:25.266.494 [6: 756845674] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=32(0x20)
+0:04:26.170.256 [6: 847221884] [BER_AMC]              [1.0]  dec correction
+0:04:28.967.462 [6:1126942481] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=32(0x20)
+0:04:28.969.375 [6:1127133775] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:04:28.969.384 [6:1127134689] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:04:28.969.388 [6:1127135099] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:04:28.969.393 [6:1127135602] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=7000
+0:04:28.969.396 [6:1127135869] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:04:30.267.757 [6:1256971979] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=25(0x19)
+0:04:30.269.665 [6:1257162771] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=32(0x20)
+0:04:34.070.673 [6:1637263588] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=32(0x20)
+0:04:34.072.585 [6:1637454798] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:04:34.072.594 [6:1637455723] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:04:34.072.599 [6:1637456135] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:04:34.072.604 [6:1637456630] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=7000
+0:04:34.072.606 [6:1637456899] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:04:34.474.413 [6:1677637540] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_MAX_PWR (23), reg=-1, val=25(0x19)
+0:04:34.476.258 [6:1677822041] [PTP_HWM_MGMT]                SHM cmd: CMD_UPDATE_TX_AGC (3), reg=-1, val=25(0x19)
+0:04:34.476.267 [6:1677822936] [RF_AD9361_CAT_DATA]   [0.0]  TX AGC SetDbm pwr1000=1500
+0:04:34.476.271 [6:1677823347] [RF_AD9361_CAT_DATA]   [0.1]  TX AGC SetDbm pwr1000=4750
+0:04:34.476.276 [6:1677823850] [RF_AD9361_CAT_DATA]   [1.0]  TX AGC SetDbm pwr1000=7000
+0:04:34.476.279 [6:1677824124] [RF_AD9361_CAT_DATA]   [1.1]  TX AGC SetDbm pwr1000=1750
+0:04:35.036.213 [6:1733817530] [BER_AMC]              [1.1]  inc correction
+0:04:35.271.120 [6:1757308321] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=25(0x19)
+0:04:35.273.031 [6:1757499366] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=32(0x20)
+0:04:36.164.332 [6:1846629521] [PTP_HWM_MGMT]         [0]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=32(0x20)
+0:04:36.166.171 [6:1846813417] [PTP_HWM_MGMT]         [1]    SHM cmd: CMD_GET_TEMP (12), reg=-1, val=32(0x20)
+0:04:36.283.407 [6:1858537006] [BER_AMC]              [0.1]  inc correction
+0:04:36.298.445 [6:1860040792] [BER_AMC]              [0.1]  dec correction
+0:04:37.119.470 [6:1942143296] [BER_AMC]              [1.1]  dec correction
+xgt: total 924 messages
