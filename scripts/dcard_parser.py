@@ -119,28 +119,27 @@ def parse_r5000(dc_string, dc_list):
 
     # General info
 
+    firmware = re.search(r'H\d{2}S\d{2}-(MINT|TDMA)[v\d.]+', dc_string).group()
+
     pattern = re.search(r'(R5000-[QMOSL][mxnbtcs]{2,5}/[\dX\*]'
                         r'{1,3}.300.2x\d{3})(.2x\d{2})?'
                         , dc_string)
     if pattern is not None:
-        model = pattern
+        model = pattern.group()
         if ('L' in model or 'S' in model) and '2x19' in model:
             subfamily = 'R5000 Lite (low cost CPE)'
         elif 'L' in model or 'S' in model:
             subfamily = 'R5000 Lite'
         else:
             subfamily = 'R5000 Pro'
+    elif pattern is None and 'H11' in firmware:
+        model = 'R5000 Unknown model'
+        subfamily = 'R5000 Lite'
     else:
         model = 'R5000 Unknown model'
-        pattern = re.search(r'#\sR5000\sWANFleX\s'
-                            r'(H\d{2})S\d{2}-(MINT|TDMA)[v\d.]+'
-                            , dc_string).group(1)
-        if 'H11' in pattern:
-            subfamily = 'R5000 Lite'
-        else:
-            subfamily = 'R5000 Pro'
+        subfamily = 'R5000 Pro'
+
     serial_number = re.search(r'SN:(\d+)', dc_string).group(1)
-    firmware = re.search(r'H\d{2}S\d{2}-(MINT|TDMA)[v\d.]+', dc_string).group()
     uptime = re.search(r'Uptime: ([\d\w :]*)', dc_string).group(1)
     reboot_reason = re.search(r'Last reboot reason: ([\w ]*)', dc_string).group(1)
 
@@ -177,7 +176,7 @@ def parse_r5000(dc_string, dc_list):
         radio_settings['Distance'] = pattern.group(2)
         radio_settings['DL/UL ratio'] = pattern.group(3)
 
-        pattern = re.search(r'mint rf5\.0 tdma rssi=([-\d]+)', dc_string)
+        pattern = re.search(r'mint rf5\.0 tdma rssi=([\-\d]+)', dc_string)
         radio_settings['Target RSSI'] = pattern.group(1)
 
         pattern = re.search(r'tsync enable', dc_string)
@@ -196,7 +195,7 @@ def parse_r5000(dc_string, dc_list):
         pattern = re.search(r'rf rf5\.0 band (\d+)', dc_string)
         radio_profile['Bandwidth'] = pattern.group(1)
 
-        pattern = re.search(r'mint rf5\.0 -(auto|fixed)bitrate( ([\d-]+))?', dc_string)
+        pattern = re.search(r'mint rf5\.0 -(auto|fixed)bitrate( ([\-\d]+))?', dc_string)
         if pattern.group(1) == 'auto' and pattern.group(3) is None:
             radio_profile['Auto bitrate'] = 'Enabled'
         elif pattern.group(1) == 'auto' and pattern.group(3) is not None:
@@ -337,7 +336,7 @@ def parse_r5000(dc_string, dc_list):
             radio_status[mac]['Uptime'] = pattern[key][21]
 
     if len(radio_status) > 0:
-        pattern = re.search(r'Pulses: (\d+), level\s+(\d+) \(([\d-]+)\), pps (\d+)', dc_string)
+        pattern = re.search(r'Pulses: (\d+), level\s+(\d+) \(([\-\d]+)\), pps (\d+)', dc_string)
         if pattern is not None:
             radio_status['Pulses'] = pattern.group(1)
             radio_status['Interference Level'] = pattern.group(2)
@@ -800,10 +799,10 @@ def parse_xg(dc_string, dc_list):
             radio_status['Slave']['Carrier 1']['Stream 1']['CINR'] = pattern[
                 1][7]
 
-        pattern = no_empty(re.findall(r'RSSI\s+\|([-\d.]+\sdBm)(\s\([\d-]+\))?\s+\|'
-                                      r'([-\d.]+\sdBm)(\s\([\d-]+\))?(\s+\|'
-                                      r'([-\d.]+\sdBm)(\s\([\d-]+\))?\s+\|'
-                                      r'([-\d.]+\sdBm)(\s\([\d-]+\))?)?',
+        pattern = no_empty(re.findall(r'RSSI\s+\|([-\d.]+\sdBm)(\s\([\-\d]+\))?\s+\|'
+                                      r'([-\d.]+\sdBm)(\s\([\-\d]+\))?(\s+\|'
+                                      r'([-\d.]+\sdBm)(\s\([\-\d]+\))?\s+\|'
+                                      r'([-\d.]+\sdBm)(\s\([\-\d]+\))?)?',
                                       dc_string))
         if len(pattern) is 1:
             radio_status['Master']['Carrier 0']['Stream 0']['RSSI'] = pattern[
@@ -1080,9 +1079,9 @@ def parse_quanta(dc_string, dc_list):
                                               dc_string).group(1) == 'on' else 'Disabled'
     settings['AMC Strategy'] = re.search(r'amc_strategy (\w+)',
                                          dc_string).group(1)
-    settings['Max DL MCS'] = re.search(r'dl_mcs (([\d-]+)?(QPSK|QAM)-\d+\/\d+)',
+    settings['Max DL MCS'] = re.search(r'dl_mcs (([\-\d]+)?(QPSK|QAM)-\d+\/\d+)',
                                        dc_string).group(1)
-    settings['Max UL MCS'] = re.search(r'ul_mcs (([\d-]+)?(QPSK|QAM)-\d+\/\d+)',
+    settings['Max UL MCS'] = re.search(r'ul_mcs (([\-\d]+)?(QPSK|QAM)-\d+\/\d+)',
                                        dc_string).group(1)
     settings['DFS'] = 'Enabled' if re.search(r'dfs (dfs_rd|off)',
                                              dc_string).group(1) == 'dfs_rd' else 'Disabled'
@@ -1145,7 +1144,7 @@ def parse_quanta(dc_string, dc_list):
 
         for line in dc_list:
             if line.startswith('| MCS'):
-                pattern = re.findall(r'(([\d-]+)?(QPSK|QAM)-\d+\/\d+)', line)
+                pattern = re.findall(r'(([\-\d]+)?(QPSK|QAM)-\d+\/\d+)', line)
                 radio_status['Downlink']['Stream 0']['MCS'] = pattern[0][0]
                 radio_status['Downlink']['Stream 1']['MCS'] = pattern[1][0]
                 radio_status['Uplink']['Stream 0']['MCS'] = pattern[2][0]

@@ -28,7 +28,7 @@ def test(device):
 
     pattern = search(r'BOARD: ([\+\-\d\.]+) degrees Celsius', device.dc_string).group(1)
     if float(pattern) < -55 or float(pattern) > 60:
-        result.append('* Motherboard temperature is {} °. '
+        result.append('* Motherboard temperature is {}°. '
                       'Please pay attention.'
                       .format(pattern))
 
