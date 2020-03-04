@@ -66,9 +66,3 @@ class QCard(RawDiagnosticCard):
         self.settings = settings
         self.radio_status = radio_status
         self.ethernet_status = ethernet_status
-
-# Settings classes
-
-# Radio Status classes
-
-# Ethernet Status classes

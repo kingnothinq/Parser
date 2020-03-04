@@ -64,11 +64,11 @@ def test(device):
 
     result = []
 
-    if len(device.panic) > 0:
+    if device.panic:
         for panic in device.panic:
             find_panic(panic)
 
-    if len(result) > 0:
+    if result:
         return '\nPanic and asserts: \n' + '\n'.join(result)
     else:
         pass

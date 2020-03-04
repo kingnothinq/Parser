@@ -43,7 +43,7 @@ def test(device):
                           'Please check it.'.format(pattern.group(1)))
             break
 
-    if len(result) > 0:
+    if result:
         return '\nEthernet issues: \n' + '\n'.join(result)
     else:
         pass

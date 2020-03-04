@@ -9,7 +9,7 @@ Uptime: 7 days 00:19:55
 Last reboot reason: manual delayed restart
 *** Please change default Login and Password !!! ***
 co sh
-# OCTOPUS-PTP WANFleX H18S14-OCTOPUS_PTPv1.3.0 * Aug 29 2019 16:38:32 * SN:700081
+# OCTOPUS-PTP WANFleX H18S14-OCTOPUS_PTPv1.2.0 * Aug 29 2019 16:38:32 * SN:700081
 
 #System parameters
  #Factory password mode: single
@@ -1621,7 +1621,7 @@ Status
         device_type ptp 
         device_role master 
         name <no value> 
-        sw_version H18S14-OCTOPUS_PTPv1.3.0 
+        sw_version H18S14-OCTOPUS_PTPv1.2.0 
         build Aug 29 2019 16:38:32 
         serial_number 700081 
         hw_platform Xilinx zynq rev.3 666 MHz Board: rev.1 
@@ -3039,7 +3039,7 @@ Last message was repeated 1 times
 date
 Tue May 14 01:20:55 GMT 2019  (not valid)
 sys info -f
-SYSTEM      OCTOPUS-PTP WANFleX H18S14-OCTOPUS_PTPv1.3.0 * Aug 29 2019 16:38:32
+SYSTEM      OCTOPUS-PTP WANFleX H18S14-OCTOPUS_PTPv1.2.0 * Aug 29 2019 16:38:32
             * SN:700081 * Uptime: 7 days 00:19:55
             Firmware ID: 018O0012
             PN:Q5-23/???

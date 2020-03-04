@@ -274,7 +274,7 @@ def test(device):
         check_carrier('downlink', downlink)
         check_carrier('uplink', uplink)
 
-    if len(result) > 0:
+    if result:
         return '\nRadio issues: \n' + '\n'.join(result)
     else:
         pass

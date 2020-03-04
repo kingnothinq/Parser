@@ -49,7 +49,7 @@ def test(device):
                       'If everything is ok with the cables and interfaces, '
                       'it may be a bug (IOCT-XXX).')
 
-    if len(result) > 0:
+    if result:
         return '\nEthernet issues: \n' + '\n'.join(result)
     else:
         pass

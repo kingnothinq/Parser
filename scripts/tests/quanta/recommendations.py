@@ -23,27 +23,29 @@ def test(device):
     pattern = findall(r'(\d{2}):(\d{2}):(\d{2})', device.uptime)
     if int(pattern[0][0]) <= 0 and int(pattern[0][1]) < 15:
         result.append('* Uptime is too short ({}). '
-                      'It is recommended to wait more in order to collect more precise statistics.'
-                      .format(device.uptime))
+                      'It is recommended to wait more in order to collect more precise statistics.'.format(
+            device.uptime))
 
     ftp = FTP('ftp.infinet.ru')
     ftp.login()
-    firmwares = ftp.nlst('pub/Firmware/octopus/h18/')
-    current_version = search(r'PTPv((\d+\.){2}(\d+))', device.firmware).group(1)
-    latest_version = []
-    for version in firmwares:
-        ftp_firmware = search(r'h18_(\d+\.\d+\.\d+)\.bin', version)
-        latest_version.append(ftp_firmware.group(1))
-    latest_version.sort()
-    ftp_path = 'ftp://ftp.infinet.ru/pub/Firmware/octopus/h18/_{}.bin'.format(latest_version[-1])
-    if current_version != latest_version[-1]:
+    fw_current = search(r'PTPv((\d+\.){2}(\d+))', device.firmware).group(1)
+    fw_release = ftp.nlst('/pub/Firmware/octopus/h18/')
+    fw_beta = []  # ftp.nlst('/pub/Firmware/beta/octopus/')
+    fw_old = ftp.nlst('/pub/Firmware/old/octopus/h18/')
+    firmwares = filter(lambda x: '.bin' in x, fw_release + fw_beta + fw_old)
+    firmwares = [search(r'h18_(\d+\.\d+\.\d+)\.bin', fw).group(1) for fw in firmwares]
+    fw_latest = sorted(firmwares, key=lambda x: [int(num) for num in x.split('.')])[-1]
+    if fw_current != fw_latest:
+        for fw in [fw_release, fw_beta, fw_old]:
+            pattern = list(filter(lambda x: fw_latest in x, fw))
+            if len(pattern) > 0:
+                path_latest = 'ftp://ftp.infinet.ru{}'.format(pattern[0])
         result.append('* The current firmware version ({}) is old. '
                       'Please update it. '
                       'The latest version ({}) can be downloaded '
-                      'from our FTP server ({}).'
-                      .format(current_version, latest_version[-1], ftp_path))
+                      'from our FTP server ({}).'.format(fw_current, fw_latest, path_latest))
 
-    if len(result) > 0:
+    if result:
         return '\nRecommendations: \n' + '\n'.join(result)
     else:
         pass

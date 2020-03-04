@@ -32,7 +32,7 @@ def test(device):
                       'Please pay attention.'
                       .format(pattern))
 
-    if len(result) > 0:
+    if result:
         return '\nLog and other service messages issues: \n' + '\n'.join(result)
     else:
         pass

@@ -24,7 +24,6 @@ def get_dc_list(dc_path):
 
 if __name__ == "__main__":
 
-    # Find all diagnostic cards in the folder
     list_of_dcards = list((Path.cwd() / 'dcards').glob('*.txt'))
 
     counter = 0
@@ -60,7 +59,7 @@ if __name__ == "__main__":
                 xg = dparser.parse_xg(dc_string, dc_list)
                 report = dreporter.create_report(xg, dtester.run_tests(xg), dc_path)
                 #dreporter.write_report(report, xg.serial_number)
-                #dreporter.debug_report(report)
+                dreporter.debug_report(report)
                 counter += 1
 
             # Quanta series
@@ -68,7 +67,7 @@ if __name__ == "__main__":
                 quanta = dparser.parse_quanta(dc_string, dc_list)
                 report = dreporter.create_report(quanta, dtester.run_tests(quanta), dc_path)
                 #dreporter.write_report(report, quanta.serial_number)
-                #dreporter.debug_report(report)
+                dreporter.debug_report(report)
                 counter += 1
             else:
                 raise

@@ -224,7 +224,7 @@ def test(device):
                       'Also, there is a bug in the 1.7.9 and lower versions of the firmware. '
                       'A workaround is reboot.')
 
-    if len(result) > 0:
+    if result:
         return '\nRadio issues: \n' + '\n'.join(result)
     else:
         pass
