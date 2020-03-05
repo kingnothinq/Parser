@@ -33,7 +33,8 @@ if __name__ == "__main__":
         #print(dc_path)
 
         if True:
-            #try:
+            # pass
+            # try:
             # Open a diagnostic card and handle it following the model
             dc_string = get_dc_string(dc_path)
             dc_list = get_dc_list(dc_path)
@@ -42,8 +43,8 @@ if __name__ == "__main__":
             if search(r'#\sR5000\sWANFleX\sH09', dc_string) is not None:
                 iwmux = dparser.parse_iwmux(dc_string, dc_list)
                 report = dreporter.create_report(iwmux, dtester.run_tests(iwmux), dc_path)
-                #dreporter.write_report(report, iwmux.serial_number)
-                #dreporter.debug_report(report)
+                # dreporter.write_report(report, iwmux.serial_number)
+                # dreporter.debug_report(report)
                 counter += 1
 
             # R5000 series
@@ -71,14 +72,15 @@ if __name__ == "__main__":
                 counter += 1
             else:
                 raise
+
         """
         except:
             report = dreporter.error_report(dc_path)
             dreporter.debug_report(report)
 
         finally:
-            #dreporter.jira_report(report)
-            pass
+            dreporter.jira_report(report)
         """
+
 
     print('\nCounter ', counter)

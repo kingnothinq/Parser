@@ -24,15 +24,14 @@ class R5000Card(RawDiagnosticCard):
 
     family = 'R5000'
 
-    def __init__(self, model, subfamily, serial_number, firmware, uptime,
-                 reboot_reason, dc_list, dc_string,
-                 settings, radio_status, ethernet_status):
-        super().__init__(model, subfamily, serial_number, firmware, uptime,
-                         reboot_reason, dc_list,
-                         dc_string)
+    def __init__(self, model, subfamily, serial_number, firmware, uptime, reboot_reason, dc_list, dc_string, settings,
+                 radio_status, ethernet_status, switch_status, qos_status):
+        super().__init__(model, subfamily, serial_number, firmware, uptime, reboot_reason, dc_list, dc_string)
         self.settings = settings
         self.radio_status = radio_status
         self.ethernet_status = ethernet_status
+        self.switch_status = switch_status
+        self.qos_status = qos_status
 
 
 class XGCard(RawDiagnosticCard):

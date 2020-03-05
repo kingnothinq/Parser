@@ -28,7 +28,6 @@ def test(device):
                       'Please upgrade firmware or contact developers.')
 
     pattern = search(r'CPU Load\s+(\d+)%\s+(\d+)%\(10s\)', device.dc_string)
-    print(pattern)
     if int(pattern.group(1)) > 98 and int(pattern.group(2)) > 95:
         result.append('* CPU utilization is {}%. '
                       'Please pay attention.'.format(pattern.group(1)))

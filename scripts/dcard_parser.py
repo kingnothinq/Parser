@@ -87,7 +87,7 @@ def parse_r5000(dc_string, dc_list):
                 Flags
                 Power Rx
                 Power Tx
-                RSSI Rx (TDMA Only)
+                RSSI Rx
                 RSSI Tx (TDMA Only)
                 SNR Rx
                 SNR Tx
@@ -120,7 +120,6 @@ def parse_r5000(dc_string, dc_list):
     """
 
     # General info
-
     firmware = re.search(r'H\d{2}S\d{2}-(MINT|TDMA)[v\d.]+', dc_string).group()
 
     pattern = re.search(r'(R5000-[QMOSL][mxnbtcs]{2,5}/[\dX\*]'
@@ -181,11 +180,11 @@ def parse_r5000(dc_string, dc_list):
         radio_settings['Target RSSI'] = pattern.group(1)
 
         pattern = re.search(r'tsync enable', dc_string)
-        radio_settings['TSync'] = 'Enabled' if pattern is None else 'Disabled'
+        radio_settings['TSync'] = 'Disabled' if pattern is None else 'Enabled'
 
     elif 'MINT' in firmware and radio_settings['Type'] == 'master':
         pattern = re.search(r'mint rf5\.0 poll start (qos)?', dc_string)
-        radio_settings['Polling'] = 'Enabled' if pattern is None else 'Disabled'
+        radio_settings['Polling'] = 'Disabled' if pattern is None else 'Enabled'
 
     if radio_settings['Type'] == 'master':
         pattern = re.search(r'rf rf5\.0 freq (\d+) bitr (\d+) sid ([\d\w]+)', dc_string)
@@ -310,7 +309,7 @@ def parse_r5000(dc_string, dc_list):
         pattern = re.findall(r'\s+\d+\s+([\w\d\S]+)\s+([\w\d]+) '
                              r'(\d+)\/(\d+)\s+(\d+)\/(\d+)\s+(\d+)\/(\d+)\s+([\/\w]+)+'
                              r'\s+load (\d+)\/(\d+), pps (\d+)\/(\d+), cost (\d+)'
-                             r'\s+pwr ([\d\.-]+)\/([\d\.-]+), snr (\d+)\/(\d+), dist ([\d\.-]+)'
+                             r'\s+pwr ([\d\.\-]+)\/([\d\.\-]+), snr (\d+)\/(\d+), dist ([\d\.-]+)'
                              r'\s+(H\d{2}v[v\d.]+), IP=([\d\.])+, up ([\d\w :]*)', dc_string, re.DOTALL)
 
         radio_status['Links'] = {mac: deepcopy(link_status) for mac in [link[1] for link in pattern]}
@@ -337,8 +336,14 @@ def parse_r5000(dc_string, dc_list):
             radio_status['Links'][mac]['Firmware'] = pattern[key][19]
             radio_status['Links'][mac]['Uptime'] = pattern[key][21]
 
-    if len(radio_status) > 0:
-        pattern = re.search(r'Pulses: (\d+), level\s+(\d+) \(([\-\d]+)\), pps (\d+)', dc_string)
+        pattern = re.findall(r'\d+\s+\((\d+)\/([\-\d]+)\)'
+                             r'\s+\d+\s+\([\d\S]+\s+MHz\)'
+                             r'\s+\w\s+<([\w\d]+)\s+([\w\d\.\_]+)', dc_string, re.DOTALL)
+        for mac in pattern:
+            radio_status['Links'][mac[2]]['RSSI Rx'] = mac[1]
+
+    if radio_status:
+        pattern = re.search(r'Pulses: (\d+), level\s+(\d+) \(([\-\d]+)\), pps ([\.\d]+)', dc_string)
         if pattern is not None:
             radio_status['Pulses'] = pattern.group(1)
             radio_status['Interference Level'] = pattern.group(2)
@@ -396,8 +401,56 @@ def parse_r5000(dc_string, dc_list):
         ethernet_status['eth1']['Rx CRC'] = pattern[1]
         ethernet_status['eth1']['Tx CRC'] = 0
 
+    # Switch Status
+
+    sw_text_start = dc_list.index('Switch statistics:\n')
+    sw_text_end = dc_list.index('LAST SAVED SYSTEM LOG\n')
+    sw_text = ''.join(dc_list[sw_text_start:sw_text_end])
+    pattern = re.findall(r'(\d+)\s+'
+                         r'>?(\d+)\s+'
+                         r'>?(\d+)\s+'
+                         r'>?(\d+)\s+'
+                         r'>?(\d+)\s+'
+                         r'>?(\d+)\s+'
+                         r'>?(\d+)\s+'
+                         r'>?(\d+)\s+'
+                         r'>?(\d+)\s+'
+                         r'>?(\d+)', sw_text)
+    switch_status = {pattern[id][0]: sw_group[1:] for id, sw_group in enumerate(pattern)}
+    for id, status in switch_status.items():
+        switch_status[id] = {}
+        switch_status[id]['Unicast'] = int(status[0])
+        switch_status[id]['Bcast'] = int(status[1])
+        switch_status[id]['Flood'] = int(status[2])
+        switch_status[id]['STPL'] = int(status[3])
+        switch_status[id]['UNRD'] = int(status[4])
+        switch_status[id]['FRWL'] = int(status[5])
+        switch_status[id]['LOOP'] = int(status[6])
+        switch_status[id]['DISC'] = int(status[7])
+        switch_status[id]['BACK'] = int(status[8])
+
+    # QoS status
+
+    counter = 0
+    for line in dc_list:
+        counter += 1
+        pattern = re.search(r'Software Priority Queues rf5.0', line)
+        if pattern is not None:
+            qos_rf_start = counter
+        pattern = re.search(r'Phy errors: total \d+', line)
+        if pattern is not None:
+            qos_rf_end = counter
+    qos_status = ''.join(dc_list[qos_rf_start - 1:qos_rf_end - 2])
+    pattern = re.findall(r'(q\d+)\s+(\((P\d+)\))?\s+(\d+)\s+\/\s+(\d+)', qos_status)
+    qos_status = {channel[0]: channel[2:] for channel in pattern}
+    for channel, status in qos_status.items():
+        qos_status[channel] = {}
+        qos_status[channel]['Prio'] = status[0]
+        qos_status[channel]['Count'] = status[1]
+        qos_status[channel]['Drops'] = status[2]
+
     result = R5000Card(model, subfamily, serial_number, firmware, uptime, reboot_reason, dc_list, dc_string, settings,
-                       radio_status, ethernet_status)
+                       radio_status, ethernet_status, switch_status, qos_status)
 
     return result
 

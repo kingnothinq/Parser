@@ -14,8 +14,8 @@ def test(device):
     pattern = findall(r'(\d{2}):(\d{2}):(\d{2})', device.uptime)
     if int(pattern[0][0]) <= 0 and int(pattern[0][1]) < 15:
         result.append('* Uptime is too short ({}). '
-                      'It is recommended to wait more in order to collect more precise statistics.'
-                      .format(device.uptime))
+                      'It is recommended to wait more in order to collect more precise statistics.'.format(
+            device.uptime))
 
     ftp = FTP('ftp.infinet.ru')
     ftp.login()
@@ -61,7 +61,7 @@ def test(device):
             result.append('* The current installed firmware version ({}) '
                           'on the slave device ({}) differs from the firmware installed on '
                           'the master device ({}). It is recommended to install the same version.'.format(
-                fw_current_link, links[link]['Name'], fw_current_own))
+                    fw_current_link, links[link]['Name'], fw_current_own))
 
     if result:
         return '\nRecommendations: \n' + '\n'.join(result)

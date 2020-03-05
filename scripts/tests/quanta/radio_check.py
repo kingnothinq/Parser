@@ -28,59 +28,51 @@ def test(device):
 
         rssi = float(search(r'([-\d\.]+)', rssi).group(1))
 
-        if position == 'downlink' and settings['Role'] == 'master' and rssi < -40:
+        if position == 'downlink' and settings['Role'] == 'master' and rssi > -40:
             result.append('* RSSI is {} dBm in the {} on the slave device. '
                           'Please decrease Tx power on the master device '
                           'in order to avoid damage to the radio module. '
                           'The recommended RSSI is -55 dBm. '
-                          'The current Tx power set as {} dBm.'
-                          .format(rssi, stream_name, settings['Tx Power']))
-        elif position == 'downlink' and settings['Role'] == 'slave' and rssi < -40:
+                          'The current Tx power set as {} dBm.'.format(rssi, stream_name, settings['Tx Power']))
+        elif position == 'downlink' and settings['Role'] == 'slave' and rssi > -40:
             result.append('* RSSI is {} dBm in the {} on the slave device. '
                           'Please decrease Tx power on the master device '
                           'in order to avoid damage to the radio module. '
-                          'The recommended RSSI is -55 dBm.'
-                          .format(rssi, stream_name))
-        elif position == 'uplink' and settings['Role'] == 'master' and rssi < -40:
+                          'The recommended RSSI is -55 dBm.'.format(rssi, stream_name))
+        elif position == 'uplink' and settings['Role'] == 'master' and rssi > -40:
             result.append('* RSSI is {} dBm in the {} on the master device. '
                           'Please decrease Tx power on the slave device '
                           'in order to avoid damage to the radio module. '
-                          'The recommended RSSI is -55 dBm.'
-                          .format(rssi, stream_name))
-        elif position == 'uplink' and settings['Role'] == 'slave' and rssi < -40:
+                          'The recommended RSSI is -55 dBm.'.format(rssi, stream_name))
+        elif position == 'uplink' and settings['Role'] == 'slave' and rssi > -40:
             result.append('* RSSI is {} dBm in the {} on the master device. '
                           'Please decrease Tx power on the slave device '
                           'in order to avoid damage to the radio module. '
                           'The recommended RSSI is -55 dBm. '
-                          'The current Tx power set as {} dBm.'
-                          .format(rssi, stream_name, settings['Tx Power']))
+                          'The current Tx power set as {} dBm.'.format(rssi, stream_name, settings['Tx Power']))
 
-        elif position == 'downlink' and settings['Role'] == 'master' and rssi > -80:
+        elif position == 'downlink' and settings['Role'] == 'master' and rssi < -80:
             result.append('* RSSI is {} dBm in the {} on the slave device. '
                           'Please increase Tx power or improve alignment '
                           'on the master device in order to reach better signal. '
                           'The recommended RSSI is -55 dBm. '
-                          'The current Tx power set as {} dBm.'
-                          .format(rssi, stream_name, settings['Tx Power']))
-        elif position == 'downlink' and settings['Role'] == 'slave' and rssi > -80:
+                          'The current Tx power set as {} dBm.'.format(rssi, stream_name, settings['Tx Power']))
+        elif position == 'downlink' and settings['Role'] == 'slave' and rssi < -80:
             result.append('* RSSI is {} dBm in the {} on the slave device. '
                           'Please increase Tx power or improve alignment '
                           'on the master device in order to reach better signal. '
-                          'The recommended RSSI is -55 dBm.'
-                          .format(rssi, stream_name))
-        elif position == 'uplink' and settings['Role'] == 'master' and rssi > -80:
+                          'The recommended RSSI is -55 dBm.'.format(rssi, stream_name))
+        elif position == 'uplink' and settings['Role'] == 'master' and rssi < -80:
+            result.append('* RSSI is {} dBm in the {} on the master device. '
+                          'Please increase Tx power or improve alignment '
+                          'on the slave device in order to reach better signal. '
+                          'The recommended RSSI is -55 dBm.'.format(rssi, stream_name))
+        elif position == 'uplink' and settings['Role'] == 'slave' and rssi < -80:
             result.append('* RSSI is {} dBm in the {} on the master device. '
                           'Please increase Tx power or improve alignment '
                           'on the slave device in order to reach better signal. '
                           'The recommended RSSI is -55 dBm.'
-                          .format(rssi, stream_name))
-        elif position == 'uplink' and settings['Role'] == 'slave' and rssi > -80:
-            result.append('* RSSI is {} dBm in the {} on the master device. '
-                          'Please increase Tx power or improve alignment '
-                          'on the slave device in order to reach better signal. '
-                          'The recommended RSSI is -55 dBm.'
-                          'The current Tx power set as {} dBm.'
-                          .format(rssi, stream_name, settings['Tx Power']))
+                          'The current Tx power set as {} dBm.'.format(rssi, stream_name, settings['Tx Power']))
 
     def check_evm(position, stream_name, evm):
         """Check EVM and return the conclusion."""
