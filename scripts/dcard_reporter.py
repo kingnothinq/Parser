@@ -7,7 +7,27 @@ from jira import JIRA
 
 
 def r5000_report(device):
-    pass
+    settings = device.settings
+    radio_settings = settings['Radio']
+    radio_status = device.radio_status
+    ethernet_status = device.ethernet_status
+    message = []
+
+    # Show settings
+    message.append('Settings: ')
+    message.append(' Role: {}'.format(str.capitalize(radio_settings['Type'])))
+
+    for profile in radio_settings['Profile'].items():
+        # print(profile)
+        pass
+
+    if True:
+        pass  # message.append(' Frequency: {} MHz'.format(radio_settings['Profile']['Frequency']))
+    else:
+        for id, profile in settings['Radio']['Profile'].items():
+            pass
+
+    return '\n'.join(message)
 
 
 def xg_report(device):

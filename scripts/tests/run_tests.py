@@ -26,8 +26,7 @@ def run_tests(device):
         Use __ (double underscore) before file name if you need to hide a test from the importer.
         """
 
-        module = import_module('.' + str(test_name.stem),
-                               'tests.' + str.lower(device.family))
+        module = import_module('.' + str(test_name.stem), 'tests.' + str.lower(device.family))
         return module.test(device)
 
     test_path = Path.cwd() / 'tests' / str.lower(device.family)
@@ -35,5 +34,7 @@ def run_tests(device):
 
     for test_name in list(test_path.glob('[!__]*.py')):
         test_results.append(import_test(device, test_name))
+
+    test_results = []
 
     return test_results

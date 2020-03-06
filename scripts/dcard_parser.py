@@ -145,7 +145,7 @@ def parse_r5000(dc_string, dc_list):
 
     # Settings
     radio_profile = {'Frequency': None, 'Bandwidth': None, 'Max bitrate': None, 'Auto bitrate': None, 'MIMO': None,
-                     'SID': None, 'Status': None, 'Greenfield': None}
+                     'SID': None, 'Status': None, 'Greenfield': None, 'State': None}
     radio_settings = {'Type': None, 'ATPC': None, 'Tx Power': None, 'Extnoise': None, 'DFS': None, 'Polling': None,
                       'Frame size': None, 'DL/UL ratio': None, 'Distance': None, 'Target RSSI': None, 'TSync': None,
                       'Scrambling': None, 'Profile': radio_profile}
@@ -187,25 +187,29 @@ def parse_r5000(dc_string, dc_list):
         radio_settings['Polling'] = 'Disabled' if pattern is None else 'Enabled'
 
     if radio_settings['Type'] == 'master':
+        radio_settings['Profile'] = {'M': deepcopy(radio_profile)}
+        profile = radio_settings['Profile']['M']
+
         pattern = re.search(r'rf rf5\.0 freq (\d+) bitr (\d+) sid ([\d\w]+)', dc_string)
-        radio_profile['Frequency'] = pattern.group(1)
-        radio_profile['Max bitrate'] = pattern.group(2)
-        radio_profile['SID'] = pattern.group(3)
+        profile['Frequency'] = pattern.group(1)
+        profile['Max bitrate'] = pattern.group(2)
+        profile['SID'] = pattern.group(3)
 
         pattern = re.search(r'rf rf5\.0 band (\d+)', dc_string)
-        radio_profile['Bandwidth'] = pattern.group(1)
+        profile['Bandwidth'] = pattern.group(1)
 
         pattern = re.search(r'mint rf5\.0 -(auto|fixed)bitrate( ([\-\d]+))?', dc_string)
         if pattern.group(1) == 'auto' and pattern.group(3) is None:
-            radio_profile['Auto bitrate'] = 'Enabled'
+            profile['Auto bitrate'] = 'Enabled'
         elif pattern.group(1) == 'auto' and pattern.group(3) is not None:
-            radio_profile['Auto bitrate'] = 'Enabled. Modification is ' + str(pattern.group(3))
+            profile['Auto bitrate'] = 'Enabled. Modification is ' + str(pattern.group(3))
         else:
-            radio_profile['Auto bitrate'] = 'Disabled. Fixed bitrate is ' + radio_profile['Max bitrate']
+            profile['Auto bitrate'] = 'Disabled. Fixed bitrate is ' + profile['Max bitrate']
 
         pattern = re.search(r'rf rf5\.0 (mimo|miso|siso)( (greenfield))?', dc_string)
-        radio_profile['MIMO'] = pattern.group(1)
-        radio_profile['Greenfield'] = 'Enabled' if pattern.group(3) == 'greenfield' else 'Disabled'
+        profile['MIMO'] = pattern.group(1)
+        profile['Greenfield'] = 'Enabled' if pattern.group(3) == 'greenfield' else 'Disabled'
+        profile['State'] = 'Active'
 
     else:
         pattern = re.findall(r'mint rf5\.0 prof (\d+)'
@@ -220,28 +224,52 @@ def parse_r5000(dc_string, dc_list):
                              r' -(mimo|miso|siso)'
                              r' (greenfield)?', dc_string, re.DOTALL)
 
+        pattern_2 = re.findall(r'[\w\d]+ band \d+ freq (\d+) '
+                               r'snr \d+ links \d+, prof (\d+)', dc_string)[-1]
+
         radio_settings['Profile'] = {profile_id: deepcopy(radio_profile) for profile_id in
                                      [profile[0] for profile in pattern]}
 
         for key, prodile_id in enumerate(radio_settings['Profile']):
             radio_settings['Profile'][prodile_id]['Frequency'] = pattern[key][4]
             radio_settings['Profile'][prodile_id]['Bandwidth'] = pattern[key][3]
-            radio_settings['Profile'][prodile_id]['Max bitrate'] = pattern[key][6] if pattern[key][6] != '' else 'Max'
+
+            if pattern[key][6] != '':
+                radio_settings['Profile'][prodile_id]['Max bitrate'] = pattern[key][6]
+            else:
+                radio_settings['Profile'][prodile_id]['Max bitrate'] = 'Max'
 
             if pattern[key][9] == 'auto' and pattern[key][11] == '':
                 radio_settings['Profile'][prodile_id]['Auto bitrate'] = 'Enabled'
             elif pattern[key][9] == 'auto' and pattern[key][11] != '':
-                radio_settings['Profile'][prodile_id]['Auto bitrate'] = 'Enabled. Modification is ' + pattern[key][11]
+                radio_settings['Profile'][prodile_id]['Auto bitrate'] = 'Enabled. ' \
+                                                                        'Modification is {}'.format(pattern[key][11])
             else:
-                radio_settings['Profile'][prodile_id]['Auto bitrate'] = 'Disabled. Fixed bitrate is ' + \
-                                                                        radio_settings['Profile'][prodile_id][
-                                                                            'Max bitrate']
+                radio_settings['Profile'][prodile_id]['Auto bitrate'] = 'Disabled. Fixed bitrate is {}'.format(
+                        radio_settings['Profile'][prodile_id]['Max bitrate'])
 
             radio_settings['Profile'][prodile_id]['MIMO'] = pattern[key][12]
             radio_settings['Profile'][prodile_id]['SID'] = pattern[key][7]
-            radio_settings['Profile'][prodile_id]['Status'] = 'Disabled' if pattern[key][2] == 'disable' else 'Enabled'
-            radio_settings['Profile'][prodile_id]['Greenfield'] = 'Enabled' if pattern[key][
-                                                                                   13] == 'greenfield' else 'Disabled'
+
+            if pattern[key][2] == 'disable':
+                radio_settings['Profile'][prodile_id]['Status'] = 'Disabled'
+            else:
+                radio_settings['Profile'][prodile_id]['Status'] = 'Enabled'
+
+            if pattern[key][13] == 'greenfield':
+                radio_settings['Profile'][prodile_id]['Greenfield'] = 'Enabled'
+            else:
+                radio_settings['Profile'][prodile_id]['Greenfield'] = 'Disabled'
+
+            if radio_settings['Profile'][prodile_id]['Frequency'] == 'auto' and prodile_id == pattern_2[1]:
+                radio_settings['Profile'][prodile_id]['State'] = 'Active'
+                radio_settings['Profile'][prodile_id]['Frequency'] = '{} (auto)'.format(pattern_2[0])
+            elif prodile_id == pattern_2[1]:
+                radio_settings['Profile'][prodile_id]['State'] = 'Active'
+            else:
+                radio_settings['Profile'][prodile_id]['State'] = 'Idle'
+
+    print(radio_settings)
 
     # Switch Settings
     # This section will be added in the future
@@ -339,8 +367,10 @@ def parse_r5000(dc_string, dc_list):
         pattern = re.findall(r'\d+\s+\((\d+)\/([\-\d]+)\)'
                              r'\s+\d+\s+\([\d\S]+\s+MHz\)'
                              r'\s+\w\s+<([\w\d]+)\s+([\w\d\.\_]+)', dc_string, re.DOTALL)
-        for mac in pattern:
-            radio_status['Links'][mac[2]]['RSSI Rx'] = mac[1]
+
+        if radio_status['Links']:
+            for mac in pattern:
+                radio_status['Links'][mac[2]]['RSSI Rx'] = mac[1]
 
     if radio_status:
         pattern = re.search(r'Pulses: (\d+), level\s+(\d+) \(([\-\d]+)\), pps ([\.\d]+)', dc_string)

@@ -7,6 +7,7 @@ from re import search
 def test(device):
     """Check radio parameters and return conclusion."""
 
+
     def check_rssi(status):
         """Check RSSI and return the conclusion."""
 
@@ -46,6 +47,7 @@ def test(device):
 
         snr_rx = int(status['SNR Rx'])
         snr_tx = int(status['SNR Tx'])
+        for
         if (snr_rx < 7 or snr_tx < 7) and device.settings['Radio']['Type'] == 'master':
             result.append('* The quality of the signal of the link {} is very low '
                           'due to bad SNR (Rx {}dB/Tx {}dB). '
