@@ -2903,7 +2903,7 @@ TDMA status:    MASTER (10 ms DL/UL:50%) (DL5000/UL5000)
 | Lost frames              7310744     | Aggr Subframe Retries     2671441    |
 | Rx Collision             3281        | Aggr Full Retries         20998      |
 | FIFO Overrun             135         | FIFO Underrun/Slip        0 / 577    |
-| CRC Errors               3445460     | Excessive Retries         37014      |
+| CRC Errors               3445460     | Excessive Retries         63686732   |
 | Noise Floor              -94         | Max aggr frames           14         |
 | Rx Subslots/Nodes        7 / 11      | Max aggr bytes            31238      |
 | Scrambled frames         6760560     | Scrambled frames          64940943   |

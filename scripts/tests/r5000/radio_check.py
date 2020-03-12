@@ -11,7 +11,15 @@ def test(device):
     def check_rssi(status):
         """Check RSSI and return the conclusion."""
 
-        rssi = float(status['RSSI Rx'])
+        if '*' in status['RSSI Rx']:
+            result.append('* Polarisation skew detected on the link {}. '
+                          'Please check alignment, crosstalk, LOS, etc.'.format(status['Name']))
+
+        if status['RSSI Tx'] is not None and '*' in status['RSSI Tx']:
+            result.append('* Polarisation skew detected on the link {}. '
+                          'Please check alignment, crosstalk, LOS, etc.'.format(status['Name']))
+
+        rssi = float(status['RSSI Rx'].replace('*', ''))
         if rssi > -40:
             result.append('* RSSI is {} dBm. Please decrease Tx power on '
                           'the remote device {} in order to avoid damage '
@@ -28,8 +36,8 @@ def test(device):
 
         level_rx = int(status['Level Rx'])
         level_tx = int(status['Level Tx'])
-        power_rx = int(status['Power Rx'])
-        power_tx = int(status['Power Tx'])
+        power_rx = float(status['Power Rx'])
+        power_tx = float(status['Power Tx'])
         snr_rx = int(status['SNR Rx'])
         snr_tx = int(status['SNR Tx'])
         power_skew = abs(power_rx - power_tx)
@@ -47,8 +55,8 @@ def test(device):
 
         snr_rx = int(status['SNR Rx'])
         snr_tx = int(status['SNR Tx'])
-        for
-        if (snr_rx < 7 or snr_tx < 7) and device.settings['Radio']['Type'] == 'master':
+
+        if (snr_rx < 7 or snr_tx < 7) and radio_settings['Type'] == 'master':
             result.append('* The quality of the signal of the link {} is very low '
                           'due to bad SNR (Rx {}dB/Tx {}dB). '
                           'Only low-level modulations are available. '
@@ -59,8 +67,8 @@ def test(device):
                           '3) Reduce bandwidth on the master device '
                           'in order to improve the sensitivity of the radio module. '
                           'The current bandwidth is {} MHz.'.format(status['Name'], snr_rx, snr_tx,
-                                                                    device.settings['Radio']['Profile']['Bandwidth']))
-        elif (snr_rx < 7 or snr_tx < 7) and device.settings['Radio']['Type'] == 'slave':
+                                                                    radio_settings['Profile']['M']['Bandwidth']))
+        elif (snr_rx < 7 or snr_tx < 7) and radio_settings['Type'] == 'slave':
             result.append('* The quality of the signal in the link {} is very low '
                           'due to bad SNR (Rx {}dB/ Tx {}dB). '
                           'Only low-level modulations are available. '
@@ -84,6 +92,7 @@ def test(device):
                           'Please pay attention.'.format(status['Name'], retries_rx, retries_tx))
 
     radio_status = device.radio_status
+    radio_settings = device.settings['Radio']
     result = []
 
     pattern = search(r'Warning: Abnormal transmit power disbalance', device.dc_string)
@@ -95,7 +104,7 @@ def test(device):
         result.append('* Abnormal transmit power disbalance detected. '
                       'The radio module of the device {} may be faulty. \n'
                       '{}\n'
-                      'Please approve RMA if the calibrations are correct.'.format(device.serial_number, vpd_calc))
+                      '    Please approve RMA if the calibrations are correct.'.format(device.serial_number, vpd_calc))
 
     flap_counter = 0
     links = {}
@@ -201,7 +210,7 @@ def test(device):
                       'Please pay attention. '.format(', '.join(problem_links)))
 
     scanner_rssi = []
-    if float(radio_status['Interference PPS']) > 50:
+    if radio_status['Interference PPS'] is not None and float(radio_status['Interference PPS']) > 50:
         for link in radio_status['Links'].values():
             scanner_rssi.append('      {}: {} dBm'.format(link['Name'], link['RSSI Rx']))
         scanner_rssi = '\n'.join(scanner_rssi)
@@ -213,7 +222,7 @@ def test(device):
                       'it in another way.'.format(radio_status['Interference PPS'], radio_status['Interference RSSI'],
                                                   scanner_rssi))
 
-    if float(radio_status['Total Medium Busy'].replace('%', '')) > 50:
+    if radio_status['Total Medium Busy'] is not None and float(radio_status['Total Medium Busy'].replace('%', '')) > 50:
         result.append('* The spectrum is very noisy. '
                       'Please find a better frequency or deal with '
                       'it in another way. '
@@ -225,14 +234,16 @@ def test(device):
     tx_packets = int(search(r'Transmitted OK\s+(\d+)', device.dc_string).group(1))
     retries_excessive = int(radio_status['Excessive Retries'])
     ratio_tx_ret = round((retries_excessive / tx_packets) * 100, 2)
-    counter = 0
     for line in device.dc_list:
-        counter += 1
-        if line.startswith('           MAC          Out/Rep'):
-            muffer_start = counter - 2
-        if line.startswith('IP statistics:'):
-            muffer_end = counter - 2
-    muffer = '      '.join(device.dc_list[muffer_start:muffer_end])
+        pattern = search(r'MAC\s+Out\/Rep', line)
+        pattern_2 = search(r'PHS:\s+packets\s+\d+', line)
+        if pattern is not None:
+            muffer_start = device.dc_list.index(line)
+        else:
+            muffer_start = device.dc_list.index(line) - 4
+        if pattern_2 is not None:
+            muffer_end = device.dc_list.index(line)
+    muffer = '      '.join(device.dc_list[muffer_start - 1:muffer_end + 1])
     if ratio_tx_ret > 0.5:
         result.append('* Too many Exscessive Retries ({}) detected. '
                       'The Exscessive Retries are the number of frames '

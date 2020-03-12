@@ -35,6 +35,4 @@ def run_tests(device):
     for test_name in list(test_path.glob('[!__]*.py')):
         test_results.append(import_test(device, test_name))
 
-    test_results = []
-
     return test_results

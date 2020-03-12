@@ -4,7 +4,7 @@
 import re
 from copy import deepcopy
 
-from my_classes import *
+from scripts.my_classes import *
 
 
 def parse_r5000(dc_string, dc_list):
@@ -159,7 +159,7 @@ def parse_r5000(dc_string, dc_list):
     # Radio Settings
     radio_settings['Type'] = re.search(r'mint rf5\.0 -type (\w+)', dc_string).group(1)
 
-    pattern = re.search(r'rf5\.0 txpwr (\d+)\s?(pwrctl)?\s?(extnoise (\d+))?', dc_string)
+    pattern = re.search(r'rf5\.0 txpwr (-?\d+)\s?(pwrctl)?\s?(extnoise (\d+))?', dc_string)
     radio_settings['Tx Power'] = pattern.group(1)
     radio_settings['ATPC'] = 'Disabled' if not pattern.group(2) else 'Enabled'
     if pattern.group(3):
@@ -189,15 +189,12 @@ def parse_r5000(dc_string, dc_list):
     if radio_settings['Type'] == 'master':
         radio_settings['Profile'] = {'M': deepcopy(radio_profile)}
         profile = radio_settings['Profile']['M']
-
         pattern = re.search(r'rf rf5\.0 freq (\d+) bitr (\d+) sid ([\d\w]+)', dc_string)
         profile['Frequency'] = pattern.group(1)
         profile['Max bitrate'] = pattern.group(2)
         profile['SID'] = pattern.group(3)
-
         pattern = re.search(r'rf rf5\.0 band (\d+)', dc_string)
         profile['Bandwidth'] = pattern.group(1)
-
         pattern = re.search(r'mint rf5\.0 -(auto|fixed)bitrate( ([\-\d]+))?', dc_string)
         if pattern.group(1) == 'auto' and pattern.group(3) is None:
             profile['Auto bitrate'] = 'Enabled'
@@ -210,66 +207,62 @@ def parse_r5000(dc_string, dc_list):
         profile['MIMO'] = pattern.group(1)
         profile['Greenfield'] = 'Enabled' if pattern.group(3) == 'greenfield' else 'Disabled'
         profile['State'] = 'Active'
-
     else:
-        pattern = re.findall(r'mint rf5\.0 prof (\d+)'
-                             r'( (disable))?'
-                             r' -band (\d+)'
-                             r' -freq ([\d\w]+)'
-                             r'( -bitr (\d+))?'
-                             r' -sid ([\d\w]+) \\'
-                             r'\n\s+-nodeid (\d+)'
-                             r' -type slave \\'
-                             r'\n\s+-(auto|fixed)bitr( ([-+\d]+))?'
-                             r' -(mimo|miso|siso)'
-                             r' (greenfield)?', dc_string, re.DOTALL)
-
+        pattern = re.findall(r'mint rf5\.0 prof (\d+)( (disable))?'
+                             r' -band (\d+) -freq ([\d\w]+)'
+                             r'( -bitr (\d+))? -sid ([\d\w]+) \\'
+                             r'\s+-nodeid (\d+) -type slave '
+                             r'(-netid \d+\s+)?\\(\s+-minbitr \d+)?'
+                             r'\s+-(auto|fixed)bitr( ([\-+\d]+))?'
+                             r' -(mimo|miso|siso)\s?'
+                             r'(greenfield)?', dc_string, re.DOTALL)
         pattern_2 = re.findall(r'[\w\d]+ band \d+ freq (\d+) '
-                               r'snr \d+ links \d+, prof (\d+)', dc_string)[-1]
+                               r'snr \d+ links \d+, prof (\d+)', dc_string)
+        if pattern_2:
+            pattern_2 = pattern_2[-1]
 
         radio_settings['Profile'] = {profile_id: deepcopy(radio_profile) for profile_id in
                                      [profile[0] for profile in pattern]}
+        profile = radio_settings['Profile']
 
         for key, prodile_id in enumerate(radio_settings['Profile']):
-            radio_settings['Profile'][prodile_id]['Frequency'] = pattern[key][4]
-            radio_settings['Profile'][prodile_id]['Bandwidth'] = pattern[key][3]
+            profile[prodile_id]['Frequency'] = pattern[key][4]
+            profile[prodile_id]['Bandwidth'] = pattern[key][3]
 
             if pattern[key][6] != '':
-                radio_settings['Profile'][prodile_id]['Max bitrate'] = pattern[key][6]
+                profile[prodile_id]['Max bitrate'] = pattern[key][6]
             else:
-                radio_settings['Profile'][prodile_id]['Max bitrate'] = 'Max'
+                profile[prodile_id]['Max bitrate'] = 'Max'
 
-            if pattern[key][9] == 'auto' and pattern[key][11] == '':
-                radio_settings['Profile'][prodile_id]['Auto bitrate'] = 'Enabled'
-            elif pattern[key][9] == 'auto' and pattern[key][11] != '':
-                radio_settings['Profile'][prodile_id]['Auto bitrate'] = 'Enabled. ' \
-                                                                        'Modification is {}'.format(pattern[key][11])
+            if pattern[key][11] == 'auto' and pattern[key][13] == '':
+                profile[prodile_id]['Auto bitrate'] = 'Enabled'
+            elif pattern[key][11] == 'auto' and pattern[key][13] != '':
+                profile[prodile_id]['Auto bitrate'] = 'Enabled. ' \
+                                                      'Modification is {}'.format(pattern[key][13])
             else:
-                radio_settings['Profile'][prodile_id]['Auto bitrate'] = 'Disabled. Fixed bitrate is {}'.format(
-                        radio_settings['Profile'][prodile_id]['Max bitrate'])
+                profile[prodile_id]['Auto bitrate'] = 'Disabled. ' \
+                                                      'Fixed bitrate is {}'.format(profile[prodile_id]['Max bitrate'])
 
-            radio_settings['Profile'][prodile_id]['MIMO'] = pattern[key][12]
-            radio_settings['Profile'][prodile_id]['SID'] = pattern[key][7]
+            profile[prodile_id]['MIMO'] = pattern[key][14]
+            profile[prodile_id]['SID'] = pattern[key][7]
 
             if pattern[key][2] == 'disable':
-                radio_settings['Profile'][prodile_id]['Status'] = 'Disabled'
+                profile[prodile_id]['Status'] = 'Disabled'
             else:
-                radio_settings['Profile'][prodile_id]['Status'] = 'Enabled'
+                profile[prodile_id]['Status'] = 'Enabled'
 
-            if pattern[key][13] == 'greenfield':
-                radio_settings['Profile'][prodile_id]['Greenfield'] = 'Enabled'
+            if pattern[key][15] == 'greenfield':
+                profile[prodile_id]['Greenfield'] = 'Enabled'
             else:
-                radio_settings['Profile'][prodile_id]['Greenfield'] = 'Disabled'
+                profile[prodile_id]['Greenfield'] = 'Disabled'
 
-            if radio_settings['Profile'][prodile_id]['Frequency'] == 'auto' and prodile_id == pattern_2[1]:
-                radio_settings['Profile'][prodile_id]['State'] = 'Active'
-                radio_settings['Profile'][prodile_id]['Frequency'] = '{} (auto)'.format(pattern_2[0])
-            elif prodile_id == pattern_2[1]:
-                radio_settings['Profile'][prodile_id]['State'] = 'Active'
+            if profile[prodile_id]['Frequency'] == 'auto' and pattern_2 and prodile_id == pattern_2[1]:
+                profile[prodile_id]['State'] = 'Active'
+                profile[prodile_id]['Frequency'] = '{} (auto)'.format(pattern_2[0])
+            elif pattern_2 and prodile_id == pattern_2[1]:
+                profile[prodile_id]['State'] = 'Active'
             else:
-                radio_settings['Profile'][prodile_id]['State'] = 'Idle'
-
-    print(radio_settings)
+                profile[prodile_id]['State'] = 'Idle'
 
     # Switch Settings
     # This section will be added in the future
@@ -367,7 +360,6 @@ def parse_r5000(dc_string, dc_list):
         pattern = re.findall(r'\d+\s+\((\d+)\/([\-\d]+)\)'
                              r'\s+\d+\s+\([\d\S]+\s+MHz\)'
                              r'\s+\w\s+<([\w\d]+)\s+([\w\d\.\_]+)', dc_string, re.DOTALL)
-
         if radio_status['Links']:
             for mac in pattern:
                 radio_status['Links'][mac[2]]['RSSI Rx'] = mac[1]
@@ -381,13 +373,16 @@ def parse_r5000(dc_string, dc_list):
             radio_status['Interference PPS'] = pattern.group(4)
 
         pattern = re.search(r'RX Medium Load\s+([\d\.]+%)', dc_string)
-        radio_status['RX Medium Load'] = pattern.group(1)
+        if pattern is not None:
+            radio_status['RX Medium Load'] = pattern.group(1)
 
         pattern = re.search(r'TX Medium Load\s+([\d\.]+%)', dc_string)
-        radio_status['TX Medium Load'] = pattern.group(1)
+        if pattern is not None:
+            radio_status['TX Medium Load'] = pattern.group(1)
 
         pattern = re.search(r'Total Medium Busy\s+([\d\.]+%)', dc_string)
-        radio_status['Total Medium Busy'] = pattern.group(1)
+        if pattern is not None:
+            radio_status['Total Medium Busy'] = pattern.group(1)
 
         pattern = re.search(r'Excessive Retries\s+(\d+)', dc_string)
         radio_status['Excessive Retries'] = pattern.group(1)
@@ -407,20 +402,19 @@ def parse_r5000(dc_string, dc_list):
     ethernet_status['eth0']['Duplex'] = pattern[0][3]
     ethernet_status['eth0']['Negotiation'] = pattern[0][4]
 
-    if subfamily == 'R5000 Lite':
+    if subfamily == 'R5000 Lite' and len(pattern) > 1:
         ethernet_status['eth1']['Status'] = pattern[1][0]
         ethernet_status['eth1']['Speed'] = pattern[1][2]
         ethernet_status['eth1']['Duplex'] = pattern[1][3]
         ethernet_status['eth1']['Negotiation'] = pattern[1][4]
 
     pattern = re.findall(r'CRC errors\s+(\d+)', dc_string)
-
     if subfamily == 'R5000 Pro':
         ethernet_status['eth0']['Rx CRC'] = pattern[0]
         ethernet_status['eth0']['Tx CRC'] = pattern[1]
         ethernet_status['eth1']['Rx CRC'] = 0
         ethernet_status['eth1']['Tx CRC'] = 0
-    elif subfamily == 'R5000 Lite (low cost CPE)':
+    elif subfamily == 'R5000 Lite (low cost CPE)' or subfamily == 'R5000 Lite' and len(pattern) is 1:
         ethernet_status['eth0']['Rx CRC'] = pattern[0]
         ethernet_status['eth0']['Tx CRC'] = 0
         ethernet_status['eth1']['Rx CRC'] = 0
@@ -432,10 +426,12 @@ def parse_r5000(dc_string, dc_list):
         ethernet_status['eth1']['Tx CRC'] = 0
 
     # Switch Status
-
     sw_text_start = dc_list.index('Switch statistics:\n')
-    sw_text_end = dc_list.index('LAST SAVED SYSTEM LOG\n')
-    sw_text = ''.join(dc_list[sw_text_start:sw_text_end])
+    for line in dc_list:
+        pattern = re.search(r'DB Records', line)
+        if pattern is not None:
+            sw_text_end = dc_list.index(line)
+    sw_text = ''.join(dc_list[sw_text_start:sw_text_end + 1])
     pattern = re.findall(r'(\d+)\s+'
                          r'>?(\d+)\s+'
                          r'>?(\d+)\s+'
@@ -460,7 +456,6 @@ def parse_r5000(dc_string, dc_list):
         switch_status[id]['BACK'] = int(status[8])
 
     # QoS status
-
     counter = 0
     for line in dc_list:
         counter += 1
