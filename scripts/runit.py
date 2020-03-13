@@ -2,18 +2,22 @@
 # -*- coding: utf-8 -*-
 
 from pathlib import Path
-from re import search
+from re import search, split
+import io
+
+from werkzeug.datastructures import FileStorage
 
 import scripts.dcard_parser as dparser
 import scripts.dcard_reporter as dreporter
 import scripts.tests.run_tests as dtester
 
 
-def analyze(text):
-    dc_string = text
-    dc_list = dc_string.split()
+def analyze(file):
+    dc_string = file.read().decode("utf-8")
+    dc_list = split(r'(.*\n)', dc_string)
+    # dc_list = dc_string.splitline()
 
-    return dc_list
+    print(dc_list)
 
     if True:
         # pass
