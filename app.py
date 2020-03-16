@@ -1,14 +1,14 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from flask import Flask, request
-from pathlib import Path
+from flask import Flask, request, render_template, make_response
 from werkzeug.utils import secure_filename
+
 from scripts.runit import analyze
 
+
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = Path.cwd() / 'scripts' / 'dcards'
-app.config['ALLOWED_EXTENSIONS'] = 'txt'
+app.config.from_object('config.DevelopmentConfig')
 
 
 def allowed_format(filename):
@@ -17,18 +17,28 @@ def allowed_format(filename):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    if request.method == 'POST':
-        data = request.get_data()
-        return analyze(data)
+    return render_template('index.html')
 
 
-@app.route('/parser', methods=['POST'])
+@app.route('/jira', methods=['POST'])
 def parser():
-    file = request.files['file']
-    filename = secure_filename(file.filename)
-    if file and allowed_format(filename):
-        return analyze(file)
+    result = []
+    for file in request.files.values():
+        filename = secure_filename(file.filename)
+        if allowed_format(filename):
+            result.append(analyze(file, filename))
+            result.append('\n' * 2)
+        else:
+            result.append('Invalid file type.')
+    response = make_response('\n'.join(result), 200)
+    response.headers['Content-Type'] = 'text/plain'
+    return response
+
+
+@app.errorhandler(413)
+def request_entity_too_large(error):
+    return 'File is too large. It must be less than 1 MB.', 413
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0')

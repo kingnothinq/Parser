@@ -10,7 +10,7 @@ def run_tests(device):
     Return a list of strings with results or an empty list if all tests have passed successfully.
     """
 
-    def import_test(*args):
+    def import_test(device, test_name):
         """Dynamic modules (tests) import
 
         A module must follow the next template:
@@ -26,10 +26,10 @@ def run_tests(device):
         Use __ (double underscore) before file name if you need to hide a test from the importer.
         """
 
-        module = import_module('.' + str(test_name.stem), 'tests.' + str.lower(device.family))
+        module = import_module('.' + str(test_name.stem), 'scripts.tests.' + str.lower(device.family))
         return module.test(device)
 
-    test_path = Path.cwd() / 'tests' / str.lower(device.family)
+    test_path = Path.cwd() / 'scripts' / 'tests' / str.lower(device.family)
     test_results = []
 
     for test_name in list(test_path.glob('[!__]*.py')):

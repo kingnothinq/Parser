@@ -426,7 +426,7 @@ def parse_r5000(dc_string, dc_list):
         ethernet_status['eth1']['Tx CRC'] = 0
 
     # Switch Status
-    sw_text_start = dc_list.index('Switch statistics:\n')
+    sw_text_start = dc_list.index('Switch statistics:\r\n')
     for line in dc_list:
         pattern = re.search(r'DB Records', line)
         if pattern is not None:

@@ -4,9 +4,6 @@
 from re import search
 
 
-from jira import JIRA
-
-
 def r5000_report(device):
     """Show parsed information."""
 
@@ -264,10 +261,10 @@ def quanta_report(device):
     return '\n'.join(message)
 
 
-def create_report(device, tests_report, dc_path):
+def create_report(device, tests_report, dc_name):
     """Create a report."""
 
-    message_1 = '\nParsing diagnostic card: {}'.format(dc_path.name)
+    message_1 = '\nParsing diagnostic card: {}'.format(dc_name)
     message_1_complete = '{}{}\n{}\n'.format('-' * len(message_1), message_1, '-' * len(message_1))
     message_2 = ('Serial Number is {}.\n'
                  'Model is {}.\n'
@@ -292,12 +289,11 @@ def create_report(device, tests_report, dc_path):
     return report_text
 
 
-def error_report(dc_path):
+def error_report(dc_name):
     """Create an error report."""
 
-    message_1 = '\nParsing diagnostic card: {}'.format(dc_path.name)
-    message_1_complete = '{}{}\n{}\n'.format('-' * len(message_1), message_1,
-                                             '-' * len(message_1))
+    message_1 = '\nParsing diagnostic card: {}'.format(dc_name)
+    message_1_complete = '{}{}\n{}\n'.format('-' * len(message_1), message_1, '-' * len(message_1))
     message_2 = 'This is not a valid diagnostic card. Please analyze it manually.'
 
     report_text = [message_1_complete, message_2]
@@ -326,20 +322,6 @@ def write_report(report_text, serial_number):
     with open(report_path, 'w') as report:
         for line in report_text:
             report.write(line)
-
-
-def jira_report(report):
-    """Send report in Jira."""
-
-    print(report)
-
-    jira_options = {'server': 'https://jira.infinet.ru/'}
-    login = input('Login: ')
-    password = input('Password: ')
-    jira = JIRA(options=jira_options, basic_auth=(login, password))
-    comment = jira.add_comment('DESK-53647', '\n'.join(report))
-
-    return comment
 
 
 def debug_report(report_text):
