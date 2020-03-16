@@ -1,11 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import sys
+import argparse
+
 from flask import Flask, request, render_template, make_response
 from werkzeug.utils import secure_filename
 
 from scripts.runit import analyze
-
 
 app = Flask(__name__)
 app.config.from_object('config.DevelopmentConfig')
