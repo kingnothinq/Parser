@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from re import search, findall
+from re import search
 
 
 def test(device):

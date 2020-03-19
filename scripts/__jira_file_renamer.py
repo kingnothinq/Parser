@@ -1,17 +1,20 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import shutil
 from pathlib import Path
 from re import search
-import shutil
+
 
 def jira_info(path):
     with open(path / 'copy.txt', 'r') as cases:
         return cases.readlines()
 
+
 def text(path):
     with open(path) as file:
         return file.read()
+
 
 """Rename attaches from JIRA"""
 
@@ -66,12 +69,3 @@ for file in txt_files:
             shutil.move(file, new_path)
     except UnicodeDecodeError:
         continue
-
-
-
-
-
-
-
-
-

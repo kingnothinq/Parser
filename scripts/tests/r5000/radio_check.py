@@ -7,7 +7,6 @@ from re import search
 def test(device):
     """Check radio parameters and return conclusion."""
 
-
     def check_rssi(status):
         """Check RSSI and return the conclusion."""
 

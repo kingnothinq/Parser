@@ -90,8 +90,8 @@ def test(device):
                           '(the spectrum analyzer can be used to do that); '
                           '3) Reduce bandwidth on the master device '
                           'in order to improve the sensitivity of the radio module. '
-                          'The current bandwidth is {} MHz. '
-                          .format(evm, stream_name, settings['Tx Power'], settings['Bandwidth']))
+                          'The current bandwidth is {} MHz. '.format(evm, stream_name, settings['Tx Power'],
+                                                                     settings['Bandwidth']))
         elif position == 'downlink' and settings['Role'] == 'slave' and evm < -10:
             result.append('* EVM is {} dB in the {} on the slave device. '
                           'The quality of the signal is very low. '
@@ -102,8 +102,7 @@ def test(device):
                           '2) Find better frequency for the slave device '
                           '(the spectrum analyzer can be used to do that); '
                           '3) Reduce bandwidth on the master device '
-                          'in order to improve the sensitivity of the radio module. '
-                          .format(evm, stream_name))
+                          'in order to improve the sensitivity of the radio module. '.format(evm, stream_name))
         elif position == 'uplink' and settings['Role'] == 'master' and evm < -10:
             result.append('* EVM is {} dB in the {} on the master device. '
                           'The quality of the signal is very low. '
@@ -115,8 +114,7 @@ def test(device):
                           '(the spectrum analyzer can be used to do that); '
                           '3) Reduce bandwidth on the master device '
                           'in order to improve the sensitivity of the radio module. '
-                          'The current bandwidth is {} MHz. '
-                          .format(evm, stream_name, settings['Bandwidth']))
+                          'The current bandwidth is {} MHz. '.format(evm, stream_name, settings['Bandwidth']))
         elif position == 'uplink' and settings['Role'] == 'slave' and evm < -10:
             result.append('* EVM is {} dB in the {} on the master device. '
                           'The quality of the signal is very low. '
@@ -128,8 +126,8 @@ def test(device):
                           '2) Find better frequency for the master device '
                           '(the spectrum analyzer can be used to do that); '
                           '3) Reduce bandwidth on the master device '
-                          'in order to improve the sensitivity of the radio module. '
-                          .format(evm, stream_name, settings['Tx Power']))
+                          'in order to improve the sensitivity of the radio module. '.format(evm, stream_name,
+                                                                                             settings['Tx Power']))
 
         elif position == 'downlink' and settings['Role'] == 'master' and evm < -15:
             result.append('* EVM is {} dB in the {} on the slave device. '
@@ -143,8 +141,8 @@ def test(device):
                           '(the spectrum analyzer can be used to do that); '
                           '3) Reduce bandwidth on the master device '
                           'in order to improve the sensitivity of the radio module. '
-                          'The current bandwidth is {} MHz. '
-                          .format(evm, stream_name, settings['Tx Power'], settings['Bandwidth']))
+                          'The current bandwidth is {} MHz. '.format(evm, stream_name, settings['Tx Power'],
+                                                                     settings['Bandwidth']))
         elif position == 'downlink' and settings['Role'] == 'slave' and evm < -15:
             result.append('* EVM is {} dB in the {} on the slave device. '
                           'The quality of the signal is very low. '
@@ -155,8 +153,7 @@ def test(device):
                           '2) Find better frequency for the slave device '
                           '(the spectrum analyzer can be used to do that); '
                           '3) Reduce bandwidth on the master device '
-                          'in order to improve the sensitivity of the radio module. '
-                          .format(evm, stream_name))
+                          'in order to improve the sensitivity of the radio module. '.format(evm, stream_name))
         elif position == 'uplink' and settings['Role'] == 'master' and evm < -15:
             result.append('* EVM is {} dB in the {} on the master device. '
                           'The quality of the signal is very low. '
@@ -168,8 +165,7 @@ def test(device):
                           '(the spectrum analyzer can be used to do that); '
                           '3) Reduce bandwidth on the master device '
                           'in order to improve the sensitivity of the radio module. '
-                          'The current bandwidth is {} MHz. '
-                          .format(evm, stream_name, settings['Bandwidth']))
+                          'The current bandwidth is {} MHz. '.format(evm, stream_name, settings['Bandwidth']))
         elif position == 'uplink' and settings['Role'] == 'slave' and evm < -15:
             result.append('* EVM is {} dB in the {} on the master device. '
                           'The quality of the signal is very low. '
@@ -181,8 +177,8 @@ def test(device):
                           '2) Find better frequency for the master device '
                           '(the spectrum analyzer can be used to do that); '
                           '3) Reduce bandwidth on the master device '
-                          'in order to improve the sensitivity of the radio module. '
-                          .format(evm, stream_name, settings['Tx Power']))
+                          'in order to improve the sensitivity of the radio module. '.format(evm, stream_name,
+                                                                                             settings['Tx Power']))
 
     def check_crosstalk(position, stream_name, crosstalk):
         """Check Crosstalk and return the conclusion."""
@@ -190,12 +186,10 @@ def test(device):
         crosstalk = float(search(r'([-\d\.]+)', crosstalk).group(1))
         if position == 'downlink' and crosstalk < -15:
             result.append('* Crosstalk is {} dB in the {} on the slave device. '
-                          'Please check the installation of the antenna and LOS.'
-                          .format(crosstalk, stream_name))
+                          'Please check the installation of the antenna and LOS.'.format(crosstalk, stream_name))
         elif position == 'uplink' and crosstalk < -15:
             result.append('* Crosstalk is {} dB in the {} on the master device. '
-                          'Please check the installation of the antenna and LOS.'
-                          .format(crosstalk, stream_name))
+                          'Please check the installation of the antenna and LOS.'.format(crosstalk, stream_name))
 
     def check_arq_ratio(position, stream_name, arq):
         """Check ARQ Ratio in the stream and return the conclusion."""
@@ -203,13 +197,13 @@ def test(device):
         if position == 'downlink' and arq > 5:
             result.append('* ARQ ratio is {} % in the {} on the slave device. '
                           'It is recommended to keep the ARQ ratio less than 5%. '
-                          'Please check other radio link parameters and find better frequency.'
-                          .format(arq, stream_name, position))
+                          'Please check other radio link parameters and find better frequency.'.format(arq, stream_name,
+                                                                                                       position))
         elif position == 'uplink' and arq > 5:
             result.append('* ARQ ratio is {} % in the {} on the master device. '
                           'It is recommended to keep the ARQ ratio less than 5%. '
-                          'Please check other radio link parameters and find better frequency.'
-                          .format(arq, stream_name, position))
+                          'Please check other radio link parameters and find better frequency.'.format(arq, stream_name,
+                                                                                                       position))
 
     def check_mixed_polarisations(position, carrier):
         """Check if V and H polarizations were mixed up during installation."""
@@ -262,7 +256,7 @@ def test(device):
                       'settings of the remote side, '
                       'LOS, the spectrum, etc.')
     else:
-        # If Link Status is OK, check radio parameters
+        #If Link Status is OK, check radio parameters
         check_carrier('downlink', downlink)
         check_carrier('uplink', uplink)
 

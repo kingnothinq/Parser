@@ -1,9 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from re import search, findall
-
 from ftplib import FTP
+from re import findall, search
 
 
 def test(device):

@@ -1,9 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from re import search, findall
-
 from ftplib import FTP
+from re import findall, search
 
 
 def test(device):
@@ -24,7 +23,7 @@ def test(device):
     if int(pattern[0][0]) <= 0 and int(pattern[0][1]) < 15:
         result.append('* Uptime is too short ({}). '
                       'It is recommended to wait more in order to collect more precise statistics.'.format(
-            device.uptime))
+                device.uptime))
 
     ftp = FTP('ftp.infinet.ru')
     ftp.login()

@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+from pathlib import Path
 from re import search
 
 
@@ -8,6 +9,8 @@ def r5000_report(device):
     """Show parsed information."""
 
     def show_radio_settings(id, radio_settings, profile_active):
+        """Fill radio settings with values"""
+
         message.append('   Profile: {}.'.format(id).replace('M', 'Master device'))
         message.append('    Frequency: {} MHz.'.format(profile_active['Frequency']))
         message.append('    Bandwidth: {} MHz.'.format(profile_active['Bandwidth']))
@@ -35,7 +38,7 @@ def r5000_report(device):
     ethernet_status = device.ethernet_status
     message = []
 
-    # Show settings
+    #Show settings
     message.append('Settings: ')
     message.append(' Role: {}.'.format(str.capitalize(radio_settings['Type'])))
     for id, profile in radio_settings['Profile'].items():
@@ -51,7 +54,7 @@ def r5000_report(device):
             show_radio_settings(id, radio_settings, profile_active)
     message.append('')
 
-    # Show Radio Status
+    #Show Radio Status
     message.append('Radio: ')
     message.append(' Interference: ')
     message.append('    Pulses: {} pps, Interference RSSI: {} dBm.'.format(radio_status['Pulses'],
@@ -73,7 +76,7 @@ def r5000_report(device):
         message.append('  No connected devices.')
     message.append('')
 
-    # Show Ethernet Status
+    #Show Ethernet Status
     message.append('Interfaces: ')
     for id, interface in ethernet_status.items():
         if interface['Status'] is not None:
@@ -98,17 +101,15 @@ def xg_report(device):
                                              '   Stream 0 MCS: {}, '
                                              'Stream 1 MCS: {};\n'
                                              '   Stream 0 Errors: {}, '
-                                             'Stream 1 Errors: {}. '
-                       .format(carrier['Frequency'],
-                               carrier['Stream 0']['RSSI'],
-                               carrier['Stream 1']['RSSI'],
-                               carrier['Stream 0']['CINR'],
-                               carrier['Stream 1']['CINR'],
-                               carrier['Stream 0']['MCS'],
-                               carrier['Stream 1']['MCS'],
-                               carrier['Stream 0']['Errors Ratio'],
-                               carrier['Stream 1']['Errors Ratio']))
-
+                                             'Stream 1 Errors: {}. '.format(carrier['Frequency'],
+                                                                            carrier['Stream 0']['RSSI'],
+                                                                            carrier['Stream 1']['RSSI'],
+                                                                            carrier['Stream 0']['CINR'],
+                                                                            carrier['Stream 1']['CINR'],
+                                                                            carrier['Stream 0']['MCS'],
+                                                                            carrier['Stream 1']['MCS'],
+                                                                            carrier['Stream 0']['Errors Ratio'],
+                                                                            carrier['Stream 1']['Errors Ratio']))
 
     settings = device.settings
     radio_status = device.radio_status
@@ -117,25 +118,23 @@ def xg_report(device):
     ethernet_status = device.ethernet_status
     message = []
 
-    # Show settings
+    #Show settings
     message.append('Settings: ')
     message.append(' Role: {}'.format(str.capitalize(settings['Role'])))
     if device.subfamily == 'XG 500':
         message.append(' Frequencies: '
                        'Carrier 0 DL - {} MHz, '
-                       'Carrier 0 UL - {} MHz.'
-                       .format(settings['DL Frequency']['Carrier 0'],
-                               settings['UL Frequency']['Carrier 0']))
+                       'Carrier 0 UL - {} MHz.'.format(settings['DL Frequency']['Carrier 0'],
+                                                       settings['UL Frequency']['Carrier 0']))
     else:
         message.append(' Frequencies: '
                        'Carrier 0 DL - {} MHz, '
                        'Carrier 0 UL - {} MHz, '
                        'Carrier 1 DL - {} MHz, '
-                       'Carrier 1 UL - {} MHz.'
-                       .format(settings['DL Frequency']['Carrier 0'],
-                               settings['UL Frequency']['Carrier 0'],
-                               settings['DL Frequency']['Carrier 1'],
-                               settings['UL Frequency']['Carrier 1']))
+                       'Carrier 1 UL - {} MHz.'.format(settings['DL Frequency']['Carrier 0'],
+                                                       settings['UL Frequency']['Carrier 0'],
+                                                       settings['DL Frequency']['Carrier 1'],
+                                                       settings['UL Frequency']['Carrier 1']))
     message.append(' Bandwidth: {} MHz.'.format(settings['Bandwidth']))
     message.append(' Frame size: {} ms.'.format(settings['Frame size']))
     message.append(' DL/UL Ratio: {}.'.format(settings['DL/UL Ratio']))
@@ -150,7 +149,7 @@ def xg_report(device):
     message.append(' Max MCS: {}.'.format(settings['Max MCS']))
     message.append('')
 
-    # Show Radio Status
+    #Show Radio Status
     message.append('Radio: ')
     message.append(' Link status: {}.'.format(radio_status['Link status']))
     message.append(' Measured Distance: {}.'.format(radio_status['Measured Distance']))
@@ -173,7 +172,7 @@ def xg_report(device):
             radio_message(slave[carrier], carrier)
     message.append('')
 
-    # Show Ethernet Status
+    #Show Ethernet Status
     message.append('Interfaces: ')
     for id, interface in ethernet_status.items():
         if interface['Status'] is not None:
@@ -198,18 +197,12 @@ def quanta_report(device):
                        '  Stream 0 MCS: {}, '
                        'Stream 1 MCS: {};\n'
                        '  Stream 0 ARQ ratio: {}, '
-                       'Stream 1 ARQ ratio: {}. '
-                       .format(carrier['Stream 0']['RSSI'],
-                               carrier['Stream 1']['RSSI'],
-                               carrier['Stream 0']['EVM'],
-                               carrier['Stream 1']['EVM'],
-                               carrier['Stream 0']['Crosstalk'],
-                               carrier['Stream 1']['Crosstalk'],
-                               carrier['Stream 0']['MCS'],
-                               carrier['Stream 1']['MCS'],
-                               carrier['Stream 0']['ARQ ratio'],
-                               carrier['Stream 1']['ARQ ratio']))
-
+                       'Stream 1 ARQ ratio: {}. '.format(carrier['Stream 0']['RSSI'], carrier['Stream 1']['RSSI'],
+                                                         carrier['Stream 0']['EVM'], carrier['Stream 1']['EVM'],
+                                                         carrier['Stream 0']['Crosstalk'],
+                                                         carrier['Stream 1']['Crosstalk'], carrier['Stream 0']['MCS'],
+                                                         carrier['Stream 1']['MCS'], carrier['Stream 0']['ARQ ratio'],
+                                                         carrier['Stream 1']['ARQ ratio']))
 
     settings = device.settings
     radio_status = device.radio_status
@@ -218,32 +211,29 @@ def quanta_report(device):
     ethernet_status = device.ethernet_status['ge0']
     message = []
 
-    # Show settings
+    #Show settings
     message.append('Settings: ')
     message.append(' Role: {}.'.format(str.capitalize(settings['Role'])))
-    message.append(' Frequencies: DL - {} MHz, UL - {} MHz.'
-                   .format(settings['DL Frequency'], settings['UL Frequency']))
+    message.append(' Frequencies: DL - {} MHz, UL - {} MHz.'.format(settings['DL Frequency'], settings['UL Frequency']))
     message.append(' Bandwidth: {} MHz.'.format(settings['Bandwidth']))
     message.append(' Frame size: {} ms.'.format(settings['Frame size']))
     message.append(' Guard Interval: {}.'.format(settings['Guard Interval']))
     pattern = search(r'(\d+)( \((\w+)\))?', settings['DL/UL Ratio'])
     if pattern.group(3) is not None:
-        message.append(' DL/UL Ratio: {}/{} ({}).'
-                       .format(pattern.group(1), 100 - int(pattern.group(1)), pattern.group(3)))
+        message.append(
+                ' DL/UL Ratio: {}/{} ({}).'.format(pattern.group(1), 100 - int(pattern.group(1)), pattern.group(3)))
     else:
-        message.append(' DL/UL Ratio: {}/{}.'
-                       .format(pattern.group(1), 100 - int(pattern.group(1))))
+        message.append(' DL/UL Ratio: {}/{}.'.format(pattern.group(1), 100 - int(pattern.group(1))))
     message.append(' DFS: {}.'.format(settings['DFS']))
     message.append(' ARQ: {}.'.format(settings['ARQ']))
     message.append(' Tx Power: {} dBm.'.format(settings['Tx Power']))
     message.append(' ATPC: {}.'.format(settings['ATPC']))
     if settings['ATPC'] == 'Enabled':
-        message.append(' AMC Strategy: {}.'
-                       .format(str.capitalize(settings['AMC Strategy'])))
+        message.append(' AMC Strategy: {}.'.format(str.capitalize(settings['AMC Strategy'])))
     message.append(' Max MCS: DL - {}, UL - {}.'.format(settings['Max DL MCS'], settings['Max UL MCS']))
     message.append('')
 
-    # Show Radio Status
+    #Show Radio Status
     message.append('Radio: ')
     message.append(' Link status: {}.'.format(radio_status['Link status']))
     message.append(' Measured Distance: {}.'.format(radio_status['Measured Distance']))
@@ -253,7 +243,7 @@ def quanta_report(device):
     radio_message(uplink)
     message.append('')
 
-    # Show Ethernet Status
+    #Show Ethernet Status
     message.append('Interfaces: ')
     message.append(' Ge0 is {}.'.format(ethernet_status['Status']))
     message.append('')
@@ -264,7 +254,10 @@ def quanta_report(device):
 def create_report(device, tests_report, dc_name):
     """Create a report."""
 
-    message_1 = '\nParsing diagnostic card: {}'.format(dc_name)
+    if 'txt' in dc_name:
+        message_1 = '\nParsing diagnostic card: {}'.format(dc_name)
+    else:
+        message_1 = '\nParsing diagnostic card from JIRA'
     message_1_complete = '{}{}\n{}\n'.format('-' * len(message_1), message_1, '-' * len(message_1))
     message_2 = ('Serial Number is {}.\n'
                  'Model is {}.\n'
@@ -283,8 +276,7 @@ def create_report(device, tests_report, dc_name):
     if not list(filter(None, tests_report)):
         report_text = [message_1_complete, message_2, message_3, message_4]
     else:
-        report_text = [message_1_complete, message_2, message_3, message_5] + list(
-                filter(None, tests_report))
+        report_text = [message_1_complete, message_2, message_3, message_5] + list(filter(None, tests_report))
 
     return report_text
 
@@ -307,18 +299,17 @@ def write_report(report_text, serial_number):
     report_name = 'diagcard_{}_report.txt'.format(serial_number)
     report_path = Path.joinpath(Path.cwd() / 'reports', report_name)
 
-    # Create a folder if it does not exist
+    #Create a folder if it does not exist
     if Path.is_dir(report_path.parent) is False:
         Path.mkdir(report_path.parent)
 
     report_name_counter = 0
     while Path.exists(report_path):
         report_name_counter += 1
-        report_name = 'diagcard_{}_report_{}.txt'.format(
-                serial_number, report_name_counter)
+        report_name = 'diagcard_{}_report_{}.txt'.format(serial_number, report_name_counter)
         report_path = Path.joinpath(Path.cwd() / 'reports', report_name)
 
-    # Write report in the folder
+    #Write report in the folder
     with open(report_path, 'w') as report:
         for line in report_text:
             report.write(line)

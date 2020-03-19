@@ -23,14 +23,12 @@ def test(device):
     pattern = search(r'CPU Load\s+(\d+)%\s+(\d+)%\(10s\)', device.dc_string)
     if int(pattern.group(1)) > 90 and int(pattern.group(2)) > 80:
         result.append('* CPU utilization is {}%. '
-                      'Please pay attention.'
-                      .format(pattern.group(1)))
+                      'Please pay attention.'.format(pattern.group(1)))
 
     pattern = search(r'BOARD: ([\+\-\d\.]+) degrees Celsius', device.dc_string).group(1)
     if float(pattern) < -55 or float(pattern) > 60:
         result.append('* Motherboard temperature is {}°. '
-                      'Please pay attention.'
-                      .format(pattern))
+                      'Please pay attention.'.format(pattern))
 
     if result:
         return '\nLog and other service messages issues: \n' + '\n'.join(result)

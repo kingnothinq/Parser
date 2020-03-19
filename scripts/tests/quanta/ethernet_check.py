@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from re import search, findall
+from re import findall, search
 
 
 def test(device):
@@ -10,19 +10,18 @@ def test(device):
     ethernet = device.ethernet_status['ge0']
     result = []
 
-    # Check CRC errors
+    #Check CRC errors
     if int(ethernet['CRC']) > 0:
         result.append('* CRC Errors detected on the ge0 interface. '
                       'Please check patch-cords, cables, crimps, '
                       'IDU, grounding, Ethernet ports.')
 
-    # Check Ethernet statuses
+    #Check Ethernet statuses
     if ethernet['Status'] == 'UP' and ethernet['Duplex'] != 'Full-duplex' and ethernet['Negotiation'] == 'Auto':
         result.append('* The ge0 interface works in the {} mode. '
-                      'Please check it.'
-                      .format(ethernet['Duplex']))
+                      'Please check it.'.format(ethernet['Duplex']))
 
-    # Check flaps
+    #Check flaps
     flap_counter = 0
     ld_previous = False
     for line in device.dc_list:
@@ -37,7 +36,7 @@ def test(device):
                           'Please check it.'.format(pattern.group(1)))
             break
 
-    # Runt bug
+    #Runt bug
     pattern = findall(r'(Runt len errors|Frame length errors)\s+(\d+)', device.dc_string)
     if ethernet['Duplex'] == 'Full-duplex' and int(pattern[1][1]) > 0:
         result.append('* Runt len errors detected on the ge0 interface. '

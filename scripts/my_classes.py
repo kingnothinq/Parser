@@ -7,8 +7,7 @@ from abc import ABC
 class RawDiagnosticCard(ABC):
     """A diagnostic card."""
 
-    def __init__(self, model, subfamily, serial_number, firmware, uptime,
-                 reboot_reason, dc_list, dc_string):
+    def __init__(self, model, subfamily, serial_number, firmware, uptime, reboot_reason, dc_list, dc_string):
         self.model = model
         self.subfamily = subfamily
         self.serial_number = serial_number
@@ -39,12 +38,9 @@ class XGCard(RawDiagnosticCard):
 
     family = 'XG'
 
-    def __init__(self, model, subfamily, serial_number, firmware, uptime,
-                 reboot_reason, dc_list, dc_string,
-                 settings, radio_status, ethernet_status, panic):
-        super().__init__(model, subfamily, serial_number, firmware, uptime,
-                         reboot_reason, dc_list,
-                         dc_string)
+    def __init__(self, model, subfamily, serial_number, firmware, uptime, reboot_reason, dc_list, dc_string, settings,
+                 radio_status, ethernet_status, panic):
+        super().__init__(model, subfamily, serial_number, firmware, uptime, reboot_reason, dc_list, dc_string)
         self.settings = settings
         self.radio_status = radio_status
         self.ethernet_status = ethernet_status
@@ -56,12 +52,9 @@ class QCard(RawDiagnosticCard):
 
     family = 'Quanta'
 
-    def __init__(self, model, subfamily, serial_number, firmware, uptime,
-                 reboot_reason, dc_list, dc_string,
-                 settings, radio_status, ethernet_status):
-        super().__init__(model, subfamily, serial_number, firmware, uptime,
-                         reboot_reason, dc_list,
-                         dc_string)
+    def __init__(self, model, subfamily, serial_number, firmware, uptime, reboot_reason, dc_list, dc_string, settings,
+                 radio_status, ethernet_status):
+        super().__init__(model, subfamily, serial_number, firmware, uptime, reboot_reason, dc_list, dc_string)
         self.settings = settings
         self.radio_status = radio_status
         self.ethernet_status = ethernet_status
