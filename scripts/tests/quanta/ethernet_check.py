@@ -24,17 +24,24 @@ def test(device):
     #Check flaps
     flap_counter = 0
     ld_previous = False
-    for line in device.dc_list:
-        pattern = search(r'(ge0): link down', line)
+    ld_index = 0
+    for index, line in enumerate(device.dc_list):
+        pattern = search(r'(ge0) link down', line)
         if pattern is not None:
+            ld_index = index + 1
+            flap_interface = pattern.group(1)
+            ld_text = '{} media changed'.format(flap_interface)
             ld_previous = True
-        pattern = search(r'(ge0): media changed', line)
-        if pattern is not None and ld_previous == True:
-            flap_counter += 1
-        if flap_counter > 3:
+            continue
+        if ld_previous:
+            pattern = search(ld_text, line)
+            if pattern is not None and index == ld_index:
+                flap_counter += 1
+        else:
+            ld_previous = False
+        if flap_counter > 4:
             result.append('* The {} interface is flapping. '
-                          'Please check it.'.format(pattern.group(1)))
-            break
+                          'Please check it.'.format(flap_interface))
 
     #Runt bug
     pattern = findall(r'(Runt len errors|Frame length errors)\s+(\d+)', device.dc_string)
@@ -48,6 +55,7 @@ def test(device):
                       'If everything is ok with the cables and interfaces, '
                       'it may be a bug (IOCT-XXX).')
 
+    result = list(set(result))
     if result:
         return '\nEthernet issues: \n' + '\n'.join(result)
     else:

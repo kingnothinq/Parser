@@ -68,6 +68,7 @@ def test(device):
                       'Maximum number of connected CPEs is 62. '
                       'Please disable scrambling (CLI: "mint rf5.0 -scrambling").'.format(pattern.group(1)))
 
+    result = list(set(result))
     if result:
         return '\nLog and other service messages issues: \n' + '\n'.join(result)
     else:

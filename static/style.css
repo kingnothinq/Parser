@@ -1,0 +1,54 @@
+html {
+  height: 100%;
+  font-family: "Roboto", sans-serif;
+  font-size: 1em;
+  background-color: #F5F5F5;
+  color: #045d8a;
+}
+
+body {
+  margin: 1vh;
+  min-height: calc(100vh - 20px);
+}
+
+header {
+  font-family: "Montserrat Bold", serif;
+  font-size: 1.5em;
+}
+
+h1 {
+  text-align: center;
+  margin: 0;
+  line-height: 30px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #5a6e7d;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+nav {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #045d8a;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+nav img {
+  position: relative;
+  margin: 10px 10px 10px 10px;
+  border: 1px solid yellow;
+}
+
+nav ul {
+  list-style-type: none;
+}
+
+nav hr {
+  background-color: black;
+}

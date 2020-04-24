@@ -252,12 +252,12 @@ def quanta_report(device):
 
 
 def create_report(device, tests_report, dc_name):
-    """Create a report."""
+    """Create a report. Return a tuple of values. They are needed to create JSON."""
 
     if 'txt' in dc_name:
         message_1 = '\nParsing diagnostic card: {}'.format(dc_name)
     else:
-        message_1 = '\nParsing diagnostic card from JIRA'
+        message_1 = '\nParsing diagnostic card {} from JIRA'.format(dc_name)
     message_1_complete = '{}{}\n{}\n'.format('-' * len(message_1), message_1, '-' * len(message_1))
     message_2 = ('Serial Number is {}.\n'
                  'Model is {}.\n'
@@ -274,23 +274,23 @@ def create_report(device, tests_report, dc_name):
     message_5 = 'The next issues were detected:'
 
     if not list(filter(None, tests_report)):
-        report_text = [message_1_complete, message_2, message_3, message_4]
+        report_text = '\n'.join([message_1_complete, message_2, message_3, message_4])
     else:
-        report_text = [message_1_complete, message_2, message_3, message_5] + list(filter(None, tests_report))
+        report_text = '\n'.join([message_1_complete, message_2, message_3, message_5] + list(filter(None, tests_report)))
 
-    return report_text
+    return device.model, device.family, device.subfamily, device.serial_number, device.firmware, report_text
 
 
 def error_report(dc_name):
-    """Create an error report."""
+    """Create an error report. Return 5 values in accordance with create_report()."""
 
     message_1 = '\nParsing diagnostic card: {}'.format(dc_name)
     message_1_complete = '{}{}\n{}\n'.format('-' * len(message_1), message_1, '-' * len(message_1))
     message_2 = 'This is not a valid diagnostic card. Please analyze it manually.'
 
-    report_text = [message_1_complete, message_2]
+    report_text = '\n'.join([message_1_complete, message_2])
 
-    return report_text
+    return None, None, None, None, None, report_text
 
 
 def write_report(report_text, serial_number):

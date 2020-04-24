@@ -62,6 +62,7 @@ def test(device):
                           'the master device ({}). It is recommended to install the same version.'.format(
                     fw_current_link, links[link]['Name'], fw_current_own))
 
+    result = list(set(result))
     if result:
         return '\nRecommendations: \n' + '\n'.join(result)
     else:

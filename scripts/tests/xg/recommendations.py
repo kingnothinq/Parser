@@ -43,6 +43,7 @@ def test(device):
                       'The latest version ({}) can be downloaded '
                       'from our FTP server ({}).'.format(fw_current, fw_latest, path_latest))
 
+    result = list(set(result))
     if result:
         return '\nRecommendations: \n' + '\n'.join(result)
     else:

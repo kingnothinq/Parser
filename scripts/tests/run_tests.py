@@ -29,7 +29,10 @@ def run_tests(device):
         module = import_module('.' + str(test_name.stem), 'scripts.tests.' + str.lower(device.family))
         return module.test(device)
 
-    test_path = Path.cwd() / 'scripts' / 'tests' / str.lower(device.family)
+
+    #test_path = Path.cwd() / 'scripts' / 'tests' / str.lower(device.family)
+    httpd_location = '/var/www/html/parser/www/'
+    test_path = Path.cwd() / httpd_location / 'scripts' / 'tests' / str.lower(device.family)
     test_results = []
 
     for test_name in list(test_path.glob('[!__]*.py')):

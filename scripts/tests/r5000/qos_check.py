@@ -29,6 +29,7 @@ def test(device):
             result.append('* Packet drops ({}) in the channel {} of the radio module. '
                           'Please check the QoS settings.'.format(status['Drops'], channel))
 
+    result = list(set(result))
     if result:
         return '\nQoS issues: \n' + '\n'.join(result)
     else:

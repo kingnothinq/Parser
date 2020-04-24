@@ -260,6 +260,7 @@ def test(device):
         check_carrier('downlink', downlink)
         check_carrier('uplink', uplink)
 
+    result = list(set(result))
     if result:
         return '\nRadio issues: \n' + '\n'.join(result)
     else:

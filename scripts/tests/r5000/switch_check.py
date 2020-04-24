@@ -20,6 +20,7 @@ def test(device):
             result.append('* Perhaps there is a loop in the switch group {}. '
                           'Please check it.'.format(id))
 
+    result = list(set(result))
     if result:
         return '\nEthernet issues: \n' + '\n'.join(result)
     else:

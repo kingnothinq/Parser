@@ -269,6 +269,7 @@ def test(device):
         result.append('* Polling disabled. '
                       'It is strongly recommend to enabled it.')
 
+    result = list(set(result))
     if result:
         return '\nRadio issues: \n' + '\n'.join(result)
     else:

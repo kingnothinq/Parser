@@ -68,6 +68,7 @@ def test(device):
         for panic in device.panic:
             find_panic(panic)
 
+    result = list(set(result))
     if result:
         return '\nPanic and asserts: \n' + '\n'.join(result)
     else:

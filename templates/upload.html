@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <meta charset="utf-8">
+        <title>IW Card Parser</title>
+        <link rel="stylesheet" href="static/style.css">
+        <link rel="shortcut icon" href="static/img/favicon.ico" />
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700;800&family=Roboto:wght@100;400;700;900&display=swap" rel="stylesheet">
+        {{ dropzone.load_css("static/style.css") }}
+    </head>
+	<body>
+        <header>
+            <h1>
+                Infinet diagnostic card parser
+            </h1>
+            <nav>
+                <img src="static/img/color-white horizontal.svg" width="220px" class="logo">
+                <ul>
+                    <li>
+                        <img src="static/img/target.svg" width="35px" class="list_img">
+                        <a href=#>Schedule</a>
+                    </li>
+                    <hr>
+                    <li>
+                        <img src="static/img/target.svg" width="35px" class="list_img">
+                        <a href=#>Parser</a>
+                    </li>
+                    <li>
+                        <img src="static/img/target.svg" width="35px" class="list_img">
+                        <a href=#>Parser</a>
+                    </li>
+                    <hr>
+                    <li>
+                        <img src="static/img/target.svg" width="35px" class="list_img">
+                        <a href=#>Settings</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+		    <h2>
+                Upload new file
+            </h2>
+            {{ dropzone.load_js() }}
+            {{ dropzone.config() }}
+            {{ dropzone.create(action_view='upload') }}
+        </main>
+        <footer>
+            Подвал сайта<br>
+        </footer>
+	</body>
+</html>

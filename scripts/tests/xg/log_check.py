@@ -30,6 +30,7 @@ def test(device):
         result.append('* Motherboard temperature is {}°. '
                       'Please pay attention.'.format(pattern))
 
+    result = list(set(result))
     if result:
         return '\nLog and other service messages issues: \n' + '\n'.join(result)
     else:
