@@ -1,6 +1,6 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import logging
 from re import search
 
 
@@ -20,17 +20,22 @@ def test(device):
         qos_lic_tx = [int(pattern_2.group(1)), int(pattern_2.group(2))]
         qos_lic = [qos_lic_rx[0] + qos_lic_tx[0], qos_lic_rx[1] + qos_lic_tx[1]]
         if qos_lic[1]:
-            result.append('* Packet drops ({}) caused by the license restriction detected. '
-                          'Please upgrade the license to unlock full capacity. '
-                          'The current limitation is {} kbps.'.format(qos_lic[1], qos_lic[0]))
+            result.append(f'* Packet drops ({qos_lic[1]}) caused by the license restriction detected. '
+                          f'Please upgrade the license to unlock full capacity. '
+                          f'The current limitation is {qos_lic[0]} kbps.')
 
     for channel, status in device.qos_status.items():
         if int(channel.replace('q', '')) > 16 and int(status['Drops']):
-            result.append('* Packet drops ({}) in the channel {} of the radio module. '
-                          'Please check the QoS settings.'.format(status['Drops'], channel))
+            result.append(f'* Packet drops ({status["Drops"]}) in the channel {channel} of the radio module. '
+                          f'Please check the QoS settings.')
 
     result = list(set(result))
     if result:
+        logger.info('QoS test failed')
         return '\nQoS issues: \n' + '\n'.join(result)
     else:
+        logger.info('QoS test passed')
         pass
+
+
+logger = logging.getLogger('logger.r5000_qos_check')

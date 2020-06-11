@@ -1,5 +1,7 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
+
+import logging
+
 
 def test(device):
     """Find panic and suggest a solution."""
@@ -58,9 +60,9 @@ def test(device):
                           'If this assert works too often, then contact the developers.')
 
         else:
-            result.append('* An unknown panic message was found. '
-                          'Please look for it in Jira or contact the developers. '
-                          'The message: {}'.format(panic))
+            result.append(f'* An unknown panic message was found. '
+                          f'Please look for it in Jira or contact the developers. '
+                          f'The message: {panic}')
 
     result = []
 
@@ -70,6 +72,11 @@ def test(device):
 
     result = list(set(result))
     if result:
+        logger.info('Panic test failed')
         return '\nPanic and asserts: \n' + '\n'.join(result)
     else:
+        logger.info('Panic test passed')
         pass
+
+
+logger = logging.getLogger('logger.xg_panic')

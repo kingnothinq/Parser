@@ -1,6 +1,6 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import logging
 from re import findall, search
 
 
@@ -10,18 +10,20 @@ def test(device):
     ethernet = device.ethernet_status['ge0']
     result = []
 
-    #Check CRC errors
+    # CRC errors
     if int(ethernet['CRC']) > 0:
         result.append('* CRC Errors detected on the ge0 interface. '
                       'Please check patch-cords, cables, crimps, '
                       'IDU, grounding, Ethernet ports.')
 
-    #Check Ethernet statuses
-    if ethernet['Status'] == 'UP' and ethernet['Duplex'] != 'Full-duplex' and ethernet['Negotiation'] == 'Auto':
-        result.append('* The ge0 interface works in the {} mode. '
-                      'Please check it.'.format(ethernet['Duplex']))
+    # Ethernet statuses
+    if ethernet['Status'] == 'UP' \
+            and ethernet['Duplex'] != 'Full-duplex' \
+            and ethernet['Negotiation'] == 'Auto':
+        result.append(f'* The ge0 interface works in the {ethernet["Duplex"]} mode. '
+                      f'Please check it.')
 
-    #Check flaps
+    # Wire link flapping
     flap_counter = 0
     ld_previous = False
     ld_index = 0
@@ -30,7 +32,7 @@ def test(device):
         if pattern is not None:
             ld_index = index + 1
             flap_interface = pattern.group(1)
-            ld_text = '{} media changed'.format(flap_interface)
+            ld_text = f'{flap_interface} media changed'
             ld_previous = True
             continue
         if ld_previous:
@@ -40,10 +42,10 @@ def test(device):
         else:
             ld_previous = False
         if flap_counter > 4:
-            result.append('* The {} interface is flapping. '
-                          'Please check it.'.format(flap_interface))
+            result.append(f'* The {flap_interface} interface is flapping. '
+                          f'Please check it.')
 
-    #Runt bug
+    # Runt bug
     pattern = findall(r'(Runt len errors|Frame length errors)\s+(\d+)', device.dc_string)
     if ethernet['Duplex'] == 'Full-duplex' and int(pattern[1][1]) > 0:
         result.append('* Runt len errors detected on the ge0 interface. '
@@ -57,6 +59,11 @@ def test(device):
 
     result = list(set(result))
     if result:
+        logger.info('Ethernet test failed')
         return '\nEthernet issues: \n' + '\n'.join(result)
     else:
+        logger.info('Ethernet test passed')
         pass
+
+
+logger = logging.getLogger('logger.quanta_ethernet_check')

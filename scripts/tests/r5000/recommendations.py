@@ -1,6 +1,6 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import logging
 from ftplib import FTP
 from re import findall, search
 
@@ -16,14 +16,16 @@ def test(device):
                       'It is recommended to wait more in order to collect more precise statistics.'.format(
             device.uptime))
 
+    # New firmware
     ftp = FTP('ftp.infinet.ru')
+    ftp.set_debuglevel(0)  # Print FTP log in console
     ftp.login()
     pattern = search(r'((H\d{2})S\d{2})-(MINT|TDMA)v((\d+\.){2}(\d+))', device.firmware)
     platform = pattern.group(2)
     fw_type = pattern.group(3)
-    path_release = '/pub/Firmware/{}/{}/'.format(fw_type, platform)
-    path_beta = '/pub/Firmware/beta/{}/'.format(fw_type)
-    path_old = '/pub/Firmware/old/{}/{}/'.format(fw_type, platform)
+    path_release = f'/pub/Firmware/{fw_type}/{platform}/'
+    path_beta = f'/pub/Firmware/beta/{fw_type}/'
+    path_old = f'/pub/Firmware/old/{fw_type}/{platform}/'
     fw_release = ftp.nlst(path_release)
     fw_beta = ftp.nlst(path_beta)
     fw_old = ftp.nlst(path_old)
@@ -40,15 +42,16 @@ def test(device):
         for fw in [fw_release, fw_beta, fw_old]:
             pattern = list(filter(lambda x: fw_latest in x, fw))
             if pattern:
-                path_latest = 'ftp://ftp.infinet.ru{}'.format(pattern[0])
-                result.append('* The current firmware version ({}) is old. '
-                              'Please update it. '
-                              'The latest version ({}) can be downloaded '
-                              'from our FTP server ({}).'.format(fw_current_own, fw_latest, path_latest))
+                path_latest = f'ftp://ftp.infinet.ru{pattern[0]}'
+                result.append(f'* The current firmware version ({fw_current_own}) is old. '
+                              f'Please update it. '
+                              f'The latest version ({fw_latest}) can be downloaded '
+                              f'from our FTP server ({path_latest}).')
 
+    # Link flags
     links = device.radio_status['Links']
+    links_old_fw = []
     for link in links:
-        flags = findall(r'(\w+)', links[link]['Flags'])
         pattern = search(r'(H\d{2})v((\d+\.){2}(\d+))', links[link]['Firmware']).group(2)
         if fw_type == 'TDMA':
             fw_current_link = pattern.replace('2.1', '201')
@@ -56,14 +59,20 @@ def test(device):
             fw_current_link = pattern.replace('1.7', '17')
             fw_current_link = pattern.replace('1.8', '18')
             fw_current_link = pattern.replace('1.9', '19')
-        if 'F' in flags:
-            result.append('* The current installed firmware version ({}) '
-                          'on the slave device ({}) differs from the firmware installed on '
-                          'the master device ({}). It is recommended to install the same version.'.format(
-                    fw_current_link, links[link]['Name'], fw_current_own))
+        if fw_current_link != fw_latest:
+            links_old_fw.append(links[link]["Name"])
+    result.append(f'* The current installed firmware versions on the slave devices ({", ".join(links_old_fw)})'
+                  f' are old. Please update them. '
+                  f'The latest version ({fw_latest}) can be downloaded '
+                  f'from our FTP server ({path_latest}).')
 
     result = list(set(result))
     if result:
+        logger.info('Recommendations test failed')
         return '\nRecommendations: \n' + '\n'.join(result)
     else:
+        logger.info('Recommendations test passed')
         pass
+
+
+logger = logging.getLogger('logger.r5000_recommendations')

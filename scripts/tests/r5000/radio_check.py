@@ -1,6 +1,6 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import logging
 from re import search
 
 
@@ -10,101 +10,142 @@ def test(device):
     def check_rssi(status):
         """Check RSSI and return the conclusion."""
 
-        if '*' in status['RSSI Rx']:
-            result.append('* Polarisation skew detected on the link {}. '
-                          'Please check alignment, crosstalk, LOS, etc.'.format(status['Name']))
+        try:
+            if '*' in status['RSSI Rx']:
+                result.append(f'* Polarisation skew detected on the link {status["Name"]}. '
+                              f'Please check alignment, crosstalk, LOS, etc.')
 
-        if status['RSSI Tx'] is not None and '*' in status['RSSI Tx']:
-            result.append('* Polarisation skew detected on the link {}. '
-                          'Please check alignment, crosstalk, LOS, etc.'.format(status['Name']))
+            if status['RSSI Tx'] is not None and '*' in status['RSSI Tx']:
+                result.append(f'* Polarisation skew detected on the link {status["Name"]}. '
+                              f'Please check alignment, crosstalk, LOS, etc.')
 
-        rssi = float(status['RSSI Rx'].replace('*', ''))
-        if rssi > -40:
-            result.append('* RSSI is {} dBm. Please decrease Tx power on '
-                          'the remote device {} in order to avoid damage '
-                          'to the radio module. '
-                          'It is not recommended RSSI greater than -40.'.format(rssi, status['Name']))
-        elif rssi < -80:
-            result.append('* RSSI is {} dBm. Please increase Tx power on '
-                          'the remote device {} in order to avoid damage '
-                          'to the radio module. '
-                          'It is not recommended RSSI less than -80.'.format(rssi, status['Name']))
+            # Remove "*" before RSSI
+            rssi = float(status['RSSI Rx'].replace('*', ''))
+            if rssi > -40:
+                result.append(f'* RSSI is {rssi} dBm. Please decrease Tx power on '
+                              f'the remote device {status["Name"]} in order to avoid damage '
+                              f'to the radio module. '
+                              f'It is not recommended RSSI greater than -40.')
+            elif rssi < -80:
+                result.append(f'* RSSI is {rssi} dBm. Please increase Tx power on '
+                              f'the remote device {status["Name"]} in order to avoid damage '
+                              f'to the radio module. '
+                              f'It is not recommended RSSI less than -80.')
+        except TypeError:
+            logger.exception('Radio RSSI TypeError')
+        finally:
+            pass
+
+
+    def check_power(status):
+        """Check Power and return the conclusion."""
+
+        try:
+            if '*' in status['Power Rx'] or '*' in status['Power Tx']:
+                result.append(f'* Power issues detected on the link {status["Name"]}. '
+                              f'Please check Abnormal power disbalance on the remote device')
+        except:
+            logger.exception('Power exception')
+        finally:
+            pass
+
 
     def check_level(status):
         """Check Level and return the conclusion."""
 
-        level_rx = int(status['Level Rx'])
-        level_tx = int(status['Level Tx'])
-        power_rx = float(status['Power Rx'])
-        power_tx = float(status['Power Tx'])
-        snr_rx = int(status['SNR Rx'])
-        snr_tx = int(status['SNR Tx'])
-        power_skew = abs(power_rx - power_tx)
-        level_skew = abs(level_rx - level_tx)
-        snr_skew = abs(snr_rx - snr_tx)
-        total_skew = abs(snr_skew - level_skew)
-        if power_skew != level_skew and total_skew > 8:
-            result.append('* Level skew detected on the link {}. '
-                          'Rx level is {}, Tx level is {}. '
-                          'Tx power is {} dBm, Rx power is {} dBm. '
-                          'Please pay attention.'.format(status['Name'], level_rx, level_tx, power_rx, power_tx))
+        try:
+            level_rx = int(status['Level Rx'])
+            level_tx = int(status['Level Tx'])
+            # Remove "*" before Power level
+            power_rx = float(status['Power Rx'].replace('*', ''))
+            power_tx = float(status['Power Tx'].replace('*', ''))
+            snr_rx = int(status['SNR Rx'])
+            snr_tx = int(status['SNR Tx'])
+            power_skew = abs(power_rx - power_tx)
+            level_skew = abs(level_rx - level_tx)
+            snr_skew = abs(snr_rx - snr_tx)
+            total_skew = abs(snr_skew - level_skew)
+            if power_skew != level_skew and total_skew > 8:
+                result.append(f'* Level skew detected on the link {status["Name"]}. '
+                              f'Rx level is {level_rx}, Tx level is {level_tx}. '
+                              f'Tx power is {power_rx} dBm, Rx power is {power_tx} dBm. '
+                              f'Please pay attention.')
+        except TypeError:
+            logger.exception('Radio Level TypeError')
+        finally:
+            pass
+
 
     def check_snr(status):
         """Check SNR and return the conclusion."""
 
-        snr_rx = int(status['SNR Rx'])
-        snr_tx = int(status['SNR Tx'])
+        try:
+            snr_rx = int(status['SNR Rx'])
+            snr_tx = int(status['SNR Tx'])
 
-        if (snr_rx < 7 or snr_tx < 7) and radio_settings['Type'] == 'master':
-            result.append('* The quality of the signal of the link {} is very low '
-                          'due to bad SNR (Rx {}dB/Tx {}dB). '
-                          'Only low-level modulations are available. '
-                          'Please improve the quality of the signal to reach better modulations. '
-                          'Possible solutions: '
-                          '1) Increase Tx power on the remote side; '
-                          '2) Find better frequency for the remote side (the spectrum analyzer can be used to do that); '
-                          '3) Reduce bandwidth on the master device '
-                          'in order to improve the sensitivity of the radio module. '
-                          'The current bandwidth is {} MHz.'.format(status['Name'], snr_rx, snr_tx,
-                                                                    radio_settings['Profile']['M']['Bandwidth']))
-        elif (snr_rx < 7 or snr_tx < 7) and radio_settings['Type'] == 'slave':
-            result.append('* The quality of the signal in the link {} is very low '
-                          'due to bad SNR (Rx {}dB/ Tx {}dB). '
-                          'Only low-level modulations are available. '
-                          'Please improve the quality of the signal to reach better modulations. '
-                          'Possible solutions: '
-                          '1) Increase Tx power on the remote side; '
-                          '2) Find better frequency for the remote side (the spectrum analyzer can be used to do that); '
-                          '3) Reduce bandwidth on the master device '
-                          'in order to improve the sensitivity of the radio module.'.format(status['Name'], snr_rx,
-                                                                                            snr_tx))
+            if (snr_rx < 7 or snr_tx < 7) and radio_settings['Type'] == 'master':
+                result.append(f'* The quality of the signal of the link {status["Name"]} is very low '
+                              f'due to bad SNR (Rx {snr_rx}dB/Tx {snr_tx}dB). '
+                              f'Only low-level modulations are available. '
+                              f'Please improve the quality of the signal to reach better modulations. '
+                              f'Possible solutions: '
+                              f'1) Increase Tx power on the remote side; '
+                              f'2) Find better frequency for the remote side '
+                              f'(the spectrum analyzer can be used to do that); '
+                              f'3) Reduce bandwidth on the master device '
+                              f'in order to improve the sensitivity of the radio module. '
+                              f'The current bandwidth is {radio_settings["Profile"]["M"]["Bandwidth"]} MHz.')
+            elif (snr_rx < 7 or snr_tx < 7) and radio_settings['Type'] == 'slave':
+                result.append('* The quality of the signal in the link {format(status["Name"]} is very low '
+                              'due to bad SNR (Rx {snr_rx}dB/ Tx {snr_tx}dB). '
+                              'Only low-level modulations are available. '
+                              'Please improve the quality of the signal to reach better modulations. '
+                              'Possible solutions: '
+                              '1) Increase Tx power on the remote side; '
+                              '2) Find better frequency for the remote side '
+                              '(the spectrum analyzer can be used to do that); '
+                              '3) Reduce bandwidth on the master device '
+                              'in order to improve the sensitivity of the radio module.')
+        except TypeError:
+            logger.exception('Radio SNR TypeError')
+        finally:
+            pass
+
 
     def check_retries(status):
         """Check Retries and return the conclusion."""
 
-        retries_rx = int(status['Retry Rx'])
-        retries_tx = int(status['Retry Tx'])
-        if retries_rx > 7 or retries_tx > 7:
-            result.append('* Retries detected on the link {}. '
-                          'Rx {}%/Tx {}%. '
-                          'The recommended value is no more than 10%. '
-                          'Please pay attention.'.format(status['Name'], retries_rx, retries_tx))
+        try:
+            retries_rx = int(status['Retry Rx'])
+            retries_tx = int(status['Retry Tx'])
+            if retries_rx > 7 or retries_tx > 7:
+                result.append(f'* Retries detected on the link {status["Name"]}. '
+                              f'Rx {retries_rx}%/Tx {retries_tx}%. '
+                              f'The recommended value is no more than 10%. '
+                              f'Please pay attention.')
+        except TypeError:
+            logger.exception('Radio Retries TypeError')
+        finally:
+            pass
+
 
     radio_status = device.radio_status
     radio_settings = device.settings['Radio']
     result = []
 
+    # Abnormal transmit power disbalance and calibrations
     pattern = search(r'Warning: Abnormal transmit power disbalance', device.dc_string)
     if pattern is not None:
         vpd_start = device.dc_list.index('rf5.0 Calibration\n')
         pattern = search(r'chain 1 count \d+ max \d+ min \d+ avg \d+ cur \d+', device.dc_string).group()
         vpd_end = device.dc_list.index(pattern + '\n')
         vpd_calc = '      '.join(device.dc_list[vpd_start - 1:vpd_end + 1])
-        result.append('* Abnormal transmit power disbalance detected. '
-                      'The radio module of the device {} may be faulty. \n'
-                      '{}\n'
-                      '    Please approve RMA if the calibrations are correct.'.format(device.serial_number, vpd_calc))
+        result.append(f'* Abnormal transmit power disbalance detected. '
+                      f'The radio module of the device {device.serial_number} may be faulty. \n'
+                      f'{vpd_calc}\n'
+                      f'    Please approve RMA if the calibrations are correct.')
 
+    # Wireless link flaps (Too many retransmit/physical errors)
     flap_counter = 0
     links = {}
     problem_links = []
@@ -118,11 +159,12 @@ def test(device):
         if counter[0] > 3:
             problem_links.append(counter[1])
     if problem_links:
-        result.append('* Too many transmission errors (above a certain threshold) detected. '
-                      'Please pay attention to the links: {}. '
-                      'This issue may be caused by '
-                      'interference on the remote side.'.format(', '.join(problem_links)))
+        result.append(f'* Too many transmission errors (above a certain threshold) detected. '
+                      f'Please pay attention to the links: {", ".join(problem_links)}. '
+                      f'This issue may be caused by '
+                      f'interference on the remote side.')
 
+    # Wireless link flaps (No signal)
     flap_counter = 0
     links = {}
     problem_links = []
@@ -136,9 +178,10 @@ def test(device):
         if counter[0] > 3:
             problem_links.append(counter[1])
     if problem_links:
-        result.append('* No signal from the remote side detected. '
-                      'Please pay attention to the links: {}. '.format(', '.join(problem_links)))
+        result.append(f'* No signal from the remote side detected. '
+                      f'Please pay attention to the links: {", ".join(problem_links)}. ')
 
+    # Wireless link flaps (Lost control/command channel)
     flap_counter = 0
     links = {}
     problem_links = []
@@ -152,11 +195,12 @@ def test(device):
         if counter[0] > 3:
             problem_links.append(counter[1])
     if problem_links:
-        result.append('* Lost control channel detected. '
-                      'The device was not able to successfully send '
-                      'important service messages to the remote side. '
-                      'Please pay attention to the links: {}.'.format(', '.join(problem_links)))
+        result.append(f'* Lost control channel detected. '
+                      f'The device was not able to successfully send '
+                      f'important service messages to the remote side. '
+                      f'Please pay attention to the links: {", ".join(problem_links)}.')
 
+    # Wireless link flaps (Timeout Expired)
     flap_counter = 0
     links = {}
     problem_links = []
@@ -170,10 +214,11 @@ def test(device):
         if counter[0] > 3:
             problem_links.append(counter[1])
     if problem_links:
-        result.append('* The next links were timed out too many times '
-                      'due to lack of service and data traffic: {}. '
-                      'Please pay attention. '.format(', '.join(problem_links)))
+        result.append(f'* The next links were timed out too many times '
+                      f'due to lack of service and data traffic: {", ".join(problem_links)}. '
+                      f'Please pay attention. ')
 
+    # Wireless link flaps (Link reconnecting)
     flap_counter = 0
     links = {}
     problem_links = []
@@ -187,10 +232,11 @@ def test(device):
         if counter[0] > 5:
             problem_links.append(counter[1])
     if problem_links:
-        result.append('* The next links were lost '
-                      'due to the remote side disconnected: {}. '
-                      'Please pay attention. '.format(', '.join(problem_links)))
+        result.append(f'* The next links were lost '
+                      f'due to the remote side disconnected: {", ".join(problem_links)}. '
+                      f'Please pay attention. ')
 
+    # Wireless link flaps (System reconfiguration)
     flap_counter = 0
     links = {}
     problem_links = []
@@ -204,32 +250,34 @@ def test(device):
         if counter[0] > 5:
             problem_links.append(counter[1])
     if problem_links:
-        result.append('* The next links were lost due to the configuration '
-                      'of the remote side was changed: {}. '
-                      'Please pay attention. '.format(', '.join(problem_links)))
+        result.append(f'* The next links were lost due to the configuration '
+                      f'of the remote side was changed: {", ".join(problem_links)}. '
+                      f'Please pay attention. ')
 
+    # Interference
     scanner_rssi = []
-    if radio_status['Interference PPS'] is not None and float(radio_status['Interference PPS']) > 50:
+    if radio_status['Interference PPS'] is not None \
+            and float(radio_status['Interference PPS']) > 50:
         for link in radio_status['Links'].values():
-            scanner_rssi.append('      {}: {} dBm'.format(link['Name'], link['RSSI Rx']))
+            scanner_rssi.append(f'      {link["Name"]}: {link["RSSI Rx"]} dBm')
         scanner_rssi = '\n'.join(scanner_rssi)
-        result.append('* A lot of pulses in the second ({} pps) are detected. '
-                      'Perhaps there is interference. '
-                      'The interference RSSI is {} dBm.\n'
-                      '    The connected devices\' RSSI are: \n{}\n'
-                      'Please find a better frequency or deal with '
-                      'it in another way.'.format(radio_status['Interference PPS'], radio_status['Interference RSSI'],
-                                                  scanner_rssi))
+        result.append(f'* A lot of pulses in the second ({radio_status["Interference PPS"]} pps) '
+                      f'are detected. Perhaps there is interference. '
+                      f'The interference RSSI is {radio_status["Interference RSSI"]} dBm.\n'
+                      f'    The connected devices\' RSSI are: \n{scanner_rssi}\n'
+                      f'Please find a better frequency or deal with '
+                      f'it in another way.')
 
-    if radio_status['Total Medium Busy'] is not None and float(radio_status['Total Medium Busy'].replace('%', '')) > 50:
-        result.append('* The spectrum is very noisy. '
-                      'Please find a better frequency or deal with '
-                      'it in another way. '
-                      'Total Medium Busy: {}, '
-                      'RX Medium Load: {}, '
-                      'TX Medium Load: {}.'.format(radio_status['Total Medium Busy'], radio_status['RX Medium Load'],
-                                                   radio_status['TX Medium Load']))
+    if radio_status['Total Medium Busy'] is not None \
+            and float(radio_status['Total Medium Busy'].replace('%', '')) > 50:
+        result.append(f'* The spectrum is very noisy. '
+                      f'Please find a better frequency or deal with '
+                      f'it in another way. '
+                      f'Total Medium Busy: {radio_status["Total Medium Busy"]}, '
+                      f'RX Medium Load: {radio_status["RX Medium Load"]}, '
+                      f'TX Medium Load: {radio_status["TX Medium Load"]}.')
 
+    # Retries
     tx_packets = int(search(r'Transmitted OK\s+(\d+)', device.dc_string).group(1))
     retries_excessive = int(radio_status['Excessive Retries'])
     ratio_tx_ret = round((retries_excessive / tx_packets) * 100, 2)
@@ -244,33 +292,41 @@ def test(device):
             muffer_end = device.dc_list.index(line)
     muffer = '      '.join(device.dc_list[muffer_start - 1:muffer_end + 1])
     if ratio_tx_ret > 0.5:
-        result.append('* Too many Exscessive Retries ({}) detected. '
-                      'The Exscessive Retries are the number of frames '
-                      'failed to send after all attempts to resend. '
-                      'In other words, completely lost. '
-                      'The number of retransmission attempts can be '
-                      'configured with the CLI command: "rf rf5.0 txrt <number>"'
-                      '(TDMA default value is 10, MINT default value is 5. '
-                      'This is an absolute counter that starts '
-                      'counting from the device\'s boot time. '
-                      'So, please consider uptime ({}) during analyze. '
-                      'Retries to Tx frames ratio is {}%. '
-                      'It is recommended this value be kept below 0.5%. '
-                      'Perhaps there may be issue with radio links.\n'
-                      '    Muffer: {}'.format(retries_excessive, device.uptime, ratio_tx_ret, muffer))
+        result.append(f'* Too many Exscessive Retries ({retries_excessive}) detected. '
+                      f'The Exscessive Retries are the number of frames '
+                      f'failed to send after all attempts to resend. '
+                      f'In other words, completely lost. '
+                      f'The number of retransmission attempts can be '
+                      f'configured with the CLI command: "rf rf5.0 txrt <number>"'
+                      f'(TDMA default value is 10, MINT default value is 5. '
+                      f'This is an absolute counter that starts '
+                      f'counting from the device\'s boot time. '
+                      f'So, please consider uptime ({device.uptime}) during analyze. '
+                      f'Retries to Tx frames ratio is {ratio_tx_ret}%. '
+                      f'It is recommended this value be kept below 0.5%. '
+                      f'Perhaps there may be issue with radio links.\n'
+                      f'    Muffer: {muffer}')
 
+    # Check each link
     for status in radio_status['Links'].values():
         check_rssi(status)
+        check_power(status)
         check_level(status)
         check_snr(status)
         check_retries(status)
 
+    # Polling status
     if 'MINT' in device.firmware and device.settings['Radio']['Polling'] == 'Disabled':
         result.append('* Polling disabled. '
                       'It is strongly recommend to enabled it.')
 
     result = list(set(result))
     if result:
+        logger.info('Radio test failed')
         return '\nRadio issues: \n' + '\n'.join(result)
     else:
+        logger.info('Radio test passed')
         pass
+
+
+logger = logging.getLogger('logger.r5000_radio_check')

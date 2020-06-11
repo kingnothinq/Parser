@@ -1,6 +1,6 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import logging
 from re import search
 
 
@@ -15,9 +15,10 @@ def test(device):
 
         pattern = float(search(r'\(([\d\.]+)%\)', carrier_data['Rx Acc FER']).group(1))
         if pattern > 1.5:
-            result.append('* Rx Acc FER errors ({} %) detected in the {} on the {} side. '
-                          'Please check other radio link parameters and find better frequency.'
-                          .format(pattern, carrier_name, position))
+            result.append(f'* Rx Acc FER errors ({pattern} %) detected '
+                          f'in the {carrier_name} on the {position} side. '
+                          f'Please check other radio link parameters '
+                          f'and find better frequency.')
 
         check_gain(position, carrier_name,
                    carrier_data['Stream 0']['Tx Gain'], carrier_data['Stream 1']['Tx Gain'])
@@ -39,25 +40,29 @@ def test(device):
         try:
             rssi = int(search(r'(\d+)', rssi).group(1))
             if position == 'local' and rssi < 40:
-                result.append('* RSSI is -{} dBm in the {} of the {} on the {} side. '
-                              'Please decrease Tx power on the remote side in order to avoid damage to the radio module.'
-                              .format(rssi, stream_name, carrier_name, position))
+                result.append(f'* RSSI is -{rssi} dBm in the {stream_name} of '
+                              f'the {carrier_name} on the {position} side. '
+                              f'Please decrease Tx power on the remote '
+                              f'side in order to avoid damage to the radio module.')
             elif position == 'remote' and rssi < 40:
-                result.append('* RSSI is -{} dBm in the {} of the {} on the {} side. '
-                              'Please decrease Tx power on the local side in order to avoid damage to the radio module.'
-                              'The current Tx power set as {} dBm.'
-                              .format(rssi, stream_name, carrier_name, position, settings['Tx Power']))
+                result.append(f'* RSSI is -{rssi} dBm in the {stream_name} of '
+                              f'the {carrier_name} on the {position} side. '
+                              f'Please decrease Tx power on the local side '
+                              f'in order to avoid damage to the radio module.'
+                              f'The current Tx power set as {settings["Tx Power"]} dBm.')
             elif position == 'local' and rssi > 80:
-                result.append('* RSSI is -{} dBm in the {} of the {} on the {} side. '
-                              'Please increase Tx power or improve alignment on the remote side in order to reach better signal.'
-                              .format(rssi, stream_name, carrier_name, position))
+                result.append(f'* RSSI is -{rssi} dBm in the {stream_name} of '
+                              f'the {carrier_name} on the {position} side. '
+                              f'Please increase Tx power or improve alignment '
+                              f'on the remote side in order to reach better signal.')
             elif position == 'remote' and rssi > 80:
-                result.append('* RSSI is -{} dBm in the {} of the {} on the {} side. '
-                              'Please increase Tx power or improve alignment on the local side in order to reach better signal.'
-                              'The current Tx power set as {} dBm.'
-                              .format(rssi, stream_name, carrier_name, position, settings['Tx Power']))
+                result.append(f'* RSSI is -{rssi} dBm in the {stream_name} of '
+                              f'the {carrier_name} on the {position} side. '
+                              f'Please increase Tx power or improve alignment '
+                              f'on the local side in order to reach better signal.'
+                              f'The current Tx power set as {settings["Tx Power"]} dBm.')
         except TypeError:
-            pass
+            logger.exception('Radio RSSI TypeError')
         finally:
             pass
 
@@ -67,57 +72,61 @@ def test(device):
         try:
             cinr = int(search(r'(\d+)', cinr).group(1))
             if position == 'local' and cinr < 10:
-                result.append('* CINR is {} dB in the {} of the {} on the {} side. '
-                              'The quality of the signal is very low. '
-                              'Only low-level modulations are available. '
-                              'Please improve the quality of the signal to reach better modulations. '
-                              'Possible solutions: '
-                              '1) Increase Tx power on the remote side; '
-                              '2) Find better frequency for the remote side (the spectrum analyzer can be used to do that); '
-                              '3) Reduce bandwidth on the master device '
-                              'in order to improve the sensitivity of the radio module. '
-                              'The current bandwidth is {} MHz.'
-                              .format(cinr, stream_name, carrier_name, position, settings['Bandwidth']))
+                result.append(f'* CINR is {cinr} dB in the {stream_name} of '
+                              f'the {carrier_name} on the {position} side. '
+                              f'The quality of the signal is very low. '
+                              f'Only low-level modulations are available. '
+                              f'Please improve the quality of the signal to reach better modulations. '
+                              f'Possible solutions: '
+                              f'1) Increase Tx power on the remote side; '
+                              f'2) Find better frequency for the remote side '
+                              f'(the spectrum analyzer can be used to do that); '
+                              f'3) Reduce bandwidth on the master device '
+                              f'in order to improve the sensitivity of the radio module. '
+                              f'The current bandwidth is {settings["Bandwidth"]} MHz.')
             elif position == 'remote' and cinr < 10:
-                result.append('* CINR is {} dB in the {} of the {} on the {} side. '
-                              'The quality of the signal is very low. '
-                              'Only low-level modulations are available. '
-                              'Please improve the quality of the signal to reach better modulations. '
-                              'Possible solutions: '
-                              '1) Increase Tx power on the local side. The current Tx power set as {}; '
-                              '2) Find better frequency for the remote side (the spectrum analyzer can be used to do that); '
-                              '3) Reduce bandwidth on the master device '
-                              'in order to improve the sensitivity of the radio module. '
-                              'The current bandwidth is {} MHz.'
-                              .format(cinr, stream_name, carrier_name, position, settings['Tx Power'],
-                                      settings['Bandwidth']))
+                result.append(f'* CINR is {cinr} dB in the {stream_name} of '
+                              f'the {carrier_name} on the {position} side. '
+                              f'The quality of the signal is very low. '
+                              f'Only low-level modulations are available. '
+                              f'Please improve the quality of the signal to reach better modulations. '
+                              f'Possible solutions: '
+                              f'1) Increase Tx power on the local side. '
+                              f'The current Tx power set as {settings["Tx Power"]}; '
+                              f'2) Find better frequency for the remote side '
+                              f'(the spectrum analyzer can be used to do that); '
+                              f'3) Reduce bandwidth on the master device '
+                              f'in order to improve the sensitivity of the radio module. '
+                              f'The current bandwidth is {settings["Bandwidth"]} MHz.')
             elif position == 'local' and cinr < 20:
-                result.append('* CINR is {} dB in the {} of the {} on the {} side. '
-                              'The quality of the signal is very low. '
-                              'Only middle-level modulations are available. '
-                              'Please improve the quality of the signal to reach better modulations. '
-                              'Possible solutions: '
-                              '1) Increase Tx power on the remote side; '
-                              '2) Find better frequency for the remote side (the spectrum analyzer can be used to do that); '
-                              '3) Reduce bandwidth on the master device '
-                              'in order to improve the sensitivity of the radio module. '
-                              'The current bandwidth is {} MHz.'
-                              .format(cinr, stream_name, carrier_name, position, settings['Bandwidth']))
+                result.append(f'* CINR is {cinr} dB in the {stream_name} of '
+                              f'the {carrier_name} on the {position} side. '
+                              f'The quality of the signal is very low. '
+                              f'Only middle-level modulations are available. '
+                              f'Please improve the quality of the signal to reach better modulations. '
+                              f'Possible solutions: '
+                              f'1) Increase Tx power on the remote side; '
+                              f'2) Find better frequency for the remote side '
+                              f'(the spectrum analyzer can be used to do that); '
+                              f'3) Reduce bandwidth on the master device '
+                              f'in order to improve the sensitivity of the radio module. '
+                              f'The current bandwidth is {settings["Bandwidth"]} MHz.')
             elif position == 'remote' and cinr < 20:
-                result.append('* CINR is {} dB in the {} of the {} on the {} side. '
-                              'The quality of the signal is very low. '
-                              'Only middle-level modulations are available. '
-                              'Please improve the quality of the signal to reach better modulations. '
-                              'Possible solutions: '
-                              '1) Increase Tx power on the local side. The current Tx power set as {}; '
-                              '2) Find better frequency for the remote side (the spectrum analyzer can be used to do that); '
-                              '3) Reduce bandwidth on the master device '
-                              'in order to improve the sensitivity of the radio module. '
-                              'The current bandwidth is {} MHz.'
-                              .format(cinr, stream_name, carrier_name, position, settings['Tx Power'],
-                                      settings['Bandwidth']))
+                result.append(f'* CINR is {cinr} dB in the {stream_name} of '
+                              f'the {carrier_name} on the {position} side. '
+                              f'The quality of the signal is very low. '
+                              f'Only middle-level modulations are available. '
+                              f'Please improve the quality of the signal to reach better modulations. '
+                              f'Possible solutions: '
+                              f'1) Increase Tx power on the local side. '
+                              f'The current Tx power set as {settings["Tx Power"]}; '
+                              f'2) Find better frequency for the remote side '
+                              f'(the spectrum analyzer can be used to do that); '
+                              f'3) Reduce bandwidth on the master device '
+                              f'in order to improve the sensitivity of the radio module. '
+                              f'The current bandwidth is {settings["Bandwidth"]} MHz.')
         except TypeError:
-            pass
+            logger.exception('Radio CINR TypeError')
         finally:
             pass
 
@@ -127,11 +136,11 @@ def test(device):
         try:
             crosstalk = int(search(r'(\d+)', crosstalk).group(1))
             if crosstalk < 20:
-                result.append('* Crosstalk is -{} dB in the {} of the {} on the {} side. '
-                              'Please check the installation of the antenna and LOS.'
-                              .format(crosstalk, stream_name, carrier_name, position))
+                result.append(f'* Crosstalk is -{crosstalk} dB in '
+                              f'the {stream_name} of the {carrier_name} on the {position} side. '
+                              f'Please check the installation of the antenna and LOS.')
         except TypeError:
-            pass
+            logger.exception('Radio Crosstalk TypeError')
         finally:
             pass
 
@@ -141,13 +150,13 @@ def test(device):
         try:
             errors_ratio = float(search(r'([\d\.]+)', errors_ratio).group(1))
             if errors_ratio > 1.5:
-                result.append('* TBER Errors ({} %) detected in the {} of the {} on the {} side. '
-                              'XG does not support ARQ. '
-                              'Therefore, some important data may be lost. '
-                              'Please check other radio link parameters and find better frequency.'
-                              .format(errors_ratio, stream_name, carrier_name, position))
+                result.append(f'* TBER Errors ({errors_ratio} %) detected in '
+                              f'the {stream_name} of the {carrier_name} on the {position} side. '
+                              f'XG does not support ARQ. '
+                              f'Therefore, some important data may be lost. '
+                              f'Please check other radio link parameters and find better frequency.')
         except TypeError:
-            pass
+            logger.exception('Radio Errors Ratio TypeError')
         finally:
             pass
 
@@ -161,12 +170,11 @@ def test(device):
             delta = abs(gain_stream_0 - gain_stream_1)
 
             if delta > 10:
-                result.append('* Gain skew detected between '
-                              'the streams 0 and 1 of the {} on the {} side. '
-                              'Please check the radio module. It may be faulty.'
-                              .format(carrier_name, position))
+                result.append(f'* Gain skew detected between '
+                              f'the streams 0 and 1 of the {carrier_name} on the {position} side. '
+                              f'Please check the radio module. It may be faulty.')
         except TypeError:
-            pass
+            logger.exception('Radio Gain TypeError')
         finally:
             pass
 
@@ -226,6 +234,11 @@ def test(device):
 
     result = list(set(result))
     if result:
+        logger.info('Radio test failed')
         return '\nRadio issues: \n' + '\n'.join(result)
     else:
+        logger.info('Radio test passed')
         pass
+
+
+logger = logging.getLogger('logger.xg_radio_check')

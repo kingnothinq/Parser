@@ -6,19 +6,20 @@ from re import findall, search
 
 
 def test(device):
-    """Not important or not necessary recommendations."""
+    """Not important or not necessary recommendations"""
 
+    settings = device.settings
     result = []
 
-    # Traffic prioritization enabled
-    if device.settings['Traffic prioritization'] == 'Enabled':
-        result.append('* Traffic prioritization is not an exact QoS feature. '
-                      'It is recommended to disable it due the bug (XG-1164).')
+    # Disabled ARQ
+    if settings['ARQ'] == 'Disabled':
+        result.append('* Please enable ARQ. '
+                      'It is a very useful feature.')
 
-    # Antenna gain
-    if search(r'Antenna Gain not found in license', device.dc_string) is not None:
-        result.append('* Antenna Gain not found in the license. '
-                      'Please set this parameter via CLI (xg -antenna-gain <gain_dBm>).')
+    # Locked modulations
+    if settings['Max DL MCS'] != '256-QAM-7/8' or settings['Max UL MCS'] != '256-QAM-7/8':
+        result.append('* Maximum MCS is limited. '
+                      'Please note the highest modulations cannot be reached.')
 
     # Uptime
     pattern = findall(r'(\d{2}):(\d{2}):(\d{2})', device.uptime)
@@ -32,15 +33,15 @@ def test(device):
         ftp.set_debuglevel(0)  # Print FTP log in console
         ftp.login()
         logger.info(f'FTP - Connected to {ftp.host}')
-        fw_current = search(r'v((\d+\.){2}(\d+))', device.firmware).group(1)
-        fw_release = ftp.nlst('/pub/Firmware/XG/H12/')
-        fw_beta = ftp.nlst('/pub/Firmware/beta/XG/')
-        fw_old = ftp.nlst('/pub/Firmware/old/XG/')
+        fw_current = search(r'PTPv((\d+\.){2}(\d+))', device.firmware).group(1)
+        fw_release = ftp.nlst('/pub/Firmware/octopus/h18/')
+        fw_beta = []  # ftp.nlst('/pub/Firmware/beta/octopus/')
+        fw_old = ftp.nlst('/pub/Firmware/old/octopus/h18/')
         logger.debug(f'FTP - NLST from {ftp.host}')
         ftp.quit()
         logger.info(f'FTP - Disconnected from {ftp.host}')
         firmwares = filter(lambda x: '.bin' in x, fw_release + fw_beta + fw_old)
-        firmwares = [search(r'v(\d+\.\d+\.\d+)\.bin', fw).group(1) for fw in firmwares]
+        firmwares = [search(r'h18_(\d+\.\d+\.\d+)\.bin', fw).group(1) for fw in firmwares]
         fw_latest = sorted(firmwares, key=lambda x: [int(num) for num in x.split('.')])[-1]
         if fw_current != fw_latest:
             for fw in [fw_release, fw_beta, fw_old]:
@@ -61,6 +62,7 @@ def test(device):
     finally:
         pass
 
+
     result = list(set(result))
     if result:
         logger.info('Recommendations test failed')
@@ -70,4 +72,4 @@ def test(device):
         pass
 
 
-logger = logging.getLogger('logger.xg_recommendations')
+logger = logging.getLogger('logger.quanta_recommendations')
