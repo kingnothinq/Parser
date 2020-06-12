@@ -119,6 +119,8 @@ def jira(device, tests):
     for test in tests:
         message.append(f'{test}\n')
 
+    message = ''.join(message)
+
     return device.model, device.family, device.subfamily, device.serial_number, device.firmware, message
 
 
