@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
+from pathlib import Path
 
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from flask_dropzone import Dropzone
@@ -72,7 +73,14 @@ logger.setLevel(logging.DEBUG)
 
 # Create handlers
 console_handler = logging.StreamHandler()
-file_handler = logging.FileHandler('parser.log')
+log = 'parser.log'
+"""
+# Fix for Apache (httpd.service)
+httpd_location = '/var/www/html/parser/logs/'
+log_path = Path.cwd() / httpd_location
+log = Path.joinpath(log_path, log)
+"""
+file_handler = logging.FileHandler(log)
 console_handler.setLevel(logging.DEBUG)
 file_handler.setLevel(logging.DEBUG)
 
