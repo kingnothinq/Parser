@@ -112,6 +112,7 @@ def parse(dc_string, dc_list):
         Total Medium Busy
         Excessive Retries
         Aggr Full Retries
+        Current Frequency
 
     Example of request: radio_status['Links']['MAC']['RSSI Rx']
 
@@ -202,7 +203,7 @@ def parse(dc_string, dc_list):
 
     elif 'MINT' in firmware and radio_settings['Type'] == 'master':
         pattern = re.search(r'mint rf5\.0 poll start (qos)?', dc_string)
-        radio_settings['Polling'] = 'Disabled' if pattern is None else 'Enabled'
+        radio_settings['Polling'] = 'Enabled' if pattern is None else 'Disabled'
 
     if radio_settings['Type'] == 'master':
         radio_settings['Profile'] = {'M': deepcopy(radio_profile)}
@@ -316,8 +317,8 @@ def parse(dc_string, dc_list):
                    'SNR Rx': None, 'SNR Tx': None, 'Distance': None, 'Firmware': None, 'Uptime': None}
     radio_status = {'Links': None, 'Pulses': None, 'Interference Level': None, 'Interference RSSI': None,
                     'Interference PPS': None, 'RX Medium Load': None, 'TX Medium Load': None,
-                    'Total Medium Busy': None,
-                    'Excessive Retries': None, 'Aggr Full Retries': None}
+                    'Total Medium Busy': None, 'Excessive Retries': None, 'Aggr Full Retries': None,
+                    'Current Frequency': None}
 
     pattern_mac = re.compile(r'(00[\dA-F]{10})')
     pattern_name = re.compile(r'[\.\d]+\s+([\w\d\S]+)\s+00[\w\d]+')
@@ -498,6 +499,9 @@ def parse(dc_string, dc_list):
     pattern = re.search(r'Aggr Full Retries\s+(\d+)', dc_string)
     radio_status['Aggr Full Retries'] = pattern.group(1)
 
+    pattern = re.search(r'\(band \d+, freq (\d+)\)', dc_string)
+    if pattern is not None:
+        radio_status['Current Frequency'] = pattern.group(1)
 
     logger.debug(f'Radio Status: {radio_status}')
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
-from re import search
+import re
 
 
 def test(device):
@@ -134,23 +134,74 @@ def test(device):
     result = []
 
     # Abnormal transmit power disbalance and calibrations
-    pattern = search(r'Warning: Abnormal transmit power disbalance', device.dc_string)
+    pattern = re.search(r'Warning: Abnormal transmit power disbalance', device.dc_string)
     if pattern is not None:
-        vpd_start = device.dc_list.index('rf5.0 Calibration\n')
-        pattern = search(r'chain 1 count \d+ max \d+ min \d+ avg \d+ cur \d+', device.dc_string).group()
-        vpd_end = device.dc_list.index(pattern + '\n')
-        vpd_calc = '      '.join(device.dc_list[vpd_start - 1:vpd_end + 1])
+        for index, line in enumerate(device.dc_list):
+            pattern = re.search(r'rf5.0 Calibration', line)
+            if pattern is not None:
+                vpd_calc_start = index
+            pattern = re.search(r'chain 1 count \d+ max \d+ min \d+ avg \d+ cur \d+', line)
+            if pattern is not None:
+                vpd_calc_end = index + 1
+        vpd_calc = device.dc_list[vpd_calc_start:vpd_calc_end]
+        vpd_pwr = [pwr for pwr in re.findall(r'([\-\d]+)', vpd_calc[2])]
+        vpd_chain = re.findall(r'(chain \d count \d+ max \d+ min \d+ avg \d+ cur \d+)', ''.join(vpd_calc))
+        vpd_calc = vpd_calc[3:len(vpd_calc) - 4]
+
+        # Find each calibration partition
+        pattern = re.compile(r'(-)+')
+        slices = []
+        for index, line in enumerate(vpd_calc):
+            if pattern.search(line):
+                slices.append(index)
+
+        """
+        Create a dictionary with calibrations
+        {frequency: ({power levels : calibrations chain 0}, {power levels : calibrations chain 1})}
+        """
+        pattern_freq = re.compile(r'(\d+): vpd 0')
+        pattern_cal = re.compile(r'(\d+)')
+        vpd = {}
+        for slice in slices:
+            vpd_0 = pattern_cal.findall(vpd_calc[slice+1])[2:]
+            vpd_0 = dict(zip(vpd_pwr, vpd_0))
+            vpd_1 = pattern_cal.findall(vpd_calc[slice + 2])[1:]
+            vpd_1 = dict(zip(vpd_pwr, vpd_1))
+            vpd[pattern_freq.search(vpd_calc[slice+1]).group(1)] = (vpd_0, vpd_1)
+
+        # Find Tx Power
+        pwr = [device.radio_status['Links'][link]['Power Tx'] for link in device.radio_status['Links']]
+        pwr = max(map(lambda x: int(x.replace('*', '')), pwr))
+
+        # Find the closest calibration frequency to the current frequency
+        vpd_freq = list(map(lambda x: abs(int(device.radio_status['Current Frequency']) - int(x)), vpd.keys()))
+        vpd_freq_min_abs = min(vpd_freq)
+        vpd_freq = vpd_freq.index(vpd_freq_min_abs)
+        vpd_freq_cur = list(vpd.keys())[vpd_freq]
+
+        # Find the closest calibration power to the current tx power
+        vpd_pwr_cur = list(map(lambda x: abs(int(pwr) - int(x)), vpd_pwr))
+        vpd_pwr_min_abs = min(vpd_pwr_cur)
+        vpd_pwr_cur = vpd_pwr_cur.index(vpd_pwr_min_abs)
+        vpd_pwr_cur = vpd_pwr[vpd_pwr_cur]
+        vpd_0_cal = vpd[vpd_freq_cur][0][vpd_pwr_cur]
+        vpd_1_cal = vpd[vpd_freq_cur][1][vpd_pwr_cur]
+
         result.append(f'* Abnormal transmit power disbalance detected. '
                       f'The radio module of the device {device.serial_number} may be faulty. \n'
-                      f'{vpd_calc}\n'
-                      f'    Please approve RMA if the calibrations are correct.')
+                      f'Calibration for the current frequency ({device.radio_status["Current Frequency"]} MHz) '
+                      f'and power ({pwr} dBm):\n'
+                      f'VPD 0 - {vpd_0_cal}, VPD 1 - {vpd_1_cal}.\n'
+                      f'Chains:\n'
+                      f'{vpd_chain[0]}\n, {vpd_chain[1]}\n'
+                      f'Please approve RMA if the calibrations are correct.')
 
     # Wireless link flaps (Too many retransmit/physical errors)
     flap_counter = 0
     links = {}
     problem_links = []
     for line in device.dc_list:
-        pattern = search(r'Link "([\w\d]+)" \(([\w\d]+)\) '
+        pattern = re.search(r'Link "([\w\d]+)" \(([\w\d]+)\) '
                          r'DOWN: ".oo many ((transmit|physical) )?errors"', line)
         if pattern is not None:
             flap_counter += 1
@@ -169,7 +220,7 @@ def test(device):
     links = {}
     problem_links = []
     for line in device.dc_list:
-        pattern = search(r'Link "([\w\d]+)" \(([\w\d]+)\) '
+        pattern = re.search(r'Link "([\w\d]+)" \(([\w\d]+)\) '
                          r'DOWN: "no signal"', line)
         if pattern is not None:
             flap_counter += 1
@@ -186,7 +237,7 @@ def test(device):
     links = {}
     problem_links = []
     for line in device.dc_list:
-        pattern = search(r'Link "([\w\d]+)" \(([\w\d]+)\) '
+        pattern = re.search(r'Link "([\w\d]+)" \(([\w\d]+)\) '
                          r'DOWN: ".ost (control|command) channel"', line)
         if pattern is not None:
             flap_counter += 1
@@ -205,7 +256,7 @@ def test(device):
     links = {}
     problem_links = []
     for line in device.dc_list:
-        pattern = search(r'Link "([\w\d]+)" \(([\w\d]+)\) '
+        pattern = re.search(r'Link "([\w\d]+)" \(([\w\d]+)\) '
                          r'DOWN: ".imeout expired"', line)
         if pattern is not None:
             flap_counter += 1
@@ -223,7 +274,7 @@ def test(device):
     links = {}
     problem_links = []
     for line in device.dc_list:
-        pattern = search(r'Link "([\w\d]+)" \(([\w\d]+)\) '
+        pattern = re.search(r'Link "([\w\d]+)" \(([\w\d]+)\) '
                          r'DOWN: ".ink reconnecting"', line)
         if pattern is not None:
             flap_counter += 1
@@ -241,7 +292,7 @@ def test(device):
     links = {}
     problem_links = []
     for line in device.dc_list:
-        pattern = search(r'Link "([\w\d]+)" \(([\w\d]+)\) '
+        pattern = re.search(r'Link "([\w\d]+)" \(([\w\d]+)\) '
                          r'DOWN: ".ystem reconfiguration"', line)
         if pattern is not None:
             flap_counter += 1
@@ -278,19 +329,9 @@ def test(device):
                       f'TX Medium Load: {radio_status["TX Medium Load"]}.')
 
     # Retries
-    tx_packets = int(search(r'Transmitted OK\s+(\d+)', device.dc_string).group(1))
+    tx_packets = int(re.search(r'Transmitted OK\s+(\d+)', device.dc_string).group(1))
     retries_excessive = int(radio_status['Excessive Retries'])
     ratio_tx_ret = round((retries_excessive / tx_packets) * 100, 2)
-    for line in device.dc_list:
-        pattern = search(r'MAC\s+Out\/Rep', line)
-        pattern_2 = search(r'PHS:\s+packets\s+\d+', line)
-        if pattern is not None:
-            muffer_start = device.dc_list.index(line)
-        else:
-            muffer_start = device.dc_list.index(line) - 4
-        if pattern_2 is not None:
-            muffer_end = device.dc_list.index(line)
-    muffer = '      '.join(device.dc_list[muffer_start - 1:muffer_end + 1])
     if ratio_tx_ret > 0.5:
         result.append(f'* Too many Exscessive Retries ({retries_excessive}) detected. '
                       f'The Exscessive Retries are the number of frames '
@@ -304,8 +345,7 @@ def test(device):
                       f'So, please consider uptime ({device.uptime}) during analyze. '
                       f'Retries to Tx frames ratio is {ratio_tx_ret}%. '
                       f'It is recommended this value be kept below 0.5%. '
-                      f'Perhaps there may be issue with radio links.\n'
-                      f'    Muffer: {muffer}')
+                      f'Perhaps there may be issue with radio links.\n')
 
     # Check each link
     for status in radio_status['Links'].values():
