@@ -64,7 +64,7 @@ def schedule():
 def request_entity_too_large(error):
     logger.info(f'POST request received from {request.remote_addr}')
     logger.error(f'HTTP 413 File is too large')
-    return 'File is too large. It must be less than 1 MB.', 413
+    return 'File is too large. It must be less than 2 MB.', 413
 
 
 # Create a custom logger

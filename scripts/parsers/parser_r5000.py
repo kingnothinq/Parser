@@ -195,7 +195,7 @@ def parse(dc_string, dc_list):
         reboot_reason = re.search(r'Last reboot reason: ([\w ]*)', dc_string).group(1)
         logger.debug(f'Last reboot reason: {reboot_reason}')
     except:
-        logger.critical('General info was not parsed')
+        logger.warning('General info was not parsed')
 
     # Settings
     radio_profile = {'Frequency': None, 'Bandwidth': None, 'Max bitrate': None, 'Auto bitrate': 'Disabled',
@@ -277,7 +277,7 @@ def parse(dc_string, dc_list):
         elif 'MINT' in firmware:
             radio_settings['TSync'] = None
     except:
-        logger.critical('Common settings were not parsed')
+        logger.warning('Common settings were not parsed')
 
 
     # Master profile
@@ -355,7 +355,10 @@ def parse(dc_string, dc_list):
             pattern_s_mimo = re.compile(r'-(mimo|miso|siso)')
             pattern_s_greenfield = re.compile(r'(greenfield)')
 
-            profile_active = str(pattern_s_state.findall(dc_string)[-1])
+            if pattern_s_state.findall(dc_string):
+                profile_active = str(pattern_s_state.findall(dc_string)[-1])
+            else:
+                profile_active = list(radio_settings['Profile'].keys())[0]
 
             for key in radio_settings['Profile']:
                 profile = radio_settings['Profile'][key]
@@ -396,7 +399,7 @@ def parse(dc_string, dc_list):
                     if pattern_s_greenfield.search(line):
                         profile['Greenfield'] = pattern_s_greenfield.search(line).group(1)
     except:
-        logger.critical('Radio settings were not parsed')
+        logger.warning('Radio settings were not parsed')
 
     logger.debug(f'Radio Settings: {settings["Radio"]}')
 

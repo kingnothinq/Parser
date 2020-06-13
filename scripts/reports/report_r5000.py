@@ -50,10 +50,10 @@ def jira(device, tests):
                        f'|*Auto bitrate*|*MIMO*|*SID*|*Greenfield*|\n')
         for id, profile in radio_settings['Profile'].items():
             message.append(f'|{id.replace("M", "Master profile")} '
-                           f'({profile["State"]} / {str(profile["Status"]).replace("None", "Enabled")})'
+                           f'({profile["State"]} / {profile["Status"]})'
                            f'|{profile["Frequency"]} MHz|{profile["Bandwidth"]} MHz'
                            f'|{profile["Max bitrate"]}|{profile["Auto bitrate"]}'
-                           f'|{str.upper(profile["MIMO"])}'
+                           f'|{profile["MIMO"]}'
                            f'|{profile["SID"]}'
                            f'|{profile["Greenfield"]}|\n')
 
@@ -83,10 +83,10 @@ def jira(device, tests):
         # Fill the table for each profile
         for id, profile in radio_settings['Profile'].items():
             message.append(f'|{id.replace("M", "Master profile")} '
-                           f'({profile["State"]} / {str(profile["Status"]).replace("None", "Enabled")})'
+                           f'({profile["State"]} / {profile["Status"]})'
                            f'|{profile["Frequency"]} MHz|{profile["Bandwidth"]} MHz'
                            f'|{profile["Max bitrate"]}|{profile["Auto bitrate"]}'
-                           f'|{str.upper(profile["MIMO"])}'
+                           f'|{profile["MIMO"]}'
                            f'|{profile["SID"]}'
                            f'|{profile["Greenfield"]}|\n')
 
