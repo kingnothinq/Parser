@@ -129,43 +129,80 @@ def parse(dc_string, dc_list):
     Example of request: ethernet_status['eth0']['Speed']
     """
 
-    # General info
-    firmware = re.search(r'H\d{2}S\d{2}-(MINT|TDMA)[v\d.]+', dc_string).group()
-    logger.debug(f'Firmware: {firmware}')
+    def cut_text(dc_list, pattern_start, pattern_end, offset_start, offset_end):
+        """Patterns - re.compile, offsets - int
+        Return the cut dc_list
+        """
+        try:
+            for index, line in enumerate(dc_list):
+                if pattern_start.search(line):
+                    text_start = index + offset_start
+                if pattern_end.search(line):
+                    text_end = index + offset_end
+            text = dc_list[text_start:text_end]
+        except:
+            text = dc_list
+            logger.warning(f'Text has not been cut. Patterns: {pattern_start} - {pattern_end}')
+        return text
 
-    pattern = re.search(r'(R5000-[QMOSL][mxnbtcs]{2,5}/[\dX\*]'
-                        r'{1,3}.300.2x\d{3})(.2x\d{2})?', dc_string)
-    if pattern is not None:
-        model = pattern.group()
-        if ('L' in model or 'S' in model) and '2x19' in model:
-            subfamily = 'R5000 Lite (low cost CPE)'
-        elif 'L' in model or 'S' in model:
+    def slice_text(text, slices):
+        """Slice the text
+        The number of strings after the first string may be different (from 1 to 4 excluding the firts one)
+        Need to slice the profile text to profiles
+        """
+        new_text = []
+        for index, slice in enumerate(slices):
+            try:
+                text_start = slices[index]
+                text_end = slices[index + 1]
+            except IndexError:
+                text_end = slices[index]
+            finally:
+                new_text.append(text[text_start:text_end])
+        new_text.pop()
+        return new_text
+
+
+    # General info
+    try:
+        firmware = re.search(r'H\d{2}S\d{2}-(MINT|TDMA)[v\d.]+', dc_string).group()
+        logger.debug(f'Firmware: {firmware}')
+
+        pattern = re.search(r'(R5000-[QMOSL][mxnbtcs]{2,5}/[\dX\*]'
+                            r'{1,3}.300.2x\d{2,3})(.2x\d{2})?', dc_string)
+        if pattern is not None:
+            model = pattern.group()
+            if ('L' in model or 'S' in model) and '2x19' in model:
+                subfamily = 'R5000 Lite (low cost CPE)'
+            elif 'L' in model or 'S' in model:
+                subfamily = 'R5000 Lite'
+            else:
+                subfamily = 'R5000 Pro'
+        elif pattern is None and 'H11' in firmware:
+            model = 'R5000 Unknown model'
             subfamily = 'R5000 Lite'
         else:
+            model = 'R5000 Unknown model'
             subfamily = 'R5000 Pro'
-    elif pattern is None and 'H11' in firmware:
-        model = 'R5000 Unknown model'
-        subfamily = 'R5000 Lite'
-    else:
-        model = 'R5000 Unknown model'
-        subfamily = 'R5000 Pro'
-    logger.debug(f'Model: {model}; Subfamily: {subfamily}')
+        logger.debug(f'Model: {model}; Subfamily: {subfamily}')
 
-    serial_number = re.search(r'SN:(\d+)', dc_string).group(1)
-    logger.debug(f'SN: {serial_number}')
+        serial_number = re.search(r'SN:(\d+)', dc_string).group(1)
+        logger.debug(f'SN: {serial_number}')
 
-    uptime = re.search(r'Uptime: ([\d\w :]*)', dc_string).group(1)
-    logger.debug(f'Uptime: {uptime}')
+        uptime = re.search(r'Uptime: ([\d\w :]*)', dc_string).group(1)
+        logger.debug(f'Uptime: {uptime}')
 
-    reboot_reason = re.search(r'Last reboot reason: ([\w ]*)', dc_string).group(1)
-    logger.debug(f'Last reboot reason: {reboot_reason}')
+        reboot_reason = re.search(r'Last reboot reason: ([\w ]*)', dc_string).group(1)
+        logger.debug(f'Last reboot reason: {reboot_reason}')
+    except:
+        logger.critical('General info was not parsed')
 
     # Settings
-    radio_profile = {'Frequency': None, 'Bandwidth': None, 'Max bitrate': None, 'Auto bitrate': None, 'MIMO': None,
-                     'SID': None, 'Status': None, 'Greenfield': None, 'State': None}
-    radio_settings = {'Type': None, 'ATPC': None, 'Tx Power': None, 'Extnoise': None, 'DFS': None, 'Polling': None,
-                      'Frame size': None, 'DL/UL ratio': None, 'Distance': None, 'Target RSSI': None, 'TSync': None,
-                      'Scrambling': None, 'Profile': radio_profile}
+    radio_profile = {'Frequency': None, 'Bandwidth': None, 'Max bitrate': None, 'Auto bitrate': 'Disabled',
+                     'MIMO': None, 'SID': None, 'Status': 'Enabled', 'Greenfield': 'Disabled', 'State': 'Idle'}
+    radio_settings = {'Type': 'slave', 'ATPC': 'Disabled', 'Tx Power': None, 'Extnoise': None, 'DFS': None,
+                      'Polling': 'Disabled', 'Frame size': None, 'DL/UL ratio': None, 'Distance': None,
+                      'Target RSSI': None, 'TSync': 'Disabled', 'Scrambling': 'Disabled', 'Profile': radio_profile}
     switch_group_settings = {'Order': None, 'Flood': None, 'STP': None, 'Management': None, 'Mode': None,
                              'Interfaces': None, 'Vlan': None, 'Rules': None}
     interfaces_settings = {'eth0': None, 'eth1': None, 'rf5.0': None}
@@ -173,114 +210,193 @@ def parse(dc_string, dc_list):
     settings = {'Radio': radio_settings, 'Switch': switch_group_settings, 'Interface Status': interfaces_settings,
                 'QoS': qos_settings}
 
+    pattern_start = re.compile(r'#Environment')
+    pattern_end = re.compile(r'#LLDP parameters')
+    settings_text = cut_text(dc_list, pattern_start, pattern_end, 0, 2)
+
     # Radio Settings
-    radio_settings['Type'] = re.search(r'mint rf5\.0 -type (\w+)', dc_string).group(1)
+    try:
+        pattern_type = re.compile(r'mint rf5\.0 -type (\w+)')
+        pattern_pwr = re.compile(r'rf rf5.0 txpwr ([\-\d]+)')
+        pattern_atpc = re.compile(r'rf rf5.0 txpwr [\-\d]+ (pwrctl)')
+        pattern_extnoise = re.compile(r'extnoise ([\-+\d+])')
+        pattern_dfs = re.compile(r'dfs rf5\.0 (dfsradar|dfsonly|dfsoff)')
+        pattern_scrambling = re.compile(r'mint rf5.0 -scrambling')
+        pattern_tdma_frame = re.compile(r'tdma mode=Master win=(\d+)')
+        pattern_tdma_dist = re.compile(r'mode=Master win=\d+ dist=(\d+)')
+        pattern_tdma_dlp = re.compile(r'mode=Master win=\d+ dist=\d+ dlp=(\d+)')
+        pattern_tdma_target = re.compile(r'mint rf5\.0 tdma rssi=([\-\d]+)')
+        pattern_tdma_tsync = re.compile(r'tsync enable')
+        pattern_polling = re.compile(r'mint rf5\.0 poll start')
 
-    pattern = re.search(r'rf5\.0 txpwr (-?\d+)\s?(pwrctl)?\s?(extnoise (\d+))?', dc_string)
-    radio_settings['Tx Power'] = pattern.group(1)
-    radio_settings['ATPC'] = 'Disabled' if not pattern.group(2) else 'Enabled'
-    if pattern.group(3):
-        radio_settings['Extnoise'] = pattern.group(4)
+        for line in settings_text:
+            # Common settings
+            if pattern_type.search(line):
+                radio_settings['Type'] = pattern_type.search(line).group(1)
 
-    pattern = re.search(r'dfs rf5\.0 (dfsradar|dfsonly|dfsoff)', dc_string)
-    if pattern is not None:
-        radio_settings['DFS'] = pattern.group(1)
+            if pattern_pwr.search(line):
+                radio_settings['Tx Power'] = pattern_pwr.search(line).group(1)
 
-    pattern = re.search(r'mint rf5\.0 -(scrambling)', dc_string)
-    radio_settings['Scrambling'] = 'Disabled' if pattern is None else 'Enabled'
+            if pattern_atpc.search(line):
+                radio_settings['ATPC'] = 'Enabled'
 
-    if 'TDMA' in firmware and radio_settings['Type'] == 'master':
-        pattern = re.search(r'mint rf5\.0 tdma mode=Master win=(\d+) dist=(\d+) dlp=(\d+)', dc_string)
-        radio_settings['Frame size'] = pattern.group(1)
-        radio_settings['Distance'] = pattern.group(2)
-        radio_settings['DL/UL ratio'] = pattern.group(3)
+            if pattern_extnoise.search(line):
+                radio_settings['Extnoise'] = pattern_extnoise.search(line).group(1)
 
-        pattern = re.search(r'mint rf5\.0 tdma rssi=([\-\d]+)', dc_string)
-        radio_settings['Target RSSI'] = pattern.group(1)
+            if pattern_dfs.search(line):
+                radio_settings['DFS'] = pattern_dfs.search(line).group(1)
 
-        pattern = re.search(r'tsync enable', dc_string)
-        radio_settings['TSync'] = 'Disabled' if pattern is None else 'Enabled'
+            if pattern_scrambling.search(line):
+                radio_settings['Scrambling'] = 'Enabled'
 
-    elif 'MINT' in firmware and radio_settings['Type'] == 'master':
-        pattern = re.search(r'mint rf5\.0 poll start (qos)?', dc_string)
-        radio_settings['Polling'] = 'Enabled' if pattern is None else 'Disabled'
+            # TDMA Settings
+            if pattern_tdma_frame.search(line):
+                radio_settings['Frame size'] = pattern_tdma_frame.search(line).group(1)
 
-    if radio_settings['Type'] == 'master':
-        radio_settings['Profile'] = {'M': deepcopy(radio_profile)}
-        profile = radio_settings['Profile']['M']
-        pattern = re.search(r'rf rf5\.0 freq (\d+) bitr (\d+) sid ([\d\w]+)', dc_string)
-        profile['Frequency'] = pattern.group(1)
-        profile['Max bitrate'] = pattern.group(2)
-        profile['SID'] = pattern.group(3)
-        pattern = re.search(r'rf rf5\.0 band (\d+)', dc_string)
-        profile['Bandwidth'] = pattern.group(1)
-        pattern = re.search(r'mint rf5\.0 -(auto|fixed)bitrate( ([\-\d]+))?', dc_string)
-        if pattern.group(1) == 'auto' and pattern.group(3) is None:
-            profile['Auto bitrate'] = 'Enabled'
-        elif pattern.group(1) == 'auto' and pattern.group(3) is not None:
-            profile['Auto bitrate'] = f'Enabled. Modification is {str(pattern.group(3))}'
+            if pattern_tdma_dist.search(line):
+                radio_settings['Distance'] = pattern_tdma_dist.search(line).group(1)
+
+            if pattern_tdma_dlp.search(line):
+                radio_settings['DL/UL ratio'] = pattern_tdma_dlp.search(line).group(1)
+
+            if pattern_tdma_target.search(line):
+                radio_settings['Target RSSI'] = pattern_tdma_target.search(line).group(1)
+
+            if pattern_tdma_tsync.search(line):
+                radio_settings['TSync'] = 'Enabled'
+
+            # MINT Settings
+            if pattern_polling.search(line):
+                radio_settings['Polling'] = 'Enabled'
+
+        if radio_settings['Type'] == 'slave':
+            radio_settings['Polling'] = None
+            radio_settings['TSync'] = None
+        elif 'TDMA' in firmware:
+            radio_settings['Polling'] = None
+        elif 'MINT' in firmware:
+            radio_settings['TSync'] = None
+    except:
+        logger.critical('Common settings were not parsed')
+
+
+    # Master profile
+    try:
+        if radio_settings['Type'] == 'master':
+            profile = radio_settings['Profile'] = {'M': deepcopy(radio_profile)}
+
+            # Master has always active and enabled profile
+            profile['State'] = 'Active'
+
+            pattern_m_freq = re.compile(r'rf rf5\.0 freq ([\.\d+])')
+            pattern_m_bitr = re.compile(r'rf rf5\.0 freq [\.\d+] bitr (\d+)')
+            pattern_m_sid = re.compile(r'rf rf5\.0 freq [\.\d+] bitr \d+ sid ([\d\w]+)')
+            pattern_m_band = re.compile(r'rf rf5\.0 band (\d+)')
+            pattern_m_afbitr = re.compile(r'mint rf5\.0 -(auto|fixed)bitrate')
+            pattern_m_afbitr_offset = re.compile(r'mint rf5\.0 -(auto|fixed)bitrate ([\.\d+]+)')
+            pattern_m_mimo = re.compile(r'rf rf5\.0 (mimo|miso|siso)')
+            pattern_m_greenfield = re.compile(r'rf rf5\.0 (mimo|miso|siso) (greenfield)')
+
+            for line in settings_text:
+                if pattern_m_freq.search(line):
+                    profile['Frequency'] = pattern_m_freq.search(line).group(1)
+
+                if pattern_m_bitr.search(line):
+                    profile['Max bitrate'] = pattern_m_bitr.search(line).group(1)
+
+                if pattern_m_sid.search(line):
+                    profile['SID'] = pattern_m_sid.search(line).group(1)
+
+                if pattern_m_band.search(line):
+                    profile['Bandwidth'] = pattern_m_band.search(line).group(1)
+
+                if pattern_m_afbitr.search(line):
+                    if pattern_m_afbitr.search(line).group(1) == 'auto' \
+                            and pattern_m_afbitr_offset.search(line).group(2):
+                        profile['Auto bitrate'] = f'Enabled. Modification is ' \
+                                                  f'{pattern_m_afbitr_offset.search(line).group(2)}'
+                    elif pattern_m_afbitr.search(line).group(1) == 'auto':
+                        profile['Auto bitrate'] = 'Enabled'
+                    elif pattern_m_afbitr.search(line).group(1) == 'fixed':
+                        profile['Auto bitrate'] = f'Disabled. Fixed bitrate is {profile["Max bitrate"]}'
+
+                if pattern_m_mimo.search(line):
+                    profile['MIMO'] = str.upper(pattern_m_mimo.search(line).group(1))
+
+                if pattern_m_greenfield.search(line):
+                    profile['Greenfield'] = pattern_m_greenfield.search(line).group(1)
+
+        # Slave profiles
         else:
-            profile['Auto bitrate'] = f'Disabled. Fixed bitrate is {profile["Max bitrate"]}'
+            # Find each string contains profile
+            pattern_profile = re.compile(r'mint rf5\.0 prof (\d+)')
+            slices = []
+            profiles_text = []
+            for index, line in enumerate(settings_text):
+                if pattern_profile.search(line):
+                    slices.append(index)
+                    profiles_text.append(pattern_profile.search(line).group(1))
+            slices.append(slices[-1] + 5)
 
-        pattern = re.search(r'rf rf5\.0 (mimo|miso|siso)( (greenfield))?', dc_string)
-        profile['MIMO'] = pattern.group(1)
-        profile['Greenfield'] = 'Enabled' if pattern.group(3) == 'greenfield' else 'Disabled'
-        profile['State'] = 'Active'
-    else:
-        pattern = re.findall(r'mint rf5\.0 prof (\d+)( (disable))?'
-                             r' -band (\d+) -freq ([\d\w]+)'
-                             r'( -bitr (\d+))? -sid ([\d\w]+) \\'
-                             r'\s+-nodeid (\d+) -type slave '
-                             r'(-netid \d+\s+)?\\(\s+-minbitr \d+)?'
-                             r'\s+-(auto|fixed)bitr( ([\-+\d]+))?'
-                             r' -(mimo|miso|siso)\s?'
-                             r'(greenfield)?', dc_string, re.DOTALL)
-        pattern_2 = re.findall(r'[\w\d]+ band \d+ freq (\d+) '
-                               r'snr \d+ links \d+, prof (\d+)', dc_string)
-        if pattern_2:
-            pattern_2 = pattern_2[-1]
+            # Slice the profile text by profiles
+            profiles = dict(zip(profiles_text, slice_text(settings_text, slices)))
 
-        radio_settings['Profile'] = {profile_id: deepcopy(radio_profile) for profile_id in
-                                     [profile[0] for profile in pattern]}
-        profile = radio_settings['Profile']
+            # Parse each profile
+            radio_settings['Profile'] = {profile: deepcopy(radio_profile) for profile in profiles.keys()}
 
-        for key, prodile_id in enumerate(radio_settings['Profile']):
-            profile[prodile_id]['Frequency'] = pattern[key][4]
-            profile[prodile_id]['Bandwidth'] = pattern[key][3]
+            pattern_s_status = re.compile(r'mint rf5\.0 prof \d+ disable')
+            pattern_s_state = re.compile(r'[\w\d]+ band \d+ freq [\-\d]+ snr \d+ links \d+, prof (\d+)')
+            pattern_s_band = re.compile(r'-band (\d+)')
+            pattern_s_freq = re.compile(r'-freq ([\.\d\w]+)')
+            pattern_s_bitr = re.compile(r'-bitr (\d+)')
+            pattern_s_sid = re.compile(r'-sid ([\d\w]+)')
+            pattern_s_afbitr = re.compile(r'-(auto|fixed)bitr')
+            pattern_s_afbitr_offset = re.compile(r'-(auto|fixed)bitr (([\-+])?([\d]+))')
+            pattern_s_mimo = re.compile(r'-(mimo|miso|siso)')
+            pattern_s_greenfield = re.compile(r'(greenfield)')
 
-            if pattern[key][6] != '':
-                profile[prodile_id]['Max bitrate'] = pattern[key][6]
-            else:
-                profile[prodile_id]['Max bitrate'] = 'Max'
+            profile_active = str(pattern_s_state.findall(dc_string)[-1])
 
-            if pattern[key][11] == 'auto' and pattern[key][13] == '':
-                profile[prodile_id]['Auto bitrate'] = 'Enabled'
-            elif pattern[key][11] == 'auto' and pattern[key][13] != '':
-                profile[prodile_id]['Auto bitrate'] = f'Enabled. Modification is {pattern[key][13]}'
-            else:
-                profile[prodile_id]['Auto bitrate'] = f'Disabled. Fixed bitrate is ' \
-                                                      f'{profile[prodile_id]["Max bitrate"]}'
+            for key in radio_settings['Profile']:
+                profile = radio_settings['Profile'][key]
+                if key == profile_active:
+                    profile['State'] = 'Active'
+                for line in profiles[key]:
+                    if pattern_s_status.search(line):
+                        # Slave may have idle (not used at this moment) and disabled profiles
+                        profile['Status'] = 'Disabled'
+                        # Profile cannot be Active if it is disabled
+                        profile['State'] = 'Idle'
 
-            profile[prodile_id]['MIMO'] = pattern[key][14]
-            profile[prodile_id]['SID'] = pattern[key][7]
+                    if pattern_s_band.search(line):
+                        profile['Bandwidth'] = pattern_s_band.search(line).group(1)
 
-            if pattern[key][2] == 'disable':
-                profile[prodile_id]['Status'] = 'Disabled'
-            else:
-                profile[prodile_id]['Status'] = 'Enabled'
+                    if pattern_s_freq.search(line):
+                        profile['Frequency'] = pattern_s_freq.search(line).group(1)
 
-            if pattern[key][15] == 'greenfield':
-                profile[prodile_id]['Greenfield'] = 'Enabled'
-            else:
-                profile[prodile_id]['Greenfield'] = 'Disabled'
+                    if pattern_s_bitr.search(line):
+                        profile['Max bitrate'] = pattern_s_bitr.search(line).group(1)
 
-            if profile[prodile_id]['Frequency'] == 'auto' and pattern_2 and prodile_id == pattern_2[1]:
-                profile[prodile_id]['State'] = 'Active'
-                profile[prodile_id]['Frequency'] = f'{pattern_2[0]} (auto)'
-            elif pattern_2 and prodile_id == pattern_2[1]:
-                profile[prodile_id]['State'] = 'Active'
-            else:
-                profile[prodile_id]['State'] = 'Idle'
+                    if pattern_s_sid.search(line):
+                        profile['SID'] = pattern_s_sid.search(line).group(1)
+
+                    if pattern_s_afbitr.search(line):
+                        if pattern_s_afbitr.search(line).group(1) == 'auto' \
+                                and pattern_s_afbitr_offset.search(line):
+                            profile['Auto bitrate'] = f'Enabled. Modification is ' \
+                                                      f'{pattern_s_afbitr_offset.search(line).group(2)}'
+                        elif pattern_s_afbitr.search(line).group(1) == 'auto':
+                            profile['Auto bitrate'] = 'Enabled'
+                        elif pattern_s_afbitr.search(line).group(1) == 'fixed':
+                            profile['Auto bitrate'] = f'Disabled. Fixed bitrate is {profile["Max bitrate"]}'
+
+                    if pattern_s_mimo.search(line):
+                        profile['MIMO'] = str.upper(pattern_s_mimo.search(line).group(1))
+
+                    if pattern_s_greenfield.search(line):
+                        profile['Greenfield'] = pattern_s_greenfield.search(line).group(1)
+    except:
+        logger.critical('Radio settings were not parsed')
 
     logger.debug(f'Radio Settings: {settings["Radio"]}')
 

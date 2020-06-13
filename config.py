@@ -6,7 +6,7 @@ from pathlib import Path
 class Config(object):
     UPLOAD_FOLDER = Path.cwd() / 'scripts' / 'dcards'
     ALLOWED_EXTENSIONS = 'txt'
-    MAX_CONTENT_LENGTH = 1024 * 1024
+    MAX_CONTENT_LENGTH = 1024 * 1024 * 2
     DROPZONE_MAX_FILE_SIZE = 1
     DROPZONE_UPLOAD_MULTIPLE = True
     DROPZONE_ALLOWED_FILE_CUSTOM = True

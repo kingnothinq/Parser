@@ -61,7 +61,7 @@ def test(device):
             fw_current_link = pattern.replace('1.9', '19')
         if fw_current_link != fw_latest:
             links_old_fw.append(links[link]["Name"])
-    result.append(f'* The current installed firmware versions on the slave devices ({", ".join(links_old_fw)})'
+    result.append(f'* The current installed firmware versions on the remote devices ({", ".join(links_old_fw)})'
                   f' are old. Please update them. '
                   f'The latest version ({fw_latest}) can be downloaded '
                   f'from our FTP server ({path_latest}).')
