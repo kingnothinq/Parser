@@ -1,0 +1,1185 @@
+R5000 WANFleX H11S11-TDMAv2.1.12 * Nov  1 2019 10:22:50 * SN:219984
+Processor: MPC8309 400 MHz
+PN:SkyMAN R5000-Smntc/5.300.2x63.2x23
+
+Uptime: 00:08:16
+Last reboot reason: power-on reset
+Fri May 29 17:08:09 KRAS 2020  (SNTP)
+
+# R5000 WANFleX H11S11-TDMAv2.1.12 * Nov  1 2019 10:22:50 * SN:219984
+
+#Environment
+ set TZ KRAS+7
+   
+#System parameters
+ #Factory password mode: single
+ sys name PMP-SM-KP9-US-UPN
+ sys prompt PMP-SM-KP9-US-UPN
+
+#Radio module parameters
+ rf rf5.0 grid 40 4850-6050/10
+ rf rf5.0 grid 20 4850-6050/10
+ rf rf5.0 grid 10 4850-6050/5
+ rf rf5.0 grid 5 4850-6050/5
+ rf rf5.0 band 40
+ rf rf5.0 mimo
+ rf rf5.0 freq 5990 bitr 300000 sid BC03CE02 burst
+ rf rf5.0 txpwr 18 pwrctl 
+   
+#DFS configuration
+ dfs rf5.0 dfsonly
+   
+#Interfaces parameters
+ ifc lo0    127.0.0.1/32
+ ifc lo0    10.47.237.240/32
+ ifc eth0   media auto mtu 1600 up
+ ifc eth0   10.10.20.1/24
+ ifc eth0   10.47.232.129/27
+ ifc eth1   media auto mtu 1700 up
+ ifc rf5.0  mtu 1600 up
+ ifc svi600 mtu 1600 up
+            # group 600 "MGMT"
+ ifc vlan600 info "MGMT"
+ ifc vlan600 mtu 1600 up
+ ifc vlan600 vlan 600 vlandev svi600
+            # group 600 "MGMT"
+   
+#QoS manager
+ qm option nodot1p rtp nodscp tos noicmp strict
+   
+#Authentication configuration
+ aaa -auth='10.47.228.93:1812, Radius-LoGiNs' start
+   
+#MINT configuration
+ mint rf5.0 -name "PMP-SM-KP9-US-UPN"
+ mint rf5.0 -nodeid 237.240
+ mint rf5.0 -type slave
+ mint rf5.0 -mode fixed
+ mint rf5.0 -key "sninfinet"
+ mint rf5.0 -mulcast 3
+ mint rf5.0 -scrambling
+ mint rf5.0 -autobitrate
+ mint rf5.0 -hiamp 2 -loamp 0
+ mint rf5.0 -log
+ mint rf5.0 prof 1 -band 40 -freq 5710 -bitr 300000 -sid BC03CE01 \
+	      -nodeid 237.240 -type slave \
+	      -autobitr -mimo \
+	      -key "sninfinet"
+ mint rf5.0 prof 2 -band 40 -freq 5990 -bitr 300000 -sid BC03CE02 \
+	      -nodeid 237.240 -type slave \
+	      -autobitr -mimo \
+	      -key "sninfinet"
+ mint rf5.0 prof 3 -band 40 -freq 5710 -bitr 300000 -sid BC03CE03 \
+	      -nodeid 237.240 -type slave \
+	      -autobitr -mimo \
+	      -key "sninfinet"
+ mint rf5.0 prof 4 -band 40 -freq 5990 -bitr 300000 -sid BC03CE04 \
+	      -nodeid 237.240 -type slave \
+	      -autobitr -mimo \
+	      -key "sninfinet"
+ mint rf5.0 prof 5 disable -band 40 -freq 5870 -bitr 300000 -sid BC03CE05 \
+	      -nodeid 237.240 -type slave \
+	      -autobitr -mimo \
+	      -key "sninfinet"
+ mint rf5.0 -roaming enable
+ mint rf5.0 -authmode public
+ mint rf5.0 -airupdate passive
+ mint rf5.0 -rcmdserver enabled
+ mint rf5.0 start
+ 
+ mint rf5.0 tdma mode=Slave start
+ 
+   
+#MAC Switch config
+ switch group 600 info "MGMT"
+ switch group 600 add 1 rf5.0 
+ switch group 600 vlan 600
+      # group 600 attached to 'svi600' => vlan600(600)
+ switch group 600 start
+ 
+ switch group 705 add 2 eth0:0 rf5.0:705 
+ switch group 705 in-trunk 1
+ switch group 705 start
+ 
+ switch start
+   
+#Switch Virtual Interface config
+ svi 600 group 600
+   
+#SSH server configuration
+ sshd start
+   
+#SNMP configuration
+ snmpd community "sninfinet"
+ snmpd start
+   
+#SNTP configuration
+ sntp -server='10.47.246.230' start
+   
+#WEB configurator
+ webcfg start -lang=ru
+   
+#Add-on devices control
+ ctl heater -8 nolog
+   
+#DHCP client configuration
+ dhcpc vlan600 start
+   
+#DHCP Relay Agent configuration
+ dhcpr add 10.47.247.5
+ dhcpr start
+   
+#ARDA configuration
+ arda interface eth0
+ arda interface eth1
+ arda interface lo0
+ arda interface null0
+ arda interface rf5.0
+ arda interface svi600
+ arda interface vlan600
+ arda end
+   
+#OSPF configuration
+ ospf start
+ ospf interface eth0
+ ospf interface eth1
+ ospf interface lo0
+ ospf interface null0
+ ospf interface rf5.0
+ ospf interface svi600
+ ospf interface vlan600
+ ospf  priority 0
+ ospf router
+ ospf  router-id 10.47.237.240
+ ospf  log-adjacency-changes
+ ospf  redistribute connected route-map conn-to-ospf
+ ospf  network 10.47.133.0/24 area 0.0.0.2
+ ospf  network 10.47.134.0/24 area 0.0.0.2
+ ospf  network 10.47.238.0/24 area 0.0.0.2
+ ospf  area 0.0.0.2 nssa translate-candidate
+ ospf  prefix-list conn-to-ospf seq 5 permit 10.47.128.0/17 le 32
+ ospf route-map conn-to-ospf permit 10
+ ospf  match address prefix-list conn-to-ospf
+ ospf route-map conn-to-ospf deny 20
+ ospf end
+   
+#LLDP parameters
+ lldp eth0 enable txrx
+ lldp eth1 disable
+   
+
+
+==============================================================================
+Interface rf5.0  TDS
+Node  000435235B50  "PMP-SM-KP9-US-UPN", Id 237.240, Nid 0, (Slave)
+Freq 5990, Band 40, Sid BC03CE02, autoBitrate 300000 (min 30000), Noise -93 
+
+ ------- ---------------------------- ------------ -----  ------- ----- -------
+   Id         Name                        Node     Level  Bitrate Retry Options
+ ------- ---------------------------- ------------ rx/tx   rx/tx  rx/tx -------
+ 237.010 KLU-US-UPN-BS-SEC2           000435136457 16/7    30/30   0/26 /TM/
+	 load 12/9, pps 8/1, cost 51
+	  pwr 25/18, rssi *-68/-83, snr 18/7
+	  dist 0.53
+	  H08v2.1.19, IP=10.47.133.67, up 00:08:07
+ ------- ---------------------------- ------------ -----  ------- ----- -------
+ 1 active neighbors
+ Total load: 12/9 (rx/tx), 21 (sum) Kbps
+ Total nodes in area: 2
+
+
+
+==============================================================================
+Interface rf5.0  TDS
+Node  000435235B50  "PMP-SM-KP9-US-UPN", Id 237.240, Nid 0, (Slave)
+Freq 5990, Band 40, Sid BC03CE02, autoBitrate 300000 (min 30000), Noise -93 
+
+GROUP 600  : 1 nodes : "MGMT" : sent 1295
+	     (rf5.0) => svi600
+  000435136457 "KLU-US-UPN-BS-SEC2          "  1 hops, Cost  51, (alive 5)
+
+GROUP 705  : 1 nodes : sent 460 (in-trunk 1)
+	     (eth0 rf5.0)
+  000435136457 "KLU-US-UPN-BS-SEC2          "  1 hops, Cost  51, (alive 5) (OWNER)
+
+
+Switch status: STARTED
+Bridge group 600(normal), READY STARTED  Interfaces : rf5.0(F) 
+       Info: MGMT
+Bridge group 705(normal), READY STARTED in-trunk 1 Interfaces : eth0:0(F) rf5.0:705(F) 
+
+Switch statistics:
+Kernel forwarded/bcasts/flooded: 2748/1235/0
+       ignored: 0, by firewall: 0
+
+                                 +------------------ Dropped -----------------+
+ ID   Unicast    Bcast    Flood  ! STPL   UNRD    FRWL    LOOP    DISC   BACK !
+==== ========= ======== ======== !====== ======= ======= ======= ====== ======!
+ 600      1834     1289        0       0       0       0       0      0       0
+ 705       893      460        0       0       0       0       0      0       0
+Total forwarded: 8459
+        dropped: 0
+     DB Records: 20/5000 (0%), max: 20, overflows: 0
+
+
+
+
+
+
+
+LAST SAVED SYSTEM LOG
+~~~~~~~~~~~~~~~~~~~~~
+16:37 TDMA link UP, Master 00043513645A, Band 40 Freq 5990, RSSI -43
+Last message was repeated 3 times
+30-Nov-19 12:16:38 rf5.0: Link "klu_us_upn_bs_sec4" (00043513645A) UP, Level <40/30>, Freq 5990
+30-Nov-19 12:16:38 rf5.0: Network found: band 40 frequency 5990, profile 4
+30-Nov-19 12:16:38 rf5.0: Last roaming discovered nodes:
+30-Nov-19 12:16:38   00043513645A band 40 freq 5990 snr 40 links 0, prof 4, jam 0
+30-Nov-19 12:16:47 AdjChg: Nbr 10.47.237.9 [10.47.133.66] on vlan600:10.47.133.96: 2-Way -> Down (InactivityTimer)
+30-Nov-19 12:16:47 AdjChg: Nbr 10.47.237.9 [10.47.133.66] on vlan600:10.47.133.96: Down -> DependUpon (InactivityTimer)
+30-Nov-19 12:16:49 AdjChg: Nbr 10.47.237.255 [10.47.133.81] on vlan600:10.47.133.96: 2-Way -> Down (InactivityTimer)
+30-Nov-19 12:16:49 AdjChg: Nbr 10.47.237.255 [10.47.133.81] on vlan600:10.47.133.96: Down -> DependUpon (InactivityTimer)
+30-Nov-19 12:16:52 AdjChg: Nbr 10.47.237.253 [10.47.133.77] on vlan600:10.47.133.96: Full -> Down (InactivityTimer)
+30-Nov-19 12:16:52 AdjChg: Nbr 10.47.237.253 [10.47.133.77] on vlan600:10.47.133.96: Down -> DependUpon (InactivityTimer)
+30-Nov-19 12:16:53 AdjChg: Nbr 10.47.237.12 [10.47.133.69] on vlan600:10.47.133.96: 2-Way -> Init (1-WayReceived)
+30-Nov-19 12:16:53 AdjChg: Nbr 10.47.237.247 [10.47.133.88] on vlan600:10.47.133.96: 2-Way -> Down (InactivityTimer)
+30-Nov-19 12:16:53 AdjChg: Nbr 10.47.237.247 [10.47.133.88] on vlan600:10.47.133.96: Down -> DependUpon (InactivityTimer)
+30-Nov-19 12:16:53 AdjChg: Nbr 10.47.237.222 [10.47.133.94] on vlan600:10.47.133.96: 2-Way -> Down (InactivityTimer)
+30-Nov-19 12:16:53 AdjChg: Nbr 10.47.237.222 [10.47.133.94] on vlan600:10.47.133.96: Down -> DependUpon (InactivityTimer)
+30-Nov-19 12:16:54 AdjChg: Nbr 10.47.128.1 [10.47.133.65] on vlan600:10.47.133.96: Full -> Down (InactivityTimer)
+30-Nov-19 12:16:54 AdjChg: Nbr 10.47.128.1 [10.47.133.65] on vlan600:10.47.133.96: Down -> DependUpon (InactivityTimer)
+30-Nov-19 12:16:55 AdjChg: Nbr 10.47.237.11 [10.47.133.68] on vlan600:10.47.133.96: 2-Way -> Down (InactivityTimer)
+30-Nov-19 12:16:55 AdjChg: Nbr 10.47.237.11 [10.47.133.68] on vlan600:10.47.133.96: Down -> DependUpon (InactivityTimer)
+30-Nov-19 12:16:56 AdjChg: Nbr 10.47.237.251 [10.47.133.84] on vlan600:10.47.133.96: 2-Way -> Down (InactivityTimer)
+30-Nov-19 12:16:56 AdjChg: Nbr 10.47.237.251 [10.47.133.84] on vlan600:10.47.133.96: Down -> DependUpon (InactivityTimer)
+30-Nov-19 12:16:57 AdjChg: Nbr 10.47.237.17 [10.47.133.70] on vlan600:10.47.133.96: 2-Way -> Down (InactivityTimer)
+30-Nov-19 12:16:57 AdjChg: Nbr 10.47.237.17 [10.47.133.70] on vlan600:10.47.133.96: Down -> DependUpon (InactivityTimer)
+30-Nov-19 12:16:58 AdjChg: Nbr 10.47.237.250 [10.47.133.75] on vlan600:10.47.133.96: 2-Way -> Down (InactivityTimer)
+30-Nov-19 12:16:58 AdjChg: Nbr 10.47.237.250 [10.47.133.75] on vlan600:10.47.133.96: Down -> DependUpon (InactivityTimer)
+30-Nov-19 12:16:58 AdjChg: Nbr 10.47.237.243 [10.47.133.83] on vlan600:10.47.133.96: 2-Way -> Down (InactivityTimer)
+30-Nov-19 12:16:58 AdjChg: Nbr 10.47.237.243 [10.47.133.83] on vlan600:10.47.133.96: Down -> DependUpon (InactivityTimer)
+30-Nov-19 12:16:58 AdjChg: Nbr 10.47.237.244 [10.47.133.82] on vlan600:10.47.133.96: 2-Way -> Down (InactivityTimer)
+30-Nov-19 12:16:58 AdjChg: Nbr 10.47.237.244 [10.47.133.82] on vlan600:10.47.133.96: Down -> DependUpon (InactivityTimer)
+30-Nov-19 12:16:58 AdjChg: Nbr 10.47.237.248 [10.47.133.73] on vlan600:10.47.133.96: 2-Way -> Down (InactivityTimer)
+30-Nov-19 12:16:58 AdjChg: Nbr 10.47.237.248 [10.47.133.73] on vlan600:10.47.133.96: Down -> DependUpon (InactivityTimer)
+30-Nov-19 12:16:58 AdjChg: Nbr 10.47.237.10 [10.47.133.67] on vlan600:10.47.133.96: 2-Way -> Down (InactivityTimer)
+30-Nov-19 12:16:58 AdjChg: Nbr 10.47.237.10 [10.47.133.67] on vlan600:10.47.133.96: Down -> DependUpon (InactivityTimer)
+30-Nov-19 12:16:59 AdjChg: Nbr 10.47.237.245 [10.47.133.79] on vlan600:10.47.133.96: 2-Way -> Down (InactivityTimer)
+30-Nov-19 12:16:59 AdjChg: Nbr 10.47.237.245 [10.47.133.79] on vlan600:10.47.133.96: Down -> DependUpon (InactivityTimer)
+30-Nov-19 12:17:13 AdjChg: Nbr 10.47.128.1 [10.47.133.65] on vlan600:10.47.133.96: Loading -> Full (LoadingDone)
+30-Nov-19 12:17:18 AdjChg: Nbr 10.47.237.253 [10.47.133.77] on vlan600:10.47.133.96: Loading -> Full (LoadingDone)
+30-Nov-19 12:19:30 AdjChg: Nbr 10.47.237.247 [10.47.133.88] on vlan600:10.47.133.96: 2-Way -> Init (1-WayReceived)
+30-Nov-19 12:20:43 AdjChg: Nbr 10.47.237.222 [10.47.133.94] on vlan600:10.47.133.96: 2-Way -> Init (1-WayReceived)
+30-Nov-19 12:22:17 AdjChg: Nbr 10.47.237.243 [10.47.133.83] on vlan600:10.47.133.96: 2-Way -> Down (InactivityTimer)
+30-Nov-19 12:22:17 AdjChg: Nbr 10.47.237.243 [10.47.133.83] on vlan600:10.47.133.96: Down -> DependUpon (InactivityTimer)
+30-Nov-19 12:25:07 rf5.0: Link "klu_us_upn_bs_sec4" (00043513645A) DOWN: "link reconnecting" Level <39/30>
+30-Nov-19 12:25:07 rf5.0: Network search started with 1 variants
+30-Nov-19 12:25:07 TDMA link UP, Master 00043513645A, Band 40 Freq 5990, RSSI -45
+Last Log: TDMA link UP, Master 00043513645A, Band 40 Freq 5990, RSSI -45
+
+=====================
+console: baud rate changed to 38400 bps
+-5049:07:09.671 tcf: 250 usec per tick
+-5049:07:09.170 EVENTER: Process started
+-5049:07:09.169 DFFS: User space 7579814 bytes
+-5049:07:09.169 Last reboot reason: power-on reset
+-5049:07:09.155 SYSLOG: Len 2048, Qsize 1024
+-5049:07:07.769 phy0: address 0x01
+-5049:07:07.769 phy1: address 0x03
+-5049:07:07.769 eth0: phy found a2112000 model: Texas Instruments TLK10x
+-5049:07:07.769 eth1: phy found a2112000 model: Texas Instruments TLK10x
+-5049:07:01.735 ctl: Heater enable threshold is -8 degrees Celsius
+-5049:07:01.510 rf5.0: bandwidth changed to 40 MHz
+-5049:07:01.497 rf5.0: frequency changed to 5710 MHz
+-5049:07:01.435 rf5.0: MINT started in CPE mode
+-5049:07:01.419 rf5.0: hardware accelerated scrambling enabled
+-5049:07:01.367 rf5.0: MINT started in ROAMING mode.
+-5049:07:01.367        All RF settings are controlled by roaming profiles.
+-5049:07:01.335 rf5.0: Network search started with 4 variants
+-5049:07:01.310 sshd: Server started.
+-5049:07:01.204 TDMA link UP, Master 000435136457, Band 40 Freq 5990, RSSI -69
+-5049:07:01.098 TDMA link UP, Master 000435136456, Band 40 Freq 5710, RSSI -73
+-5049:07:01.064 TDMA link UP, Master 000435136457, Band 40 Freq 5990, RSSI -69
+-5049:07:00.979 TDMA link UP, Master 000435136456, Band 40 Freq 5710, RSSI -73
+-5049:07:00.866 TDMA link UP, Master 000435136457, Band 40 Freq 5990, RSSI -68
+29-May-20 17:00:02 rf5.0: Link "KLU-US-UPN-BS-SEC2" (000435136457) UP, snr <19/7>, freq 5990
+29-May-20 17:00:02 rf5.0: Network found: band 40 frequency 5990, profile 2
+29-May-20 17:00:02 rf5.0: Last roaming discovered nodes:
+29-May-20 17:00:02   000435136457 band 40 freq 5990 snr 19 links 1, prof 2, jam 0
+29-May-20 17:00:02   000435136456 band 40 freq 5710 snr 16 links 6, prof 1, jam 0
+29-May-20 17:00:02 ctl: Heater enable threshold is -8 degrees Celsius
+29-May-20 17:00:02 dhcpc: vlan600: Task started.
+29-May-20 17:00:02 OSPFd (2.0) starts
+29-May-20 17:00:02 HwM: 8301
+29-May-20 17:00:02 System started, hz=1000
+29-May-20 17:00:02 webcfg: service started.
+29-May-20 17:00:11 dhcpc: vlan600: Bound network parameters Address=10.47.133.99 Netmask=255.255.255.192 Default gateway=0.0.0.0 at "vlan600". Server 10.47.133.65
+29-May-20 17:00:11 dhcpc: vlan600: Network parameters lease time is 1296000 sec
+29-May-20 17:00:15 AdjChg: Nbr 10.47.237.253 [10.47.133.77] on vlan600:10.47.133.99: Loading -> Full (LoadingDone)
+29-May-20 17:00:15 AdjChg: Nbr 10.47.128.1 [10.47.133.65] on vlan600:10.47.133.99: Loading -> Full (LoadingDone)
+29-May-20 17:00:53 eth0 media changed to 100 Mbps Full duplex auto
+29-May-20 17:04:01 logon as <GrigorievVO> from 10.10.20.2 by http
+29-May-20 17:07:37 eth0 link down
+29-May-20 17:07:59 logon as <GrigorievVO> from 10.47.245.111 by http
+
+
+Name   Init/Cur    Pri  State    CPU
+
+TCFP (08192/01192)   5  Wevnt   0.04%
+HTBt (09216/00216)   7  Wevnt   0.00%
+EVTS (12288/02696) 100  SUSP   13.45%
+STAT (04096/00424)  75  DELAY   0.00%
+sysl (05120/01304) 160  Wmsg    0.00%
+I160 (12288/02064)  11  Wevnt   0.53%
+T160 (08192/01776)  10  SUSP    0.49%
+RXP0 (10240/00944)  15  Wevnt   0.05%
+EthI (09216/01488)  50  Act     2.34%
+ueci (16384/00896)  15  Wevnt   0.00%
+uect (04096/00240)  15  Wevnt   0.00%
+phyd (04096/00568) 100  Wevnt   0.01%
+Heat (04096/00312) 253  DELAY   0.00%
+BASH (11264/01264)  50  Wsem    0.00%
+SCN0 (04096/00304) 211  Wevnt   0.00%
+aaa  (10240/01664) 150  SUSP    0.00%
+MINT (06144/01840)   9  Wevnt   0.01%
+MRUP (04096/01200)  12  Wevnt   0.00%
+SWSP (08192/00336) 100  Wevnt   0.00%
+SSHD (09216/01104)  99  SUSP    0.00%
+snmp (09216/01608) 121  SUSP    0.00%
+sntp (05120/01584)  85  SUSP    0.00%
+webc (30720/02752) 100  SUSP    0.00%
+DHP0 (04096/01368) 100  Act     0.90%
+DHPR (04096/01360) 100  SUSP    0.00%
+ARDA (08192/01400)  81  SUSP    0.00%
+OSPF (08192/01560)  81  SUSP    0.04%
+LLDP (04096/00888) 122  Wevnt   0.00%
+TELD (08192/00432)  99  SUSP    0.00%
+HTTP (08192/02048) 100  SUSP    0.08%
+exec (09216/00544) 100  SUSP    0.04%
+e$03 (32768/02272) 100  Act     4.04%
+l$03 (11264/01232) 120  Act     0.97%
+
+CPU Load  23%  20%(10s)  18%(30s)  12%(60s)   7%(300s)
+Detailed: Isr: 3.00%  Tasks: 3.29%  Idle: 93.69%
+ISR: 4598 pps
+
+
+lo0: flags=8009<UP,LOOPBACK,MULTICAST> mtu 1500
+        inet 127.0.0.1 netmask 0xffffffff 
+
+eth0: flags=8103<UP,BROADCAST,PROMISC,MULTICAST> mtu 1600
+        inet 10.10.20.1 netmask 0xffffff00 broadcast 10.10.20.255
+        ether 00:04:35:03:5b:50 
+
+	Physical link is DOWN
+	PHY chip: Texas Instruments TLK10x ID: a2112000
+	+--------------------------------+------+-----+
+	|                 Supported modes| Self |Peer |
+	+--------------------------------+------+-----+
+	|                Auto-Negotiation| yes  |  -  |
+	|             10 Mbps Half-duplex| yes  |  -  |
+	|             10 Mbps Full-duplex| yes  |  -  |
+	|            100 Mbps Half-duplex| yes  |  -  |
+	|            100 Mbps Full-duplex| yes  |  -  |
+	+--------------------------------+------+-----+
+
+	eth0: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            1353        | Packets               1000        |
+	| Bytes              134295      | Bytes                 777926      |
+	| Load (kbps)        0           | Load (kbps)           0           |
+	| Load (pps)         0           | Load (pps)            0           |
+	| Frame size (bytes) 0           | Frame size (bytes)    0           |
+	+--------------------------------+-----------------------------------+
+	| CRC errors         0           | Carrier lost          0           |
+	| Pause packets      0           | Excessive deferrals   0           |
+	| Runts              0           | Late collisions       0           |
+	| Alignment errors   0           | Multiple collisions   0           |
+	| Long packets       0           | Single collisions     0           |
+	| Out of range       0           | Lost in MAC frames    0           |
+	| In range errors    0           | Excessive collision   0           |
+	| Descriptor errors  0           | Queue overflow        0           |
+	+--------------------------------+-----------------------------------+
+
+eth1: flags=8003<UP,BROADCAST,MULTICAST> mtu 1700
+        inet 0.0.0.0 netmask 0x0 
+        ether 00:04:35:13:5b:50 
+
+	Physical link is DOWN
+	PHY chip: Texas Instruments TLK10x ID: a2112000
+	+--------------------------------+------+-----+
+	|                 Supported modes| Self |Peer |
+	+--------------------------------+------+-----+
+	|                Auto-Negotiation| yes  |  -  |
+	|             10 Mbps Half-duplex| yes  |  -  |
+	|             10 Mbps Full-duplex| yes  |  -  |
+	|            100 Mbps Half-duplex| yes  |  -  |
+	|            100 Mbps Full-duplex| yes  |  -  |
+	+--------------------------------+------+-----+
+
+	eth1: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            0           | Packets               0           |
+	| Bytes              0           | Bytes                 0           |
+	| Load (kbps)        0           | Load (kbps)           0           |
+	| Load (pps)         0           | Load (pps)            0           |
+	| Frame size (bytes) 0           | Frame size (bytes)    0           |
+	+--------------------------------+-----------------------------------+
+	| CRC errors         0           | Carrier lost          0           |
+	| Pause packets      0           | Excessive deferrals   0           |
+	| Runts              0           | Late collisions       0           |
+	| Alignment errors   0           | Multiple collisions   0           |
+	| Long packets       0           | Single collisions     0           |
+	| Out of range       0           | Lost in MAC frames    0           |
+	| In range errors    0           | Excessive collision   0           |
+	| Descriptor errors  0           | Queue overflow        0           |
+	+--------------------------------+-----------------------------------+
+
+rf5.0: flags=8103<UP,BROADCAST,PROMISC,MULTICAST> mtu 1600
+        inet 0.0.0.0 netmask 0x0 
+        ether 00:04:35:23:5b:50 
+
+null0: flags=8802<BROADCAST,NULL,MULTICAST> mtu 1500
+
+svi600: flags=8003<UP,BROADCAST,MULTICAST> mtu 1600
+        inet 0.0.0.0 netmask 0x0 
+        ether 02:04:35:03:5b:50 
+
+	svi600: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            1828        | Packets               1295        |
+	| Bytes              252831      | Bytes                 1276206     |
+	| Load (kbps)        6           | Load (kbps)           0           |
+	| Load (pps)         8           | Load (pps)            0           |
+	+--------------------------------+-----------------------------------+
+
+vlan600: flags=8023<UP,BROADCAST,VLAN,MULTICAST> mtu 1600
+        inet 10.47.133.99 netmask 0xffffffc0 broadcast 10.47.133.127
+        ether 02:04:35:03:5b:50 
+	Info: "MGMT"
+
+	vlan600: administrative status UP
+	+--------------------------------+-----------------------------------+
+	|       Parent       svi600      |        VLAN ID        600         |
+	+--------------------------------+-----------------------------------+
+	|       Receive statistics       |        Transmit statistics        |
+	+--------------------------------+-----------------------------------+
+	| Packets            1828        | Packets               1295        |
+	| Bytes              245519      | Bytes                 1276206     |
+	| Load (kbps)        5           | Load (kbps)           0           |
+	| Load (pps)         8           | Load (pps)            0           |
+	| Frame size (bytes) 78          | Frame size (bytes)    0           |
+	+--------------------------------+-----------------------------------+
+
+
+Name      Network            Address               Ipkts Ierrs      Opkts Oerrs
+lo0       Link:                                     1380     0       1380     0
+lo0       127.0.0.1/32       127.0.0.1       
+lo0       10.47.237.240/32   10.47.237.240   
+eth0      Link:              000435035b50           1353     0       1000     0
+eth0      10.10.20.0/24      10.10.20.1      
+eth0      10.47.232.128/27   10.47.232.129   
+eth1      Link:              000435135b50              0     0          0     0
+eth1      none               none             
+rf5.0     Link:              000435235b50           3505   105       2926     0
+rf5.0     none               none             
+null0*    Link:                                        0     0          0     0
+svi600    Link:              020435035b50           1828     0       1295     0
+svi600    none               none             
+vlan600   Link:              020435035b50           1828     0       1295     0
+vlan600   10.47.133.64/26    10.47.133.99    
+
+
+Routing tables
+Destination        Gateway            Flags     Refs     Use  Interface
+default            10.47.133.65       UG3         6     1205  vlan600
+10.10.20.0/24      link#2             UC          0        0  eth0
+10.10.20.2         d8:c4:97:20:07:61  UHL         0      957  eth0
+10.46.29.200/29    10.47.133.65       UG3         0        0  vlan600
+10.46.107.0/31     10.47.133.65       UG3         0        0  vlan600
+10.46.107.2/31     10.47.133.65       UG3         0        0  vlan600
+10.46.107.12/30    10.47.133.65       UG3         0        0  vlan600
+10.46.107.16/31    10.47.133.65       UG3         0        0  vlan600
+10.46.107.18/31    10.47.133.65       UG3         0        0  vlan600
+10.46.107.20/30    10.47.133.65       UG3         0        0  vlan600
+10.46.107.25       10.47.133.65       UGH3        0        0  vlan600
+10.46.107.26       10.47.133.65       UGH3        0        0  vlan600
+10.46.107.28/30    10.47.133.65       UG3         0        0  vlan600
+10.46.107.32/31    10.47.133.65       UG3         0        0  vlan600
+10.46.107.34/31    10.47.133.65       UG3         0        0  vlan600
+10.47.128.1        10.47.133.65       UGH3        0        0  vlan600
+10.47.130.0/31     10.47.133.65       UG3         0        0  vlan600
+10.47.130.2/31     10.47.133.65       UG3         0        0  vlan600
+10.47.130.4/31     10.47.133.65       UG3         0        0  vlan600
+10.47.130.6/31     10.47.133.65       UG3         0        0  vlan600
+10.47.130.8/31     10.47.133.65       UG3         0        0  vlan600
+10.47.130.10/31    10.47.133.65       UG3         0        0  vlan600
+10.47.130.12/31    10.47.133.65       UG3         0        0  vlan600
+10.47.130.14/31    10.47.133.65       UG3         0        0  vlan600
+10.47.130.16/31    10.47.133.65       UG3         0        0  vlan600
+10.47.130.18/31    10.47.133.65       UG3         0        0  vlan600
+10.47.130.20/31    10.47.133.65       UG3         0        0  vlan600
+10.47.130.22/31    10.47.133.65       UG3         0        0  vlan600
+10.47.130.26/31    10.47.133.65       UG3         0        0  vlan600
+10.47.130.30/31    10.47.133.65       UG3         0        0  vlan600
+10.47.130.32/31    10.47.133.65       UG3         0        0  vlan600
+10.47.130.34/31    10.47.133.65       UG3         0        0  vlan600
+10.47.130.36/31    10.47.133.65       UG3         0        0  vlan600
+10.47.130.38/31    10.47.133.65       UG3         0        0  vlan600
+10.47.130.40/30    10.47.133.65       UG3         0        0  vlan600
+10.47.133.0/26     10.47.133.65       UG3         0        0  vlan600
+10.47.133.64/26    link#7             UC          0        0  vlan600
+10.47.133.65       00:42:5a:fc:62:d6  UHL        86        0  vlan600
+10.47.133.66       link#7             UHL         1        0  vlan600
+10.47.133.67       link#7             UHL         1        0  vlan600
+10.47.133.68       link#7             UHL         1        0  vlan600
+10.47.133.69       link#7             UHL         1        0  vlan600
+10.47.133.70       link#7             UHL         1        0  vlan600
+10.47.133.73       link#7             UHL         1        0  vlan600
+10.47.133.75       link#7             UHL         1        0  vlan600
+10.47.133.77       02:04:35:03:4f:bb  UHL         1        0  vlan600
+10.47.133.79       link#7             UHL         2        0  vlan600
+10.47.133.82       link#7             UHL         3        0  vlan600
+10.47.133.83       link#7             UHL         3        0  vlan600
+10.47.133.84       link#7             UHL         1        0  vlan600
+10.47.133.88       link#7             UHL         1        0  vlan600
+10.47.133.94       link#7             UHL         2        0  vlan600
+10.47.133.128/26   10.47.133.65       UG3         0        0  vlan600
+10.47.135.160/28   10.47.133.65       UG3         0        0  vlan600
+10.47.135.176/28   10.47.133.65       UG3         0        0  vlan600
+10.47.138.4/30     10.47.133.65       UG3         0        0  vlan600
+10.47.139.4/30     10.47.133.65       UG3         0        0  vlan600
+10.47.140.148/30   10.47.133.82       UG3         0        0  vlan600
+10.47.140.156/30   10.47.133.83       UG3         0        0  vlan600
+10.47.161.80/28    10.47.133.65       UG3         0        0  vlan600
+10.47.161.128/27   10.47.133.65       UG3         0        0  vlan600
+10.47.167.48/28    10.47.133.65       UG3         0        0  vlan600
+10.47.177.128/27   10.47.133.65       UG3         0        0  vlan600
+10.47.229.32/27    10.47.133.65       UG3         0        0  vlan600
+10.47.230.112/29   10.47.133.94       UG3         0        0  vlan600
+10.47.232.0/27     10.47.133.65       UG3         0        0  vlan600
+10.47.232.128/27   link#2             UC          0        0  eth0
+10.47.232.139      link#2             UHL         1       24  eth0
+10.47.232.240/28   10.47.133.79       UG3         0        0  vlan600
+10.47.235.64/29    10.47.133.65       UG3         0        0  vlan600
+10.47.237.9        10.47.133.66       UGH3        0        0  vlan600
+10.47.237.10       10.47.133.67       UGH3        0        0  vlan600
+10.47.237.11       10.47.133.68       UGH3        0        0  vlan600
+10.47.237.12       10.47.133.69       UGH3        0        0  vlan600
+10.47.237.17       10.47.133.70       UGH3        0        0  vlan600
+10.47.237.222      10.47.133.94       UGH3        0        0  vlan600
+10.47.237.240      10.47.237.240      UH          0        0  lo0
+10.47.237.243      10.47.133.83       UGH3        0        0  vlan600
+10.47.237.244      10.47.133.82       UGH3        0        0  vlan600
+10.47.237.245      10.47.133.79       UGH3        0        0  vlan600
+10.47.237.247      10.47.133.88       UGH3        0        0  vlan600
+10.47.237.248      10.47.133.73       UGH3        0        0  vlan600
+10.47.237.250      10.47.133.75       UGH3        0        0  vlan600
+10.47.237.251      10.47.133.84       UGH3        0        0  vlan600
+10.47.237.253      10.47.133.77       UGH3        0        0  vlan600
+10.47.238.0/26     10.47.133.65       UG3         0        0  vlan600
+10.47.239.150/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.152/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.156/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.158/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.160/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.162/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.164/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.166/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.168/30   10.47.133.65       UG3         0        0  vlan600
+10.47.239.172/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.174/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.176/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.178/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.182/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.184/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.186/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.190/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.192/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.194/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.196/30   10.47.133.65       UG3         0        0  vlan600
+10.47.239.206/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.208/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.214/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.218/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.220/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.224/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.226/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.228/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.230/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.236/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.238/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.240/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.242/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.244/31   10.47.133.65       UG3         0        0  vlan600
+10.47.239.248/30   10.47.133.65       UG3         0        0  vlan600
+10.47.239.252/30   10.47.133.65       UG3         0        0  vlan600
+10.47.242.16/28    10.47.133.65       UG3         0        0  vlan600
+10.47.243.160/28   10.47.133.65       UG3         0        0  vlan600
+10.47.250.8/29     10.47.133.82       UG3         0        0  vlan600
+10.47.250.16/29    10.47.133.83       UG3         0        0  vlan600
+10.47.250.72/30    10.47.133.65       UG3         0        0  vlan600
+127.0.0.1          127.0.0.1          UH          5     1386  lo0
+224.0.0.0/8        127.0.0.1          UGS         1       70  lo0
+
+
+10.10.20.2 at D8C497200761 via eth0
+10.47.133.65 at 00425AFC62D6 via vlan600
+10.47.133.66 at (incomplete) via vlan600
+10.47.133.67 at (incomplete) via vlan600
+10.47.133.68 at (incomplete) via vlan600
+10.47.133.69 at (incomplete) via vlan600
+10.47.133.70 at (incomplete) via vlan600
+10.47.133.73 at (incomplete) via vlan600
+10.47.133.75 at (incomplete) via vlan600
+10.47.133.77 at 020435034FBB via vlan600
+10.47.133.79 at (incomplete) via vlan600
+10.47.133.82 at (incomplete) via vlan600
+10.47.133.83 at (incomplete) via vlan600
+10.47.133.84 at (incomplete) via vlan600
+10.47.133.88 at (incomplete) via vlan600
+10.47.133.94 at (incomplete) via vlan600
+10.47.232.139 at (incomplete) via eth0
+
+License 'Factory License' granted at 24/08/2016 10:41:41
+  Device
+    SN:219984
+    PN:SkyMAN R5000-Smntc/5.300.2x63.2x23
+    Production Date: 24 Aug 2016 10:41:41 YEKT
+  Operational parameters
+    rf5.0 interface parameters
+      Maximum Transmit Rate: 300 Mbps
+      Available Channel Widths: 5 Mhz 10 Mhz 20 Mhz
+      40 MHz channel width is available
+      Power levels: 1,2,4,8,16,32,63 mW
+      Power levels: -5.0,0.0,3.0,6.0,7.0,9.0,11.0,12.0,15.0,18.0 dBm
+      PMtP CPE Only
+      Supported Frequencies: 4860 - 6040 MHz
+
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<license description="Factory License" granted="24/08/2016 10:41:41" id="{23c8d947-2ce9-49ea-8700-f61ea8454c14}">
+    <device description="Device">
+        <options SN="219984" description="SN:219984" />
+        <options PN="R5000-Smntc/5.300.2x63.2x23-H11" description="PN:SkyMAN R5000-Smntc/5.300.2x63.2x23" />
+        <options ProductionDate="24/08/2016 10:41:41+0500" description="Production Date: 24 Aug 2016 10:41:41 YEKT" />
+        <options Model="R5000-S" />
+        <options Features="m - MIMO, n - H11 Platform, t - Termo, c - CPE" />
+        <options Platform="MPC8309 400 MHz (H11YY-02-2ETH) - H11.rev 02" />
+        <options IDU="IDU-CPE" />
+        <options Radios="WLM200NX:04F0211F012B" />
+    </device>
+    <wanflex description="Operational parameters">
+        <feature description="rf5.0 interface parameters" name="rf5.0">
+            <option MaximumTransmitRate="300000" description="Maximum Transmit Rate: 300 Mbps" />
+            <option BandwidthMask="7" description="Available Channel Widths: 5 Mhz 10 Mhz 20 Mhz" />
+            <option DoubleBandwidthEnabled="1" description="40 MHz channel width is available" />
+            <option ChangePower="1" />
+            <option TransmitPowers="1,2,4,8,16,32,63" description="Power levels: 1,2,4,8,16,32,63 mW" />
+            <option TransmitPowersTenthdbm="-50,0,30,60,70,90,110,120,150,180" description="Power levels: -5.0,0.0,3.0,6.0,7.0,9.0,11.0,12.0,15.0,18.0 dBm" />
+            <option CPEOnly="true" description="PMtP CPE Only" />
+            <option RxChainMask="3" />
+            <option TxChainMask="3" />
+            <option rfmode="na" />
+            <option FrequencyList="4860na,4880na,4900na,4920na,4940na,4960na,4980na,5000na,5020na,5040na,5060na,5080na,5100na,5120na,5140na,5160na,5180na,5200na,5220na,5240na,5260na,5280na,5300na,5320na,5340na,5360na,5380na,5400na,5420na,5440na,5460na,5480na,5500na,5520na,5540na,5560na,5580na,5600na,5620na,5640na,5660na,5680na,5700na,5720na,5740na,5760na,5780na,5800na,5820na,5840na,5860na,5880na,5900na,5920na,5940na,5960na,5980na,6000na,6020na,6040na" description="Supported Frequencies: 4860 - 6040 MHz" />
+        </feature>
+    </wanflex>
+</license>
+
+
+                       System events statistics:
+         Event             Raise           Send         Receptions
+--------------------- --------------- --------------- ---------------
+DHCPC_READY                         0               1               0
+TASK_DELETED                        9               0               0
+TOD_CHANGED                         3               0               0
+HTTPD_SCRIPT                        0              51              50
+LINK_STATE                          8               0              12
+ADDRESS_OBTAIN                      0               1               0
+FREQ_CHANGED                        1               0               0
+OSPF_IFSTATE                        1               0               0
+OSPF_NEIGHBOR                       2               0               0
+NOL_CHANGED                         1               0               0
+HEATER                             17               0               0
+--------------------- --------------- --------------- ---------------
+               Total:              42              53              62
+           Overflows:               0      Conflicts:               0
+
+
+Custom pools 16, objects 45:
+8  bytes: /MA/MA (public) refcnt 2
+   Cluster 160/20, 2/2 clusters, Total 320 bytes, 21 items
+44 bytes: /MA/xmlText/xmlComment (public) refcnt 3
+   Cluster 180224/4096, 2/2 clusters, Total 360448 bytes, 7265 items
+12 bytes: /MA/MA/MGA/MGA/MGA/MA (public) refcnt 6
+   Cluster 12288/1024, 2/3 clusters, Total 24576 bytes, 1767 items
+16 bytes: /MA/MUM/MRFE/MGA/MGA/MGA (public) refcnt 6
+   Cluster 163840/10240, 3/3 clusters, Total 491520 bytes, 30433 items
+4  bytes: /MA/MGA/MGA (public) refcnt 3
+   Cluster 8192/2048, 2/2 clusters, Total 16384 bytes, 2081 items
+40 bytes: /MA/TCF/USL/MGA/MGA (public) refcnt 5
+   Cluster 40960/1024, 1/2 clusters, Total 40960 bytes, 1002 items
+52 bytes: /MA (public) refcnt 1
+   Cluster 1040/20, 1/1 clusters, Total 1040 bytes, 0 items
+32 bytes: /SLOG/xmlAttrib/MGA/MGA (public) refcnt 4
+   Cluster 196608/6144, 5/5 clusters, Total 983040 bytes, 26780 items
+76 bytes: /xmlElement/MTP_P/MTP_NE (public) refcnt 3
+   Cluster 389120/5120, 3/3 clusters, Total 1167360 bytes, 11036 items
+128 bytes: /MSEQ (public) refcnt 1
+   Cluster 4096/32, 1/1 clusters, Total 4096 bytes, 0 items
+388 bytes: /ICHUNK (public) refcnt 1
+   Cluster 38800/100, 1/1 clusters, Total 38800 bytes, 10 items
+56 bytes: /OCHUNK (public) refcnt 1
+   Cluster 5600/100, 1/1 clusters, Total 5600 bytes, 2 items
+20 bytes: /TXQ/CENTRY/NSTR/MGA/MGA (public) refcnt 5
+   Cluster 40960/2048, 1/1 clusters, Total 40960 bytes, 213 items
+28 bytes: /MTP_DE/MGA (public) refcnt 2
+   Cluster 14336/512, 1/1 clusters, Total 14336 bytes, 1 items
+60 bytes: /MGA (public) refcnt 1
+   Cluster 12000/200, 2/2 clusters, Total 24000 bytes, 127 items
+48 bytes: /MGA (public) refcnt 1
+   Cluster 14400/300, 1/1 clusters, Total 14400 bytes, 122 items
+
+
+SYSTEM      R5000 WANFleX H11S11-TDMAv2.1.12 * Nov  1 2019 10:22:50 * SN:219984
+            * Uptime: 00:08:16
+            Firmware ID: 011T0011
+            PN:SkyMAN R5000-Smntc/5.300.2x63.2x23
+            Flapping Indicator 0
+
+MEMORY      121.6 MB total
+            Malloc stats
+              Total:127544960  Free:59304632  Allocated:68240328 (53.50%)
+              Max:68883088 (54.00%)
+            Calls
+              malloc:252893  free:233941  realloc:19536  calloc:3727  miss:0
+            
+            12647 mbufs, 9193 clusters free
+            4676 mbufs in use:
+                4666 mbufs allocated to data
+                  10 mbufs allocated to packet headers
+            4666/13859 mapped pages in use
+            44802 Kbytes allocated to network (35% in use)
+            
+            EthI   :   0(1000,0) 
+            eth0   :   0(256,0) 
+            eth1   :   0(256,0) 
+            rf5.0  :   0(500,0)  rf5.0-rx: 0(350,0)
+            MintQ  :   0(800,0) 
+            HTB    :   cur 0, max 0, drop 0, lock 0
+            
+            ------- System objects stats ------
+              Object     Capac. Current   Max
+            ----------- ------- ------- -------
+            Tasks           128      33      33
+            Timers           40       9      10
+            Semaphores       95      23      24
+            MQueues          20       1       1
+            Extentions        4       3       3
+            Workspace Required: 81960
+                     Allocated: 204800
+
+ISR         Integrated Programmable Interrupt Controller
+            No isr stat: sysdebug level is 0
+
+CPU         Processor: MPC8309 400 MHz
+            CPU Load  23%  20%(10s)  18%(30s)  12%(60s)   7%(300s)
+            Detailed: Isr: 3.00%  Tasks: 3.29%  Idle: 93.69%
+            Reset status: Power-on (0xf0000000)
+
+FLASH       Flash device 0: N25Q Boot sector #0, DFFS sector #7
+
+DFFS        Files=14, Used 4439040 bytes, Free 11514780 bytes
+            FlashSize=15936 KB, 249 Sectors of 64 KB, 15936 blocks of 1024 bytes
+
+TPM         MAX 6625 Device temperatures:
+            BOARD: +27.5 degrees Celsius
+
+PCI         Atheros AR9220 Wireless PCI Adapter. InfiNet Wireless Calibrated
+            Radio
+            Port: 0 Bus: 0 Device: 10 Function: 0 vendor:0x168c device:0x0029
+            MEM32 at 0x80000000 size: 0x00010000 CLS: 8
+
+LICENSE     Factory License granted at 24/08/2016 10:41:41
+            id={23c8d947-2ce9-49ea-8700-f61ea8454c14}
+
+PHY0        Texas Instruments TLK10x
+            	Physical link info:
+            	Link is DOWN
+            	Capabilities:          Self  Peer
+            	     Auto-Negotiation:   +     -  
+            	  10 Mbps Half-duplex:   +     -  
+            	  10 Mbps Full-duplex:   +     -  
+            	 100 Mbps Half-duplex:   +     -  
+            	 100 Mbps Full-duplex:   +     -  
+            	PHY chip: Texas Instruments TLK10x ID: a2112000
+
+PHY1        Texas Instruments TLK10x
+            	Physical link info:
+            	Link is DOWN
+            	Capabilities:          Self  Peer
+            	     Auto-Negotiation:   +     -  
+            	  10 Mbps Half-duplex:   +     -  
+            	  10 Mbps Full-duplex:   +     -  
+            	 100 Mbps Half-duplex:   +     -  
+            	 100 Mbps Full-duplex:   +     -  
+            	PHY chip: Texas Instruments TLK10x ID: a2112000
+
+Internal temperature is +27.5 degrees Celsius.
+
+rf5.0 Capabilities
+   Radio capabilities:
+   Model name:				Generic OEM
+   Adapter name:			Atheros AR9220 Wireless PCI Adapter. InfiNet Wireless Calibrated Radio
+   Subvendor: 0xfff1, Subid 0x0001
+   EEPROM revision:			14.16
+   MAC silicon revision:		128.2
+   PHY silicon revision:		13.0
+   5GHz analog silicon revision:	12.0
+   Power levels (dBm):			-5, 0, 3, 6, 7, 9, 11, 12, 15, 18
+   (per packet power control supported)
+   Greenfield mode supported
+   MAC address:				000435235B50
+   Bandwidth modes:			5, 10, 20, 40
+   Bitrate list:			30000, 60000, 90000, 120000,
+					180000, 240000, 270000, 300000
+   Frequency bounds (40 MHz):		4850-6050
+   Frequency grid (user defined):	4850-6050/10
+   Frequency list (120 channels):
+     4850, 4860, 4870, 4880, 4890, 4900, 4910, 4920, 4930, 4940, 4950, 4960, 
+     4970, 4980, 4990, 5000, 5010, 5020, 5030, 5040, 5050, 5060, 5070, 5080, 
+     5090, 5100, 5110, 5120, 5130, 5140, 5150, 5160, 5170, 5180, 5190, 5200, 
+     5210, 5220, 5230, 5240, 5250, 5260, 5270, 5280, 5290, 5300, 5310, 5320, 
+     5330, 5340, 5350, 5360, 5370, 5380, 5390, 5400, 5410, 5420, 5430, 5440, 
+     5450, 5460, 5470, 5480, 5490, 5500, 5510, 5520, 5530, 5540, 5550, 5560, 
+     5570, 5580, 5590, 5600, 5610, 5620, 5630, 5640, 5650, 5660, 5670, 5680, 
+     5690, 5700, 5710, 5720, 5730, 5740, 5750, 5760, 5770, 5780, 5790, 5800, 
+     5810, 5820, 5830, 5840, 5850, 5860, 5870, 5880, 5890, 5900, 5910, 5920, 
+     5930, 5940, 5950, 5960, 5970, 5980, 5990, 6000, 6010, 6020, 6030, 6040  
+
+   Frequency bounds (20 MHz):		4850-6050
+   Frequency grid (user defined):	4850-6050/10
+   Frequency list (121 channels):
+     4850, 4860, 4870, 4880, 4890, 4900, 4910, 4920, 4930, 4940, 4950, 4960, 
+     4970, 4980, 4990, 5000, 5010, 5020, 5030, 5040, 5050, 5060, 5070, 5080, 
+     5090, 5100, 5110, 5120, 5130, 5140, 5150, 5160, 5170, 5180, 5190, 5200, 
+     5210, 5220, 5230, 5240, 5250, 5260, 5270, 5280, 5290, 5300, 5310, 5320, 
+     5330, 5340, 5350, 5360, 5370, 5380, 5390, 5400, 5410, 5420, 5430, 5440, 
+     5450, 5460, 5470, 5480, 5490, 5500, 5510, 5520, 5530, 5540, 5550, 5560, 
+     5570, 5580, 5590, 5600, 5610, 5620, 5630, 5640, 5650, 5660, 5670, 5680, 
+     5690, 5700, 5710, 5720, 5730, 5740, 5750, 5760, 5770, 5780, 5790, 5800, 
+     5810, 5820, 5830, 5840, 5850, 5860, 5870, 5880, 5890, 5900, 5910, 5920, 
+     5930, 5940, 5950, 5960, 5970, 5980, 5990, 6000, 6010, 6020, 6030, 6040, 
+     6050  
+
+   Frequency bounds (10 MHz):		4850-6050
+   Frequency grid (user defined):	4850-6050/5
+   Frequency list (241 channels):
+     4850, 4855, 4860, 4865, 4870, 4875, 4880, 4885, 4890, 4895, 4900, 4905, 
+     4910, 4915, 4920, 4925, 4930, 4935, 4940, 4945, 4950, 4955, 4960, 4965, 
+     4970, 4975, 4980, 4985, 4990, 4995, 5000, 5005, 5010, 5015, 5020, 5025, 
+     5030, 5035, 5040, 5045, 5050, 5055, 5060, 5065, 5070, 5075, 5080, 5085, 
+     5090, 5095, 5100, 5105, 5110, 5115, 5120, 5125, 5130, 5135, 5140, 5145, 
+     5150, 5155, 5160, 5165, 5170, 5175, 5180, 5185, 5190, 5195, 5200, 5205, 
+     5210, 5215, 5220, 5225, 5230, 5235, 5240, 5245, 5250, 5255, 5260, 5265, 
+     5270, 5275, 5280, 5285, 5290, 5295, 5300, 5305, 5310, 5315, 5320, 5325, 
+     5330, 5335, 5340, 5345, 5350, 5355, 5360, 5365, 5370, 5375, 5380, 5385, 
+     5390, 5395, 5400, 5405, 5410, 5415, 5420, 5425, 5430, 5435, 5440, 5445, 
+     5450, 5455, 5460, 5465, 5470, 5475, 5480, 5485, 5490, 5495, 5500, 5505, 
+     5510, 5515, 5520, 5525, 5530, 5535, 5540, 5545, 5550, 5555, 5560, 5565, 
+     5570, 5575, 5580, 5585, 5590, 5595, 5600, 5605, 5610, 5615, 5620, 5625, 
+     5630, 5635, 5640, 5645, 5650, 5655, 5660, 5665, 5670, 5675, 5680, 5685, 
+     5690, 5695, 5700, 5705, 5710, 5715, 5720, 5725, 5730, 5735, 5740, 5745, 
+     5750, 5755, 5760, 5765, 5770, 5775, 5780, 5785, 5790, 5795, 5800, 5805, 
+     5810, 5815, 5820, 5825, 5830, 5835, 5840, 5845, 5850, 5855, 5860, 5865, 
+     5870, 5875, 5880, 5885, 5890, 5895, 5900, 5905, 5910, 5915, 5920, 5925, 
+     5930, 5935, 5940, 5945, 5950, 5955, 5960, 5965, 5970, 5975, 5980, 5985, 
+     5990, 5995, 6000, 6005, 6010, 6015, 6020, 6025, 6030, 6035, 6040, 6045, 
+     6050  
+
+   Frequency bounds (5 MHz):		4850-6050
+   Frequency grid (user defined):	4850-6050/5
+   Frequency list (241 channels):
+     4850, 4855, 4860, 4865, 4870, 4875, 4880, 4885, 4890, 4895, 4900, 4905, 
+     4910, 4915, 4920, 4925, 4930, 4935, 4940, 4945, 4950, 4955, 4960, 4965, 
+     4970, 4975, 4980, 4985, 4990, 4995, 5000, 5005, 5010, 5015, 5020, 5025, 
+     5030, 5035, 5040, 5045, 5050, 5055, 5060, 5065, 5070, 5075, 5080, 5085, 
+     5090, 5095, 5100, 5105, 5110, 5115, 5120, 5125, 5130, 5135, 5140, 5145, 
+     5150, 5155, 5160, 5165, 5170, 5175, 5180, 5185, 5190, 5195, 5200, 5205, 
+     5210, 5215, 5220, 5225, 5230, 5235, 5240, 5245, 5250, 5255, 5260, 5265, 
+     5270, 5275, 5280, 5285, 5290, 5295, 5300, 5305, 5310, 5315, 5320, 5325, 
+     5330, 5335, 5340, 5345, 5350, 5355, 5360, 5365, 5370, 5375, 5380, 5385, 
+     5390, 5395, 5400, 5405, 5410, 5415, 5420, 5425, 5430, 5435, 5440, 5445, 
+     5450, 5455, 5460, 5465, 5470, 5475, 5480, 5485, 5490, 5495, 5500, 5505, 
+     5510, 5515, 5520, 5525, 5530, 5535, 5540, 5545, 5550, 5555, 5560, 5565, 
+     5570, 5575, 5580, 5585, 5590, 5595, 5600, 5605, 5610, 5615, 5620, 5625, 
+     5630, 5635, 5640, 5645, 5650, 5655, 5660, 5665, 5670, 5675, 5680, 5685, 
+     5690, 5695, 5700, 5705, 5710, 5715, 5720, 5725, 5730, 5735, 5740, 5745, 
+     5750, 5755, 5760, 5765, 5770, 5775, 5780, 5785, 5790, 5795, 5800, 5805, 
+     5810, 5815, 5820, 5825, 5830, 5835, 5840, 5845, 5850, 5855, 5860, 5865, 
+     5870, 5875, 5880, 5885, 5890, 5895, 5900, 5905, 5910, 5915, 5920, 5925, 
+     5930, 5935, 5940, 5945, 5950, 5955, 5960, 5965, 5970, 5975, 5980, 5985, 
+     5990, 5995, 6000, 6005, 6010, 6015, 6020, 6025, 6030, 6035, 6040, 6045, 
+     6050  
+
+
+
+rf5.0 Calibration
+Calibration accuracy: Precise, offset -10 halfdBm
+      power:  -5   0   5  11  15     9  12  14  16  18
+      ------------------------------------------------
+4800: vpd 0:  39  42  49  66  90    30  36  41  47  55
+      vpd 1:  41  44  50  64  84    29  34  39  44  52
+      ------------------------------------------------
+4980: vpd 0:  39  42  48  62  85    29  34  39  45  53
+      vpd 1:  42  44  49  63  87    30  35  40  46  54
+      ------------------------------------------------
+5160: vpd 0:  39  42  48  63  86    29  34  39  45  52
+      vpd 1:  40  43  49  64  88    30  35  40  46  54
+      ------------------------------------------------
+5340: vpd 0:  40  43  48  64  87    30  35  40  47  56
+      vpd 1:  40  43  50  65  85    29  35  39  46  55
+      ------------------------------------------------
+5520: vpd 0:  40  43  49  66  91    30  35  40  47  57
+      vpd 1:  41  44  50  65  88    31  36  42  48  57
+      ------------------------------------------------
+5700: vpd 0:  39  42  48  66  91    30  36  41  48  57
+      vpd 1:  41  44  50  66  90    30  36  41  47  56
+      ------------------------------------------------
+5880: vpd 0:  39  43  50  68  94    31  38  44  51  62
+      vpd 1:  40  44  51  69  92    31  37  43  50  60
+      ------------------------------------------------
+6060: vpd 0:  39  42  49  66  88    30  36  41  48  58
+      vpd 1:  41  44  51  67  90    31  38  43  50  59
+
+rf5.0
+chain 0 count 67 max 64 min 56 avg 59 cur 63
+chain 1 count 67 max 62 min 58 avg 58 cur 60
+
+rf5.0
+40MHz, MCS0, limit = 26
+40MHz, MCS1, limit = 18
+40MHz, MCS2, limit = 18
+40MHz, MCS3, limit = 18
+40MHz, MCS4, limit = 18
+40MHz, MCS5, limit = 17
+40MHz, MCS6, limit = 16
+40MHz, MCS7, limit = 15
+
+rf5.0
+CTL NF:  -113 -112
+EXT NF:  -112 -113
+
+rf5.0 Statistics
+RF   status:    rf5.0 UP (band 40, freq 5990)  :ACTIVE
+DFS  status:    DFSONLY (mode STA) 
+TDMA status:    SLAVE (5 ms DL/UL:50%) (DL2500/UL2500) (PTP mode)
+
++--------------------------------------+--------------------------------------+
+|          Receive statistics          |         Transmit  statistics         |
++--------------------------------------+--------------------------------------+
+| Broadcast Rate           30000       | Voice Mode                OFF        |
+| Bytes Received           9106928     | Bytes Transmitted         9353770    |
+| Frames Received OK       103053      | Frames Transmitted OK     100342     |
+| Multicast Frames         4100        | Multicast Frames          996        |
++--------------------------------------+--------------------------------------+
+| Load (kbps)              11          | Load (kbps)               7          |
+| Load (pps)               7           | Load (pps)                3          |
+| Frame size (bytes)       196         | Frame size (bytes)        291        |
++--------------------------------------+--------------------------------------+
+| RX Medium Load           2.2%        | TX Medium Load            1.1%       |
+| Total Medium Busy        3.5%        | Frame Time Used           2.7%       |
++--------------------------------------+--------------------------------------+
+| Duplicate Received       82          | Too Short/Long Frames     0 / 0      |
+| Lost frames              1           | Aggr Subframe Retries     308        |
+| Rx Collision             0           | Aggr Full Retries         110        |
+| FIFO Overrun             0           | FIFO Underrun/Slip        0 / 5      |
+| CRC Errors               105         | Excessive Retries         12         |
+| Noise Floor              -93         | Max aggr frames           6          |
+| Rx Subslots/Nodes        1 / 1       | Max aggr bytes            8516       |
+| Scrambled frames         1315        | Scrambled frames          1447       |
+| Scramble errors          0           | Tx queue overflow         0          |
+| Rx Cap (Mbps)            13          | Tx Cap (Mbps)             7          |
++--------------------------------------+--------------------------------------+
+
+                        Software Priority Queues rf5.0                         
+                               ( count / drops )                               
++--------------------------------------+--------------------------------------+
+| q00 (P16)               0 / 0        | q16                      0 / 0       |
+| q01 (P15)              503 / 0       | q17 (P06)              1105 / 0      |
+| q02                     0 / 0        | q18 (P05)               27 / 0       |
+| q03 (P14)               0 / 0        | q19                      0 / 0       |
+| q04 (P13)               0 / 0        | q20                      0 / 0       |
+| q05 (P12)               0 / 0        | q21 (P04)                2 / 0       |
+| q06                     0 / 0        | q22 (P03)               35 / 0       |
+| q07 (P11)               0 / 0        | q23                      0 / 0       |
+| q08                     0 / 0        | q24 (P02)               31 / 0       |
+| q09 (P10)               0 / 0        | q25 (P01)                0 / 0       |
+| q10 (P09)               0 / 0        | q26                      0 / 0       |
+| q11                     0 / 0        | q27                      0 / 0       |
+| q12                     0 / 0        | q28 (P00)               146 / 0      |
+| q13 (P08)               0 / 0        | q29                     151 / 0      |
+| q14 (P07)               0 / 0        | q30                      9 / 0       |
+| q15                     0 / 0        | q31                     496 / 0      |
++--------------------------------------+--------------------------------------+
+
+Phy errors: total 0
+
+
+resets due to: tx stuck 0(0), rx stuck 0(0), mib 0, high load 0
+ PCI fatal intr 0, PCI PERR intr 0, NF cal stuck 0, total 13
+misoctl 1, selfcorr 1, durupdate 0, mim_ena 1, virtcs 0, truecinr 0
+
+nodes 1   turbo rdr ads rbc trail                             
+bl 68, gi 83, sd 1 + bd 59 + ifs 15 + pr 36 = 111 : MB 8640    
+txdlen = 2306 (1970), ssg 4, mrt 8, ldt 600, tj 1 (a 0, ma 6, m 6, c 4)      
+slip 5, lb 1, mlb 2 sl 0, mfr 16 mrc 3 cm 88 bp 46 br 1 lu 1     
+slot 1, mcl 6, miql 6, miqd 2313, mbql 7, mbqd 2387 (67), mbqc 3  
+lh 0 lf 0 zf 0 bf 0, mf 2, rc 82 rf 82, luc 103 lbc 14 ec 95742  
+fr 0, sf 0, ufr 3, rdr 0, mg 0, mb 0, cpu 23        
+
+rf5.0
+RF   status:    rf5.0 UP (band 40, freq 5990)  :ACTIVE
+DFS  status:    DFSONLY (mode STA) 
+TDMA status:    SLAVE (5 ms DL/UL:50%) (DL2500/UL2500) (PTP mode)
+
+                              Rate Code Statistics                              
++---------------------------+----------------------+---------------------------+
+|          Receive          |       Bitrate        |         Transmit          |
++---------------------------+----------------------+---------------------------+
+| MCS0            25   0.4% |  15000  SS BPSK  1/2 | MCS0           277   9.4% |
+| MCS1          5520  99.2% |  30000  SS QPSK  1/2 | MCS1          2649  90.5% |
+| MCS2             0     0% |  45000  SS QPSK  3/4 | MCS2             0     0% |
+| MCS3             0     0% |  60000  SS QAM16 1/2 | MCS3             0     0% |
+| MCS4             0     0% |  90000  SS QAM16 3/4 | MCS4             0     0% |
+| MCS5             0     0% | 120000  SS QAM64 2/3 | MCS5             0     0% |
+| MCS6             0     0% | 135000  SS QAM64 3/4 | MCS6             0     0% |
+| MCS7             0     0% | 150000  SS QAM64 5/6 | MCS7             0     0% |
++---------------------------+----------------------+---------------------------+
+| MCS8             0     0% |  30000  DS BPSK  1/2 | MCS8             0     0% |
+| MCS9            18   0.3% |  60000  DS QPSK  1/2 | MCS9             0     0% |
+| MCS10            0     0% |  90000  DS QPSK  3/4 | MCS10            0     0% |
+| MCS11            0     0% | 120000  DS QAM16 1/2 | MCS11            0     0% |
+| MCS12            0     0% | 180000  DS QAM16 3/4 | MCS12            0     0% |
+| MCS13            0     0% | 240000  DS QAM64 2/3 | MCS13            0     0% |
+| MCS14            0     0% | 270000  DS QAM64 3/4 | MCS14            0     0% |
+| MCS15            0     0% | 300000  DS QAM64 5/6 | MCS15            0     0% |
++---------------------------+----------------------+---------------------------+
+| Other            0        |                      | Other            0        |
++---------------------------+----------------------+---------------------------+
+
+rf5.0 Source Analysis
+Freq:5990 Band:40
+ Pulses: 0, level  0 (0), pps 0, CRC: 24        
+     677  (18/-70)  30000 (5990,40 MHz) TN <000435136457 KLU-US-UPN-BS-SEC2
+
+rf5.0: NOL is empty
+
+
+           MAC          Out/Rep    %   SNR      Drop/Err
+rf5.0  000435136456       0/0     00  15:13        0/0   
+rf5.0  000435136457    1321/331   20 *04:14        0/0     KLU-US-UPN-BS-SEC2 
+							   la=4 
+rf5.0  FFFFFFFFFFFF     504/0     00  00:00        0/0   
+
+Burst: Send 592+734 (max 13, avg 1), Recv 280+590 (max 27, avg 2)
+PHS:   packets 734, bytes 17208 (max 72, avg 23)
+
+IP statistics:
+ips_total              4211 (total packets received)
+ips_badsum                0 (checksum bad)
+ips_tooshort              0 (packet too short)
+ips_toosmall              0 (not enough data)
+ips_badhlen               0 (ip header length < data size)
+ips_badlen                0 (ip length < ip header length)
+ips_fragments             2 (fragments received)
+ips_fragdropped           0 (frags dropped (dups,ipstat. out of space))
+ips_fragtimeout           0 (fragments timed out)
+ips_forward              24 (packets forwarded)
+ips_cantforward          49 (packets rcvd for unreachable dest)
+ips_redirectsent          0 (packets forwarded on same net)
+ips_noproto               0 (unknown or unsupported protocol)
+ips_delivered          4137 (datagrams delivered to upper level
+ips_localout           3901 (total ip packets generated here)
+ips_odropped              0 (lost packets due to nobufs,ipstat. etc.)
+ips_reassembled           1 (total packets reassembled ok)
+ips_fragmented            0 (datagrams sucessfully fragmented)
+ips_ofragments            0 (output fragments created)
+ips_cantfrag              0 (don't fragment flag was set,ipstat. etc.)
+ips_badoptions            0 (error in option processing)
+ips_noroute              33 (packets discarded due to no route)
+ips_badvers               0 (ip version != 4)
+ips_rawout               84 (total raw ip packets generated)
+ips_badfrags              0 (malformed fragments (bad length))
+ips_rcvmemdrop            0 (frags dropped for lack of memory)
+ips_toolong               0 (ip length > max ip packet size)
+
+ICMP statistics:
+icps_error                0 ( # of calls to icmp_error )
+icps_badcode              0 ( icmp_code out of range )
+icps_tooshort             0 ( packet < ICMP_MINLEN )
+icps_checksum             0 ( bad checksum )
+icps_badlen               0 ( calculated bound mismatch )
+icps_reflect              0 ( number of responses )
+icps_bmcastecho           0 ( rejected broadcast icmps )
+
+UDP statistics:
+udps_ipackets           181
+udps_opackets            50
+udps_hdrops               0
+udps_badsum               0
+udps_badlen               0
+udps_noport               0
+udps_fullsock             0
+udps_pcbhashmiss         13
+0.0.0.0:0 snmp
+0.0.0.0:0 DHP0
+0.0.0.0:0 DHP0
+0.0.0.0:67 DHPR
+10.47.133.99:68 DHP0
+0.0.0.0:161 snmp
+0.0.0.0:11121 sntp
+0.0.0.0:3559 <- 10.47.228.93:1812 aaa 
+0.0.0.0:35768 sysl
+
+RAW statistics:
+raws_ipackets           803 (total input packets)
+raws_fullsock             0 (not delivered, input socket full)
+raws_opackets            84 (total output packets)
+0.0.0.0:0 snmp
+0.0.0.0:0 OSPF
+
+TCP statistics:
+0.0.0.0:22 SSHD
+0.0.0.0:23 TELD
+0.0.0.0:443 HTTP
+127.0.0.1:47141 l$03
+0.0.0.0:80 HTTP
+127.0.0.1:2600 ARDA
+10.47.237.240:80 <- 10.47.245.111:61287 HTTP
+10.47.237.240:80 <- 10.47.245.111:61288 HTTP
+10.47.237.240:80 <- 10.47.245.111:61289 HTTP
+10.47.237.240:80 <- 10.47.245.111:61290 HTTP
+10.47.237.240:80 <- 10.47.245.111:61291 HTTP
+10.47.237.240:80 <- 10.47.245.111:61292 HTTP
+127.0.0.1:47141 <- 127.0.0.1:31400 l$03
+127.0.0.1:31400 <- 127.0.0.1:47141 e$03
+127.0.0.1:2600 <- 127.0.0.1:44054 ARDA
+127.0.0.1:44054 <- 127.0.0.1:2600 OSPF
+
+                         LLDP Neighbors Table on eth0                          
++---------------+-------------------------------------------------------------+
+|           LLDP Mode: TxRx,  Forward: disabled,  Tagged: disabled            |
++---------------+-------------------------------------------------------------+
+
+                         LLDP Neighbors Table on eth1                          
++---------------+-------------------------------------------------------------+
+|         LLDP Mode: disabled,  Forward: disabled,  Tagged: disabled          |
++---------------+-------------------------------------------------------------+
+
+

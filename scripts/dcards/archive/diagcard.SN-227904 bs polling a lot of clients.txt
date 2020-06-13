@@ -1,5 +1,5 @@
 
-R5000 WANFleX H08S01-MINTv1.90.33 * Oct 16 2019 15:11:09 * SN:227904
+R5000 WANFleX H08S01-MINTv1.90.37 * Oct 16 2019 15:11:09 * SN:227904
 Processor: PPC460EX 1000 MHz
 PN:SkyMAN R5000-Mmxtb/6.300.2x200.2x16
 
@@ -7,7 +7,7 @@ Uptime: 02:25:08
 Last reboot reason: manual restart
 Thu Oct 17 11:29:18 GMT 2019  (SNTP)
 
-# R5000 WANFleX H08S01-MINTv1.90.33 * Oct 16 2019 15:11:09 * SN:227904
+# R5000 WANFleX H08S01-MINTv1.90.37 * Oct 16 2019 15:11:09 * SN:227904
 
 #System parameters
  #Factory password mode: single
@@ -187,10 +187,10 @@ Freq 6362, Band 20, Sid E300063, autoBitrate 104000 (min 13000), Noise -92
  ------- ---------------------------- ------------ -----  ------- ----- -------
    Id         Name                        Node     Level  Bitrate Retry Options
  ------- ---------------------------- ------------ rx/tx   rx/tx  rx/tx -------
-   00074 Bolnica4                     000435227565 29/19   52/104 15/0  /S/F/
+   00074 Bolnica4                     000435227565 29/19   52/104 15/0  /S/
 	 load 12/16, pps 9/3, cost 51
 	  pwr 23/23, snr 37/39, dist 2
-	  H11v1.90.36, IP=10.111.117.226, up 02:24:24
+	  H11v1.90.37, IP=10.111.117.226, up 02:24:24
    00074 VCamera_Barishnikova         00043522B125 22/15   78/104  4/0  /S/
 	 load 7/25, pps 6/10, cost 51
 	  pwr 23/23, snr 34/37, dist 2
@@ -324,7 +324,7 @@ Kernel forwarded/bcasts/flooded: 2181794/133896/0
    1  57108877   505512   258402       0   62247       0       0      0      17
 Total forwarded: 60188481
         dropped: 62264
-     DB Records: 237/5000 (4%), max: 257, overflows: 10
+     DB Records: 237/5000 (4%), max: 257, overflows: 0
 
 
 BlackList for group 1
