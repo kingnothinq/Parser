@@ -283,17 +283,18 @@ def parse(dc_string, dc_list):
     # Master profile
     try:
         if radio_settings['Type'] == 'master':
-            profile = radio_settings['Profile'] = {'M': deepcopy(radio_profile)}
+            radio_settings['Profile'] = {'M': deepcopy(radio_profile)}
+            profile = radio_settings['Profile']['M']
 
             # Master has always active and enabled profile
             profile['State'] = 'Active'
 
-            pattern_m_freq = re.compile(r'rf rf5\.0 freq ([\.\d+])')
-            pattern_m_bitr = re.compile(r'rf rf5\.0 freq [\.\d+] bitr (\d+)')
-            pattern_m_sid = re.compile(r'rf rf5\.0 freq [\.\d+] bitr \d+ sid ([\d\w]+)')
+            pattern_m_freq = re.compile(r'rf rf5\.0 freq ([\.\d]+)')
+            pattern_m_bitr = re.compile(r'rf rf5\.0 freq [\.\d]+ bitr (\d+)')
+            pattern_m_sid = re.compile(r'rf rf5\.0 freq [\.\d]+ bitr \d+ sid ([\d\w]+)')
             pattern_m_band = re.compile(r'rf rf5\.0 band (\d+)')
             pattern_m_afbitr = re.compile(r'mint rf5\.0 -(auto|fixed)bitrate')
-            pattern_m_afbitr_offset = re.compile(r'mint rf5\.0 -(auto|fixed)bitrate ([\.\d+]+)')
+            pattern_m_afbitr_offset = re.compile(r'mint rf5\.0 -(auto|fixed)bitrate ([\-+\d]+)')
             pattern_m_mimo = re.compile(r'rf rf5\.0 (mimo|miso|siso)')
             pattern_m_greenfield = re.compile(r'rf rf5\.0 (mimo|miso|siso) (greenfield)')
 
@@ -398,6 +399,7 @@ def parse(dc_string, dc_list):
 
                     if pattern_s_greenfield.search(line):
                         profile['Greenfield'] = pattern_s_greenfield.search(line).group(1)
+        print(radio_settings)
     except:
         logger.warning('Radio settings were not parsed')
 

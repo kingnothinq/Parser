@@ -73,9 +73,8 @@ def jira(device, tests):
                            f'|*TSync*|{radio_settings["TSync"]}| | | | | | |\n')
         else:
             message.append(f'| |'
-                           f'|*ATPC*|{radio_settings["ATPC"]}'
-                           f'|*Scrambling*|{radio_settings["Scrambling"]}| | |\n'
-                           f'| | '
+                           f'|*ATPC*|{radio_settings["ATPC"]}|*Scrambling*|{radio_settings["Scrambling"]}| | |\n'
+                           f'| | |'
                            f'|*Extnoise*|{radio_settings["Extnoise"]} dB| | | | |\n')
         message.append(f'| | | | | | | | |\n'
                        f'|*Profile (State)*|*Frequency*|*Bandwidth*'
