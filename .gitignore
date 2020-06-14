@@ -1,12 +1,9 @@
 .git
 .idea
 __pycache__
-*.log
-*.pdf
-/__static/*
-/__templates/*
+/parser.log
+/test.pdf
 /venv/*
 /scripts/dcards/*
-/scripts/*.pdf
 !/scripts/dcards/archive
 !/scripts/dcards/unknown

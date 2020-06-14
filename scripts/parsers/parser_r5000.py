@@ -210,7 +210,7 @@ def parse(dc_string, dc_list):
     settings = {'Radio': radio_settings, 'Switch': switch_group_settings, 'Interface Status': interfaces_settings,
                 'QoS': qos_settings}
 
-    pattern_start = re.compile(r'#Environment')
+    pattern_start = re.compile(r'# R5000 WANFleX H')
     pattern_end = re.compile(r'#LLDP parameters')
     settings_text = cut_text(dc_list, pattern_start, pattern_end, 0, 2)
 
@@ -399,7 +399,6 @@ def parse(dc_string, dc_list):
 
                     if pattern_s_greenfield.search(line):
                         profile['Greenfield'] = pattern_s_greenfield.search(line).group(1)
-        print(radio_settings)
     except:
         logger.warning('Radio settings were not parsed')
 
@@ -442,6 +441,7 @@ def parse(dc_string, dc_list):
                     'Current Frequency': None}
 
     pattern_mac = re.compile(r'(00[\dA-F]{10})')
+    pattern_prf = re.compile(r'(join|prf)')
     pattern_name = re.compile(r'[\.\d]+\s+([\w\d\S]+)\s+00[\w\d]+')
     pattern_level = re.compile(r'00[\w\d]+\s+(\d+)/(\d+)')
     pattern_bitrate = re.compile(r'00[\w\d]+\s+\d+/\d+\s+(\d+)/(\d+)')
@@ -489,6 +489,13 @@ def parse(dc_string, dc_list):
             links.append(links_text[link_start:link_end])
     links.pop()
 
+    # Need to remove prf and join links
+    temp = []
+    for index, link in enumerate(links):
+        if not pattern_prf.search(link[0]):
+            temp.append(link)
+    links = temp
+
     # Create dictionary from the links arrange. MAC-addresses are keys
     radio_status['Links'] = {mac: deepcopy(link_status) for mac in
                              [pattern_mac.search(link[0]).group(1) for link in links]}
@@ -501,73 +508,73 @@ def parse(dc_string, dc_list):
 
                 radio_status['Links'][mac]['Name'] = pattern_name.search(link).group(1)
 
-                if pattern_level.search(link) is not None:
+                if pattern_level.search(link):
                     radio_status['Links'][mac]['Level Rx'] = pattern_level.search(link).group(1)
                     radio_status['Links'][mac]['Level Tx'] = pattern_level.search(link).group(2)
                 else:
                     logger.debug(f'Link {mac}: Level was not parsed')
 
-                if pattern_bitrate.search(link) is not None:
+                if pattern_bitrate.search(link):
                     radio_status['Links'][mac]['Bitrate Rx'] = pattern_bitrate.search(link).group(1)
                     radio_status['Links'][mac]['Bitrate Tx'] = pattern_bitrate.search(link).group(2)
                 else:
                     logger.debug(f'Link {mac}: Bitrate was not parsed')
 
-                if pattern_retry.search(link) is not None:
+                if pattern_retry.search(link):
                     radio_status['Links'][mac]['Retry Rx'] = pattern_retry.search(link).group(1)
                     radio_status['Links'][mac]['Retry Tx'] = pattern_retry.search(link).group(2)
                 else:
                     logger.debug(f'Link {mac}: Retry was not parsed')
 
-                if pattern_load.search(link) is not None:
+                if pattern_load.search(link):
                     radio_status['Links'][mac]['Load Rx'] = pattern_load.search(link).group(1)
                     radio_status['Links'][mac]['Load Tx'] = pattern_load.search(link).group(2)
                 else:
                     logger.debug(f'Link {mac}: Load was not parsed')
 
-                if pattern_pps.search(link) is not None:
+                if pattern_pps.search(link):
                     radio_status['Links'][mac]['PPS Rx'] = pattern_pps.search(link).group(1)
                     radio_status['Links'][mac]['PPS Tx'] = pattern_pps.search(link).group(2)
                 else:
                     logger.debug(f'Link {mac}: PPS was not parsed')
 
-                if pattern_cost.search(link) is not None:
+                if pattern_cost.search(link):
                     radio_status['Links'][mac]['Cost'] = pattern_cost.search(link).group(1)
                 else:
                     logger.debug(f'Link {mac}: Cost was not parsed')
 
-                if pattern_pwr.search(link) is not None:
+                if pattern_pwr.search(link):
                     radio_status['Links'][mac]['Power Rx'] = pattern_pwr.search(link).group(1)
                     radio_status['Links'][mac]['Power Tx'] = pattern_pwr.search(link).group(2)
                 else:
                     logger.debug(f'Link {mac}: Power was not parsed')
 
-                if pattern_snr.search(link) is not None:
+                if pattern_snr.search(link):
                     radio_status['Links'][mac]['SNR Rx'] = pattern_snr.search(link).group(1)
                     radio_status['Links'][mac]['SNR Tx'] = pattern_snr.search(link).group(2)
                 else:
                     logger.debug(f'Link {mac}: SNR was not parsed')
 
-                if pattern_distance.search(link) is not None:
+                if pattern_distance.search(link):
                     radio_status['Links'][mac]['Distance'] = pattern_distance.search(link).group(1)
                 else:
                     logger.debug(f'Link {mac}: Distance was not parsed')
 
-                if pattern_firmware.search(link) is not None:
+                if pattern_firmware.search(link):
                     radio_status['Links'][mac]['Firmware'] = pattern_firmware.search(link).group(1)
                 else:
                     logger.debug(f'Link {mac}: Firmware was not parsed')
 
-                if pattern_uptime.search(link) is not None:
+                if pattern_uptime.search(link):
                     radio_status['Links'][mac]['Uptime'] = pattern_uptime.search(link).group(1)
                 else:
                     logger.debug(f'Link {mac}: Uptime was not parsed')
 
                 # MINT firmare does not contain RSSI in the mint map det text
-                if 'TDMA' in firmware and pattern_rssi.search(link) is not None:
+                if 'TDMA' in firmware and pattern_rssi.search(link):
                     radio_status['Links'][mac]['RSSI Rx'] = pattern_rssi.search(link).group(1)
                     radio_status['Links'][mac]['RSSI Tx'] = pattern_rssi.search(link).group(2)
-                elif 'TDMA' in firmware and pattern_rssi.search(link) is None:
+                elif 'TDMA' in firmware and pattern_rssi.search(link):
                     logger.debug(f'Link {mac}: RSSI was not parsed')
 
     for index, line in enumerate(dc_list):

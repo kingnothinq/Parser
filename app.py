@@ -76,7 +76,7 @@ console_handler = logging.StreamHandler()
 log = 'parser.log'
 #Fix for Apache (httpd.service)
 httpd_location = '/var/www/html/parser/logs/'
-file_handler = logging.FileHandler(httpd_location + log)
+file_handler = logging.FileHandler(log)
 console_handler.setLevel(logging.DEBUG)
 file_handler.setLevel(logging.DEBUG)
 
