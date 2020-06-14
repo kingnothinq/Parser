@@ -65,12 +65,14 @@ def jira(device, tests):
         if radio_settings["Type"] == 'master':
             message.append(f'|*Frame size*|{radio_settings["Frame size"]} ms'
                            f'|*ATPC*|{radio_settings["ATPC"]}'
-                           f'|*Scrambling*|{radio_settings["Scrambling"]}| | |\n'
-                           f'|*DL/UL ratio*|{radio_settings["DL/UL ratio"]} %'
-                           f'|*Extnoise*|{radio_settings["Extnoise"]} dB| | | | |\n'
-                           f'|*Distance*|{radio_settings["Distance"]} km| | | | | | |\n'
-                           f'|*Target RSSI*|{radio_settings["Target RSSI"]} dBm| | | | | | |\n'
-                           f'|*TSync*|{radio_settings["TSync"]}| | | | | | |\n')
+                           f'|*Scrambling*|{radio_settings["Scrambling"]}| | |\n')
+            if radio_settings["DL/UL ratio"] == 0:
+                message.append(f'|*DL/UL ratio*| auto')
+            else:
+                message.append(f'|*Extnoise*|{radio_settings["Extnoise"]} dB| | | | |\n'
+                               f'|*Distance*|{radio_settings["Distance"]} km| | | | | | |\n'
+                               f'|*Target RSSI*|{radio_settings["Target RSSI"]} dBm| | | | | | |\n'
+                               f'|*TSync*|{radio_settings["TSync"]}| | | | | | |\n')
         else:
             message.append(f'| |'
                            f'|*ATPC*|{radio_settings["ATPC"]}|*Scrambling*|{radio_settings["Scrambling"]}| | |\n'

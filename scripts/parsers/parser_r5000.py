@@ -325,7 +325,7 @@ def parse(dc_string, dc_list):
                     profile['MIMO'] = str.upper(pattern_m_mimo.search(line).group(1))
 
                 if pattern_m_greenfield.search(line):
-                    profile['Greenfield'] = pattern_m_greenfield.search(line).group(1)
+                    profile['Greenfield'] = pattern_m_greenfield.search(line).group(2)
 
         # Slave profiles
         else:
