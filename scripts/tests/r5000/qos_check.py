@@ -24,10 +24,14 @@ def test(device):
                           f'Please upgrade the license to unlock full capacity. '
                           f'The current limitation is {qos_lic[0]} kbps.')
 
+    channel_drops = []
     for channel, status in device.qos_status.items():
-        if int(channel.replace('q', '')) > 16 and int(status['Drops']):
-            result.append(f'* Packet drops ({status["Drops"]}) in the channel {channel} of the radio module. '
-                          f'Please check the QoS settings.')
+        if int(status['Drops']):
+            if status['Prio']:
+                channel = f'{channel} ({status["Prio"]})'
+            channel_drops.append(channel)
+    result.append(f'* Packet drops detected in the queues {", ".join(channel_drops)} of the radio module. '
+                  f'Please check the QoS settings.')
 
     result = list(set(result))
     if result:
