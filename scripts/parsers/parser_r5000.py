@@ -313,7 +313,7 @@ def parse(dc_string, dc_list):
 
                 if pattern_m_afbitr.search(line):
                     if pattern_m_afbitr.search(line).group(1) == 'auto' \
-                            and pattern_m_afbitr_offset.search(line).group(2):
+                            and pattern_m_afbitr_offset.search(line):
                         profile['Auto bitrate'] = f'Enabled. Modification is ' \
                                                   f'{pattern_m_afbitr_offset.search(line).group(2)}'
                     elif pattern_m_afbitr.search(line).group(1) == 'auto':
@@ -442,7 +442,8 @@ def parse(dc_string, dc_list):
 
     pattern_mac = re.compile(r'(00[\dA-F]{10})')
     pattern_prf = re.compile(r'(join|prf)')
-    pattern_name = re.compile(r'[\.\d]+\s+([\w\d\S]+)\s+00[\w\d]+')
+    pattern_name = re.compile(r'[\.\d]+\s+([\w\d\S \-]+)\s+00[\dA-F]{10}')
+    pattern_spaces = re.compile(r"(\s{2,})")
     pattern_level = re.compile(r'00[\w\d]+\s+(\d+)/(\d+)')
     pattern_bitrate = re.compile(r'00[\w\d]+\s+\d+/\d+\s+(\d+)/(\d+)')
     pattern_retry = re.compile(r'00[\w\d]+\s+\d+/\d+\s+\d+/\d+\s+(\d+)/(\d+)')
@@ -457,179 +458,185 @@ def parse(dc_string, dc_list):
     pattern_firmware = re.compile(r'(H\d{2}v[v\d.]+)')
     pattern_uptime = re.compile(r'up ([\d\w :]*)')
 
-    # Find mint map det text
-    for index, line in enumerate(dc_list):
-        pattern = re.search(r'Id\s+Name\s+Node\s+Level', line)
-        if pattern is not None:
-            links_text_start = index + 2
-        pattern = re.search(r'Total nodes in area', line)
-        if pattern is not None:
-            links_text_end = index - 3
-    links_text = dc_list[links_text_start:links_text_end]
+    try:
+        # Find mint map det text
+        for index, line in enumerate(dc_list):
+            pattern = re.search(r'Id\s+Name\s+Node\s+Level', line)
+            if pattern is not None:
+                links_text_start = index + 2
+            pattern = re.search(r'Total nodes in area', line)
+            if pattern is not None:
+                links_text_end = index - 3
+        links_text = dc_list[links_text_start:links_text_end]
 
-    # Find each string contains MAC
-    slices = []
-    for index, line in enumerate(links_text):
-        if pattern_mac.search(line):
-            slices.append(index)
-    slices.append(len(links_text))
+        # Find each string contains MAC
+        slices = []
+        for index, line in enumerate(links_text):
+            if pattern_mac.search(line):
+                slices.append(index)
+        slices.append(len(links_text))
 
-    """
-    The number of strings after the first string may be different (from 1 to 4 excluding the firts one)
-    Need to slice the mint map det text to links
-    """
-    links = []
-    for index, slice in enumerate(slices):
-        try:
-            link_start = slices[index]
-            link_end = slices[index + 1]
-        except IndexError:
-            link_end = slices[index]
-        finally:
-            links.append(links_text[link_start:link_end])
-    links.pop()
+        """
+        The number of strings after the first string may be different (from 1 to 4 excluding the firts one)
+        Need to slice the mint map det text to links
+        """
+        links = []
+        for index, slice in enumerate(slices):
+            try:
+                link_start = slices[index]
+                link_end = slices[index + 1]
+            except IndexError:
+                link_end = slices[index]
+            finally:
+                links.append(links_text[link_start:link_end])
+        links.pop()
 
-    # Need to remove prf and join links
-    temp = []
-    for index, link in enumerate(links):
-        if not pattern_prf.search(link[0]):
-            temp.append(link)
-    links = temp
+        # Need to remove prf and join links
+        temp = []
+        for link in links:
+            if not pattern_prf.search(link[0]):
+                temp.append(link)
+        links = temp
 
-    # Create dictionary from the links arrange. MAC-addresses are keys
-    radio_status['Links'] = {mac: deepcopy(link_status) for mac in
-                             [pattern_mac.search(link[0]).group(1) for link in links]}
+        # Create dictionary from the links arrange. MAC-addresses are keys
+        radio_status['Links'] = {mac: deepcopy(link_status) for mac in
+                                 [pattern_mac.search(link[0]).group(1) for link in links]}
 
-    # Fill the link_status variable for each link
-    for mac in radio_status['Links']:
-        for index, link in enumerate(links):
-            if mac == pattern_mac.search(link[0]).group(1):
-                link = ''.join(link)
+        # Fill the link_status variable for each link
+        for mac in radio_status['Links']:
+            for index, link in enumerate(links):
+                if mac == pattern_mac.search(link[0]).group(1):
+                    link = ''.join(link)
 
-                radio_status['Links'][mac]['Name'] = pattern_name.search(link).group(1)
+                    name = pattern_name.search(link).group(1)
+                    spaces = pattern_spaces.search(name).group(1)
+                    radio_status['Links'][mac]['Name'] = name.replace(spaces, '')
 
-                if pattern_level.search(link):
-                    radio_status['Links'][mac]['Level Rx'] = pattern_level.search(link).group(1)
-                    radio_status['Links'][mac]['Level Tx'] = pattern_level.search(link).group(2)
-                else:
-                    logger.debug(f'Link {mac}: Level was not parsed')
+                    if pattern_level.search(link):
+                        radio_status['Links'][mac]['Level Rx'] = pattern_level.search(link).group(1)
+                        radio_status['Links'][mac]['Level Tx'] = pattern_level.search(link).group(2)
+                    else:
+                        logger.debug(f'Link {mac}: Level was not parsed')
 
-                if pattern_bitrate.search(link):
-                    radio_status['Links'][mac]['Bitrate Rx'] = pattern_bitrate.search(link).group(1)
-                    radio_status['Links'][mac]['Bitrate Tx'] = pattern_bitrate.search(link).group(2)
-                else:
-                    logger.debug(f'Link {mac}: Bitrate was not parsed')
+                    if pattern_bitrate.search(link):
+                        radio_status['Links'][mac]['Bitrate Rx'] = pattern_bitrate.search(link).group(1)
+                        radio_status['Links'][mac]['Bitrate Tx'] = pattern_bitrate.search(link).group(2)
+                    else:
+                        logger.debug(f'Link {mac}: Bitrate was not parsed')
 
-                if pattern_retry.search(link):
-                    radio_status['Links'][mac]['Retry Rx'] = pattern_retry.search(link).group(1)
-                    radio_status['Links'][mac]['Retry Tx'] = pattern_retry.search(link).group(2)
-                else:
-                    logger.debug(f'Link {mac}: Retry was not parsed')
+                    if pattern_retry.search(link):
+                        radio_status['Links'][mac]['Retry Rx'] = pattern_retry.search(link).group(1)
+                        radio_status['Links'][mac]['Retry Tx'] = pattern_retry.search(link).group(2)
+                    else:
+                        logger.debug(f'Link {mac}: Retry was not parsed')
 
-                if pattern_load.search(link):
-                    radio_status['Links'][mac]['Load Rx'] = pattern_load.search(link).group(1)
-                    radio_status['Links'][mac]['Load Tx'] = pattern_load.search(link).group(2)
-                else:
-                    logger.debug(f'Link {mac}: Load was not parsed')
+                    if pattern_load.search(link):
+                        radio_status['Links'][mac]['Load Rx'] = pattern_load.search(link).group(1)
+                        radio_status['Links'][mac]['Load Tx'] = pattern_load.search(link).group(2)
+                    else:
+                        logger.debug(f'Link {mac}: Load was not parsed')
 
-                if pattern_pps.search(link):
-                    radio_status['Links'][mac]['PPS Rx'] = pattern_pps.search(link).group(1)
-                    radio_status['Links'][mac]['PPS Tx'] = pattern_pps.search(link).group(2)
-                else:
-                    logger.debug(f'Link {mac}: PPS was not parsed')
+                    if pattern_pps.search(link):
+                        radio_status['Links'][mac]['PPS Rx'] = pattern_pps.search(link).group(1)
+                        radio_status['Links'][mac]['PPS Tx'] = pattern_pps.search(link).group(2)
+                    else:
+                        logger.debug(f'Link {mac}: PPS was not parsed')
 
-                if pattern_cost.search(link):
-                    radio_status['Links'][mac]['Cost'] = pattern_cost.search(link).group(1)
-                else:
-                    logger.debug(f'Link {mac}: Cost was not parsed')
+                    if pattern_cost.search(link):
+                        radio_status['Links'][mac]['Cost'] = pattern_cost.search(link).group(1)
+                    else:
+                        logger.debug(f'Link {mac}: Cost was not parsed')
 
-                if pattern_pwr.search(link):
-                    radio_status['Links'][mac]['Power Rx'] = pattern_pwr.search(link).group(1)
-                    radio_status['Links'][mac]['Power Tx'] = pattern_pwr.search(link).group(2)
-                else:
-                    logger.debug(f'Link {mac}: Power was not parsed')
+                    if pattern_pwr.search(link):
+                        radio_status['Links'][mac]['Power Rx'] = pattern_pwr.search(link).group(1)
+                        radio_status['Links'][mac]['Power Tx'] = pattern_pwr.search(link).group(2)
+                    else:
+                        logger.debug(f'Link {mac}: Power was not parsed')
 
-                if pattern_snr.search(link):
-                    radio_status['Links'][mac]['SNR Rx'] = pattern_snr.search(link).group(1)
-                    radio_status['Links'][mac]['SNR Tx'] = pattern_snr.search(link).group(2)
-                else:
-                    logger.debug(f'Link {mac}: SNR was not parsed')
+                    if pattern_snr.search(link):
+                        radio_status['Links'][mac]['SNR Rx'] = pattern_snr.search(link).group(1)
+                        radio_status['Links'][mac]['SNR Tx'] = pattern_snr.search(link).group(2)
+                    else:
+                        logger.debug(f'Link {mac}: SNR was not parsed')
 
-                if pattern_distance.search(link):
-                    radio_status['Links'][mac]['Distance'] = pattern_distance.search(link).group(1)
-                else:
-                    logger.debug(f'Link {mac}: Distance was not parsed')
+                    if pattern_distance.search(link):
+                        radio_status['Links'][mac]['Distance'] = pattern_distance.search(link).group(1)
+                    else:
+                        logger.debug(f'Link {mac}: Distance was not parsed')
 
-                if pattern_firmware.search(link):
-                    radio_status['Links'][mac]['Firmware'] = pattern_firmware.search(link).group(1)
-                else:
-                    logger.debug(f'Link {mac}: Firmware was not parsed')
+                    if pattern_firmware.search(link):
+                        radio_status['Links'][mac]['Firmware'] = pattern_firmware.search(link).group(1)
+                    else:
+                        logger.debug(f'Link {mac}: Firmware was not parsed')
 
-                if pattern_uptime.search(link):
-                    radio_status['Links'][mac]['Uptime'] = pattern_uptime.search(link).group(1)
-                else:
-                    logger.debug(f'Link {mac}: Uptime was not parsed')
+                    if pattern_uptime.search(link):
+                        radio_status['Links'][mac]['Uptime'] = pattern_uptime.search(link).group(1)
+                    else:
+                        logger.debug(f'Link {mac}: Uptime was not parsed')
 
-                # MINT firmare does not contain RSSI in the mint map det text
-                if 'TDMA' in firmware and pattern_rssi.search(link):
-                    radio_status['Links'][mac]['RSSI Rx'] = pattern_rssi.search(link).group(1)
-                    radio_status['Links'][mac]['RSSI Tx'] = pattern_rssi.search(link).group(2)
-                elif 'TDMA' in firmware and pattern_rssi.search(link):
-                    logger.debug(f'Link {mac}: RSSI was not parsed')
+                    # MINT firmare does not contain RSSI in the mint map det text
+                    if 'TDMA' in firmware and pattern_rssi.search(link):
+                        radio_status['Links'][mac]['RSSI Rx'] = pattern_rssi.search(link).group(1)
+                        radio_status['Links'][mac]['RSSI Tx'] = pattern_rssi.search(link).group(2)
+                    elif 'TDMA' in firmware and pattern_rssi.search(link):
+                        logger.debug(f'Link {mac}: RSSI was not parsed')
 
-    for index, line in enumerate(dc_list):
-        pattern = re.search(r'rf5.0 Source Analysis', line)
-        if pattern is not None:
-            muffer_text_start = index + 2
-        pattern = re.search(r'rf5.0: NOL is empty', line)
-        if pattern is not None:
-            muffer_text_end = index
-    muffer_text = dc_list[muffer_text_start:muffer_text_end]
+        for index, line in enumerate(dc_list):
+            pattern = re.search(r'rf5.0 Source Analysis', line)
+            if pattern is not None:
+                muffer_text_start = index + 2
+            pattern = re.search(r'rf5.0: NOL is empty', line)
+            if pattern is not None:
+                muffer_text_end = index
+        muffer_text = dc_list[muffer_text_start:muffer_text_end]
 
-    # Get RSSI from muffer (MINT only)
-    for mac in radio_status['Links']:
+        # Get RSSI from muffer (MINT only)
+        for mac in radio_status['Links']:
+            for line in muffer_text:
+                if pattern_mac.search(line) is not None \
+                        and mac == pattern_mac.search(line).group(1) \
+                        and 'MINT' in firmware:
+                    radio_status['Links'][mac]['RSSI Rx'] = pattern_rssi_muffer.search(line).group(1)
+
+        # Fill the radio_status variable
+        pattern_pulses = re.compile(r'Pulses: (\d+)')
+        pattern_pulses_level = re.compile(r'level\s+(\d+)')
+        pattern_pulses_rssi = re.compile(r'level\s+\d+\s+\((\d+)\)')
+        pattern_pulses_pps = re.compile(r'pps ([\.\d]+)')
         for line in muffer_text:
-            if pattern_mac.search(line) is not None \
-                    and mac == pattern_mac.search(line).group(1) \
-                    and 'MINT' in firmware:
-                radio_status['Links'][mac]['RSSI Rx'] = pattern_rssi_muffer.search(line).group(1)
+            if pattern_pulses.search(line) is not None:
+                radio_status['Pulses'] = pattern_pulses.search(line).group(1)
+            if pattern_pulses_level.search(line) is not None:
+                radio_status['Interference Level'] = pattern_pulses_level.search(line).group(1)
+            if pattern_pulses_rssi.search(line) is not None:
+                radio_status['Interference RSSI'] = pattern_pulses_rssi.search(line).group(1)
+            if pattern_pulses_pps.search(line) is not None:
+                radio_status['Interference PPS'] = pattern_pulses_pps.search(line).group(1)
 
-    # Fill the radio_status variable
-    pattern_pulses = re.compile(r'Pulses: (\d+)')
-    pattern_pulses_level = re.compile(r'level\s+(\d+)')
-    pattern_pulses_rssi = re.compile(r'level\s+\d+\s+\((\d+)\)')
-    pattern_pulses_pps = re.compile(r'pps ([\.\d]+)')
-    for line in muffer_text:
-        if pattern_pulses.search(line) is not None:
-            radio_status['Pulses'] = pattern_pulses.search(line).group(1)
-        if pattern_pulses_level.search(line) is not None:
-            radio_status['Interference Level'] = pattern_pulses_level.search(line).group(1)
-        if pattern_pulses_rssi.search(line) is not None:
-            radio_status['Interference RSSI'] = pattern_pulses_rssi.search(line).group(1)
-        if pattern_pulses_pps.search(line) is not None:
-            radio_status['Interference PPS'] = pattern_pulses_pps.search(line).group(1)
+        pattern = re.search(r'RX Medium Load\s+([\d\.]+%)', dc_string)
+        if pattern is not None:
+            radio_status['RX Medium Load'] = pattern.group(1)
 
-    pattern = re.search(r'RX Medium Load\s+([\d\.]+%)', dc_string)
-    if pattern is not None:
-        radio_status['RX Medium Load'] = pattern.group(1)
+        pattern = re.search(r'TX Medium Load\s+([\d\.]+%)', dc_string)
+        if pattern is not None:
+            radio_status['TX Medium Load'] = pattern.group(1)
 
-    pattern = re.search(r'TX Medium Load\s+([\d\.]+%)', dc_string)
-    if pattern is not None:
-        radio_status['TX Medium Load'] = pattern.group(1)
+        pattern = re.search(r'Total Medium Busy\s+([\d\.]+%)', dc_string)
+        if pattern is not None:
+            radio_status['Total Medium Busy'] = pattern.group(1)
 
-    pattern = re.search(r'Total Medium Busy\s+([\d\.]+%)', dc_string)
-    if pattern is not None:
-        radio_status['Total Medium Busy'] = pattern.group(1)
+        pattern = re.search(r'Excessive Retries\s+(\d+)', dc_string)
+        radio_status['Excessive Retries'] = pattern.group(1)
 
-    pattern = re.search(r'Excessive Retries\s+(\d+)', dc_string)
-    radio_status['Excessive Retries'] = pattern.group(1)
+        pattern = re.search(r'Aggr Full Retries\s+(\d+)', dc_string)
+        radio_status['Aggr Full Retries'] = pattern.group(1)
 
-    pattern = re.search(r'Aggr Full Retries\s+(\d+)', dc_string)
-    radio_status['Aggr Full Retries'] = pattern.group(1)
+        pattern = re.search(r'\(band \d+, freq (\d+)\)', dc_string)
+        if pattern is not None:
+            radio_status['Current Frequency'] = pattern.group(1)
 
-    pattern = re.search(r'\(band \d+, freq (\d+)\)', dc_string)
-    if pattern is not None:
-        radio_status['Current Frequency'] = pattern.group(1)
+    except:
+        logger.warning('Radio Status was not parsed')
 
     logger.debug(f'Radio Status: {radio_status}')
 
