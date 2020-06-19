@@ -8,22 +8,22 @@ from re import findall, search
 def test(device):
     """Not important or not necessary recommendations."""
 
-    result = []
+    results = []
 
     # Traffic prioritization enabled
     if device.settings['Traffic prioritization'] == 'Enabled':
-        result.append('* Traffic prioritization is not an exact QoS feature. '
+        results.append('Traffic prioritization is not an exact QoS feature. '
                       'It is recommended to disable it due the bug (XG-1164).')
 
     # Antenna gain
     if search(r'Antenna Gain not found in license', device.dc_string) is not None:
-        result.append('* Antenna Gain not found in the license. '
+        results.append('Antenna Gain not found in the license. '
                       'Please set this parameter via CLI (xg -antenna-gain <gain_dBm>).')
 
     # Uptime
     pattern = findall(r'(\d{2}):(\d{2}):(\d{2})', device.uptime)
     if int(pattern[0][0]) <= 0 and int(pattern[0][1]) < 15:
-        result.append(f'* Uptime is too short ({device.uptime}). '
+        results.append(f'Uptime is too short ({device.uptime}). '
                       f'It is recommended to wait more in order to collect more precise statistics.')
 
     # New firmware
@@ -47,7 +47,7 @@ def test(device):
                 pattern = list(filter(lambda x: fw_latest in x, fw))
                 if len(pattern) > 0:
                     path_latest = f'ftp://ftp.infinet.ru{pattern[0]}'
-            result.append(f'* The current firmware version ({fw_current}) is old. '
+            results.append(f'The current firmware version ({fw_current}) is old. '
                           f'Please update it. '
                           f'The latest version ({fw_latest}) can be downloaded '
                           f'from our FTP server ({path_latest}).')
@@ -61,10 +61,10 @@ def test(device):
     finally:
         pass
 
-    result = list(set(result))
-    if result:
+    results = list(set(results))
+    if results:
         logger.info('Recommendations test failed')
-        return '\nRecommendations: \n' + '\n'.join(result)
+        return ('Recommendations', results)
     else:
         logger.info('Recommendations test passed')
         pass

@@ -18,16 +18,16 @@ def test(device):
     # Loop
     sw_status = device.switch_status
     for id in sw_status.keys():
-        if sw_status[id]['Bcast'] > 9999990 or sw_status[id]['LOOP'] > 10000:
+        if int(sw_status[id]['Bcast']) > 9999990 or int(sw_status[id]['LOOP']) > 10000:
             result.append(f'* Perhaps there is a loop in the switch group {id}. '
                           f'Please check it.')
 
-    result = list(set(result))
-    if result:
-        logger.info('Recommendations test failed')
-        return '\nEthernet issues: \n' + '\n'.join(result)
+    results = list(set(results))
+    if results:
+        logger.info('Switch test failed')
+        return ('Switch test', results)
     else:
-        logger.info('Recommendations test passed')
+        logger.info('Switch test passed')
         pass
 
 

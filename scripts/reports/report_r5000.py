@@ -32,7 +32,7 @@ def jira(device, tests):
 
     # Settings
     if 'MINT' in device.firmware:
-        message.append(f'*Settings*\n'
+        message.append(f'\n*Settings*\n'
                        f'|*Role*|{str.capitalize(radio_settings["Type"])}'
                        f'|*Tx Power*|{radio_settings["Tx Power"]} dBm'
                        f'|*DFS*|{radio_settings["DFS"]}| | |\n')
@@ -56,9 +56,8 @@ def jira(device, tests):
                            f'|{profile["MIMO"]}'
                            f'|{profile["SID"]}'
                            f'|{profile["Greenfield"]}|\n')
-
     else:
-        message.append(f'*Settings*\n'
+        message.append(f'\n*Settings*\n'
                        f'|*Role*|{str.capitalize(radio_settings["Type"])} '
                        f'|*Tx Power*| {radio_settings["Tx Power"]} dBm '
                        f'|*DFS*| {radio_settings["DFS"]} |   |   | \n')
@@ -92,7 +91,7 @@ def jira(device, tests):
                            f'|{profile["Greenfield"]}|\n')
 
     # Radio status
-    message.append(f'*Radio status*\n'
+    message.append(f'\n*Radio status*\n'
                    f'|*Interference*| | | | | | | |\n'
                    f'|*Pulses*|{radio_status["Pulses"]} pps'
                    f'|*Interference RSSI*|{radio_status["Interference RSSI"]} dBm| | | | |\n'
@@ -105,22 +104,25 @@ def jira(device, tests):
             message.append(f'|{link["Name"]}|{id}'
                            f'|{link["Bitrate Rx"]}/{link["Bitrate Tx"]}'
                            f'|{link["Retry Rx"]}/{link["Retry Tx"]}'
-                           f'|{link["RSSI Rx"]}/{str(link["RSSI Tx"]).replace("None","NA")}'
+                           f'|{link["RSSI Rx"]}/{str(link["RSSI Tx"]).replace("None","NA (MINT FW)")}'
                            f'|{link["SNR Rx"]}/{link["SNR Tx"]}'
                            f'|{link["Level Rx"]}/{link["Level Tx"]}'
                            f'|{link["Power Rx"]}/{link["Power Tx"]}|\n')
 
     # Physical interfaces status
-    message.append(f'*Physical interfaces status*\n'
+    message.append(f'\n*Physical interfaces status*\n'
                    f'|*Eth0*|{ethernet_status["eth0"]["Status"]}|\n'
                    f'|*Eth1*|{ethernet_status["eth1"]["Status"]}|\n')
 
     # Issues and recommendations
-    message.append(f'*Issues and recommendations*\n')
+    message.append(f'\n*Issues and recommendations*\n')
+    temp = []
     for test in tests:
-        message.append(f'{test}\n')
-
-    message = ''.join(message)
+        temp.append(f'| *{test[0]}* |')
+        for result in test[1]:
+            temp.append(f' * {result} \n')
+        temp.append(' |\n')
+    message.append(' '.join(temp))
 
     return device.model, device.family, device.subfamily, device.serial_number, device.firmware, message
 

@@ -73,10 +73,10 @@ def test(device):
                       'Maximum number of connected CPEs is 62. '
                       'Please disable scrambling (CLI: "mint rf5.0 -scrambling").')
 
-    result = list(set(result))
-    if result:
+    results = list(set(results))
+    if results:
         logger.info('Log issues test failed')
-        return '\nLog and other service messages issues: \n' + '\n'.join(result)
+        return ('Log and other service messages issues', results)
     else:
         logger.info('Log issues test passed')
         pass

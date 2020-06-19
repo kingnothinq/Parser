@@ -49,9 +49,9 @@ def test(device):
                           f'Please check it.')
 
     result = list(set(result))
-    if result:
+    if results:
         logger.info('Ethernet test failed')
-        return '\nEthernet issues: \n' + '\n'.join(result)
+        return ('Ethernet issues', results)
     else:
         logger.info('Ethernet test passed')
         pass

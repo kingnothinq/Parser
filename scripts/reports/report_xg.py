@@ -28,64 +28,150 @@ def jira(device, tests):
     s_c_0 = radio_status['Slave']['Carrier 0']
     s_c_1 = radio_status['Slave']['Carrier 1']
     ethernet_status = device.ethernet_status
-    tests = '\n'.join(tests)
+    message = []
 
-    message = f'''
-    *General*
-    |*Serial Number*|{device.serial_number}|
-    |*Model*|{device.model}|
-    |*Firmware version*|{device.firmware}|
-    
-    *Settings*
-    |*Role*|{str.capitalize(settings["Role"])}|
-    |*Frequencies*|Carrier 0 DL - {settings["DL Frequency"]["Carrier 0"]} MHz
-    Carrier 0 UL - {settings["UL Frequency"]["Carrier 0"]} MHz
-    Carrier 1 DL - {settings["DL Frequency"]["Carrier 1"]} MHz
-    Carrier 1 UL - {settings["UL Frequency"]["Carrier 1"]} MHz|
-    |*Bandwidth*|{settings["Bandwidth"]} MHz|
-    |*Frame size*|{settings["Frame size"]} ms|
-    |*Tx Power*|{settings["Tx Power"]} dBm|
-    |*ATPC*|{settings["ATPC"]}|
-    |*AMC Strategy*|{str.capitalize(settings["AMC Strategy"])}|
-    |*Max MCS*|{settings["Max MCS"]}|
-    |*DL/UL Ratio*|{settings["DL/UL Ratio"]} %|
-    |*Control Block Boost*|{settings["Control Block Boost"]}|
-    |*Short CP*|{settings["Short CP"]}|
-    |*IDFS*|{settings["IDFS"]}|
-    |*Traffic prioritization*|{settings["Traffic prioritization"]}|
-    
-    *Radio status*
-    |*Link status*|{radio_status["Link status"]}| | | |
-    |*Measured Distance*|{radio_status["Measured Distance"]}| | | |
-    |---------------------------|---------------------------|---------------------------|---------------------------|---------------------------|
-    |*Side*|Master|*Role*|{master["Role"]}| |
-    | |_Carrier 0_|_Carrier 0_|_Carrier 1_|_Carrier 1_|
-    |*Tx Frequency*| {m_c_0["Frequency"]}| | {m_c_1["Frequency"]}| |
-    | |_Stream 0_|_Stream 1_|_Stream 0_|_Stream 1_|
-    |*Tx Power*| {m_c_0["Stream 0"]["Tx Power"]}| {m_c_0["Stream 1"]["Tx Power"]}| {m_c_1["Stream 0"]["Tx Power"]}| {m_c_1["Stream 1"]["Tx Power"]}|
-    |*Rx RSSI*| {m_c_0["Stream 0"]["RSSI"]}| {m_c_0["Stream 1"]["RSSI"]}| {m_c_1["Stream 0"]["RSSI"]}| {m_c_1["Stream 1"]["RSSI"]}|
-    |*Rx CINR*| {m_c_0["Stream 0"]["CINR"]}| {m_c_0["Stream 1"]["CINR"]}| {m_c_1["Stream 0"]["CINR"]}| {m_c_1["Stream 1"]["CINR"]}|
-    |*Rx MCS*| {m_c_0["Stream 0"]["MCS"]}| {m_c_0["Stream 1"]["MCS"]}| {m_c_1["Stream 0"]["MCS"]}| {m_c_1["Stream 1"]["MCS"]}|
-    |*Rx Errors*| {m_c_0["Stream 0"]["Errors Ratio"]}| {m_c_0["Stream 1"]["Errors Ratio"]}| {m_c_1["Stream 0"]["Errors Ratio"]}| {m_c_1["Stream 1"]["Errors Ratio"]}|
-    |---------------------------|---------------------------|---------------------------|---------------------------|---------------------------|
-    |*Side*|Slave|*Role*|{slave["Role"]}| |
-    | |_Carrier 0_|_Carrier 0_|_Carrier 1_|_Carrier 1_|
-    |*Tx Frequency*| {s_c_0["Frequency"]}| | {s_c_1["Frequency"]}| |
-    | |_Stream 0_|_Stream 1_|_Stream 0_|_Stream 1_|
-    |*Tx Power*| {s_c_0["Stream 0"]["Tx Power"]}| {s_c_0["Stream 1"]["Tx Power"]}| {s_c_1["Stream 0"]["Tx Power"]}| {s_c_1["Stream 1"]["Tx Power"]}|
-    |*Rx RSSI*| {s_c_0["Stream 0"]["RSSI"]}| {s_c_0["Stream 1"]["RSSI"]}| {s_c_1["Stream 0"]["RSSI"]}| {s_c_1["Stream 1"]["RSSI"]}|
-    |*Rx CINR*| {s_c_0["Stream 0"]["CINR"]}| {s_c_0["Stream 1"]["CINR"]}| {s_c_1["Stream 0"]["CINR"]}| {s_c_1["Stream 1"]["CINR"]}|
-    |*Rx MCS*| {s_c_0["Stream 0"]["MCS"]}| {s_c_0["Stream 1"]["MCS"]}| {s_c_1["Stream 0"]["MCS"]}| {s_c_1["Stream 1"]["MCS"]}|
-    |*Rx Errors*| {s_c_0["Stream 0"]["Errors Ratio"]}| {s_c_0["Stream 1"]["Errors Ratio"]}| {s_c_1["Stream 0"]["Errors Ratio"]}| {s_c_1["Stream 1"]["Errors Ratio"]}|
+    # General
+    message.append(f'*General*\n'
+                   f'| *Serial Number* | {device.serial_number} |\n'
+                   f'| *Model* | {device.model} |\n'
+                   f'| *Firmware version* | {device.firmware} |\n')
 
-    *Physical interfaces status*
-    |*Ge0*|{ethernet_status["ge0"]["Status"]}|
-    |*Ge1*|{ethernet_status["ge1"]["Status"]}|
-    |*SFP*|{ethernet_status["sfp"]["Status"]}|
-    
-    *Issues and recommendations*
-    {tests}
-    '''
+    # Settings
+    message.append(f'\n*Settings*\n'
+                   f'| *Role* | {str.capitalize(settings["Role"])} |  |  |  |  |  |  |\n')
+    if device.subfamily == 'XG 500':
+        message.append(f'| *Frequencies* | Carrier 0 DL - {settings["DL Frequency"]["Carrier 0"]} MHz '
+                       f' Carrier 0 UL - {settings["UL Frequency"]["Carrier 0"]} MHz |')
+    else:
+        message.append(f'| *Frequencies* | Carrier 0 DL - {settings["DL Frequency"]["Carrier 0"]} MHz '
+                       f' Carrier 0 UL - {settings["UL Frequency"]["Carrier 0"]} MHz '
+                       f' Carrier 1 DL - {settings["DL Frequency"]["Carrier 1"]} MHz '
+                       f' Carrier 1 UL - {settings["UL Frequency"]["Carrier 1"]} MHz |')
+    message.append(f'  | *Tx Power* | {settings["Tx Power"]} dBm | '
+                   f' | *Control Block Boost* | {settings["Control Block Boost"]} |\n'
+                   f'| *Bandwidth* | {settings["Bandwidth"]} MHz | '
+                   f' | *ATPC* | {settings["ATPC"]} | '
+                   f' | *Short CP* | {settings["Short CP"]} |\n'
+                   f'| *Frame size* | {settings["Frame size"]} ms | '
+                   f' | *AMC Strategy* | {str.capitalize(settings["AMC Strategy"])} | '
+                   f' | *IDFS* | {settings["IDFS"]} |\n'
+                   f'| *DL/UL Ratio* | {settings["DL/UL Ratio"]} % | '
+                   f' | *Max MCS* | {settings["Max MCS"]} | '
+                   f' | *Traffic prioritization* | {settings["Traffic prioritization"]} |\n')
+
+    # Radio status
+    message.append(f'\n*Radio status*\n'
+                   f'| *Link status* | {radio_status["Link status"]} |  |  |  |\n'
+                   f'| *Measured Distance* | {radio_status["Measured Distance"]} meters |  |  |  |\n'
+                   f'|  |  |  |  |  |\n')
+    if device.subfamily == 'XG 500':
+        message.append(f'| *Side* | Master | *Role* | {master["Role"]} |  |\n'
+                       f'|  | _Carrier 0_ | _Carrier 0_ |  |  |\n'
+                       f'| *Tx Frequency* | {m_c_0["Frequency"]} MHz |  |  |  |\n'
+                       f'|  | _Stream 0_ | _Stream 1_ |  |  |\n'
+                       f'| *Tx Power* | {m_c_0["Stream 0"]["Tx Power"]} dBm '
+                       f'| {m_c_0["Stream 1"]["Tx Power"]} dBm |  |  |\n'
+                       f'| *Rx RSSI* | {m_c_0["Stream 0"]["RSSI"]} dBm '
+                       f'| {m_c_0["Stream 1"]["RSSI"]} dBm |  |  |\n'
+                       f'| *Rx CINR* | {m_c_0["Stream 0"]["CINR"]} dB '
+                       f'| {m_c_0["Stream 1"]["CINR"]} dB |  |  |\n'
+                       f'| *Rx Crosstalk* | {m_c_0["Stream 0"]["Crosstalk"]} dB '
+                       f'| {m_c_0["Stream 1"]["Crosstalk"]} dB |  |  |\n'
+                       f'| *Rx MCS* | {m_c_0["Stream 0"]["MCS"]} '
+                       f'| {m_c_0["Stream 1"]["MCS"]} |  |  |\n'
+                       f'| *Rx Errors* | {m_c_0["Stream 0"]["Errors Ratio"]} % '
+                       f'| {m_c_0["Stream 1"]["Errors Ratio"]} % |  |  |\n'
+                       f'|  |  |  |  |  |\n'
+                       f'| *Side* | Slave | *Role* | {slave["Role"]} |  |\n'
+                       f'|  | _Carrier 0_ | _Carrier 0_ |  |  |\n'
+                       f'| *Tx Frequency* | {s_c_0["Frequency"]} MHz |  |  |  |\n'
+                       f'|  | _Stream 0_ | _Stream 1_ |  |  |\n'
+                       f'| *Tx Power* | {s_c_0["Stream 0"]["Tx Power"]} dBm '
+                       f'| {s_c_0["Stream 1"]["Tx Power"]} dBm |  |  |\n'
+                       f'| *Rx RSSI* | {s_c_0["Stream 0"]["RSSI"]} dBm '
+                       f'| {s_c_0["Stream 1"]["RSSI"]} dBm |  |  |\n'
+                       f'| *Rx CINR* | {s_c_0["Stream 0"]["CINR"]} dB '
+                       f'| {s_c_0["Stream 1"]["CINR"]} dB |  |  |\n'
+                       f'| *Rx Crosstalk* **| {s_c_0["Stream 0"]["Crosstalk"]} dB '
+                       f'| {s_c_0["Stream 1"]["Crosstalk"]} dB |  |  |\n'
+                       f'| *Rx MCS* | {s_c_0["Stream 0"]["MCS"]} '
+                       f'| {s_c_0["Stream 1"]["MCS"]} |  |  |\n'
+                       f'| *Rx Errors* | {s_c_0["Stream 0"]["Errors Ratio"]} % '
+                       f'| {s_c_0["Stream 1"]["Errors Ratio"]} % |  |  |\n')
+    else:
+        message.append(f'| *Side* | Master | *Role* | {master["Role"]} |  |\n'
+                       f'|  | _Carrier 0_ | _Carrier 0_ | _Carrier 1_ | _Carrier 1_ |\n'
+                       f'| *Tx Frequency* | {m_c_0["Frequency"]} MHz |  | {m_c_1["Frequency"]} MHz |  |\n'
+                       f'|  | _Stream 0_ | _Stream 1_ | _Stream 0_ | _Stream 1_ |\n'
+                       f'| *Tx Power* | {m_c_0["Stream 0"]["Tx Power"]} dBm '
+                       f'| {m_c_0["Stream 1"]["Tx Power"]} dBm '
+                       f'| {m_c_1["Stream 0"]["Tx Power"]} dBm '
+                       f'| {m_c_1["Stream 1"]["Tx Power"]} dBm |\n'
+                       f'| *Rx RSSI* | {m_c_0["Stream 0"]["RSSI"]} dBm '
+                       f'| {m_c_0["Stream 1"]["RSSI"]} dBm '
+                       f'| {m_c_1["Stream 0"]["RSSI"]} dBm '
+                       f'| {m_c_1["Stream 1"]["RSSI"]} dBm |\n'
+                       f'| *Rx CINR* | {m_c_0["Stream 0"]["CINR"]} dB '
+                       f'| {m_c_0["Stream 1"]["CINR"]} dB '
+                       f'| {m_c_1["Stream 0"]["CINR"]} dB '
+                       f'| {m_c_1["Stream 1"]["CINR"]} dB |\n'
+                       f'| *Rx Crosstalk* | {m_c_0["Stream 0"]["Crosstalk"]} dB '
+                       f'| {m_c_0["Stream 1"]["Crosstalk"]} dB '
+                       f'| {m_c_1["Stream 0"]["Crosstalk"]} dB '
+                       f'| {m_c_1["Stream 1"]["Crosstalk"]} dB |\n'
+                       f'| *Rx MCS* | {m_c_0["Stream 0"]["MCS"]} '
+                       f'| {m_c_0["Stream 1"]["MCS"]} '
+                       f'| {m_c_1["Stream 0"]["MCS"]} '
+                       f'| {m_c_1["Stream 1"]["MCS"]} |\n'
+                       f'| *Rx Errors* | {m_c_0["Stream 0"]["Errors Ratio"]} % '
+                       f'| {m_c_0["Stream 1"]["Errors Ratio"]} % '
+                       f'| {m_c_1["Stream 0"]["Errors Ratio"]} % '
+                       f'| {m_c_1["Stream 1"]["Errors Ratio"]} % |\n'
+                       f'|  |  |  |  |  |\n'
+                       f'| *Side* | Slave | *Role* | {slave["Role"]} |  |\n'
+                       f'|  | _Carrier 0_ | _Carrier 0_ | _Carrier 1_ | _Carrier 1_ |\n'
+                       f'| *Tx Frequency* | {s_c_0["Frequency"]} MHz |  | {s_c_1["Frequency"]} MHz |  |\n'
+                       f'|  | _Stream 0_ | _Stream 1_ | _Stream 0_ | _Stream 1_ |\n'
+                       f'| *Tx Power* | {s_c_0["Stream 0"]["Tx Power"]} dBm '
+                       f'| {s_c_0["Stream 1"]["Tx Power"]} dBm '
+                       f'| {s_c_1["Stream 0"]["Tx Power"]} dBm '
+                       f'| {s_c_1["Stream 1"]["Tx Power"]} dBm |\n'
+                       f'| *Rx RSSI* | {s_c_0["Stream 0"]["RSSI"]} dBm '
+                       f'| {s_c_0["Stream 1"]["RSSI"]} dBm '
+                       f'| {s_c_1["Stream 0"]["RSSI"]} dBm '
+                       f'| {s_c_1["Stream 1"]["RSSI"]} dBm |\n'
+                       f'| *Rx CINR* | {s_c_0["Stream 0"]["CINR"]} dB '
+                       f'| {s_c_0["Stream 1"]["CINR"]} dB '
+                       f'| {s_c_1["Stream 0"]["CINR"]} dB '
+                       f'| {s_c_1["Stream 1"]["CINR"]} dB |\n'
+                       f'| *Rx Crosstalk* **| {s_c_0["Stream 0"]["Crosstalk"]} dB '
+                       f'| {s_c_0["Stream 1"]["Crosstalk"]} dB '
+                       f'| {s_c_1["Stream 0"]["Crosstalk"]} dB '
+                       f'| {s_c_1["Stream 1"]["Crosstalk"]} dB |\n'
+                       f'| *Rx MCS* | {s_c_0["Stream 0"]["MCS"]} '
+                       f'| {s_c_0["Stream 1"]["MCS"]} '
+                       f'| {s_c_1["Stream 0"]["MCS"]} '
+                       f'| {s_c_1["Stream 1"]["MCS"]} |\n'
+                       f'| *Rx Errors* | {s_c_0["Stream 0"]["Errors Ratio"]} % '
+                       f'| {s_c_0["Stream 1"]["Errors Ratio"]} % '
+                       f'| {s_c_1["Stream 0"]["Errors Ratio"]} % '
+                       f'| {s_c_1["Stream 1"]["Errors Ratio"]} % |\n')
+
+    # Physical interfaces status
+    message.append(f'\n*Physical interfaces status*\n'
+                   f'| *Ge0* | {ethernet_status["ge0"]["Status"]} |\n'
+                   f'| *Ge1* | {ethernet_status["ge1"]["Status"]} |\n'
+                   f'| *SFP* | {ethernet_status["sfp"]["Status"]} |\n')
+
+    # Issues and recommendations
+    message.append(f'\n*Issues and recommendations*\n')
+    temp = []
+    for test in tests:
+        temp.append(f'| *{test[0]}* |')
+        for result in test[1]:
+            temp.append(f' * {result} \n')
+        temp.append(' |\n')
+    message.append(' '.join(temp))
 
     return device.model, device.family, device.subfamily, device.serial_number, device.firmware, message
 

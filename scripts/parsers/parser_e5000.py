@@ -5,12 +5,13 @@ from time import time
 
 
 def timer(function):
+    """Estimate time"""
     def wrapper(dc_string, dc_list):
         time_start = time()
-        created_class = function(dc_string, dc_list)
+        function_result = function(dc_string, dc_list)
         time_end = time()
         logger.info(f'Diagnostic card parsed, Elapsed Time: {time_end - time_start}')
-        return created_class
+        return function_result
     return wrapper
 
 

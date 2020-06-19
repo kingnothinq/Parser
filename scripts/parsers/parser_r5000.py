@@ -7,20 +7,24 @@ from time import time
 
 
 def timer(function):
+    """Estimate time"""
     def wrapper(dc_string, dc_list):
         time_start = time()
-        created_class = function(dc_string, dc_list)
+        function_result = function(dc_string, dc_list)
         time_end = time()
         logger.info(f'Diagnostic card parsed, Elapsed Time: {time_end - time_start}')
-        return created_class
+        return function_result
     return wrapper
 
 
 @timer
 def parse(dc_string, dc_list):
-    """Parse an R5000 diagnostic card and fill the class instance in.
+    """Parse an R5000 diagnostic card and fill the class instance in
 
-    This function returns result (the class instance) included the next variables:
+    Input - text (dc_string - string, dc_list - list)
+    Output:
+
+    This function returns result (a tuple to create a class instance) included the next variables:
     model (type str) - a device model
     subfamily (type str) - R5000 Pro, R5000 Lite, R5000 Lite (low cost CPE)
     serial_number (type str) - a serial number
@@ -66,7 +70,6 @@ def parse(dc_string, dc_list):
                 Management
                 Mode
                 Interfaces
-                Vlan
                 Rules
         Interface Status
             eth0
@@ -129,26 +132,27 @@ def parse(dc_string, dc_list):
     Example of request: ethernet_status['eth0']['Speed']
     """
 
-    def cut_text(dc_list, pattern_start, pattern_end, offset_start, offset_end):
-        """Patterns - re.compile, offsets - int
-        Return the cut dc_list
+    def cut_text(text, pattern_start, pattern_end, offset_start, offset_end):
+        """Cut text from patter_start to pattern_end
+        Input - text, patterns - re.compile, offsets - int
+        Output - a list with the cut text
         """
         try:
-            for index, line in enumerate(dc_list):
+            for index, line in enumerate(text):
                 if pattern_start.search(line):
                     text_start = index + offset_start
                 if pattern_end.search(line):
                     text_end = index + offset_end
-            text = dc_list[text_start:text_end]
+            new_text = text[text_start:text_end]
         except:
-            text = dc_list
+            new_text = text
             logger.warning(f'Text has not been cut. Patterns: {pattern_start} - {pattern_end}')
-        return text
+        return new_text
 
     def slice_text(text, slices):
-        """Slice the text
-        The number of strings after the first string may be different (from 1 to 4 excluding the firts one)
-        Need to slice the profile text to profiles
+        """Slice text by line index
+        Input -  text and a list with position of rows (indexes)
+        Output - a list contains the sliced text (from position to position in accordance with the input list)
         """
         new_text = []
         for index, slice in enumerate(slices):
@@ -156,21 +160,31 @@ def parse(dc_string, dc_list):
                 text_start = slices[index]
                 text_end = slices[index + 1]
             except IndexError:
+                # Index + 1 cannot be performed for the last element in the arrange
                 text_end = slices[index]
             finally:
                 new_text.append(text[text_start:text_end])
+        # Drop the element created in the exception
         new_text.pop()
         return new_text
 
 
     # General info
     try:
-        firmware = re.search(r'H\d{2}S\d{2}-(MINT|TDMA)[v\d.]+', dc_string).group()
-        logger.debug(f'Firmware: {firmware}')
+        general_text = ''.join(dc_list[:15])
 
-        pattern = re.search(r'(R5000-[QMOSL][mxnbtcs]{2,5}/[\dX\*]'
-                            r'{1,3}.300.2x\d{2,3})(.2x\d{2})?', dc_string)
-        if pattern is not None:
+        pattern_g_fw = re.compile(r'H\d{2}S\d{2}-(MINT|TDMA)[v\d.]+')
+        pattern_g_model = re.compile(r'(R5000-[QMOSL][mxnbtcs]{2,5}/[\dX\*]'
+                                     r'{1,3}.300.2x\d{2,3})(.2x\d{2})?')
+        pattern_g_sn = re.compile(r'SN:(\d+)')
+        pattern_g_uptime = re.compile(r'Uptime: ([\d\w :]*)')
+        pattern_g_reboot_reason = re.compile(r'Last reboot reason: ([\w ]*)')
+
+        if pattern_g_fw.search(general_text):
+            firmware = pattern_g_fw.search(general_text).group()
+
+        pattern = pattern_g_model.search(general_text)
+        if pattern:
             model = pattern.group()
             if ('L' in model or 'S' in model) and '2x19' in model:
                 subfamily = 'R5000 Lite (low cost CPE)'
@@ -178,24 +192,27 @@ def parse(dc_string, dc_list):
                 subfamily = 'R5000 Lite'
             else:
                 subfamily = 'R5000 Pro'
-        elif pattern is None and 'H11' in firmware:
+        elif pattern and 'H11' in firmware:
             model = 'R5000 Unknown model'
             subfamily = 'R5000 Lite'
         else:
             model = 'R5000 Unknown model'
             subfamily = 'R5000 Pro'
-        logger.debug(f'Model: {model}; Subfamily: {subfamily}')
 
-        serial_number = re.search(r'SN:(\d+)', dc_string).group(1)
-        logger.debug(f'SN: {serial_number}')
+        if pattern_g_sn.search(general_text):
+            serial_number = pattern_g_sn.search(general_text).group(1)
 
-        uptime = re.search(r'Uptime: ([\d\w :]*)', dc_string).group(1)
-        logger.debug(f'Uptime: {uptime}')
+        if pattern_g_uptime.search(general_text):
+            uptime = pattern_g_uptime.search(general_text).group(1)
 
-        reboot_reason = re.search(r'Last reboot reason: ([\w ]*)', dc_string).group(1)
-        logger.debug(f'Last reboot reason: {reboot_reason}')
+        if pattern_g_reboot_reason.search(general_text):
+            reboot_reason = pattern_g_reboot_reason.search(general_text).group(1)
+
     except:
         logger.warning('General info was not parsed')
+
+    logger.debug(f'General info: Firmware - {firmware}, Model - {model}, Subfamily- {subfamily}, '
+                 f'SN - {serial_number}, Uptime - {uptime}, Last reboot reason - {reboot_reason}')
 
     # Settings
     radio_profile = {'Frequency': None, 'Bandwidth': None, 'Max bitrate': None, 'Auto bitrate': 'Disabled',
@@ -203,70 +220,89 @@ def parse(dc_string, dc_list):
     radio_settings = {'Type': 'slave', 'ATPC': 'Disabled', 'Tx Power': None, 'Extnoise': None, 'DFS': None,
                       'Polling': 'Disabled', 'Frame size': None, 'DL/UL ratio': None, 'Distance': None,
                       'Target RSSI': None, 'TSync': 'Disabled', 'Scrambling': 'Disabled', 'Profile': radio_profile}
-    switch_group_settings = {'Order': None, 'Flood': None, 'STP': None, 'Management': None, 'Mode': None,
-                             'Interfaces': None, 'Vlan': None, 'Rules': None}
+    switch_group_settings = {'Order': None, 'Flood': 'Disabled', 'STP': 'Disabled', 'Management': 'Disabled',
+                             'Mode': 'Normal', 'Interfaces': None, 'Rules': None}
+    switch_settings = {'Status': 'Disabled', 'Switch Group': switch_group_settings}
     interfaces_settings = {'eth0': None, 'eth1': None, 'rf5.0': None}
-    qos_settings = {'Rules': None, 'License': None}
-    settings = {'Radio': radio_settings, 'Switch': switch_group_settings, 'Interface Status': interfaces_settings,
+    qos_settings = {'Options': None, 'Rules': None, 'License': None}
+    settings = {'Radio': radio_settings, 'Switch': switch_settings, 'Interface Status': interfaces_settings,
                 'QoS': qos_settings}
 
-    pattern_start = re.compile(r'# R5000 WANFleX H')
-    pattern_end = re.compile(r'#LLDP parameters')
-    settings_text = cut_text(dc_list, pattern_start, pattern_end, 0, 2)
-
-    # Radio Settings
     try:
-        pattern_type = re.compile(r'mint rf5\.0 -type (\w+)')
-        pattern_pwr = re.compile(r'rf rf5.0 txpwr ([\-\d]+)')
-        pattern_atpc = re.compile(r'rf rf5.0 txpwr [\-\d]+ (pwrctl)')
-        pattern_extnoise = re.compile(r'extnoise ([\-+\d+])')
-        pattern_dfs = re.compile(r'dfs rf5\.0 (dfsradar|dfsonly|dfsoff)')
-        pattern_scrambling = re.compile(r'mint rf5.0 -scrambling')
-        pattern_tdma_frame = re.compile(r'tdma mode=Master win=(\d+)')
-        pattern_tdma_dist = re.compile(r'mode=Master win=\d+ dist=(\d+)')
-        pattern_tdma_dlp = re.compile(r'mode=Master win=\d+ dist=\d+ dlp=(\d+)')
-        pattern_tdma_target = re.compile(r'mint rf5\.0 tdma rssi=([\-\d]+)')
-        pattern_tdma_tsync = re.compile(r'tsync enable')
-        pattern_polling = re.compile(r'mint rf5\.0 poll start')
+        pattern_start = re.compile(r'# R5000 WANFleX H')
+        pattern_end = re.compile(r'#LLDP parameters')
+        settings_text = cut_text(dc_list, pattern_start, pattern_end, 0, 2)
+
+        # Radio Settings
+        pattern_set_type = re.compile(r'mint rf5\.0 -type (\w+)')
+        pattern_set_pwr = re.compile(r'rf rf5.0 txpwr ([\-\d]+)')
+        pattern_set_atpc = re.compile(r'rf rf5.0 txpwr [\-\d]+ (pwrctl)')
+        pattern_set_extnoise = re.compile(r'extnoise ([\-+\d+])')
+        pattern_set_dfs = re.compile(r'dfs rf5\.0 (dfsradar|dfsonly|dfsoff)')
+        pattern_set_scrambling = re.compile(r'mint rf5.0 -scrambling')
+        pattern_set_tdma_frame = re.compile(r'tdma mode=Master win=(\d+)')
+        pattern_set_tdma_dist = re.compile(r'mode=Master win=\d+ dist=(\d+)')
+        pattern_set_tdma_dlp = re.compile(r'mode=Master win=\d+ dist=\d+ dlp=(\d+)')
+        pattern_set_tdma_target = re.compile(r'mint rf5\.0 tdma rssi=([\-\d]+)')
+        pattern_set_tdma_tsync = re.compile(r'tsync enable')
+        pattern_set_polling = re.compile(r'mint rf5\.0 poll start')
+        pattern_set_m_freq = re.compile(r'rf rf5\.0 freq ([\.\d]+)')
+        pattern_set_m_bitr = re.compile(r'rf rf5\.0 freq [\.\d]+ bitr (\d+)')
+        pattern_set_m_sid = re.compile(r'rf rf5\.0 freq [\.\d]+ bitr \d+ sid ([\d\w]+)')
+        pattern_set_m_band = re.compile(r'rf rf5\.0 band (\d+)')
+        pattern_set_m_afbitr = re.compile(r'mint rf5\.0 -(auto|fixed)bitrate')
+        pattern_set_m_afbitr_offset = re.compile(r'mint rf5\.0 -(auto|fixed)bitrate ([\-+\d]+)')
+        pattern_set_m_mimo = re.compile(r'rf rf5\.0 (mimo|miso|siso)')
+        pattern_set_m_greenfield = re.compile(r'rf rf5\.0 (mimo|miso|siso) (greenfield)')
+        pattern_set_s_status = re.compile(r'mint rf5\.0 prof \d+ disable')
+        pattern_set_s_state = re.compile(r'[\w\d]+ band \d+ freq [\-\d]+ snr \d+ links \d+, prof (\d+)')
+        pattern_set_s_band = re.compile(r'-band (\d+)')
+        pattern_set_s_freq = re.compile(r'-freq ([\.\d\w]+)')
+        pattern_set_s_bitr = re.compile(r'-bitr (\d+)')
+        pattern_set_s_sid = re.compile(r'-sid ([\d\w]+)')
+        pattern_set_s_afbitr = re.compile(r'-(auto|fixed)bitr')
+        pattern_set_s_afbitr_offset = re.compile(r'-(auto|fixed)bitr (([\-+])?([\d]+))')
+        pattern_set_s_mimo = re.compile(r'-(mimo|miso|siso)')
+        pattern_set_s_greenfield = re.compile(r'(greenfield)')
 
         for line in settings_text:
             # Common settings
-            if pattern_type.search(line):
-                radio_settings['Type'] = pattern_type.search(line).group(1)
+            if pattern_set_type.search(line):
+                radio_settings['Type'] = pattern_set_type.search(line).group(1)
 
-            if pattern_pwr.search(line):
-                radio_settings['Tx Power'] = pattern_pwr.search(line).group(1)
+            if pattern_set_pwr.search(line):
+                radio_settings['Tx Power'] = pattern_set_pwr.search(line).group(1)
 
-            if pattern_atpc.search(line):
+            if pattern_set_atpc.search(line):
                 radio_settings['ATPC'] = 'Enabled'
 
-            if pattern_extnoise.search(line):
-                radio_settings['Extnoise'] = pattern_extnoise.search(line).group(1)
+            if pattern_set_extnoise.search(line):
+                radio_settings['Extnoise'] = pattern_set_extnoise.search(line).group(1)
 
-            if pattern_dfs.search(line):
-                radio_settings['DFS'] = pattern_dfs.search(line).group(1)
+            if pattern_set_dfs.search(line):
+                radio_settings['DFS'] = pattern_set_dfs.search(line).group(1)
 
-            if pattern_scrambling.search(line):
+            if pattern_set_scrambling.search(line):
                 radio_settings['Scrambling'] = 'Enabled'
 
             # TDMA Settings
-            if pattern_tdma_frame.search(line):
-                radio_settings['Frame size'] = pattern_tdma_frame.search(line).group(1)
+            if pattern_set_tdma_frame.search(line):
+                radio_settings['Frame size'] = pattern_set_tdma_frame.search(line).group(1)
 
-            if pattern_tdma_dist.search(line):
-                radio_settings['Distance'] = pattern_tdma_dist.search(line).group(1)
+            if pattern_set_tdma_dist.search(line):
+                radio_settings['Distance'] = pattern_set_tdma_dist.search(line).group(1)
 
-            if pattern_tdma_dlp.search(line):
-                radio_settings['DL/UL ratio'] = pattern_tdma_dlp.search(line).group(1)
+            if pattern_set_tdma_dlp.search(line):
+                radio_settings['DL/UL ratio'] = pattern_set_tdma_dlp.search(line).group(1)
 
-            if pattern_tdma_target.search(line):
-                radio_settings['Target RSSI'] = pattern_tdma_target.search(line).group(1)
+            if pattern_set_tdma_target.search(line):
+                radio_settings['Target RSSI'] = pattern_set_tdma_target.search(line).group(1)
 
-            if pattern_tdma_tsync.search(line):
+            if pattern_set_tdma_tsync.search(line):
                 radio_settings['TSync'] = 'Enabled'
 
             # MINT Settings
-            if pattern_polling.search(line):
+            if pattern_set_polling.search(line):
                 radio_settings['Polling'] = 'Enabled'
 
         if radio_settings['Type'] == 'slave':
@@ -276,6 +312,7 @@ def parse(dc_string, dc_list):
             radio_settings['Polling'] = None
         elif 'MINT' in firmware:
             radio_settings['TSync'] = None
+
     except:
         logger.warning('Common settings were not parsed')
 
@@ -289,43 +326,34 @@ def parse(dc_string, dc_list):
             # Master has always active and enabled profile
             profile['State'] = 'Active'
 
-            pattern_m_freq = re.compile(r'rf rf5\.0 freq ([\.\d]+)')
-            pattern_m_bitr = re.compile(r'rf rf5\.0 freq [\.\d]+ bitr (\d+)')
-            pattern_m_sid = re.compile(r'rf rf5\.0 freq [\.\d]+ bitr \d+ sid ([\d\w]+)')
-            pattern_m_band = re.compile(r'rf rf5\.0 band (\d+)')
-            pattern_m_afbitr = re.compile(r'mint rf5\.0 -(auto|fixed)bitrate')
-            pattern_m_afbitr_offset = re.compile(r'mint rf5\.0 -(auto|fixed)bitrate ([\-+\d]+)')
-            pattern_m_mimo = re.compile(r'rf rf5\.0 (mimo|miso|siso)')
-            pattern_m_greenfield = re.compile(r'rf rf5\.0 (mimo|miso|siso) (greenfield)')
-
             for line in settings_text:
-                if pattern_m_freq.search(line):
-                    profile['Frequency'] = pattern_m_freq.search(line).group(1)
+                if pattern_set_m_freq.search(line):
+                    profile['Frequency'] = pattern_set_m_freq.search(line).group(1)
 
-                if pattern_m_bitr.search(line):
-                    profile['Max bitrate'] = pattern_m_bitr.search(line).group(1)
+                if pattern_set_m_bitr.search(line):
+                    profile['Max bitrate'] = pattern_set_m_bitr.search(line).group(1)
 
-                if pattern_m_sid.search(line):
-                    profile['SID'] = pattern_m_sid.search(line).group(1)
+                if pattern_set_m_sid.search(line):
+                    profile['SID'] = pattern_set_m_sid.search(line).group(1)
 
-                if pattern_m_band.search(line):
-                    profile['Bandwidth'] = pattern_m_band.search(line).group(1)
+                if pattern_set_m_band.search(line):
+                    profile['Bandwidth'] = pattern_set_m_band.search(line).group(1)
 
-                if pattern_m_afbitr.search(line):
-                    if pattern_m_afbitr.search(line).group(1) == 'auto' \
-                            and pattern_m_afbitr_offset.search(line):
+                if pattern_set_m_afbitr.search(line):
+                    if pattern_set_m_afbitr.search(line).group(1) == 'auto' \
+                            and pattern_set_m_afbitr_offset.search(line):
                         profile['Auto bitrate'] = f'Enabled. Modification is ' \
-                                                  f'{pattern_m_afbitr_offset.search(line).group(2)}'
-                    elif pattern_m_afbitr.search(line).group(1) == 'auto':
+                                                  f'{pattern_set_m_afbitr_offset.search(line).group(2)}'
+                    elif pattern_set_m_afbitr.search(line).group(1) == 'auto':
                         profile['Auto bitrate'] = 'Enabled'
-                    elif pattern_m_afbitr.search(line).group(1) == 'fixed':
+                    elif pattern_set_m_afbitr.search(line).group(1) == 'fixed':
                         profile['Auto bitrate'] = f'Disabled. Fixed bitrate is {profile["Max bitrate"]}'
 
-                if pattern_m_mimo.search(line):
-                    profile['MIMO'] = str.upper(pattern_m_mimo.search(line).group(1))
+                if pattern_set_m_mimo.search(line):
+                    profile['MIMO'] = str.upper(pattern_set_m_mimo.search(line).group(1))
 
-                if pattern_m_greenfield.search(line):
-                    profile['Greenfield'] = pattern_m_greenfield.search(line).group(2)
+                if pattern_set_m_greenfield.search(line):
+                    profile['Greenfield'] = pattern_set_m_greenfield.search(line).group(2)
 
         # Slave profiles
         else:
@@ -345,19 +373,8 @@ def parse(dc_string, dc_list):
             # Parse each profile
             radio_settings['Profile'] = {profile: deepcopy(radio_profile) for profile in profiles.keys()}
 
-            pattern_s_status = re.compile(r'mint rf5\.0 prof \d+ disable')
-            pattern_s_state = re.compile(r'[\w\d]+ band \d+ freq [\-\d]+ snr \d+ links \d+, prof (\d+)')
-            pattern_s_band = re.compile(r'-band (\d+)')
-            pattern_s_freq = re.compile(r'-freq ([\.\d\w]+)')
-            pattern_s_bitr = re.compile(r'-bitr (\d+)')
-            pattern_s_sid = re.compile(r'-sid ([\d\w]+)')
-            pattern_s_afbitr = re.compile(r'-(auto|fixed)bitr')
-            pattern_s_afbitr_offset = re.compile(r'-(auto|fixed)bitr (([\-+])?([\d]+))')
-            pattern_s_mimo = re.compile(r'-(mimo|miso|siso)')
-            pattern_s_greenfield = re.compile(r'(greenfield)')
-
-            if pattern_s_state.findall(dc_string):
-                profile_active = str(pattern_s_state.findall(dc_string)[-1])
+            if pattern_set_s_state.findall(dc_string):
+                profile_active = str(pattern_set_s_state.findall(dc_string)[-1])
             else:
                 profile_active = list(radio_settings['Profile'].keys())[0]
 
@@ -366,67 +383,201 @@ def parse(dc_string, dc_list):
                 if key == profile_active:
                     profile['State'] = 'Active'
                 for line in profiles[key]:
-                    if pattern_s_status.search(line):
+                    if pattern_set_s_status.search(line):
                         # Slave may have idle (not used at this moment) and disabled profiles
                         profile['Status'] = 'Disabled'
                         # Profile cannot be Active if it is disabled
                         profile['State'] = 'Idle'
 
-                    if pattern_s_band.search(line):
-                        profile['Bandwidth'] = pattern_s_band.search(line).group(1)
+                    if pattern_set_s_band.search(line):
+                        profile['Bandwidth'] = pattern_set_s_band.search(line).group(1)
 
-                    if pattern_s_freq.search(line):
-                        profile['Frequency'] = pattern_s_freq.search(line).group(1)
+                    if pattern_set_s_freq.search(line):
+                        profile['Frequency'] = pattern_set_s_freq.search(line).group(1)
 
-                    if pattern_s_bitr.search(line):
-                        profile['Max bitrate'] = pattern_s_bitr.search(line).group(1)
+                    if pattern_set_s_bitr.search(line):
+                        profile['Max bitrate'] = pattern_set_s_bitr.search(line).group(1)
 
-                    if pattern_s_sid.search(line):
-                        profile['SID'] = pattern_s_sid.search(line).group(1)
+                    if pattern_set_s_sid.search(line):
+                        profile['SID'] = pattern_set_s_sid.search(line).group(1)
 
-                    if pattern_s_afbitr.search(line):
-                        if pattern_s_afbitr.search(line).group(1) == 'auto' \
-                                and pattern_s_afbitr_offset.search(line):
+                    if pattern_set_s_afbitr.search(line):
+                        if pattern_set_s_afbitr.search(line).group(1) == 'auto' \
+                                and pattern_set_s_afbitr_offset.search(line):
                             profile['Auto bitrate'] = f'Enabled. Modification is ' \
-                                                      f'{pattern_s_afbitr_offset.search(line).group(2)}'
-                        elif pattern_s_afbitr.search(line).group(1) == 'auto':
+                                                      f'{pattern_set_s_afbitr_offset.search(line).group(2)}'
+                        elif pattern_set_s_afbitr.search(line).group(1) == 'auto':
                             profile['Auto bitrate'] = 'Enabled'
-                        elif pattern_s_afbitr.search(line).group(1) == 'fixed':
+                        elif pattern_set_s_afbitr.search(line).group(1) == 'fixed':
                             profile['Auto bitrate'] = f'Disabled. Fixed bitrate is {profile["Max bitrate"]}'
 
-                    if pattern_s_mimo.search(line):
-                        profile['MIMO'] = str.upper(pattern_s_mimo.search(line).group(1))
+                    if pattern_set_s_mimo.search(line):
+                        profile['MIMO'] = str.upper(pattern_set_s_mimo.search(line).group(1))
 
-                    if pattern_s_greenfield.search(line):
-                        profile['Greenfield'] = pattern_s_greenfield.search(line).group(1)
+                    if pattern_set_s_greenfield.search(line):
+                        profile['Greenfield'] = pattern_set_s_greenfield.search(line).group(1)
+
     except:
         logger.warning('Radio settings were not parsed')
 
     logger.debug(f'Radio Settings: {settings["Radio"]}')
 
     # Switch Settings
-    # This section will be added in the future
-    switch_groups = set(re.findall(r'switch group (\d+)?', dc_string))
-    settings['Switch'] = {sw_group_id: deepcopy(switch_group_settings) for sw_group_id in switch_groups}
+    try:
+        pattern_start = re.compile(r'#MAC Switch config')
+        pattern_end = re.compile(r'#SNMP configuration')
+        pattern_set_sw = re.compile(r'switch start')
+        if pattern_set_sw.search(dc_string):
+            switch_settings['Status'] = 'Enabled'
+            sw_settings_text_cut = cut_text(settings_text, pattern_start, pattern_end, 1, -1)
+            pattern_set_sw_id = re.compile(r'switch group (\d+) add')
+            slices = []
+            groups = []
+            for index, line in enumerate(sw_settings_text_cut):
+                if pattern_set_sw_id.search(line):
+                    slices.append(index)
+                    groups.append(pattern_set_sw_id.search(line).group(1))
+            slices.append(len(sw_settings_text_cut))
+
+            # Slice the profile text by profiles
+            sw_settings_text = dict(zip(groups, slice_text(sw_settings_text_cut, slices)))
+
+            # Find switch groups
+            switch_settings['Switch Group'] = {id: deepcopy(switch_group_settings) for id in sw_settings_text.keys()}
+
+            pattern_set_sw_order = re.compile(r'switch group \d+ add (\d+)')
+            pattern_set_sw_ifc = re.compile(r'switch group \d+ add \d+ (.+)')
+            pattern_set_sw_flood = re.compile(r'flood-unicast on')
+            pattern_set_sw_stp = re.compile(r'stp on')
+            pattern_set_sw_mode_trunk = re.compile(r'trunk on')
+            pattern_set_sw_mode_intrunk = re.compile(r'in-trunk (\d+)')
+            pattern_set_sw_mode_upstream = re.compile(r'upstream')
+            pattern_set_sw_mode_downstream = re.compile(r'downstream')
+            pattern_set_sw_rule = re.compile(r'switch group \d+ rule \d+\s+(permit|deny) match (\w+)')
+            pattern_set_sw_rule_list = re.compile(r'switch list (\w+) match add ([\w\d\-,\s\S]+)')
+            pattern_set_sw_rule_default = re.compile(r'switch group \d+ (deny|permit)')
+            pattern_set_sw_rule_vlan = re.compile(r'switch group \d+ (vlan [\d\-,]+)')
+            pattern_set_sw_mngt = re.compile(r'svi (\d+) group (\d+)')
+
+            rule_list = {}
+            for line in sw_settings_text_cut:
+                if pattern_set_sw_rule_list.search(line):
+                    pattern = pattern_set_sw_rule_list.search(line)
+                    rule_name = pattern.group(1)
+                    rule_list[rule_name] = pattern.group(2).replace('\'', '').replace('\r', '').replace('\n', '')
+
+            for key in switch_settings['Switch Group']:
+                group = switch_settings['Switch Group'][key]
+                check_rule = False
+                for line in sw_settings_text[key]:
+                    if pattern_set_sw_order.search(line):
+                        group['Order'] = pattern_set_sw_order.search(line).group(1)
+
+                    if pattern_set_sw_ifc.search(line):
+                        group['Interfaces'] = pattern_set_sw_ifc.search(line).group(1).split(' ')
+                        # Drop '\r'
+                        group['Interfaces'].pop()
+                        group['Interfaces'] = ', '.join(group['Interfaces'])
+
+                    if pattern_set_sw_flood.search(line):
+                        group['Flood'] = 'Enabled'
+
+                    if pattern_set_sw_stp.search(line):
+                        group['STP'] = 'Enabled'
+
+                    if pattern_set_sw_mode_trunk.search(line):
+                        group['Mode'] = 'Trunk'
+                    elif pattern_set_sw_mode_intrunk.search(line):
+                        group['Mode'] = f'In-Trunk {pattern_set_sw_mode_intrunk.search(line).group(1)}'
+                    elif pattern_set_sw_mode_upstream.search(line):
+                        group['Mode'] = 'Upstream'
+                    elif pattern_set_sw_mode_downstream.search(line):
+                        group['Mode'] = 'Downstream'
+
+                    if pattern_set_sw_rule_vlan.search(line):
+                        group['Rules'] = f'permit: {pattern_set_sw_rule_vlan.search(line).group(1)}; deny: any any'
+
+                    if pattern_set_sw_rule.search(line):
+                        rule_action = pattern_set_sw_rule.search(line).group(1)
+                        rule = pattern_set_sw_rule.search(line).group(2)
+                        check_rule = True
+
+                    if pattern_set_sw_rule_default.search(line):
+                        rule_default = pattern_set_sw_rule_default.search(line).group(1)
+
+                if check_rule:
+                    if rule in rule_list.keys():
+                        group['Rules'] = f'{rule_action}: {rule} ({rule_list[rule]}); {rule_default}: any any'
+                    else:
+                        group['Rules'] = f'{rule_action}: {rule} ; {rule_default}: any any'
+
+            for line in sw_settings_text_cut:
+                if pattern_set_sw_mngt.search(line):
+                    group = pattern_set_sw_mngt.search(line).group(2)
+                    switch_settings['Switch Group'][group]['Management'] = 'Enabled'
+
+    except:
+        logger.warning('Switch settings were not parsed')
 
     logger.debug(f'Switch Settings: {settings["Switch"]}')
 
     # Interface Settings
-    pattern = re.findall(r'ifc\s(eth\d+|rf5\.0)\s+(media\s([\w\d-]+)\s)?(mtu\s\d+\s)?(up|down)', dc_string)
-    for interface in pattern:
-        if interface[0] == 'eth0':
-            settings['Interface Status']['eth0'] = pattern[0][4]
-        elif interface[0] == 'eth1':
-            settings['Interface Status']['eth1'] = pattern[1][4]
-        elif interface[0] == 'rf5.0' and len(pattern) is 3:
-            settings['Interface Status']['rf5.0'] = pattern[2][4]
-        elif interface[0] == 'rf5.0' and len(pattern) is 2:
-            settings['Interface Status']['rf5.0'] = pattern[1][4]
+    try:
+        pattern_start = re.compile(r'#Interfaces parameters')
+        pattern_end = re.compile(r'#QoS manager')
+        ifc_settings_text = cut_text(settings_text, pattern_start, pattern_end, 1, -1)
+
+        pattern_set_ifc = re.compile(r'ifc (eth\d+|rf5\.0)\s+(media\s([\w\d\-]+)\s)?(mtu\s\d+\s)?(up|down)')
+        for line in ifc_settings_text:
+            if pattern_set_ifc.search(line):
+                interface = pattern_set_ifc.search(line).group(1)
+                settings['Interface Status'][interface] = pattern_set_ifc.search(line).group(5)
+
+    except:
+        logger.warning('Interface Settings were not parsed')
 
     logger.debug(f'Interface Settings: {settings["Interface Status"]}')
 
-    # QoS
-    # This section will be added in the future
+    # QoS Settings
+    try:
+        pattern_start = re.compile(r'#QoS manager')
+        pattern_end = re.compile(r'#Routing parameters')
+        qm_settings_text_cut = cut_text(settings_text, pattern_start, pattern_end, 1, -1)
+
+        pattern_set_qm_channel = re.compile(r'qm (ch\d+)')
+        slices = []
+        channels = []
+        for index, line in enumerate(qm_settings_text_cut):
+            if pattern_set_qm_channel.search(line):
+                slices.append(index)
+                channels.append(pattern_set_qm_channel.search(line).group(1))
+        slices.append(len(qm_settings_text_cut))
+        qm_settings_text = dict(zip(channels, slice_text(qm_settings_text_cut, slices)))
+
+        pattern_set_qm_options = re.compile(r'qm option ([\w\s]+)')
+
+        for line in qm_settings_text_cut:
+            if pattern_set_qm_options.search(line):
+                pattern = pattern_set_qm_options.search(line).group(1).replace('\r', '').replace('\n', '')
+                qos_settings['Options'] = pattern.replace(' ', ', ')
+
+        qos_settings['Rules'] = {channel: None for channel in qm_settings_text.keys()}
+        for channel, text in qm_settings_text.items():
+            qos_settings['Rules'][channel] = '; '.join(text).replace('\r', '').replace('\n', '')
+
+        pattern_start = re.compile(r"License 'Factory License'")
+        pattern_end = re.compile(r'</license>')
+        license_text = cut_text(dc_list, pattern_start, pattern_end, 0, -1)
+
+        pattern_set_qm_throughput = re.compile(r'MaximumTransmitRate="(\d+)"')
+
+        qos_settings['License'] = {}
+        for line in license_text:
+            if pattern_set_qm_throughput.search(line):
+                qos_settings['License']['Throughput'] = pattern_set_qm_throughput.search(line).group(1)
+
+    except:
+        logger.warning('QoS settings were not parsed')
 
     logger.debug(f'QoS Settings: {settings["QoS"]}')
 
@@ -440,200 +591,188 @@ def parse(dc_string, dc_list):
                     'Total Medium Busy': None, 'Excessive Retries': None, 'Aggr Full Retries': None,
                     'Current Frequency': None}
 
-    pattern_mac = re.compile(r'(00[\dA-F]{10})')
-    pattern_prf = re.compile(r'(join|prf)')
-    pattern_name = re.compile(r'[\.\d]+\s+([\w\d\S \-]+)\s+00[\dA-F]{10}')
-    pattern_spaces = re.compile(r"(\s{2,})")
-    pattern_level = re.compile(r'00[\w\d]+\s+(\d+)/(\d+)')
-    pattern_bitrate = re.compile(r'00[\w\d]+\s+\d+/\d+\s+(\d+)/(\d+)')
-    pattern_retry = re.compile(r'00[\w\d]+\s+\d+/\d+\s+\d+/\d+\s+(\d+)/(\d+)')
-    pattern_load = re.compile(r'load (\d+)/(\d+)')
-    pattern_pps = re.compile(r'pps (\d+)/(\d+)')
-    pattern_cost = re.compile(r'cost ([\-\d+\.]+)')
-    pattern_pwr = re.compile(r'pwr ([\*\-\d+\.]+)/([\*\-\d+\.]+)')
-    pattern_rssi = re.compile(r'rssi ([\*\-\d+\.]+)/([\*\-\d+\.]+)')
-    pattern_rssi_muffer = re.compile(r'\d+\/([\-\d]+)')
-    pattern_snr = re.compile(r'snr (\d+)/(\d+)')
-    pattern_distance = re.compile(r'dist ([\.\d+]+)')
-    pattern_firmware = re.compile(r'(H\d{2}v[v\d.]+)')
-    pattern_uptime = re.compile(r'up ([\d\w :]*)')
-
     try:
+        pattern_rs_mac = re.compile(r'(00[\dA-F]{10})')
+        pattern_rs_prf = re.compile(r'(join|prf)')
+        pattern_rs_name = re.compile(r'[\.\d]+\s+([\w\d\S \-]+)\s+00[\dA-F]{10}')
+        pattern_rs_spaces = re.compile(r"(\s{2,})")
+        pattern_rs_level = re.compile(r'00[\w\d]+\s+(\d+)/(\d+)')
+        pattern_rs_bitrate = re.compile(r'00[\w\d]+\s+\d+/\d+\s+(\d+)/(\d+)')
+        pattern_rs_retry = re.compile(r'00[\w\d]+\s+\d+/\d+\s+\d+/\d+\s+(\d+)/(\d+)')
+        pattern_rs_load = re.compile(r'load (\d+)/(\d+)')
+        pattern_rs_pps = re.compile(r'pps (\d+)/(\d+)')
+        pattern_rs_cost = re.compile(r'cost ([\-\d+\.]+)')
+        pattern_rs_pwr = re.compile(r'pwr ([\*\-\d+\.]+)/([\*\-\d+\.]+)')
+        pattern_rs_rssi = re.compile(r'rssi ([\*\-\d+\.]+)/([\*\-\d+\.]+)')
+        pattern_rs_rssi_rf_scanner = re.compile(r'\d+\/([\-\d]+)')
+        pattern_rs_snr = re.compile(r'snr (\d+)/(\d+)')
+        pattern_rs_distance = re.compile(r'dist ([\.\d+]+)')
+        pattern_rs_firmware = re.compile(r'(H\d{2}v[v\d.]+)')
+        pattern_rs_uptime = re.compile(r'up ([\d\w :]*)')
+
         # Find mint map det text
-        for index, line in enumerate(dc_list):
-            pattern = re.search(r'Id\s+Name\s+Node\s+Level', line)
-            if pattern is not None:
-                links_text_start = index + 2
-            pattern = re.search(r'Total nodes in area', line)
-            if pattern is not None:
-                links_text_end = index - 3
-        links_text = dc_list[links_text_start:links_text_end]
+        pattern_start = re.compile(r'Id\s+Name\s+Node\s+Level')
+        pattern_end = re.compile(r'Total nodes in area')
+        links_text = cut_text(dc_list, pattern_start, pattern_end, 1, -1)
 
         # Find each string contains MAC
         slices = []
         for index, line in enumerate(links_text):
-            if pattern_mac.search(line):
+            if pattern_rs_mac.search(line):
                 slices.append(index)
         slices.append(len(links_text))
 
-        """
-        The number of strings after the first string may be different (from 1 to 4 excluding the firts one)
-        Need to slice the mint map det text to links
-        """
-        links = []
-        for index, slice in enumerate(slices):
-            try:
-                link_start = slices[index]
-                link_end = slices[index + 1]
-            except IndexError:
-                link_end = slices[index]
-            finally:
-                links.append(links_text[link_start:link_end])
-        links.pop()
+        links = slice_text(links_text, slices)
 
         # Need to remove prf and join links
         temp = []
         for link in links:
-            if not pattern_prf.search(link[0]):
+            if not pattern_rs_prf.search(link[0]):
                 temp.append(link)
         links = temp
 
         # Create dictionary from the links arrange. MAC-addresses are keys
         radio_status['Links'] = {mac: deepcopy(link_status) for mac in
-                                 [pattern_mac.search(link[0]).group(1) for link in links]}
+                                 [pattern_rs_mac.search(link[0]).group(1) for link in links]}
 
         # Fill the link_status variable for each link
         for mac in radio_status['Links']:
             for index, link in enumerate(links):
-                if mac == pattern_mac.search(link[0]).group(1):
+                if mac == pattern_rs_mac.search(link[0]).group(1):
                     link = ''.join(link)
 
-                    name = pattern_name.search(link).group(1)
-                    spaces = pattern_spaces.search(name).group(1)
+                    name = pattern_rs_name.search(link).group(1)
+                    spaces = pattern_rs_spaces.search(name).group(1)
                     radio_status['Links'][mac]['Name'] = name.replace(spaces, '')
 
-                    if pattern_level.search(link):
-                        radio_status['Links'][mac]['Level Rx'] = pattern_level.search(link).group(1)
-                        radio_status['Links'][mac]['Level Tx'] = pattern_level.search(link).group(2)
+                    if pattern_rs_level.search(link):
+                        radio_status['Links'][mac]['Level Rx'] = pattern_rs_level.search(link).group(1)
+                        radio_status['Links'][mac]['Level Tx'] = pattern_rs_level.search(link).group(2)
                     else:
                         logger.debug(f'Link {mac}: Level was not parsed')
 
-                    if pattern_bitrate.search(link):
-                        radio_status['Links'][mac]['Bitrate Rx'] = pattern_bitrate.search(link).group(1)
-                        radio_status['Links'][mac]['Bitrate Tx'] = pattern_bitrate.search(link).group(2)
+                    if pattern_rs_bitrate.search(link):
+                        radio_status['Links'][mac]['Bitrate Rx'] = pattern_rs_bitrate.search(link).group(1)
+                        radio_status['Links'][mac]['Bitrate Tx'] = pattern_rs_bitrate.search(link).group(2)
                     else:
                         logger.debug(f'Link {mac}: Bitrate was not parsed')
 
-                    if pattern_retry.search(link):
-                        radio_status['Links'][mac]['Retry Rx'] = pattern_retry.search(link).group(1)
-                        radio_status['Links'][mac]['Retry Tx'] = pattern_retry.search(link).group(2)
+                    if pattern_rs_retry.search(link):
+                        radio_status['Links'][mac]['Retry Rx'] = pattern_rs_retry.search(link).group(1)
+                        radio_status['Links'][mac]['Retry Tx'] = pattern_rs_retry.search(link).group(2)
                     else:
                         logger.debug(f'Link {mac}: Retry was not parsed')
 
-                    if pattern_load.search(link):
-                        radio_status['Links'][mac]['Load Rx'] = pattern_load.search(link).group(1)
-                        radio_status['Links'][mac]['Load Tx'] = pattern_load.search(link).group(2)
+                    if pattern_rs_load.search(link):
+                        radio_status['Links'][mac]['Load Rx'] = pattern_rs_load.search(link).group(1)
+                        radio_status['Links'][mac]['Load Tx'] = pattern_rs_load.search(link).group(2)
                     else:
                         logger.debug(f'Link {mac}: Load was not parsed')
 
-                    if pattern_pps.search(link):
-                        radio_status['Links'][mac]['PPS Rx'] = pattern_pps.search(link).group(1)
-                        radio_status['Links'][mac]['PPS Tx'] = pattern_pps.search(link).group(2)
+                    if pattern_rs_pps.search(link):
+                        radio_status['Links'][mac]['PPS Rx'] = pattern_rs_pps.search(link).group(1)
+                        radio_status['Links'][mac]['PPS Tx'] = pattern_rs_pps.search(link).group(2)
                     else:
                         logger.debug(f'Link {mac}: PPS was not parsed')
 
-                    if pattern_cost.search(link):
-                        radio_status['Links'][mac]['Cost'] = pattern_cost.search(link).group(1)
+                    if pattern_rs_cost.search(link):
+                        radio_status['Links'][mac]['Cost'] = pattern_rs_cost.search(link).group(1)
                     else:
                         logger.debug(f'Link {mac}: Cost was not parsed')
 
-                    if pattern_pwr.search(link):
-                        radio_status['Links'][mac]['Power Rx'] = pattern_pwr.search(link).group(1)
-                        radio_status['Links'][mac]['Power Tx'] = pattern_pwr.search(link).group(2)
+                    if pattern_rs_pwr.search(link):
+                        radio_status['Links'][mac]['Power Rx'] = pattern_rs_pwr.search(link).group(1)
+                        radio_status['Links'][mac]['Power Tx'] = pattern_rs_pwr.search(link).group(2)
                     else:
                         logger.debug(f'Link {mac}: Power was not parsed')
 
-                    if pattern_snr.search(link):
-                        radio_status['Links'][mac]['SNR Rx'] = pattern_snr.search(link).group(1)
-                        radio_status['Links'][mac]['SNR Tx'] = pattern_snr.search(link).group(2)
+                    if pattern_rs_snr.search(link):
+                        radio_status['Links'][mac]['SNR Rx'] = pattern_rs_snr.search(link).group(1)
+                        radio_status['Links'][mac]['SNR Tx'] = pattern_rs_snr.search(link).group(2)
                     else:
                         logger.debug(f'Link {mac}: SNR was not parsed')
 
-                    if pattern_distance.search(link):
-                        radio_status['Links'][mac]['Distance'] = pattern_distance.search(link).group(1)
+                    if pattern_rs_distance.search(link):
+                        radio_status['Links'][mac]['Distance'] = pattern_rs_distance.search(link).group(1)
                     else:
                         logger.debug(f'Link {mac}: Distance was not parsed')
 
-                    if pattern_firmware.search(link):
-                        radio_status['Links'][mac]['Firmware'] = pattern_firmware.search(link).group(1)
+                    if pattern_rs_firmware.search(link):
+                        radio_status['Links'][mac]['Firmware'] = pattern_rs_firmware.search(link).group(1)
                     else:
                         logger.debug(f'Link {mac}: Firmware was not parsed')
 
-                    if pattern_uptime.search(link):
-                        radio_status['Links'][mac]['Uptime'] = pattern_uptime.search(link).group(1)
+                    if pattern_rs_uptime.search(link):
+                        radio_status['Links'][mac]['Uptime'] = pattern_rs_uptime.search(link).group(1)
                     else:
                         logger.debug(f'Link {mac}: Uptime was not parsed')
 
                     # MINT firmare does not contain RSSI in the mint map det text
-                    if 'TDMA' in firmware and pattern_rssi.search(link):
-                        radio_status['Links'][mac]['RSSI Rx'] = pattern_rssi.search(link).group(1)
-                        radio_status['Links'][mac]['RSSI Tx'] = pattern_rssi.search(link).group(2)
-                    elif 'TDMA' in firmware and pattern_rssi.search(link):
+                    if 'TDMA' in firmware and pattern_rs_rssi.search(link):
+                        radio_status['Links'][mac]['RSSI Rx'] = pattern_rs_rssi.search(link).group(1)
+                        radio_status['Links'][mac]['RSSI Tx'] = pattern_rs_rssi.search(link).group(2)
+                    elif 'TDMA' in firmware and pattern_rs_rssi.search(link):
                         logger.debug(f'Link {mac}: RSSI was not parsed')
 
-        for index, line in enumerate(dc_list):
-            pattern = re.search(r'rf5.0 Source Analysis', line)
-            if pattern is not None:
-                muffer_text_start = index + 2
-            pattern = re.search(r'rf5.0: NOL is empty', line)
-            if pattern is not None:
-                muffer_text_end = index
-        muffer_text = dc_list[muffer_text_start:muffer_text_end]
+        pattern_start = re.compile(r'rf5.0 Source Analysis')
+        pattern_end = re.compile(r'rf5.0: NOL is empty')
+        rf_scanner_text = cut_text(dc_list, pattern_start, pattern_end, 2, 0)
 
         # Get RSSI from muffer (MINT only)
         for mac in radio_status['Links']:
-            for line in muffer_text:
-                if pattern_mac.search(line) is not None \
-                        and mac == pattern_mac.search(line).group(1) \
+            for line in rf_scanner_text:
+                if pattern_rs_mac.search(line) \
+                        and mac == pattern_rs_mac.search(line).group(1) \
                         and 'MINT' in firmware:
-                    radio_status['Links'][mac]['RSSI Rx'] = pattern_rssi_muffer.search(line).group(1)
+                    radio_status['Links'][mac]['RSSI Rx'] = pattern_rs_rssi_rf_scanner.search(line).group(1)
 
         # Fill the radio_status variable
-        pattern_pulses = re.compile(r'Pulses: (\d+)')
-        pattern_pulses_level = re.compile(r'level\s+(\d+)')
-        pattern_pulses_rssi = re.compile(r'level\s+\d+\s+\((\d+)\)')
-        pattern_pulses_pps = re.compile(r'pps ([\.\d]+)')
-        for line in muffer_text:
-            if pattern_pulses.search(line) is not None:
-                radio_status['Pulses'] = pattern_pulses.search(line).group(1)
-            if pattern_pulses_level.search(line) is not None:
-                radio_status['Interference Level'] = pattern_pulses_level.search(line).group(1)
-            if pattern_pulses_rssi.search(line) is not None:
-                radio_status['Interference RSSI'] = pattern_pulses_rssi.search(line).group(1)
-            if pattern_pulses_pps.search(line) is not None:
-                radio_status['Interference PPS'] = pattern_pulses_pps.search(line).group(1)
+        pattern_rs_pulses = re.compile(r'Pulses: (\d+)')
+        pattern_rs_pulses_level = re.compile(r'level\s+(\d+)')
+        pattern_rs_pulses_rssi = re.compile(r'level\s+\d+\s+\(([\-\d]+)\)')
+        pattern_rs_pulses_pps = re.compile(r'pps ([\.\d]+)')
+        pattern_rs_rx_load = re.compile(r'RX Medium Load\s+([\d\.]+%)')
+        pattern_rs_tx_load = re.compile(r'TX Medium Load\s+([\d\.]+%)')
+        pattern_rs_total_load = re.compile(r'Total Medium Busy\s+([\d\.]+%)')
+        pattern_rs_ex_retries = re.compile(r'Excessive Retries\s+(\d+)')
+        pattern_rs_af_retries = re.compile(r'Aggr Full Retries\s+(\d+)')
+        pattern_rs_cur_freq = re.compile(r'\(band \d+, freq (\d+)\)')
 
-        pattern = re.search(r'RX Medium Load\s+([\d\.]+%)', dc_string)
-        if pattern is not None:
-            radio_status['RX Medium Load'] = pattern.group(1)
+        for line in rf_scanner_text:
+            if pattern_rs_pulses.search(line):
+                radio_status['Pulses'] = pattern_rs_pulses.search(line).group(1)
 
-        pattern = re.search(r'TX Medium Load\s+([\d\.]+%)', dc_string)
-        if pattern is not None:
-            radio_status['TX Medium Load'] = pattern.group(1)
+            if pattern_rs_pulses_level.search(line):
+                radio_status['Interference Level'] = pattern_rs_pulses_level.search(line).group(1)
 
-        pattern = re.search(r'Total Medium Busy\s+([\d\.]+%)', dc_string)
-        if pattern is not None:
-            radio_status['Total Medium Busy'] = pattern.group(1)
+            if pattern_rs_pulses_rssi.search(line):
+                radio_status['Interference RSSI'] = pattern_rs_pulses_rssi.search(line).group(1)
 
-        pattern = re.search(r'Excessive Retries\s+(\d+)', dc_string)
-        radio_status['Excessive Retries'] = pattern.group(1)
+            if pattern_rs_pulses_pps.search(line):
+                radio_status['Interference PPS'] = pattern_rs_pulses_pps.search(line).group(1)
 
-        pattern = re.search(r'Aggr Full Retries\s+(\d+)', dc_string)
-        radio_status['Aggr Full Retries'] = pattern.group(1)
+        pattern_start = re.compile(r'rf5.0 Statistics')
+        pattern_end = re.compile(r'Software Priority Queues')
+        rf_stat_text = cut_text(dc_list, pattern_start, pattern_end, 3, -2)
 
-        pattern = re.search(r'\(band \d+, freq (\d+)\)', dc_string)
-        if pattern is not None:
-            radio_status['Current Frequency'] = pattern.group(1)
+        for line in rf_stat_text:
+            if pattern_rs_rx_load.search(line):
+                radio_status['RX Medium Load'] = pattern_rs_rx_load.search(line).group(1)
+
+            if pattern_rs_tx_load.search(line):
+                radio_status['TX Medium Load'] = pattern_rs_tx_load.search(line).group(1)
+
+            if pattern_rs_total_load.search(line):
+                radio_status['Total Medium Busy'] = pattern_rs_total_load.search(line).group(1)
+
+            if pattern_rs_ex_retries.search(line):
+                radio_status['Excessive Retries'] = pattern_rs_ex_retries.search(line).group(1)
+
+            if pattern_rs_af_retries.search(line):
+                radio_status['Aggr Full Retries'] = pattern_rs_af_retries.search(line).group(1)
+
+            if pattern_rs_cur_freq.search(line):
+                radio_status['Current Frequency'] = pattern_rs_cur_freq.search(line).group(1)
 
     except:
         logger.warning('Radio Status was not parsed')
@@ -645,88 +784,108 @@ def parse(dc_string, dc_list):
                          'Tx CRC': None}
     ethernet_status = {'eth0': ethernet_statuses, 'eth1': deepcopy(ethernet_statuses)}
 
-    pattern = re.findall(r'Physical link is (\w+)(, (\d+ Mbps) '
-                         r'([\w-]+), (\w+))?', dc_string)
-    ethernet_status['eth0']['Status'] = pattern[0][0]
-    ethernet_status['eth0']['Speed'] = pattern[0][2]
-    ethernet_status['eth0']['Duplex'] = pattern[0][3]
-    ethernet_status['eth0']['Negotiation'] = pattern[0][4]
+    try:
+        pattern_start = re.compile(r'eth0: flags=')
+        pattern_end = re.compile(r'Name\s+Network')
+        ifc_stat_text = cut_text(dc_list, pattern_start, pattern_end, 0, -2)
 
-    if subfamily == 'R5000 Lite' and len(pattern) > 1:
-        ethernet_status['eth1']['Status'] = pattern[1][0]
-        ethernet_status['eth1']['Speed'] = pattern[1][2]
-        ethernet_status['eth1']['Duplex'] = pattern[1][3]
-        ethernet_status['eth1']['Negotiation'] = pattern[1][4]
+        slices = []
+        for index, line in enumerate(ifc_stat_text):
+            if line.startswith('eth0: flags'):
+                slices.append(index)
+                slices.append(index + 36)
+            elif line.startswith('eth1: flags'):
+                slices.append(index)
+                slices.append(index + 36)
 
-    pattern = re.findall(r'CRC errors\s+(\d+)', dc_string)
-    if subfamily == 'R5000 Pro':
-        ethernet_status['eth0']['Rx CRC'] = pattern[0]
-        ethernet_status['eth0']['Tx CRC'] = pattern[1]
-        ethernet_status['eth1']['Rx CRC'] = 0
-        ethernet_status['eth1']['Tx CRC'] = 0
-    elif subfamily == 'R5000 Lite (low cost CPE)' or subfamily == 'R5000 Lite' and len(pattern) is 1:
-        ethernet_status['eth0']['Rx CRC'] = pattern[0]
-        ethernet_status['eth0']['Tx CRC'] = 0
-        ethernet_status['eth1']['Rx CRC'] = 0
-        ethernet_status['eth1']['Tx CRC'] = 0
-    else:
-        ethernet_status['eth0']['Rx CRC'] = pattern[0]
-        ethernet_status['eth0']['Tx CRC'] = 0
-        ethernet_status['eth1']['Rx CRC'] = pattern[1]
-        ethernet_status['eth1']['Tx CRC'] = 0
+        interfaces_text = slice_text(ifc_stat_text, slices)
+
+        # Parse interfaces
+        pattern_es_ifc = re.compile(r'([\w\d]+): flags')
+        pattern_es_status = re.compile(r'Physical link is (\w+)')
+        pattern_es_speed = re.compile(r'Physical link is \w+, (\d+) Mbps')
+        pattern_es_duplex = re.compile(r'Physical link is \w+, \d+ Mbps\s+(\w+)-duplex')
+        pattern_es_autoneg = re.compile(r'Physical link is \w+, \d+ Mbps\s+\w+-duplex, (\w+)')
+        pattern_es_crc = re.compile(r'CRC errors\s+(\d+)')
+
+        for interface_text in interfaces_text:
+            for line in interface_text:
+                if pattern_es_ifc.search(line):
+                    interface = pattern_es_ifc.search(line).group(1)
+
+                if pattern_es_status.search(line):
+                    ethernet_status[interface]['Status'] = pattern_es_status.search(line).group(1)
+
+                if pattern_es_speed.search(line):
+                    ethernet_status[interface]['Speed'] = pattern_es_speed.search(line).group(1)
+
+                if pattern_es_duplex.search(line):
+                    ethernet_status[interface]['Duplex'] = pattern_es_duplex.search(line).group(1)
+
+                if pattern_es_autoneg.search(line):
+                    ethernet_status[interface]['Negotiation'] = pattern_es_autoneg.search(line).group(1)
+
+                if len(pattern_es_crc.findall(line)) == 2:
+                    ethernet_status[interface]['Rx CRC'] = pattern_es_crc.findall(line)[0]
+                    ethernet_status[interface]['Tx CRC'] = pattern_es_crc.findall(line)[1]
+                elif len(pattern_es_crc.findall(line)) == 1:
+                    ethernet_status[interface]['Rx CRC'] = pattern_es_crc.findall(line)[0]
+                    ethernet_status[interface]['Tx CRC'] = 0
+
+    except:
+        logger.warning('Ethernet Status was not parsed')
 
     logger.debug(f'Ethernet Status: {ethernet_status}')
 
     # Switch Status
-    for index, line in enumerate(dc_list):
-        pattern = re.search(r'Switch statistics:\r\n', line)
-        if pattern is not None:
-            sw_text_start = index
-        pattern = re.search(r'DB Records', line)
-        if pattern is not None:
-            sw_text_end = index + 1
-    sw_text = ''.join(dc_list[sw_text_start:sw_text_end])
-    pattern = re.findall(r'(\d+)\s+'
-                         r'>?(\d+)\s+'
-                         r'>?(\d+)\s+'
-                         r'>?(\d+)\s+'
-                         r'>?(\d+)\s+'
-                         r'>?(\d+)\s+'
-                         r'>?(\d+)\s+'
-                         r'>?(\d+)\s+'
-                         r'>?(\d+)\s+'
-                         r'>?(\d+)', sw_text)
-    switch_status = {pattern[id][0]: sw_group[1:] for id, sw_group in enumerate(pattern)}
-    for id, status in switch_status.items():
-        switch_status[id] = {}
-        switch_status[id]['Unicast'] = int(status[0])
-        switch_status[id]['Bcast'] = int(status[1])
-        switch_status[id]['Flood'] = int(status[2])
-        switch_status[id]['STPL'] = int(status[3])
-        switch_status[id]['UNRD'] = int(status[4])
-        switch_status[id]['FRWL'] = int(status[5])
-        switch_status[id]['LOOP'] = int(status[6])
-        switch_status[id]['DISC'] = int(status[7])
-        switch_status[id]['BACK'] = int(status[8])
+    try:
+        pattern_start = re.compile(r'Switch statistics:')
+        pattern_end = re.compile(r'DB Records')
+        sw_stat_text = ''.join(cut_text(dc_list, pattern_start, pattern_end, 6, -2))
+
+        pattern_ss_stat = re.findall(r'(\d+)\s+'
+                             r'>?(\d+)\s+'
+                             r'>?(\d+)\s+'
+                             r'>?(\d+)\s+'
+                             r'>?(\d+)\s+'
+                             r'>?(\d+)\s+'
+                             r'>?(\d+)\s+'
+                             r'>?(\d+)\s+'
+                             r'>?(\d+)\s+'
+                             r'>?(\d+)', sw_stat_text)
+
+        switch_status = {pattern_ss_stat[id][0]: sw_group[1:] for id, sw_group in enumerate(pattern_ss_stat)}
+        for id, status in switch_status.items():
+            switch_status[id] = {}
+            switch_status[id]['Unicast'] = int(status[0])
+            switch_status[id]['Bcast'] = int(status[1])
+            switch_status[id]['Flood'] = int(status[2])
+            switch_status[id]['STPL'] = int(status[3])
+            switch_status[id]['UNRD'] = int(status[4])
+            switch_status[id]['FRWL'] = int(status[5])
+            switch_status[id]['LOOP'] = int(status[6])
+            switch_status[id]['DISC'] = int(status[7])
+            switch_status[id]['BACK'] = int(status[8])
+    except:
+        logger.warning('Switch Status was not parsed')
 
     logger.debug(f'Switch Status: {switch_status}')
 
     # QoS status
-    for index, line in enumerate(dc_list):
-        pattern = re.search(r'Software Priority Queues rf5.0', line)
-        if pattern is not None:
-            qos_text_start = index
-        pattern = re.search(r'Phy errors: total \d+', line)
-        if pattern is not None:
-            qos_text_end = index - 1
-    qos_text = ''.join(dc_list[qos_text_start:qos_text_end])
-    pattern = re.findall(r'(q\d+)\s+(\((P\d+)\))?(\s+\(cos\d\))?\s+(\d+)\s+\/\s+(\d+)', qos_text)
-    qos_status = {channel[0]: channel[2:] for channel in pattern}
-    for channel, status in qos_status.items():
-        qos_status[channel] = {}
-        qos_status[channel]['Prio'] = status[0]
-        qos_status[channel]['Count'] = status[2]
-        qos_status[channel]['Drops'] = status[3]
+    try:
+        pattern_start = re.compile(r'Software Priority Queues rf5.0')
+        pattern_end = re.compile(r'Phy errors: total \d+')
+        qos_stat_text = ''.join(cut_text(dc_list, pattern_start, pattern_end, 0, 1))
+
+        pattern_qs_stat = re.findall(r'(q\d+)\s+(\((P\d+)\))?(\s+\(cos\d\))?\s+(\d+)\s+\/\s+(\d+)', qos_stat_text)
+        qos_status = {channel[0]: channel[2:] for channel in pattern_qs_stat}
+        for channel, status in qos_status.items():
+            qos_status[channel] = {}
+            qos_status[channel]['Prio'] = status[0]
+            qos_status[channel]['Count'] = status[2]
+            qos_status[channel]['Drops'] = status[3]
+    except:
+        logger.warning('QoS status was not parsed')
 
     logger.debug(f'QoS Status: {qos_status}')
 

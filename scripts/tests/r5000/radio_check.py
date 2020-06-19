@@ -360,10 +360,10 @@ def test(device):
         result.append('* Polling disabled. '
                       'It is strongly recommend to enabled it.')
 
-    result = list(set(result))
-    if result:
+    results = list(set(results))
+    if results:
         logger.info('Radio test failed')
-        return '\nRadio issues: \n' + '\n'.join(result)
+        return ('Radio issues', results)
     else:
         logger.info('Radio test passed')
         pass

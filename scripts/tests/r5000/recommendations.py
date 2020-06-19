@@ -51,6 +51,7 @@ def test(device):
     # Link flags
     links = device.radio_status['Links']
     links_old_fw = []
+    fw_change = False
     for link in links:
         pattern = search(r'(H\d{2})v((\d+\.){2}(\d+))', links[link]['Firmware']).group(2)
         if fw_type == 'TDMA':
@@ -65,16 +66,17 @@ def test(device):
                 if pattern:
                     path_latest = f'ftp://ftp.infinet.ru{pattern[0]}'
             links_old_fw.append(links[link]["Name"])
-    result.append(f'* The current installed firmware versions on the remote devices ({", ".join(links_old_fw)})'
-                  f' are old. Please update them. '
-                  f'The latest version ({fw_latest}) can be downloaded '
-                  f'from our FTP server ({path_latest}).')
+            fw_change = True
+    if fw_change is True:
+        result.append(f'* The current installed firmware versions on the remote devices ({", ".join(links_old_fw)})'
+                      f' are old. Please update them. '
+                      f'The latest version ({fw_latest}) can be downloaded '
+                      f'from our FTP server ({path_latest}).')
 
-
-    result = list(set(result))
-    if result:
+    results = list(set(results))
+    if results:
         logger.info('Recommendations test failed')
-        return '\nRecommendations: \n' + '\n'.join(result)
+        return ('Recommendations', results)
     else:
         logger.info('Recommendations test passed')
         pass

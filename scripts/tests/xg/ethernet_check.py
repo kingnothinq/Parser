@@ -7,14 +7,14 @@ from re import search
 def test(device):
     """Check Ethernet interfaces."""
 
-    result = []
+    results = []
 
     for interface in device.ethernet_status.keys():
 
         # CRC errors
         if int(device.ethernet_status[interface]['Rx CRC']) > 0 \
                 or int(device.ethernet_status[interface]['Tx CRC']) > 0:
-            result.append(f'* CRC Errors detected on the {interface} interface. '
+            results.append(f'CRC Errors detected on the {interface} interface. '
                           f'Please check patch-cords, cables, crimps, '
                           f'IDU, grounding, Ethernet ports.')
 
@@ -22,7 +22,7 @@ def test(device):
         if device.ethernet_status[interface]['Status'] == 'UP' \
                 and device.ethernet_status[interface]['Duplex'] != 'Full-duplex' \
                 and device.ethernet_status[interface]['Negotiation'] == 'Auto':
-            result.append(f'* The {interface} interface works in '
+            results.append(f'The {interface} interface works in '
                           f'the {device.ethernet_status[interface]["Duplex"]} mode. '
                           f'Please check it.')
 
@@ -45,11 +45,12 @@ def test(device):
         else:
             ld_previous = False
         if flap_counter > 4:
-            result.append(f'* The {flap_interface} interface is flapping. Please check it.')
+            results.append(f'The {flap_interface} interface is flapping. Please check it.')
 
-    if result:
+    result = list(set(result))
+    if results:
         logger.info('Ethernet test failed')
-        return '\nEthernet issues: \n' + '\n'.join(result)
+        return ('Ethernet issues', results)
     else:
         logger.info('Ethernet test passed')
         pass
