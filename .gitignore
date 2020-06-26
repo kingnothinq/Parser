@@ -1,7 +1,7 @@
 .git
 .idea
 __pycache__
-parser.log
+*.log
 test.pdf
 test.py
 /venv/*

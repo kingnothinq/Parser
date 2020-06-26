@@ -14,7 +14,7 @@ def test(device):
         # CRC errors
         if int(device.ethernet_status[interface]['Rx CRC']) > 0 \
             or int(device.ethernet_status[interface]['Tx CRC']) > 0:
-            result.append(f'* CRC Errors detected on the {interface} interface. '
+            result.append(f'CRC Errors detected on the {interface} interface. '
                           f'Please check patch-cords, cables, crimps, '
                           f'IDU, grounding, Ethernet ports.')
 
@@ -22,7 +22,7 @@ def test(device):
         if device.ethernet_status[interface]['Status'] == 'up' \
                 and device.ethernet_status[interface]['Duplex'] != 'Full' \
                 and device.ethernet_status[interface]['Negotiation'] == 'Auto':
-            result.append(f'* The {interface} interface works in '
+            result.append(f'The {interface} interface works in '
                           f'the {device.ethernet_status[interface]["Duplex"]}-duplex mode. '
                           f'Please check it.')
 
@@ -45,7 +45,7 @@ def test(device):
         else:
             ld_previous = False
         if flap_counter > 4:
-            result.append(f'* The {flap_interface} interface is flapping. '
+            result.append(f'The {flap_interface} interface is flapping. '
                           f'Please check it.')
 
     result = list(set(result))

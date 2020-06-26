@@ -69,7 +69,7 @@ def test(device):
     #Scrambling engine
     pattern = search(r'Scrambling engine overflow', device.dc_string)
     if pattern is not None:
-        result.append('* Hardware encryption module overflow. '
+        result.append('Hardware encryption module overflow. '
                       'Maximum number of connected CPEs is 62. '
                       'Please disable scrambling (CLI: "mint rf5.0 -scrambling").')
 

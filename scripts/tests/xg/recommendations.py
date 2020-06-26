@@ -24,7 +24,7 @@ def test(device):
     pattern = findall(r'(\d{2}):(\d{2}):(\d{2})', device.uptime)
     if 'day' not in device.uptime:
         if int(pattern[0][0]) <= 0 and int(pattern[0][1]) < 15:
-            result.append(f'* Uptime is too short ({device.uptime}). '
+            result.append(f'Uptime is too short ({device.uptime}). '
                           'It is recommended to wait more in order to collect more precise statistics.')
 
     # New firmware
