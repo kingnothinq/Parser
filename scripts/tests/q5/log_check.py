@@ -30,7 +30,7 @@ def test(device):
     result = list(set(result))
     if result:
         logger.info('Log issues test failed')
-        return '\nLog and other service messages issues: \n' + '\n'.join(result)
+        return ('Log and other service messages issues', result)
     else:
         logger.info('Log issues test passed')
         pass

@@ -22,10 +22,10 @@ def test(device):
             result.append(f'* Perhaps there is a loop in the switch group {id}. '
                           f'Please check it.')
 
-    results = list(set(results))
-    if results:
+    result = list(set(result))
+    if result:
         logger.info('Switch test failed')
-        return ('Switch test', results)
+        return ('Switch test', result)
     else:
         logger.info('Switch test passed')
         pass

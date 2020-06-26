@@ -290,7 +290,7 @@ def test(device):
     result = list(set(result))
     if result:
         logger.info('Radio test failed')
-        return '\nRadio issues: \n' + '\n'.join(result)
+        return ('Radio issues', result)
     else:
         logger.info('Radio test passed')
         pass

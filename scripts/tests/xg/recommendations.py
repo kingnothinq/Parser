@@ -8,23 +8,24 @@ from re import findall, search
 def test(device):
     """Not important or not necessary recommendations."""
 
-    results = []
+    result = []
 
     # Traffic prioritization enabled
     if device.settings['Traffic prioritization'] == 'Enabled':
-        results.append('Traffic prioritization is not an exact QoS feature. '
+        result.append('Traffic prioritization is not an exact QoS feature. '
                       'It is recommended to disable it due the bug (XG-1164).')
 
     # Antenna gain
     if search(r'Antenna Gain not found in license', device.dc_string) is not None:
-        results.append('Antenna Gain not found in the license. '
+        result.append('Antenna Gain not found in the license. '
                       'Please set this parameter via CLI (xg -antenna-gain <gain_dBm>).')
 
     # Uptime
     pattern = findall(r'(\d{2}):(\d{2}):(\d{2})', device.uptime)
-    if int(pattern[0][0]) <= 0 and int(pattern[0][1]) < 15:
-        results.append(f'Uptime is too short ({device.uptime}). '
-                      f'It is recommended to wait more in order to collect more precise statistics.')
+    if 'day' not in device.uptime:
+        if int(pattern[0][0]) <= 0 and int(pattern[0][1]) < 15:
+            result.append(f'* Uptime is too short ({device.uptime}). '
+                          'It is recommended to wait more in order to collect more precise statistics.')
 
     # New firmware
     try:
@@ -47,7 +48,7 @@ def test(device):
                 pattern = list(filter(lambda x: fw_latest in x, fw))
                 if len(pattern) > 0:
                     path_latest = f'ftp://ftp.infinet.ru{pattern[0]}'
-            results.append(f'The current firmware version ({fw_current}) is old. '
+            result.append(f'The current firmware version ({fw_current}) is old. '
                           f'Please update it. '
                           f'The latest version ({fw_latest}) can be downloaded '
                           f'from our FTP server ({path_latest}).')
@@ -61,10 +62,10 @@ def test(device):
     finally:
         pass
 
-    results = list(set(results))
-    if results:
+    result = list(set(result))
+    if result:
         logger.info('Recommendations test failed')
-        return ('Recommendations', results)
+        return ('Recommendations', result)
     else:
         logger.info('Recommendations test passed')
         pass

@@ -24,60 +24,82 @@ def jira(device, tests):
     downlink = radio_status['Downlink']
     uplink = radio_status['Uplink']
     ethernet_status = device.ethernet_status['ge0']
-    tests = '\n'.join(tests)
+    message = []
 
-    message = f'''
-    *General*
-    |*Serial Number*|{device.serial_number}|
-    |*Model*|{device.model}|
-    |*Firmware version*|{device.firmware}|
+    # General
+    message.append(f'*General*\n'
+                   f'| *Serial Number* | {device.serial_number} |\n'
+                   f'| *Model* | {device.model} |\n'
+                   f'| *Firmware version* | {device.firmware} |\n')
 
-    *Settings*
-    |*Role*|{str.capitalize(settings["Role"])}|
-    |*Frequencies*| DL - {settings["DL Frequency"]} MHz
-    UL - {settings["UL Frequency"]} MHz
-    |*Bandwidth*|{settings["Bandwidth"]} MHz|
-    |*Frame size*|{settings["Frame size"]} ms|
-    |*Guard interval*|{settings["Guard Interval"]}|
-    |*Tx Power*|{settings["Tx Power"]} dBm|
-    |*ATPC*|{settings["ATPC"]}|
-    |*AMC Strategy*|{str.capitalize(settings["AMC Strategy"])}|
-    |*Max MCS*| DL {settings["Max DL MCS"]}
-    UL - {settings["Max UL MCS"]}|
-    |*DL/UL Ratio*|{settings["DL/UL Ratio"]} %|
-    |*ARQ*|{settings["ARQ"]}|
-    |*DFS*|{settings["DFS"]}|
+    # Settings
+    message.append(f'\n*Settings*\n'
+                   f'| *Role* | {str.capitalize(settings["Role"])} |  |  |  |\n'
+                   f'| *Frequencies* | DL - {settings["DL Frequency"]} MHz'
+                   f' UL - {settings["UL Frequency"]} MHz |  '
+                   f'| *Tx Power* | {settings["Tx Power"]} dBm |\n'
+                   f'| *DFS* | {settings["DFS"]} |  '
+                   f'| *ATPC* | {settings["ATPC"]} |\n'
+                   f'| *Bandwidth* | {settings["Bandwidth"]} MHz |  '     
+                   f'| *AMC Strategy* | {str.capitalize(settings["AMC Strategy"])} |\n'
+                   f'| *Frame size* | {settings["Frame size"]} ms |  '
+                   f'| *Max MCS* | DL - {settings["Max DL MCS"]} '
+                   f' UL - {settings["Max UL MCS"]} |\n'
+                   f'| *Guard interval* | {settings["Guard Interval"]} |  '
+                   f'| *ARQ* | {settings["ARQ"]} |\n')
+    if settings['ADLP'] == 'Enabled':
+        message.append(f'| *DL/UL Ratio* | {settings["DL/UL Ratio"]} % (Auto) |  |  |  |\n')
+    else:
+        message.append(f'| *DL/UL Ratio* | {settings["DL/UL Ratio"]} % |  |  |  |\n')
 
-    *Radio status*
-    |*Link status*|{radio_status["Link status"]}| | | |
-    |*Measured Distance*|{radio_status["Measured Distance"]}| | | |
-    |---------------------------|---------------------------|---------------------------|---------------------------|---------------------------|
-    |*Side*|Master|*Role*|Uplink| |
-    | |_Carrier 0_|_Carrier 0_| | |
-    |*Tx Frequency*| {downlink["Frequency"]}| (to Slave)| | |
-    | |_Stream 0_|_Stream 1_| | |
-    |*Tx Power*| {uplink["Stream 0"]["Tx Power"]}| {uplink["Stream 1"]["Tx Power"]}| (to Slave)| |
-    |*Rx RSSI*| {uplink["Stream 0"]["RSSI"]}| {uplink["Stream 1"]["RSSI"]}| (to Master)| |
-    |*Rx EVM*| {uplink["Stream 0"]["EVM"]}| {uplink["Stream 1"]["EVM"]}| (to Master)| |
-    |*Rx MCS*| {uplink["Stream 0"]["MCS"]}| {uplink["Stream 1"]["MCS"]}| (to Master)| |
-    |*Rx ARQ ratio*| {uplink["Stream 0"]["ARQ ratio"]}| {uplink["Stream 1"]["ARQ ratio"]}| (to Master)| |
-    |---------------------------|---------------------------|---------------------------|---------------------------|---------------------------|
-    |*Side*|Slave|*Role*|Downlink| |
-    | |_Carrier 0_|_Carrier 0_| | |
-    |*Tx Frequency*| {uplink["Frequency"]}| (to Master)| | |
-    | |_Stream 0_|_Stream 1_| | |
-    |*Tx Power*| {downlink["Stream 0"]["Tx Power"]}| {downlink["Stream 1"]["Tx Power"]}| (to Master)| |
-    |*Rx RSSI*| {downlink["Stream 0"]["RSSI"]}| {downlink["Stream 1"]["RSSI"]}| (to Slave)| |
-    |*Rx EVM*| {downlink["Stream 0"]["EVM"]}| {downlink["Stream 1"]["EVM"]}| (to Slave)| |
-    |*Rx MCS*| {downlink["Stream 0"]["MCS"]}| {downlink["Stream 1"]["MCS"]}| (to Slave)| |
-    |*Rx ARQ ratio*| {downlink["Stream 0"]["ARQ ratio"]}| {downlink["Stream 1"]["ARQ ratio"]}| (to Slave)| |
+    # Radio status
+    message.append(f'\n*Radio status*\n'
+                   f'| *Link status* | {radio_status["Link status"]} |  |  |  |  |\n'
+                   f'| *Measured Distance*  | {radio_status["Measured Distance"]} |  |  |  |  |\n'
+                   f'|  |  |  |  |  |  |\n')
+    if settings["Role"] == 'master':
+        message.append(f'| *Role* | Master (Local) |  |  | Slave (Remote)|  |\n')
+    else:
+        message.append(f'| *Role* | Master (Remote) |  |  | Slave (Local)|  |\n')
+    message.append(f'|  | +To slave+ |  |  | +To master+ |  |\n'
+                   f'| *Tx Frequency* | {downlink["Frequency"]} MHz |  |  '
+                   f'| {uplink["Frequency"]} MHz |  |\n'
+                   f'|  | _Stream 0_ | _Stream 1_ |  | _Stream 0_ | _Stream 1_ |\n'
+                   f'| *Tx Power* | {downlink["Stream 0"]["Tx Power"]} dBm '
+                   f'| {downlink["Stream 1"]["Tx Power"]} dBm |  '
+                   f'| {uplink["Stream 0"]["Tx Power"]} dBm '
+                   f'| {uplink["Stream 1"]["Tx Power"]} dBm  |\n'
+                   f'|  | +From slave (Uplink)+ |  |  | +From master (Downlink)+ |  |\n'
+                   f'| *Rx RSSI* | {uplink["Stream 0"]["RSSI"]} dBm '
+                   f'| {uplink["Stream 1"]["RSSI"]} dBm |  '
+                   f'| {downlink["Stream 0"]["RSSI"]} dBm '
+                   f'| {downlink["Stream 1"]["RSSI"]} dBm |\n'
+                   f'| *Rx EVM* | {uplink["Stream 0"]["EVM"]} dB '
+                   f'| {uplink["Stream 1"]["EVM"]} dB |  '
+                   f'| {downlink["Stream 0"]["EVM"]} dB  '
+                   f'| {downlink["Stream 1"]["EVM"]} dB |\n'
+                   f'| *Rx MCS* | {uplink["Stream 0"]["MCS"]} '
+                   f'| {uplink["Stream 1"]["MCS"]} |  '
+                   f'| {downlink["Stream 0"]["MCS"]} '
+                   f'| {downlink["Stream 1"]["MCS"]} |\n'
+                   f'| *Rx ARQ* | {uplink["Stream 0"]["ARQ ratio"]} % '
+                   f'| {uplink["Stream 1"]["ARQ ratio"]} % |  '
+                   f'| {downlink["Stream 0"]["ARQ ratio"]} % '
+                   f'| {downlink["Stream 0"]["ARQ ratio"]} %|\n')
 
-    *Physical interfaces status*
-    |*Ge0*|{ethernet_status["Status"]}|
+    # Physical interfaces status
+    message.append(f'\n*Physical interfaces status*\n'
+                   f'| *Ge0* | {ethernet_status["Status"]} |\n')
 
-    *Issues and recommendations*
-    {tests}
-    '''
+    # Issues and recommendations
+    message.append(f'\n*Issues and recommendations*\n')
+    temp = []
+    for test in tests:
+        temp.append(f'| *{test[0]}* |')
+        for result in test[1]:
+            temp.append(f' * {result} \n')
+        temp.append(' |\n')
+    message.append(' '.join(temp))
 
     return device.model, device.family, device.subfamily, device.serial_number, device.firmware, message
 

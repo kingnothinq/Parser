@@ -170,7 +170,7 @@ def parse(dc_string, dc_list):
     except:
         logger.warning('General info was not parsed')
 
-    logger.debug(f'General info: Firmware - {firmware}, Model - {model}, Subfamily- {subfamily}, '
+    logger.debug(f'General info: Firmware - {firmware}, Model - {model}, Subfamily - {subfamily}, '
                  f'SN - {serial_number}, Uptime - {uptime}, Last reboot reason - {reboot_reason}')
 
     # Settings
@@ -179,7 +179,7 @@ def parse(dc_string, dc_list):
                 'Frame size': None, 'DL/UL Ratio': None, 'Tx Power': None, 'Control Block Boost': 'Disabled',
                 'ATPC': 'Disabled', 'AMC Strategy': None, 'Max MCS': None, 'Traffic prioritization': 'Disabled',
                 'IDFS': 'Disabled', 'ADLP': 'Disabled',
-                'Interface Status': {'ge0': None, 'ge1': None, 'sfp': None, 'radio': None}}
+                'Interface Status': {'ge0': 'down', 'ge1': 'down', 'sfp': 'down', 'radio': 'down'}}
 
     try:
         # Find "conf show"
@@ -204,10 +204,7 @@ def parse(dc_string, dc_list):
         pattern_set_mcs = re.compile(r'xg -max-mcs (\d+)')
         pattern_set_idfs = re.compile(r'xg -idfs-enable (1)')
         pattern_set_tp = re.compile(r'xg -traffic-prioritization (1)')
-        pattern_set_ge0 = re.compile(r'ifc ge0\s+(media\s([\w\d-]+)\s)?(mtu\s\d+\s)?(\w+)')
-        pattern_set_ge1 = re.compile(r'ifc ge1\s+(media\s([\w\d-]+)\s)?(mtu\s\d+\s)?(\w+)')
-        pattern_set_sfp = re.compile(r'ifc sfp\s+(media\s([\w\d-]+)\s)?(mtu\s\d+\s)?(\w+)')
-        pattern_set_radio = re.compile(r'ifc radio\s+(mtu\s\d+\s)?(\w+)')
+        pattern_set_ifc = re.compile(r'ifc (ge\d|sfp|radio)')
         pattern_set_adlp = re.compile(r'-tdd-profile-auto-switching (1)')
         pattern_set_dlp = re.compile(r'DL/UL Ratio\s+\|(\d+/\d+)')
 
@@ -266,17 +263,10 @@ def parse(dc_string, dc_list):
             if pattern_set_tp.search(line):
                 settings['Traffic prioritization'] = 'Enabled'
 
-            if pattern_set_ge0.search(line):
-                settings['Interface Status']['ge0'] = pattern_set_ge0.search(line).group(4)
-
-            if pattern_set_ge1.search(line):
-                settings['Interface Status']['ge1'] = pattern_set_ge1.search(line).group(4)
-
-            if pattern_set_sfp.search(line):
-                settings['Interface Status']['sfp'] = pattern_set_sfp.search(line).group(4)
-
-            if pattern_set_radio.search(line):
-                settings['Interface Status']['radio'] = pattern_set_radio.search(line).group(2)
+            if pattern_set_ifc.search(line):
+                interface = pattern_set_ifc.search(line).group(1)
+                if 'up' in line:
+                    settings['Interface Status'][interface] = 'up'
 
             if pattern_set_adlp.search(line):
                 settings['ADLP'] = 'Enabled'
@@ -320,11 +310,11 @@ def parse(dc_string, dc_list):
         pattern_rs_freq = re.compile(r'(\d+)( MHz)?')
         pattern_rs_accfer = re.compile(r'\(([\.\d]+)%\)')
         pattern_rs_pwr = re.compile(r'([\.\-\d]+)')
-        pattern_rs_gain = re.compile(r'([\.\-\d]+) dB')
+        pattern_rs_gain = re.compile(r'([\.\-\d]+)')
         pattern_rs_mcs = re.compile(r'((QPSK|QAM)(\d+)? \d+/\d+) \(\d+\)')
-        pattern_rs_cinr = re.compile(r'([\.\-\d]+) dB')
+        pattern_rs_cinr = re.compile(r'([\.\-\d]+)')
         pattern_rs_rssi = re.compile(r'([\.\-\d]+) dBm')
-        pattern_rs_crosstalk = re.compile(r'([\.\-\d]+) dB')
+        pattern_rs_crosstalk = re.compile(r'([\.\-\d]+)')
         pattern_rs_tber = re.compile(r'\(([\.\d]+)%\)')
 
         if settings['Role'] == 'master':
@@ -442,15 +432,23 @@ def parse(dc_string, dc_list):
                     else:
                         local[carrier]['Stream 0']['Errors Ratio'] = pattern_rs_tber.findall(line)[0]
                         local[carrier]['Stream 1']['Errors Ratio'] = pattern_rs_tber.findall(line)[1]
-
+                elif line.startswith('|    |Acc TBER'):
+                    if len(pattern_rs_tber.findall(line)) == 4:
+                        local[carrier]['Stream 0']['Errors Ratio'] = pattern_rs_tber.findall(line)[0]
+                        local[carrier]['Stream 1']['Errors Ratio'] = pattern_rs_tber.findall(line)[1]
+                        remote[carrier]['Stream 0']['Errors Ratio'] = pattern_rs_tber.findall(line)[2]
+                        remote[carrier]['Stream 1']['Errors Ratio'] = pattern_rs_tber.findall(line)[3]
+                    else:
+                        local[carrier]['Stream 0']['Errors Ratio'] = pattern_rs_tber.findall(line)[0]
+                        local[carrier]['Stream 1']['Errors Ratio'] = pattern_rs_tber.findall(line)[1]
     except:
         logger.warning('Radio Status was not parsed')
 
     logger.debug(f'Radio Status: {radio_status}')
 
     # Ethernet Status
-    ethernet_statuses = {'Status': None, 'Speed': None, 'Duplex': None, 'Negotiation': None, 'Rx CRC': None,
-                         'Tx CRC': None}
+    ethernet_statuses = {'Status': 'down', 'Speed': None, 'Duplex': None, 'Negotiation': None, 'Rx CRC': 0,
+                         'Tx CRC': 0}
     ethernet_status = {'ge0': ethernet_statuses, 'ge1': deepcopy(ethernet_statuses), 'sfp': deepcopy(ethernet_statuses)}
 
     try:
@@ -487,7 +485,7 @@ def parse(dc_string, dc_list):
                     interface = pattern_es_ifc.search(line).group(1)
 
                 if pattern_es_status.search(line):
-                    ethernet_status[interface]['Status'] = pattern_es_status.search(line).group(1)
+                    ethernet_status[interface]['Status'] = str.lower(pattern_es_status.search(line).group(1))
 
                 if pattern_es_speed.search(line):
                     ethernet_status[interface]['Speed'] = pattern_es_speed.search(line).group(1)
@@ -528,6 +526,7 @@ def parse(dc_string, dc_list):
 
     logger.debug(f'Panic: {panic}')
 
+    # Prepare result to create a class instance
     result = (model, subfamily, serial_number, firmware,
               uptime, reboot_reason, dc_list, dc_string,
               settings, radio_status, ethernet_status, panic)

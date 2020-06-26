@@ -11,10 +11,10 @@ def test(device):
     result = []
 
     pattern = findall(r'(\d{2}):(\d{2}):(\d{2})', device.uptime)
-    if int(pattern[0][0]) <= 0 and int(pattern[0][1]) < 15:
-        result.append('* Uptime is too short ({}). '
-                      'It is recommended to wait more in order to collect more precise statistics.'.format(
-            device.uptime))
+    if 'day' not in device.uptime:
+        if int(pattern[0][0]) <= 0 and int(pattern[0][1]) < 15:
+            result.append(f'* Uptime is too short ({device.uptime}). '
+                          'It is recommended to wait more in order to collect more precise statistics.')
 
     # New firmware
     ftp = FTP('ftp.infinet.ru')
@@ -73,10 +73,10 @@ def test(device):
                       f'The latest version ({fw_latest}) can be downloaded '
                       f'from our FTP server ({path_latest}).')
 
-    results = list(set(results))
-    if results:
+    result = list(set(result))
+    if result:
         logger.info('Recommendations test failed')
-        return ('Recommendations', results)
+        return ('Recommendations', result)
     else:
         logger.info('Recommendations test passed')
         pass

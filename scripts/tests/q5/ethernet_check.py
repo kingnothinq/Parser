@@ -17,10 +17,10 @@ def test(device):
                       'IDU, grounding, Ethernet ports.')
 
     # Ethernet statuses
-    if ethernet['Status'] == 'UP' \
-            and ethernet['Duplex'] != 'Full-duplex' \
+    if ethernet['Status'] == 'up' \
+            and ethernet['Duplex'] != 'Full' \
             and ethernet['Negotiation'] == 'Auto':
-        result.append(f'* The ge0 interface works in the {ethernet["Duplex"]} mode. '
+        result.append(f'* The ge0 interface works in the {ethernet["Duplex"]}-duplex mode. '
                       f'Please check it.')
 
     # Wire link flapping
@@ -60,7 +60,7 @@ def test(device):
     result = list(set(result))
     if result:
         logger.info('Ethernet test failed')
-        return '\nEthernet issues: \n' + '\n'.join(result)
+        return ('Ethernet issues', result)
     else:
         logger.info('Ethernet test passed')
         pass

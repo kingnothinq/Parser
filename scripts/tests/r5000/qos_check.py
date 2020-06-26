@@ -33,10 +33,10 @@ def test(device):
     result.append(f'* Packet drops detected in the queues {", ".join(channel_drops)} of the radio module. '
                   f'Please check the QoS settings.')
 
-    results = list(set(results))
-    if results:
+    result = list(set(result))
+    if result:
         logger.info('QoS test failed')
-        return ('QoS issues', results)
+        return ('QoS issues', result)
     else:
         logger.info('QoS test passed')
         pass

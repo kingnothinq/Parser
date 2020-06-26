@@ -211,7 +211,7 @@ def parse(dc_string, dc_list):
     except:
         logger.warning('General info was not parsed')
 
-    logger.debug(f'General info: Firmware - {firmware}, Model - {model}, Subfamily- {subfamily}, '
+    logger.debug(f'General info: Firmware - {firmware}, Model - {model}, Subfamily - {subfamily}, '
                  f'SN - {serial_number}, Uptime - {uptime}, Last reboot reason - {reboot_reason}')
 
     # Settings
@@ -223,7 +223,7 @@ def parse(dc_string, dc_list):
     switch_group_settings = {'Order': None, 'Flood': 'Disabled', 'STP': 'Disabled', 'Management': 'Disabled',
                              'Mode': 'Normal', 'Interfaces': None, 'Rules': None}
     switch_settings = {'Status': 'Disabled', 'Switch Group': switch_group_settings}
-    interfaces_settings = {'eth0': None, 'eth1': None, 'rf5.0': None}
+    interfaces_settings = {'eth0': 'down', 'eth1': 'down', 'rf5.0': 'down'}
     qos_settings = {'Options': None, 'Rules': None, 'License': None}
     settings = {'Radio': radio_settings, 'Switch': switch_settings, 'Interface Status': interfaces_settings,
                 'QoS': qos_settings}
@@ -527,11 +527,12 @@ def parse(dc_string, dc_list):
         pattern_end = re.compile(r'#QoS manager')
         ifc_settings_text = cut_text(settings_text, pattern_start, pattern_end, 1, -1)
 
-        pattern_set_ifc = re.compile(r'ifc (eth\d+|rf5\.0)\s+(media\s([\w\d\-]+)\s)?(mtu\s\d+\s)?(up|down)')
+        pattern_set_ifc = re.compile(r'ifc (eth\d+|rf5\.0)')
         for line in ifc_settings_text:
             if pattern_set_ifc.search(line):
                 interface = pattern_set_ifc.search(line).group(1)
-                settings['Interface Status'][interface] = pattern_set_ifc.search(line).group(5)
+                if 'up' in line:
+                    settings['Interface Status'][interface] = 'up'
 
     except:
         logger.warning('Interface Settings were not parsed')
@@ -780,8 +781,8 @@ def parse(dc_string, dc_list):
     logger.debug(f'Radio Status: {radio_status}')
 
     # Ethernet Status
-    ethernet_statuses = {'Status': None, 'Speed': None, 'Duplex': None, 'Negotiation': None, 'Rx CRC': None,
-                         'Tx CRC': None}
+    ethernet_statuses = {'Status': 'down', 'Speed': None, 'Duplex': None, 'Negotiation': None, 'Rx CRC': 0,
+                         'Tx CRC': 0}
     ethernet_status = {'eth0': ethernet_statuses, 'eth1': deepcopy(ethernet_statuses)}
 
     try:
@@ -814,7 +815,7 @@ def parse(dc_string, dc_list):
                     interface = pattern_es_ifc.search(line).group(1)
 
                 if pattern_es_status.search(line):
-                    ethernet_status[interface]['Status'] = pattern_es_status.search(line).group(1)
+                    ethernet_status[interface]['Status'] = str.lower(pattern_es_status.search(line).group(1))
 
                 if pattern_es_speed.search(line):
                     ethernet_status[interface]['Speed'] = pattern_es_speed.search(line).group(1)
@@ -877,18 +878,22 @@ def parse(dc_string, dc_list):
         pattern_end = re.compile(r'Phy errors: total \d+')
         qos_stat_text = ''.join(cut_text(dc_list, pattern_start, pattern_end, 0, 1))
 
-        pattern_qs_stat = re.findall(r'(q\d+)\s+(\((P\d+)\))?(\s+\(cos\d\))?\s+(\d+)\s+\/\s+(\d+)', qos_stat_text)
+        pattern_qs_stat = re.findall(r'(q\d+)\s+(\((P\d+)\))?(\s+\(cos\d\))?\s+(\d+)\s+\/\s+(\d+)?', qos_stat_text)
         qos_status = {channel[0]: channel[2:] for channel in pattern_qs_stat}
         for channel, status in qos_status.items():
             qos_status[channel] = {}
             qos_status[channel]['Prio'] = status[0]
             qos_status[channel]['Count'] = status[2]
-            qos_status[channel]['Drops'] = status[3]
+            if status[3] != '':
+                qos_status[channel]['Drops'] = status[3]
+            else:
+                qos_status[channel]['Drops'] = '777'
     except:
         logger.warning('QoS status was not parsed')
 
     logger.debug(f'QoS Status: {qos_status}')
 
+    # Prepare result to create a class instance
     result = (model, subfamily, serial_number, firmware,
               uptime, reboot_reason, dc_list, dc_string,
               settings, radio_status, ethernet_status,

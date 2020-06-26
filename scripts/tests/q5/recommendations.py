@@ -23,9 +23,10 @@ def test(device):
 
     # Uptime
     pattern = findall(r'(\d{2}):(\d{2}):(\d{2})', device.uptime)
-    if int(pattern[0][0]) <= 0 and int(pattern[0][1]) < 15:
-        result.append(f'* Uptime is too short ({device.uptime}). '
-                      f'It is recommended to wait more in order to collect more precise statistics.')
+    if 'day' not in device.uptime:
+        if int(pattern[0][0]) <= 0 and int(pattern[0][1]) < 15:
+            result.append(f'* Uptime is too short ({device.uptime}). '
+                          'It is recommended to wait more in order to collect more precise statistics.')
 
     # New firmware
     try:
@@ -66,7 +67,7 @@ def test(device):
     result = list(set(result))
     if result:
         logger.info('Recommendations test failed')
-        return '\nRecommendations: \n' + '\n'.join(result)
+        return ('Recommendations', result)
     else:
         logger.info('Recommendations test passed')
         pass
