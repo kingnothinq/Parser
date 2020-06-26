@@ -20,7 +20,7 @@ def test(device):
         qos_lic_tx = [int(pattern_2.group(1)), int(pattern_2.group(2))]
         qos_lic = [qos_lic_rx[0] + qos_lic_tx[0], qos_lic_rx[1] + qos_lic_tx[1]]
         if qos_lic[1]:
-            result.append(f' Packet drops ({qos_lic[1]}) caused by the license restriction detected. '
+            result.append(f'Packet drops ({qos_lic[1]}) caused by the license restriction detected. '
                           f'Please upgrade the license to unlock full capacity. '
                           f'The current limitation is {qos_lic[0]} kbps.')
 
@@ -30,7 +30,7 @@ def test(device):
             if status['Prio']:
                 channel = f'{channel} ({status["Prio"]})'
             channel_drops.append(channel)
-    result.append(f' Packet drops detected in the queues {", ".join(channel_drops)} of the radio module. '
+    result.append(f'Packet drops detected in the queues {", ".join(channel_drops)} of the radio module. '
                   f'Please check the QoS settings.')
 
     result = list(set(result))
