@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import unicodedata
 import logging
 from time import time
 
@@ -35,7 +36,7 @@ def jira(device, tests):
     # Settings
     message.append(f'\n*Settings*\n'
                    f'| *Role* | {str.capitalize(settings["Role"])} |  |  |  |\n'
-                   f'| *Frequencies* | DL - {settings["DL Frequency"]} MHz'
+                   f'| *Frequencies* | DL - {settings["DL Frequency"]} MHz\n'
                    f' UL - {settings["UL Frequency"]} MHz |  '
                    f'| *Tx Power* | {settings["Tx Power"]} dBm |\n'
                    f'| *DFS* | {settings["DFS"]} |  '
@@ -43,7 +44,7 @@ def jira(device, tests):
                    f'| *Bandwidth* | {settings["Bandwidth"]} MHz |  '     
                    f'| *AMC Strategy* | {str.capitalize(settings["AMC Strategy"])} |\n'
                    f'| *Frame size* | {settings["Frame size"]} ms |  '
-                   f'| *Max MCS* | DL - {settings["Max DL MCS"]} '
+                   f'| *Max MCS* | DL - {settings["Max DL MCS"]} \n'
                    f' UL - {settings["Max UL MCS"]} |\n'
                    f'| *Guard interval* | {settings["Guard Interval"]} |  '
                    f'| *ARQ* | {settings["ARQ"]} |\n')
@@ -85,7 +86,7 @@ def jira(device, tests):
                    f'| *Rx ARQ* | {uplink["Stream 0"]["ARQ ratio"]} % '
                    f'| {uplink["Stream 1"]["ARQ ratio"]} % |  '
                    f'| {downlink["Stream 0"]["ARQ ratio"]} % '
-                   f'| {downlink["Stream 0"]["ARQ ratio"]} %|\n')
+                   f'| {downlink["Stream 0"]["ARQ ratio"]} % |\n')
 
     # Physical interfaces status
     message.append(f'\n*Physical interfaces status*\n'
@@ -100,6 +101,11 @@ def jira(device, tests):
             temp.append(f' * {result} \n')
         temp.append(' |\n')
     message.append(' '.join(temp))
+
+    temp = []
+    for line in message:
+        temp.append(unicodedata.normalize('NFKD', line))
+    message = temp
 
     return device.model, device.family, device.subfamily, device.serial_number, device.firmware, message
 

@@ -29,46 +29,46 @@ def test(device):
             rssi = float(rssi)
 
             if position == 'downlink' and settings['Role'] == 'master' and rssi > -40:
-                result.append(f'* RSSI is {rssi} dBm in the {stream_name} on the slave device. '
+                result.append(f'RSSI is {rssi} dBm in the {stream_name} on the slave device. '
                               f'Please decrease Tx power on the master device '
                               f'in order to avoid damage to the radio module. '
                               f'The recommended RSSI is -55 dBm. '
                               f'The current Tx power set as {settings["Tx Power"]} dBm.')
             elif position == 'downlink' and settings['Role'] == 'slave' and rssi > -40:
-                result.append(f'* RSSI is {rssi} dBm in the {stream_name} on the slave device. '
+                result.append(f'RSSI is {rssi} dBm in the {stream_name} on the slave device. '
                               f'Please decrease Tx power on the master device '
                               f'in order to avoid damage to the radio module. '
                               f'The recommended RSSI is -55 dBm.')
             elif position == 'uplink' and settings['Role'] == 'master' and rssi > -40:
-                result.append(f'* RSSI is {rssi} dBm in the {stream_name} on the master device. '
+                result.append(f'RSSI is {rssi} dBm in the {stream_name} on the master device. '
                               f'Please decrease Tx power on the slave device '
                               f'in order to avoid damage to the radio module. '
                               f'The recommended RSSI is -55 dBm.')
             elif position == 'uplink' and settings['Role'] == 'slave' and rssi > -40:
-                result.append(f'* RSSI is {rssi} dBm in the {stream_name} on the master device. '
+                result.append(f'RSSI is {rssi} dBm in the {stream_name} on the master device. '
                               f'Please decrease Tx power on the slave device '
                               f'in order to avoid damage to the radio module. '
                               f'The recommended RSSI is -55 dBm. '
                               f'The current Tx power set as {settings["Tx Power"]} dBm.')
 
             elif position == 'downlink' and settings['Role'] == 'master' and rssi < -80:
-                result.append(f'* RSSI is {rssi} dBm in the {stream_name} on the slave device. '
+                result.append(f'RSSI is {rssi} dBm in the {stream_name} on the slave device. '
                               f'Please increase Tx power or improve alignment '
                               f'on the master device in order to reach better signal. '
                               f'The recommended RSSI is -55 dBm. '
                               f'The current Tx power set as {settings["Tx Power"]} dBm.')
             elif position == 'downlink' and settings['Role'] == 'slave' and rssi < -80:
-                result.append(f'* RSSI is {rssi} dBm in the {stream_name} on the slave device. '
+                result.append(f'RSSI is {rssi} dBm in the {stream_name} on the slave device. '
                               f'Please increase Tx power or improve alignment '
                               f'on the master device in order to reach better signal. '
                               f'The recommended RSSI is -55 dBm.')
             elif position == 'uplink' and settings['Role'] == 'master' and rssi < -80:
-                result.append(f'* RSSI is {rssi} dBm in the {stream_name} on the master device. '
+                result.append(f'RSSI is {rssi} dBm in the {stream_name} on the master device. '
                               f'Please increase Tx power or improve alignment '
                               f'on the slave device in order to reach better signal. '
                               f'The recommended RSSI is -55 dBm.')
             elif position == 'uplink' and settings['Role'] == 'slave' and rssi < -80:
-                result.append(f'* RSSI is {rssi} dBm in the {stream_name} on the master device. '
+                result.append(f'RSSI is {rssi} dBm in the {stream_name} on the master device. '
                               f'Please increase Tx power or improve alignment '
                               f'on the slave device in order to reach better signal. '
                               f'The recommended RSSI is -55 dBm.'
@@ -86,7 +86,7 @@ def test(device):
             evm = float(evm)
 
             if position == 'downlink' and settings['Role'] == 'master' and evm > -10:
-                result.append(f'* EVM is {evm} dB in the {stream_name} on the slave device. '
+                result.append(f'EVM is {evm} dB in the {stream_name} on the slave device. '
                               f'The quality of the signal is very low. '
                               f'Only low-level modulations are available. '
                               f'Please improve the quality of the signal to reach better modulations. '
@@ -99,7 +99,7 @@ def test(device):
                               f'in order to improve the sensitivity of the radio module. '
                               f'The current bandwidth is {settings["Bandwidth"]} MHz.')
             elif position == 'downlink' and settings['Role'] == 'slave' and evm > -10:
-                result.append(f'* EVM is {evm} dB in the {stream_name} on the slave device. '
+                result.append(f'EVM is {evm} dB in the {stream_name} on the slave device. '
                               f'The quality of the signal is very low. '
                               f'Only low-level modulations are available. '
                               f'Please improve the quality of the signal to reach better modulations. '
@@ -110,7 +110,7 @@ def test(device):
                               f'3) Reduce bandwidth on the master device '
                               f'in order to improve the sensitivity of the radio module. ')
             elif position == 'uplink' and settings['Role'] == 'master' and evm > -10:
-                result.append(f'* EVM is {evm} dB in the {stream_name} on the master device. '
+                result.append(f'EVM is {evm} dB in the {stream_name} on the master device. '
                               f'The quality of the signal is very low. '
                               f'Only low-level modulations are available. '
                               f'Please improve the quality of the signal to reach better modulations. '
@@ -122,7 +122,7 @@ def test(device):
                               f'in order to improve the sensitivity of the radio module. '
                               f'The current bandwidth is {settings["Bandwidth"]} MHz. ')
             elif position == 'uplink' and settings['Role'] == 'slave' and evm > -10:
-                result.append(f'* EVM is {evm} dB in the {stream_name} on the master device. '
+                result.append(f'EVM is {evm} dB in the {stream_name} on the master device. '
                               f'The quality of the signal is very low. '
                               f'Only low-level modulations are available. '
                               f'Please improve the quality of the signal to reach better modulations. '
@@ -135,7 +135,7 @@ def test(device):
                               f'in order to improve the sensitivity of the radio module. ')
 
             elif position == 'downlink' and settings['Role'] == 'master' and evm > -15:
-                result.append(f'* EVM is {evm} dB in the {stream_name} on the slave device. '
+                result.append(f'EVM is {evm} dB in the {stream_name} on the slave device. '
                               f'The quality of the signal is very low. '
                               f'Only middle-level modulations are available. '
                               f'Please improve the quality of the signal to reach better modulations. '
@@ -148,7 +148,7 @@ def test(device):
                               f'in order to improve the sensitivity of the radio module. '
                               f'The current bandwidth is {settings["Bandwidth"]} MHz. ')
             elif position == 'downlink' and settings['Role'] == 'slave' and evm > -15:
-                result.append(f'* EVM is {evm} dB in the {stream_name} on the slave device. '
+                result.append(f'EVM is {evm} dB in the {stream_name} on the slave device. '
                               f'The quality of the signal is very low. '
                               f'Only middle-level modulations are available. '
                               f'Please improve the quality of the signal to reach better modulations. '
@@ -159,7 +159,7 @@ def test(device):
                               f'3) Reduce bandwidth on the master device '
                               f'in order to improve the sensitivity of the radio module.')
             elif position == 'uplink' and settings['Role'] == 'master' and evm > -15:
-                result.append(f'* EVM is {evm} dB in the {stream_name} on the master device. '
+                result.append(f'EVM is {evm} dB in the {stream_name} on the master device. '
                               f'The quality of the signal is very low. '
                               f'Only middle-level modulations are available. '
                               f'Please improve the quality of the signal to reach better modulations. '
@@ -171,7 +171,7 @@ def test(device):
                               f'in order to improve the sensitivity of the radio module. '
                               f'The current bandwidth is {settings["Bandwidth"]} MHz.')
             elif position == 'uplink' and settings['Role'] == 'slave' and evm > -15:
-                result.append(f'* EVM is {evm} dB in the {stream_name} on the master device. '
+                result.append(f'EVM is {evm} dB in the {stream_name} on the master device. '
                               f'The quality of the signal is very low. '
                               f'Only middle-level modulations are available. '
                               f'Please improve the quality of the signal to reach better modulations. '
@@ -195,10 +195,10 @@ def test(device):
             crosstalk = float(crosstalk)
 
             if position == 'downlink' and crosstalk > -15:
-                result.append(f'* Crosstalk is {crosstalk} dB in the {stream_name} on the slave device. '
+                result.append(f'Crosstalk is {crosstalk} dB in the {stream_name} on the slave device. '
                               f'Please check the installation of the antenna and LOS.')
             elif position == 'uplink' and crosstalk > -15:
-                result.append(f'* Crosstalk is {crosstalk} dB in the {stream_name} on the master device. '
+                result.append(f'Crosstalk is {crosstalk} dB in the {stream_name} on the master device. '
                               f'Please check the installation of the antenna and LOS.')
         except TypeError:
             logger.exception('Radio Crosstalk TypeError')
@@ -213,11 +213,11 @@ def test(device):
             arq = float(arq)
 
             if position == 'downlink' and arq > 5:
-                result.append(f'* ARQ ratio is {arq} % in the {stream_name} on the slave device. '
+                result.append(f'ARQ ratio is {arq} % in the {stream_name} on the slave device. '
                               f'It is recommended to keep the ARQ ratio less than 5%. '
                               f'Please check other radio link parameters and find better frequency.')
             elif position == 'uplink' and arq > 5:
-                result.append(f'* ARQ ratio is {arq} % in the {stream_name} on the master device. '
+                result.append(f'ARQ ratio is {arq} % in the {stream_name} on the master device. '
                               f'It is recommended to keep the ARQ ratio less than 5%. '
                               f'Please check other radio link parameters and find better frequency.')
         except TypeError:

@@ -173,6 +173,11 @@ def jira(device, tests):
         temp.append(' |\n')
     message.append(' '.join(temp))
 
+    temp = []
+    for line in message:
+        temp.append(unicodedata.normalize('NFKD', line))
+    message = temp
+
     return device.model, device.family, device.subfamily, device.serial_number, device.firmware, message
 
 

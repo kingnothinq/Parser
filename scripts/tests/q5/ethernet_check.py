@@ -12,7 +12,7 @@ def test(device):
 
     # CRC errors
     if int(ethernet['CRC']) > 0:
-        result.append('* CRC Errors detected on the ge0 interface. '
+        result.append('CRC Errors detected on the ge0 interface. '
                       'Please check patch-cords, cables, crimps, '
                       'IDU, grounding, Ethernet ports.')
 
@@ -20,7 +20,7 @@ def test(device):
     if ethernet['Status'] == 'up' \
             and ethernet['Duplex'] != 'Full' \
             and ethernet['Negotiation'] == 'Auto':
-        result.append(f'* The ge0 interface works in the {ethernet["Duplex"]}-duplex mode. '
+        result.append(f'The ge0 interface works in the {ethernet["Duplex"]}-duplex mode. '
                       f'Please check it.')
 
     # Wire link flapping
@@ -42,7 +42,7 @@ def test(device):
         else:
             ld_previous = False
         if flap_counter > 4:
-            result.append(f'* The {flap_interface} interface is flapping. '
+            result.append(f'The {flap_interface} interface is flapping. '
                           f'Please check it.')
 
     # Runt bug
