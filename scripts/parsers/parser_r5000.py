@@ -542,7 +542,7 @@ def parse(dc_string, dc_list):
     # QoS Settings
     try:
         pattern_start = re.compile(r'#QoS manager')
-        pattern_end = re.compile(r'#Routing parameters')
+        pattern_end = re.compile(r'#MINT configuration')
         qm_settings_text_cut = cut_text(settings_text, pattern_start, pattern_end, 1, -1)
 
         pattern_set_qm_channel = re.compile(r'qm (ch\d+)')
