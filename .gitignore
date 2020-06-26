@@ -1,8 +1,9 @@
 .git
 .idea
 __pycache__
-/parser.log
-/test.pdf
+parser.log
+test.pdf
+test.py
 /venv/*
 /scripts/dcards/*
 !/scripts/dcards/archive

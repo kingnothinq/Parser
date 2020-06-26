@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import unicodedata
 import logging
 from time import time
 

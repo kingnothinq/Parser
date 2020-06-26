@@ -11,7 +11,7 @@ def test(device):
 
     # Power problems
     if device.reboot_reason == 'hardware reset':
-        result.append('* The last reboot reason is unexpected restart (hardware reset). '
+        result.append('The last reboot reason is unexpected restart (hardware reset). '
                       'It may mean power problems. '
                       'Please check power source, PoE-injector and other stuff related to power.')
 

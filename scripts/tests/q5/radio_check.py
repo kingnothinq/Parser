@@ -235,14 +235,14 @@ def test(device):
             crosstalk_1 = float(carrier['Stream 1']['Crosstalk'])
 
             if position == 'downlink' and gain_skew > 10 and (crosstalk_0 >= 0 or crosstalk_1 >= 0):
-                result.append('* Perhaps vertical and horizontal polarizations '
+                result.append('Perhaps vertical and horizontal polarizations '
                               'were mixed up on the slave device during installation. '
                               'Please check the installation. '
                               'The ATPC feature will not work correctly '
                               'until the problem is resolved.'
                               'Please disable it.')
             elif position == 'uplink' and gain_skew > 10 and (crosstalk_0 >= 0 or crosstalk_1 >= 0):
-                result.append('* Perhaps vertical and horizontal polarizations'
+                result.append('Perhaps vertical and horizontal polarizations'
                               'were mixed up on the master device during installation. '
                               'Please check the installation. '
                               'The ATPC feature will not work correctly '
@@ -261,23 +261,23 @@ def test(device):
 
     # Check Link statuses
     if device.radio_status['Link status'] == 'started':
-        result.append('* The link is not established. '
+        result.append('The link is not established. '
                       'The master device is not receiving the signal from the slave. '
                       'Please check the alignment, '
                       'settings of the remote side, '
                       'LOS, the spectrum, etc.')
 
     elif device.radio_status['Link status'] == 'init':
-        result.append('* ??????')
+        result.append('??????')
 
     elif device.radio_status['Link status'] == 'connecting':
-        result.append('* ??????')
+        result.append('??????')
 
     elif device.radio_status['Link status'] == 'standby':
-        result.append('* ??????')
+        result.append('??????')
 
     elif device.radio_status['Link status'] == 'sector_detection':
-        result.append('* The link is not established. '
+        result.append('The link is not established. '
                       'The slave device is waiting for the signal from the master. '
                       'Please check the alignment, '
                       'settings of the remote side, '

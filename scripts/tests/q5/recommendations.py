@@ -13,12 +13,12 @@ def test(device):
 
     # Disabled ARQ
     if settings['ARQ'] == 'Disabled':
-        result.append('* Please enable ARQ. '
+        result.append('Please enable ARQ. '
                       'It is a very useful feature.')
 
     # Locked modulations
     if settings['Max DL MCS'] != '256-QAM-7/8' or settings['Max UL MCS'] != '256-QAM-7/8':
-        result.append('* Maximum MCS is limited. '
+        result.append('Maximum MCS is limited. '
                       'Please note the highest modulations cannot be reached.')
 
     # Uptime

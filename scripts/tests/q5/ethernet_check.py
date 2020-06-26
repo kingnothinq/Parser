@@ -48,7 +48,7 @@ def test(device):
     # Runt bug
     pattern = findall(r'(Runt len errors|Frame length errors)\s+(\d+)', device.dc_string)
     if ethernet['Duplex'] == 'Full-duplex' and int(pattern[1][1]) > 0:
-        result.append('* Runt len errors detected on the ge0 interface. '
+        result.append('Runt len errors detected on the ge0 interface. '
                       'A runt frame is an Ethernet frame that is less '
                       'than the IEEE 802.3\'s minimum length of 64 octets. '
                       'Runt frames are most commonly caused by collisions; '
