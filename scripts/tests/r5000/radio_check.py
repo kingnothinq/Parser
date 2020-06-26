@@ -16,7 +16,7 @@ def test(device):
                               f'Please check alignment, crosstalk, LOS, etc.')
 
             if status['RSSI Tx'] is not None and '*' in status['RSSI Tx']:
-                result.append(f'* Polarisation skew detected on the link {status["Name"]}. '
+                result.append(f'Polarisation skew detected on the link {status["Name"]}. '
                               f'Please check alignment, crosstalk, LOS, etc.')
 
             # Remove "*" before RSSI
